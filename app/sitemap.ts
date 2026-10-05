@@ -10,7 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ["/", 1.0, "weekly"],
     ["/franchise", 0.95, "weekly"],
     ["/menu", 0.9, "weekly"],
-    ["/our-story", 0.85, "monthly"],
+    ["/about-us", 0.85, "monthly"],
     ["/stores", 0.8, "weekly"],
     ["/blog", 0.85, "weekly"],
   ] as const;

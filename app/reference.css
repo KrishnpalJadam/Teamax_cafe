@@ -4653,7 +4653,7 @@ body:has([aria-modal=true]) {
   display: block
 }
 
-.brand-site[data-page-family=our-story] .page-art-image img {
+.brand-site[data-page-family=about-us] .page-art-image img {
   -o-object-position: top;
   object-position: top
 }

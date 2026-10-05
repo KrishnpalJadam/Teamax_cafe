@@ -4,7 +4,7 @@ TeaMax is an India-focused café brand serving tea, coffee, fresh juices, shakes
 
 ## Primary pages
 - Home: https://www.teamaxcafe.in/
-- Our Story: https://www.teamaxcafe.in/our-story
+- Our Story: https://www.teamaxcafe.in/about-us
 - Menu: https://www.teamaxcafe.in/menu
 - Franchise: https://www.teamaxcafe.in/franchise
 - Stores / Gallery: https://www.teamaxcafe.in/stores

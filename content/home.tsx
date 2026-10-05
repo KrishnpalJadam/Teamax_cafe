@@ -65,8 +65,8 @@ export default function Home() {
         <div className="container-xl hero-inner">
           <div className="hero-copy">
             <p className="eyebrow">CHAI <span>|</span> CAFÉ <span>|</span> EXPRESS <span>|</span> LOUNGE</p>
-            <h1 id="hero-title">A Café<br />Business<br /><span className="marker">Made Simple</span></h1>
-            <p className="hero-description">Join TeaMax – India&apos;s fast-growing cafe franchise with an affordable investment, no royalty and complete support.</p>
+            <h1 id="hero-title">A Café<br />Business<br /><span className="marker">Built for You</span></h1>
+            <p className="hero-description">Build your café with TeaMax  – a structured franchise model with no royalty and support across setup, training, technology and marketing. </p>
             <div className="hero-actions">
               <Link href="/franchise#apply" className="cafe-action">Get Franchise Details <ArrowRight size={17} /></Link>
               <Link href="/blog" className="play-button" aria-label="Watch TeaMax stories"><Play size={15} fill="currentColor" /></Link>
@@ -92,11 +92,12 @@ export default function Home() {
         <div className="section-heading menu-heading-grid">
           <div>
             <p className="kicker"><span>O</span>ur Menu</p>
-            <h2>Something for<br />Every Mood</h2>
+            <h2>Something for<br />Every Craving </h2>
             <span className="short-line" />
           </div>
           <div className="menu-intro">
-            <p>From freshly brewed teas and rich coffees to delicious snacks, burgers, sandwiches and thickshakes – TeaMax has a menu loved by all.</p>
+            <p>From classic teas and coffees to shakes, snacks and quick bites, TeaMax offers a menu designed for everyday café moments.
+</p>
             <Link href="/menu" className="cafe-action cafe-outline">Explore Full Menu <ArrowRight size={17} /></Link>
           </div>
         </div>
@@ -117,7 +118,7 @@ export default function Home() {
         <div className="franchise-content">
           <p className="eyebrow">FRANCHISE OPPORTUNITY</p>
           <h2>Start Your Own<br /><span className="marker">TeaMax Café</span></h2>
-          <p className="franchise-description">Be a part of a trusted brand with a proven business model, affordable investment and end-to-end support.</p>
+          <p className="franchise-description">Build your café with a structured franchise model, backed by setup, training, technology, marketing and operational support.</p>
           <div className="franchise-features">
             {[
               { icon: IndianRupee, a: "Affordable", b: "Investment" },

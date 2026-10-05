@@ -18,7 +18,7 @@ import { WhatsAppButton } from "./WhatsAppButton";
 export function Header({ active }: { active?: string }) {
   const nav = [
     ["/", "Home"],
-    ["/our-story", "Our Stories"],
+    ["/about-us", "Our Stories"],
     ["/menu", "Menu"],
     ["/franchise", "Franchise"],
     ["/blog", "Blog"],
@@ -107,7 +107,7 @@ export function Footer() {
 
           <div className="tm-footer-links">
             <Link href="/">Home</Link>
-            <Link href="/our-story">Our Story</Link>
+            <Link href="/about-us">Our Story</Link>
             <Link href="/menu">Menu</Link>
             <Link href="//franchise#apply">Franchise</Link>
             <Link href="/blog">Blog</Link>

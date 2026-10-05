@@ -21,12 +21,12 @@ export const metadata: Metadata = {
     "Ashoka group TeaMax",
     "best tea franchise Hyderabad Bangalore Vijayawada",
   ],
-  alternates: { canonical: "/our-story" },
+  alternates: { canonical: "/about-us" },
   openGraph: {
     title: "Our Story | TeaMax Café — A Taste Worth Sharing",
     description:
       "From a single cup in 2020 to over 250+ outlets across India. Explore how TeaMax redefined the contemporary tea cafe experience.",
-    url: `${siteUrl}/our-story`,
+    url: `${siteUrl}/about-us`,
     type: "website",
     images: [{ url: "/images/cafe-interior.jpg", width: 1080, height: 864, alt: "TeaMax Café Experience" }],
   },
@@ -65,8 +65,8 @@ export default function OurStoryPage() {
     "@graph": [
       {
         "@type": "AboutPage",
-        "@id": `${siteUrl}/our-story#about`,
-        url: `${siteUrl}/our-story`,
+        "@id": `${siteUrl}/about-us#about`,
+        url: `${siteUrl}/about-us`,
         name: "Our Story | TeaMax Café",
         description: "The story, philosophy, founder, and nationwide journey of TeaMax Café.",
         isPartOf: { "@id": `${siteUrl}/#website` },
@@ -74,7 +74,7 @@ export default function OurStoryPage() {
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: siteUrl },
-            { "@type": "ListItem", position: 2, name: "Our Story", item: `${siteUrl}/our-story` },
+            { "@type": "ListItem", position: 2, name: "Our Story", item: `${siteUrl}/about-us` },
           ],
         },
       },
@@ -121,7 +121,7 @@ export default function OurStoryPage() {
 
   return (
     <>
-      <Header active="/our-story" />
+      <Header active="/about-us" />
 
       <main id="top" className="tm-page tm-page2">
         {/* =================================================================
@@ -134,11 +134,11 @@ export default function OurStoryPage() {
                 <span className="tm-eyebrow">01 / Our Story · Est. 2020</span>
                 <h1 id="story-hero-heading" className="tm-heading-xl">
                   Rooted in tea.<br />
-                  Crafted for <em>everyday moments.</em>
+                 Built for business
                 </h1>
                 <p className="tm-lead">
-                  TeaMax was born from a simple belief: that a humble cup of tea can bring people
-                  together, inspire honest conversation, and turn an ordinary pause into an uplifting ritual.
+                  TeaMax Cafe is a venture of Ashoka Group, an Indian business group established in 1969. We bring together café experiences and a structured franchise model for entrepreneurs across India.
+
                 </p>
 
 
@@ -154,20 +154,21 @@ export default function OurStoryPage() {
                 {/* Statistics Ribbon */}
                 <div className="tm-stats-ribbon">
                   <div className="tm-stat-item">
-                    <strong>250+</strong>
-                    <span>Outlets Nationwide</span>
+                    <strong>1,298+</strong>
+                    <span>FRANCHISEE PARTNERS</span>
                   </div>
                   <div className="tm-stat-item">
-                    <strong>6+</strong>
-                    <span>Indian States</span>
+                    <strong>27+</strong>
+                    <span>STATES ACROSS INDIA
+</span>
                   </div>
                   <div className="tm-stat-item">
-                    <strong>130+</strong>
-                    <span>Menu Delights</span>
+                    <strong>53</strong>
+                    <span>MONTHS OF EXPANSION</span>
                   </div>
                   <div className="tm-stat-item">
-                    <strong>2020</strong>
-                    <span>Founded in India</span>
+                    <strong>1969</strong>
+                    <span>ASHOKA GROUP ESTABLISHED</span>
                   </div>
                 </div>
               </div>
@@ -195,15 +196,13 @@ export default function OurStoryPage() {
         <section className="tm-section" style={{ backgroundColor: "var(--tm-cream-soft)" }} aria-labelledby="concept-heading">
           <div className="tm-container">
             <div style={{ maxWidth: "680px" }}>
-              <span className="tm-eyebrow">02 / The Triad Experience</span>
+              <span className="tm-eyebrow">02 / The Cafe Experience</span>
               <h2 id="concept-heading" className="tm-heading-lg">
-                One welcoming space.<br />
-                Three <em>distinct cravings.</em>
+              One welcoming space.<br />
+               A menu for every craving.
               </h2>
               <p className="tm-lead">
-                Why should you have to choose between a steaming cup of masala chai, a revitalizing
-                fresh fruit juice, or an indulgent scoop of ice cream? At TeaMax, we brought them all
-                together under one roof.
+               From classic teas and coffees to shakes, snacks and quick bites, TeaMax brings a varied café menu together under one roof.
               </p>
             </div>
 
@@ -220,14 +219,13 @@ export default function OurStoryPage() {
                       <path d="M6 2v2"></path>
                     </svg>
                   </div>
-                  <h3 className="tm-heading-md">The Tea & Coffee Bar</h3>
+                  <h3 className="tm-heading-md">Tea & Coffee</h3>
                   <p className="tm-body">
-                    From our robust Kadak Chai brewed with farm-fresh milk and hand-crushed ginger, to South Indian
-                    Filter Coffee and calming Blue Pea herbal infusions. Every cup is brewed leaf-by-leaf.
+                   Explore 12+ tea varieties and 7+ coffee options, with menu flexibility for different customer preferences.
                   </p>
                 </div>
                 <div style={{ marginTop: "16px", paddingTop: "14px", borderTop: "1px solid var(--tm-teal-border)" }}>
-                  <span className="tm-caption"><strong>Signature:</strong> Kadak Chai · Ginger Tea · Blue Pea</span>
+                  <span className="tm-caption"><strong>Signature:</strong> 12+ Teas · 7+ Coffees</span>
                 </div>
               </article>
 
@@ -243,14 +241,13 @@ export default function OurStoryPage() {
                       <path d="M14 17.85V10H6.15"></path>
                     </svg>
                   </div>
-                  <h3 className="tm-heading-md">The Fresh Juice Center</h3>
+                  <h3 className="tm-heading-md">Shakes & Lassi</h3>
                   <p className="tm-body">
-                    Pure, crisp, unadulterated fruit vitality. Crafted with 100% natural fruits with zero added water
-                    and zero artificial sweeteners. Nourishing immunity boosters like Aloe Vera and Wheatgrass.
+                    From refreshing shakes to lassis, TeaMax offers beverage options designed for different tastes and café occasions.
                   </p>
                 </div>
                 <div style={{ marginTop: "16px", paddingTop: "14px", borderTop: "1px solid var(--tm-teal-border)" }}>
-                  <span className="tm-caption"><strong>Purity:</strong> 100% Raw Juice · Zero Dilution</span>
+                  <span className="tm-caption"><strong>Signature:</strong> 12+ Shakes · 8+ Lassis</span>
                 </div>
               </article>
 
@@ -265,14 +262,13 @@ export default function OurStoryPage() {
                       <path d="M17 7a2 2 0 0 1 0 4H7a2 2 0 0 1 0-4"></path>
                     </svg>
                   </div>
-                  <h3 className="tm-heading-md">Ice Cream & Shakes</h3>
+                  <h3 className="tm-heading-md">Snacks & Quick Bites</h3>
                   <p className="tm-body">
-                    Decadent Belgian thick shakes, rich dry fruit smoothies, classic faloodas, and slow-churned
-                    ice cream scoops that turn any midday break into a celebration of sweet indulgence.
+                   Complete the café experience with sandwiches, burgers, French fries and a selection of 16+ snacks.
                   </p>
                 </div>
                 <div style={{ marginTop: "16px", paddingTop: "14px", borderTop: "1px solid var(--tm-teal-border)" }}>
-                  <span className="tm-caption"><strong>Delights:</strong> Belgian Explode · Ferrero · Kesar Pista</span>
+                  <span className="tm-caption"><strong>Signature:</strong> 16+ Snacks · Sandwiches · Burgers</span>
                 </div>
               </article>
             </div>
@@ -302,20 +298,21 @@ export default function OurStoryPage() {
               <div>
                 <span className="tm-eyebrow">03 / The Purpose Behind The Cup</span>
                 <h2 id="founder-heading" className="tm-heading-lg">
-                  Led by vision.<br />
-                  Built with <em>unwavering trust.</em>
+                 Built on experience.
+<br />
+                 Driven by a clear vision.
                 </h2>
                 <p className="tm-lead">
-                  TeaMax was founded with a singular conviction: entrepreneurship should be accessible to
-                  everyone, and genuine quality should never be compromised for affordability.
+                 TeaMax is a venture of Ashoka Group, an Indian business group established in 1969. Our approach combines café experience with structured franchise support for entrepreneurs across India.
+
                 </p>
 
 
                 <div style={{ display: "flex", gap: "10px", marginTop: "26px", flexWrap: "wrap" }}>
-                  <span className="tm-pill tm-pill-outline">Taste First</span>
-                  <span className="tm-pill tm-pill-outline">Mutual Trust</span>
-                  <span className="tm-pill tm-pill-outline">Franchise Support</span>
-                  <span className="tm-pill tm-pill-outline">Transparent Operations</span>
+                  <span className="tm-pill tm-pill-outline">NO ROYALTY</span>
+                  <span className="tm-pill tm-pill-outline">FULL FRANCHISE SUPPORT</span>
+                  <span className="tm-pill tm-pill-outline">POS & INVENTORY SYSTEM</span>
+                  <span className="tm-pill tm-pill-outline">MENU CUSTOMIZATION</span>
                 </div>
               </div>
             </div>
