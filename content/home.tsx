@@ -16,6 +16,9 @@ import {
   UsersRound,
 } from "lucide-react";
 import HowItWorks from "../app/HowItWorks";
+import FranchiseStories from "../app/components/FranchiseStories";
+import TrustedBrands from "../app/components/TrustedBrands";
+import HomeBlogSection from "../app/components/HomeBlogSection";
 
 const A = "https://cafe-blueprint-magic.lovable.app/assets";
 
@@ -52,7 +55,7 @@ const faqs = [
 export default function Home() {
   return (
     <div className="tm-home">
-      <section className="hero-section" aria-labelledby="hero-title">
+      <section className="hero-section martop" aria-labelledby="hero-title">
         <Image
           className="hero-image"
           src={`${A}/hero-cafe-zlWPzgb-.jpg`}
@@ -110,6 +113,7 @@ export default function Home() {
           ))}
         </div>
       </section>
+      <TrustedBrands/>
 
       <section id="franchise" className="franchise-section section-space">
         <div className="franchise-photo">
@@ -191,7 +195,8 @@ export default function Home() {
       </section> */}
 
       <HowItWorks/>
-
+<FranchiseStories/>
+<HomeBlogSection/>
       <section className="home-faq container-xl " aria-labelledby="faq-heading">
         <div className="home-faq-inner">
           <div><p className="eyebrow">QUICK ANSWERS</p><h2 id="faq-heading">TeaMax Café<br /><span className="marker">FAQs.</span></h2><p>Clear answers about TeaMax, the menu and the franchise opportunity.</p></div>

@@ -84,7 +84,7 @@ export default function BlogIndexPage() {
       <Header active="/blog" />
 
 
-      <section className="tm-franchise-hero" aria-labelledby="franchise-heading">
+      <section className="tm-franchise-hero martop" aria-labelledby="franchise-heading">
         <div className="tm-container">
           <div className="tm-hero-grid">
             <div>

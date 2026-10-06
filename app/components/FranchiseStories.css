@@ -1,0 +1,580 @@
+/* =========================================================
+   TEAMAX — FRANCHISE STORIES
+   Completely unique classes
+========================================================= */
+
+.tmx-franchise-stories {
+  --tmx-fs-cream: #fff8ee;
+  --tmx-fs-yellow: #ffed82;
+  --tmx-fs-yellow-deep: #f4d94e;
+  --tmx-fs-teal: #263c3d;
+  --tmx-fs-text: #173536;
+  --tmx-fs-border: rgba(244, 217, 78, 0.48);
+
+  position: relative;
+  width: 100%;
+
+  overflow: hidden;
+
+  background: var(--tmx-fs-cream);
+
+  padding: 82px 0 100px;
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+========================================================= */
+
+.tmx-franchise-stories-inner {
+  width: min(1400px, calc(100% - 80px));
+
+  margin: 0 auto;
+
+  display: grid;
+
+  grid-template-columns: 410px minmax(0, 1fr);
+
+  align-items: center;
+
+  gap: 55px;
+}
+
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.tmx-franchise-stories-intro {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* Eyebrow */
+
+.tmx-franchise-stories-eyebrow {
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  margin-bottom: 24px;
+
+  color: var(--tmx-fs-teal);
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  letter-spacing: 0.18em;
+}
+
+.tmx-franchise-stories-eyebrow span:first-child {
+  width: 45px;
+  height: 3px;
+
+  background: var(--tmx-fs-yellow-deep);
+
+  flex-shrink: 0;
+}
+
+
+/* Heading */
+
+.tmx-franchise-stories-intro h2 {
+  margin: 0;
+
+  color: var(--tmx-fs-teal);
+
+  font-family: var(--font-display), Arial, sans-serif;
+
+  font-size: clamp(48px, 4.4vw, 54px);
+
+  line-height: 0.98;
+
+  letter-spacing: -0.045em;
+
+  font-weight: 800;
+}
+
+.tmx-franchise-stories-intro h2 em {
+  display: inline;
+
+font-style: normal;
+  background: linear-gradient(transparent 81%, var(--tm-yellow) 81%, var(--tm-yellow) 93%, transparent 93%);
+}
+
+
+/* Description */
+
+.tmx-franchise-stories-intro p {
+  max-width: 365px;
+
+  margin: 30px 0 28px;
+
+  color: #55706e;
+
+  font-size: 16px;
+
+  line-height: 1.6;
+
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+.tmx-franchise-stories-button {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 12px;
+
+  min-height: 52px;
+
+  padding: 0 25px;
+
+  border-radius: 999px;
+
+  background: var(--tmx-fs-teal);
+
+  color: #fff;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+  text-decoration: none;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.tmx-franchise-stories-button:hover {
+  background: #193233;
+
+  color: #fff;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 12px 25px rgba(38, 60, 61, 0.16);
+}
+
+.tmx-franchise-stories-arrow {
+  font-size: 21px;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   CARDS AREA
+========================================================= */
+
+.tmx-franchise-stories-cards {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  align-items: start;
+
+  gap: 22px;
+
+  padding-top: 22px;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.tmx-franchise-story-card {
+  position: relative;
+
+  min-height: 500px;
+
+  padding: 30px 30px 32px;
+
+  border: 1.5px solid var(--tmx-fs-border);
+
+  border-radius: 18px;
+
+  background: rgba(255, 252, 245, 0.65);
+
+  box-shadow:
+    0 10px 30px rgba(38, 60, 61, 0.035);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.tmx-franchise-story-card:hover {
+  transform: translateY(-7px);
+
+  box-shadow:
+    0 20px 40px rgba(38, 60, 61, 0.08);
+}
+
+
+/* Card stagger exactly like reference */
+
+.tmx-franchise-story-card-1 {
+  margin-top: 0;
+}
+
+.tmx-franchise-story-card-2 {
+  margin-top: -32px;
+}
+
+.tmx-franchise-story-card-3 {
+  margin-top: 42px;
+}
+
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+.tmx-franchise-story-avatar {
+  width: 130px;
+  height: 130px;
+
+  margin: 0 auto 22px;
+
+  border-radius: 50%;
+
+  overflow: hidden;
+
+  border: 5px solid var(--tmx-fs-yellow);
+
+  background: #eee;
+
+  box-shadow:
+    0 0 0 5px rgba(255, 237, 130, 0.2);
+}
+
+.tmx-franchise-story-avatar img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+
+/* =========================================================
+   NAME
+========================================================= */
+
+.tmx-franchise-story-card h3 {
+  margin: 0 0 10px;
+
+  color: var(--tmx-fs-teal);
+
+  text-align: center;
+
+  font-family: var(--font-display), Arial, sans-serif;
+
+  font-size: 20px;
+
+  line-height: 1.2;
+
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+.tmx-franchise-story-location {
+  display: flex;
+
+  align-items: flex-start;
+
+  justify-content: center;
+
+  gap: 7px;
+
+  min-height: 42px;
+
+  color: #526a68;
+
+  text-align: left;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+.tmx-franchise-location-icon {
+  color: var(--tmx-fs-yellow-deep);
+
+  font-size: 15px;
+
+  line-height: 1;
+
+  margin-top: 2px;
+}
+
+
+/* =========================================================
+   STARS
+========================================================= */
+
+.tmx-franchise-story-stars {
+  margin-top: 17px;
+
+  color: #f5ca22;
+
+  text-align: center;
+
+  font-size: 21px;
+
+  letter-spacing: 3px;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.tmx-franchise-story-divider {
+  width: 100%;
+
+  height: 1px;
+
+  margin: 22px 0;
+
+  background: rgba(244, 217, 78, 0.45);
+}
+
+
+/* =========================================================
+   REVIEW
+========================================================= */
+
+.tmx-franchise-story-card p {
+  margin: 0;
+
+  color: #55706e;
+
+  font-size: 14px;
+
+  line-height: 1.65;
+
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   DECORATIVE ELEMENTS
+========================================================= */
+
+.tmx-franchise-stories-leaf {
+  position: absolute;
+
+  color: rgba(244, 217, 78, 0.3);
+
+  font-size: 130px;
+
+  pointer-events: none;
+}
+
+.tmx-franchise-stories-leaf-top {
+  top: -55px;
+  right: 15px;
+
+  transform: rotate(20deg);
+}
+
+.tmx-franchise-stories-leaf-bottom {
+  bottom: -65px;
+  left: -20px;
+
+  transform: rotate(-35deg);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .tmx-franchise-stories {
+    padding: 70px 0 85px;
+  }
+
+  .tmx-franchise-stories-inner {
+    width: min(940px, calc(100% - 40px));
+
+    grid-template-columns: 330px minmax(0, 1fr);
+
+    gap: 30px;
+  }
+
+  .tmx-franchise-stories-intro h2 {
+    font-size: clamp(42px, 5vw, 60px);
+  }
+
+  .tmx-franchise-stories-cards {
+    gap: 14px;
+  }
+
+  .tmx-franchise-story-card {
+    min-height: 470px;
+
+    padding: 25px 20px;
+  }
+
+  .tmx-franchise-story-avatar {
+    width: 105px;
+    height: 105px;
+  }
+
+  .tmx-franchise-story-card-2 {
+    margin-top: -20px;
+  }
+
+  .tmx-franchise-story-card-3 {
+    margin-top: 25px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE / TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+
+  .tmx-franchise-stories {
+    padding: 60px 0 70px;
+  }
+
+  .tmx-franchise-stories-inner {
+    width: min(600px, calc(100% - 32px));
+
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+  }
+
+  .tmx-franchise-stories-intro {
+    text-align: center;
+  }
+
+  .tmx-franchise-stories-eyebrow {
+    justify-content: center;
+  }
+
+  .tmx-franchise-stories-intro h2 {
+    font-size: clamp(43px, 10vw, 62px);
+  }
+
+  .tmx-franchise-stories-intro p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .tmx-franchise-stories-cards {
+    grid-template-columns: 1fr;
+
+    gap: 20px;
+
+    padding-top: 0;
+  }
+
+  .tmx-franchise-story-card,
+  .tmx-franchise-story-card-2,
+  .tmx-franchise-story-card-3 {
+    margin-top: 0;
+
+    min-height: auto;
+  }
+
+  .tmx-franchise-story-card {
+    max-width: 430px;
+
+    width: 100%;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    padding: 30px;
+  }
+
+  .tmx-franchise-story-avatar {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .tmx-franchise-stories {
+    padding: 50px 0 60px;
+  }
+
+  .tmx-franchise-stories-inner {
+    width: calc(100% - 24px);
+  }
+
+  .tmx-franchise-stories-eyebrow {
+    font-size: 10px;
+
+    gap: 10px;
+
+    letter-spacing: 0.13em;
+  }
+
+  .tmx-franchise-stories-eyebrow span:first-child {
+    width: 30px;
+  }
+
+  .tmx-franchise-stories-intro h2 {
+    font-size: 43px;
+  }
+
+  .tmx-franchise-stories-intro p {
+    font-size: 14px;
+
+    padding: 0 8px;
+  }
+
+  .tmx-franchise-story-card {
+    padding: 25px 22px;
+  }
+
+  .tmx-franchise-story-avatar {
+    width: 105px;
+    height: 105px;
+  }
+
+  .tmx-franchise-story-card h3 {
+    font-size: 18px;
+  }
+
+  .tmx-franchise-story-card p {
+    font-size: 13px;
+  }
+}

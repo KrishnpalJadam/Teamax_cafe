@@ -1,0 +1,625 @@
+/* =========================================================
+   TEAMAX TRUSTED BRANDS
+========================================================= */
+
+.tmx-trusted-brands {
+  --tmx-tb-teal: #263c3d;
+
+  position: relative;
+
+  width: 100%;
+
+  min-height: 335px;
+
+  overflow: hidden;
+
+  background: var(--tmx-tb-teal);
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   INNER
+========================================================= */
+
+.tmx-trusted-brands-inner {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 335px;
+
+  padding: 0 55px 16px;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: center;
+
+  box-sizing: border-box;
+ 
+}
+
+
+/* =========================================================
+   LARGE TEAMAX LOGO
+========================================================= */
+
+.tmx-trusted-brands-background-logo {
+  position: absolute;
+
+  top: 12px;
+
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  width: min(1250px, 100vw);
+
+  max-height: 245px;
+
+  height: auto;
+
+  object-fit: contain;
+
+  opacity: 0.95;
+
+  z-index: 1;
+
+  pointer-events: none;
+
+  user-select: none;
+  
+}
+
+
+/* =========================================================
+   SLIDER WRAPPER
+========================================================= */
+
+.tmx-trusted-brands-slider {
+  position: relative;
+
+  z-index: 3;
+
+  width: 100%;
+
+  max-width: 1300px;
+
+  overflow: hidden;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   SWIPER
+========================================================= */
+
+.tmx-trusted-brands-swiper {
+  width: 100%;
+
+  overflow: visible;
+}
+
+
+/* =========================================================
+   SLIDE
+========================================================= */
+
+.tmx-trusted-brands-slide {
+  height: auto;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   WHITE LOGO CIRCLE
+========================================================= */
+
+.tmx-trusted-brand-circle {
+  width: 142px;
+
+  height: 142px;
+
+  flex: 0 0 142px;
+
+  padding: 19px;
+
+  margin: 0 auto;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  box-shadow:
+    0 7px 18px rgba(0, 0, 0, 0.14);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+     overflow-x: hidden;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.tmx-trusted-brand-image {
+  width: 100%;
+
+  height: 100%;
+
+  display: block;
+
+  object-fit: contain;
+
+  user-select: none;
+
+  pointer-events: none;
+
+  -webkit-user-drag: none;
+}
+
+
+/* =========================================================
+   DESKTOP HOVER
+========================================================= */
+
+.tmx-trusted-brand-circle:hover {
+  transform: translateY(-6px);
+
+  box-shadow:
+    0 14px 25px rgba(0, 0, 0, 0.20);
+}
+
+
+/* =========================================================
+   ARROWS
+   Hidden by default
+========================================================= */
+
+.tmx-trusted-swipe-arrow {
+  display: none;
+
+  position: absolute;
+
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  z-index: 50;
+
+  width: 32px;
+
+  height: 32px;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.20);
+
+  color: #ffffff;
+
+  align-items: center;
+
+  justify-content: center;
+
+  cursor: pointer;
+
+  backdrop-filter: blur(5px);
+
+  -webkit-backdrop-filter: blur(5px);
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+
+  /* Very important */
+  pointer-events: auto;
+
+  touch-action: manipulation;
+}
+
+
+/* Arrow character */
+
+.tmx-trusted-swipe-arrow span {
+  display: block;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 25px;
+
+  line-height: 1;
+
+  font-weight: 400;
+
+  transform: translateY(-1px);
+}
+
+
+/* Hover */
+
+.tmx-trusted-swipe-arrow:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+
+/* Click */
+
+.tmx-trusted-swipe-arrow:active {
+  transform: translateY(-50%) scale(0.88);
+}
+
+
+/* Left */
+
+.tmx-trusted-swipe-left {
+  left: 2px;
+}
+
+
+/* Right */
+
+.tmx-trusted-swipe-right {
+  right: 2px;
+}
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 1101px) {
+
+  .tmx-trusted-brands {
+    min-height: 335px;
+  }
+
+  .tmx-trusted-brands-inner {
+    min-height: 335px;
+
+    padding-left: 55px;
+
+    padding-right: 55px;
+  }
+
+  .tmx-trusted-brands-background-logo {
+    width: min(850px, 70vw);
+
+    max-height: 245px;
+  }
+
+  .tmx-trusted-brand-circle {
+    width: 142px;
+
+    height: 142px;
+
+    flex-basis: 142px;
+  }
+
+
+  /*
+    Desktop par arrows hidden
+  */
+
+  .tmx-trusted-swipe-arrow {
+    display: none !important;
+  }
+
+  .tmx-trusted-brands-swiper {
+    cursor: default;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 768px) and (max-width: 1100px) {
+
+  .tmx-trusted-brands {
+    min-height: 290px;
+  }
+
+  .tmx-trusted-brands-inner {
+    min-height: 290px;
+
+    padding-left: 35px;
+
+    padding-right: 35px;
+  }
+
+  .tmx-trusted-brands-background-logo {
+    width: 650px;
+
+    max-width: 80vw;
+
+    max-height: 205px;
+  }
+
+  .tmx-trusted-brand-circle {
+    width: 115px;
+
+    height: 115px;
+
+    flex-basis: 115px;
+
+    padding: 15px;
+  }
+
+  .tmx-trusted-swipe-arrow {
+    display: none !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+  .tmx-trusted-brands {
+    min-height: auto;
+
+    padding: 35px 0 32px;
+  }
+
+
+  /* Inner */
+
+  .tmx-trusted-brands-inner {
+    min-height: auto;
+
+    display: block;
+
+    padding: 0 10px;
+  }
+
+
+  /* Teamax logo */
+
+  .tmx-trusted-brands-background-logo {
+    position: relative;
+
+    top: auto;
+
+    left: auto;
+
+    transform: none;
+
+    display: block;
+
+    width: min(470px, 92%);
+
+    max-width: 100%;
+
+    max-height: 130px;
+
+    margin: 0 auto 12px;
+  }
+
+
+  /* Slider */
+
+  .tmx-trusted-brands-slider {
+    width: 100%;
+
+    overflow: hidden;
+
+    position: relative;
+  }
+
+
+  /* Swiper */
+
+  .tmx-trusted-brands-swiper {
+    width: 100%;
+
+    overflow: visible;
+
+    cursor: grab;
+
+    touch-action: pan-y;
+  }
+
+  .tmx-trusted-brands-swiper:active {
+    cursor: grabbing;
+  }
+
+
+  /* Circle */
+
+  .tmx-trusted-brand-circle {
+    width: 100px;
+
+    height: 100px;
+
+    flex: 0 0 100px;
+
+    padding: 13px;
+
+    margin: 0 auto;
+  }
+
+
+  /* No hover movement */
+
+  .tmx-trusted-brand-circle:hover {
+    transform: none;
+
+    box-shadow:
+      0 7px 18px rgba(0, 0, 0, 0.14);
+  }
+
+
+  /* =========================================
+     SHOW ARROWS
+  ========================================= */
+
+  .tmx-trusted-swipe-arrow {
+    display: flex;
+
+    visibility: visible;
+
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   LARGE MOBILE
+========================================================= */
+
+@media (min-width: 481px) and (max-width: 767px) {
+
+  .tmx-trusted-brands {
+    padding-top: 35px;
+
+    padding-bottom: 35px;
+  }
+
+  .tmx-trusted-brands-inner {
+    padding-left: 16px;
+
+    padding-right: 16px;
+  }
+
+  .tmx-trusted-brands-background-logo {
+    width: min(470px, 90%);
+
+    max-height: 125px;
+
+    margin-bottom: 14px;
+  }
+
+  .tmx-trusted-brand-circle {
+    width: 108px;
+
+    height: 108px;
+
+    flex-basis: 108px;
+
+    padding: 14px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .tmx-trusted-brands {
+    padding-top: 28px;
+
+    padding-bottom: 28px;
+  }
+
+  .tmx-trusted-brands-inner {
+    padding-left: 10px;
+
+    padding-right: 10px;
+  }
+
+  .tmx-trusted-brands-background-logo {
+    width: 92%;
+
+    max-height: 110px;
+
+    margin-bottom: 9px;
+  }
+
+  .tmx-trusted-brand-circle {
+    width: 94px;
+
+    height: 94px;
+
+    flex-basis: 94px;
+
+    padding: 12px;
+  }
+
+  .tmx-trusted-swipe-arrow {
+    width: 27px;
+
+    height: 27px;
+  }
+
+  .tmx-trusted-swipe-arrow span {
+    font-size: 22px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .tmx-trusted-brands {
+    padding-top: 25px;
+
+    padding-bottom: 25px;
+  }
+
+  .tmx-trusted-brands-inner {
+    padding-left: 8px;
+
+    padding-right: 8px;
+  }
+
+  .tmx-trusted-brands-background-logo {
+    width: 94%;
+
+    max-height: 100px;
+
+    margin-bottom: 8px;
+  }
+
+  .tmx-trusted-brand-circle {
+    width: 88px;
+
+    height: 88px;
+
+    flex-basis: 88px;
+
+    padding: 11px;
+  }
+
+  .tmx-trusted-swipe-arrow {
+    width: 25px;
+
+    height: 25px;
+  }
+
+  .tmx-trusted-swipe-arrow span {
+    font-size: 20px;
+  }
+}

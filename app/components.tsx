@@ -27,7 +27,8 @@ export function Header({ active }: { active?: string }) {
   ] as const;
 
   return (
-    <header className="site-header container-xl" aria-label="TeaMax site header">
+    <header className="site-header" aria-label="TeaMax site header">
+        <div className="site-header-inner">
       <Link href="/" className="brand" aria-label="TeaMax home">
        
         <img className="brand-max" width={200} src="/images/logomain.avif" alt="" />
@@ -52,6 +53,7 @@ export function Header({ active }: { active?: string }) {
           <Link href="/franchise#apply" className="cafe-action">Apply for Franchise <ArrowRight size={17} /></Link>
         </nav>
       </details>
+      </div>
     </header>
   );
 }
@@ -109,7 +111,7 @@ export function Footer() {
             <Link href="/">Home</Link>
             <Link href="/about-us">Our Story</Link>
             <Link href="/menu">Menu</Link>
-            <Link href="//franchise#apply">Franchise</Link>
+            <Link href="/franchise#apply">Franchise</Link>
             <Link href="/blog">Blog</Link>
           </div>
 

@@ -1,0 +1,625 @@
+/* =========================================================
+   TEAMAX — HOME BLOG SECTION
+========================================================= */
+
+.tm-home-blog-section {
+  width: 100%;
+  padding: 100px 0 110px;
+  background: var(--tm-cream, #fff8ee);
+}
+
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+.tm-home-blog-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 48px;
+}
+
+.tm-home-blog-heading-wrap {
+  max-width: 720px;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.tm-home-blog-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  margin-bottom: 16px;
+
+  color: var(--tm-teal, #263c3d);
+
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.tm-home-blog-eyebrow::before {
+  content: "";
+
+  width: 32px;
+  height: 2px;
+
+  background: var(--tm-yellow, #ffed82);
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.tm-home-blog-heading {
+  margin: 0;
+
+  color: var(--tm-teal, #263c3d);
+
+  font-family: var(--font-display), Arial, sans-serif;
+
+  font-size: clamp(42px, 5vw, 54px);
+  font-weight: 700;
+  line-height: 0.98;
+
+  letter-spacing: -2px;
+}
+
+.tm-home-blog-heading em {
+  position: relative;
+
+  display: inline-block;
+
+  padding-bottom: 8px;
+
+  color: var(--tm-teal, #263c3d);
+
+  font-style: italic;
+  font-weight: 500;
+}
+
+.tm-home-blog-heading em::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 7px;
+
+  background: var(--tm-yellow, #ffed82);
+
+  z-index: 0;
+
+  transform: rotate(-1deg);
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.tm-home-blog-description {
+  max-width: 650px;
+
+  margin: 22px 0 0;
+
+  color: var(--tm-muted, #66706e);
+
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   VIEW ALL BUTTON
+========================================================= */
+
+.tm-home-blog-view-all {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 9px;
+
+  min-height: 48px;
+
+  padding: 0 22px;
+
+  border: 1px solid var(--tm-teal, #263c3d);
+  border-radius: 999px;
+
+  background: var(--tm-teal, #263c3d);
+
+  color: #fff;
+
+  text-decoration: none;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.tm-home-blog-view-all:hover {
+  background: transparent;
+
+  color: var(--tm-teal, #263c3d);
+
+  transform: translateY(-2px);
+}
+
+.tm-home-blog-view-all svg {
+  transition: transform 0.25s ease;
+}
+
+.tm-home-blog-view-all:hover svg {
+  transform: translateX(4px);
+}
+
+
+/* =========================================================
+   BLOG GRID
+========================================================= */
+
+.tm-home-blog-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
+  gap: 24px;
+
+  width: 100%;
+}
+
+
+/* =========================================================
+   BLOG CARD
+========================================================= */
+
+.tm-home-blog-card {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+  overflow: hidden;
+
+  background: #fffdf8;
+
+  border: 1px solid rgba(255, 237, 130, 0.75);
+
+  border-radius: 22px;
+
+  text-decoration: none;
+
+  box-shadow:
+    0 8px 30px rgba(38, 60, 61, 0.06);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.tm-home-blog-card:hover {
+  transform: translateY(-7px);
+
+  border-color: var(--tm-yellow, #ffed82);
+
+  box-shadow:
+    0 18px 40px rgba(38, 60, 61, 0.12);
+}
+
+
+/* =========================================================
+   BLOG IMAGE
+========================================================= */
+
+.tm-home-blog-image-wrap {
+  position: relative;
+
+  width: 100%;
+
+  aspect-ratio: 16 / 9;
+
+  overflow: hidden;
+
+  background: #e9e4d8;
+}
+
+.tm-home-blog-image {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  transition: transform 0.5s ease;
+}
+
+.tm-home-blog-card:hover .tm-home-blog-image {
+  transform: scale(1.045);
+}
+
+
+/* =========================================================
+   BLOG CONTENT
+========================================================= */
+
+.tm-home-blog-content {
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+
+  padding: 25px 25px 22px;
+}
+
+
+/* =========================================================
+   META
+========================================================= */
+
+.tm-home-blog-meta {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+
+  margin-bottom: 18px;
+}
+
+.tm-home-blog-category {
+  display: inline-flex;
+
+  align-items: center;
+
+  min-height: 27px;
+
+  padding: 0 11px;
+
+  border: 1px solid rgba(255, 237, 130, 0.9);
+
+  border-radius: 999px;
+
+  background: #fffdf4;
+
+  color: var(--tm-teal, #263c3d);
+
+  font-size: 10px;
+  font-weight: 700;
+
+  letter-spacing: 1.2px;
+
+  text-transform: uppercase;
+}
+
+.tm-home-blog-read-time {
+  color: #8b9695;
+
+  font-size: 11px;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   BLOG TITLE
+========================================================= */
+
+.tm-home-blog-title {
+  margin: 0 0 13px;
+
+  color: var(--tm-teal, #263c3d);
+
+  font-family: var(--font-display), Arial, sans-serif;
+
+  font-size: 22px;
+  font-weight: 700;
+
+  line-height: 1.25;
+
+  letter-spacing: -0.4px;
+}
+
+
+/* =========================================================
+   BLOG EXCERPT
+========================================================= */
+
+.tm-home-blog-excerpt {
+  display: -webkit-box;
+
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+
+  margin: 0;
+
+  color: var(--tm-muted, #66706e);
+
+  font-size: 14px;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   CARD FOOTER
+========================================================= */
+
+.tm-home-blog-card-footer {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+
+  margin-top: auto;
+
+  padding-top: 24px;
+}
+
+.tm-home-blog-date {
+  color: #899291;
+
+  font-size: 12px;
+}
+
+.tm-home-blog-read {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  color: var(--tm-teal, #263c3d);
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.tm-home-blog-read svg {
+  transition: transform 0.25s ease;
+}
+
+.tm-home-blog-card:hover .tm-home-blog-read svg {
+  transform: translateX(4px);
+}
+
+
+/* =========================================================
+   MOBILE VIEW ALL
+========================================================= */
+
+.tm-home-blog-mobile-action {
+  display: none;
+
+  justify-content: center;
+
+  margin-top: 35px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .tm-home-blog-section {
+    padding: 85px 0 90px;
+  }
+
+  .tm-home-blog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+  }
+
+  .tm-home-blog-card:last-child {
+    grid-column: 1 / -1;
+
+    width: 100%;
+    max-width: calc(50% - 10px);
+
+    justify-self: center;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+  .tm-home-blog-section {
+    padding: 65px 0 75px;
+  }
+
+  .tm-home-blog-header {
+    display: block;
+
+    margin-bottom: 32px;
+  }
+
+  .tm-home-blog-heading {
+    font-size: clamp(38px, 10vw, 50px);
+
+    line-height: 1;
+
+    letter-spacing: -1.5px;
+  }
+
+  .tm-home-blog-description {
+    margin-top: 18px;
+
+    font-size: 14px;
+
+    line-height: 1.65;
+  }
+
+
+  /* Hide desktop View All */
+
+  .tm-home-blog-header > .tm-home-blog-view-all {
+    display: none;
+  }
+
+
+  /* One card per row */
+
+  .tm-home-blog-grid {
+    grid-template-columns: 1fr;
+
+    gap: 20px;
+  }
+
+  .tm-home-blog-card:last-child {
+    grid-column: auto;
+
+    max-width: none;
+
+    justify-self: stretch;
+  }
+
+
+  /* Card */
+
+  .tm-home-blog-content {
+    padding: 21px 20px 19px;
+  }
+
+  .tm-home-blog-title {
+    font-size: 20px;
+  }
+
+  .tm-home-blog-excerpt {
+    font-size: 13px;
+  }
+
+
+  /* Show mobile View All */
+
+  .tm-home-blog-mobile-action {
+    display: flex;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .tm-home-blog-section {
+    padding: 55px 0 65px;
+  }
+
+  .tm-home-blog-eyebrow {
+    font-size: 10px;
+
+    letter-spacing: 1.7px;
+  }
+
+  .tm-home-blog-eyebrow::before {
+    width: 25px;
+  }
+
+  .tm-home-blog-heading {
+    font-size: 38px;
+
+    line-height: 1;
+  }
+
+  .tm-home-blog-heading em {
+    padding-bottom: 5px;
+  }
+
+  .tm-home-blog-heading em::after {
+    height: 5px;
+  }
+
+  .tm-home-blog-card {
+    border-radius: 18px;
+  }
+
+  .tm-home-blog-image-wrap {
+    aspect-ratio: 16 / 10;
+  }
+
+  .tm-home-blog-content {
+    padding: 19px 17px 18px;
+  }
+
+  .tm-home-blog-meta {
+    margin-bottom: 14px;
+  }
+
+  .tm-home-blog-title {
+    font-size: 18px;
+
+    line-height: 1.3;
+  }
+
+  .tm-home-blog-excerpt {
+    font-size: 13px;
+
+    line-height: 1.6;
+  }
+
+  .tm-home-blog-card-footer {
+    padding-top: 20px;
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .tm-home-blog-heading {
+    font-size: 34px;
+  }
+
+  .tm-home-blog-content {
+    padding: 17px 15px;
+  }
+
+  .tm-home-blog-title {
+    font-size: 17px;
+  }
+
+  .tm-home-blog-category {
+    font-size: 9px;
+  }
+
+}

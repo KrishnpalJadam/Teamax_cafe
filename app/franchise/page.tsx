@@ -116,7 +116,7 @@ export default function FranchisePage() {
       {/* =================================================================
           1. HERO SECTION (Matching Reference Image 2: tvanamm.com style)
           ================================================================= */}
-      <section className="tm-franchise-hero" aria-labelledby="franchise-heading">
+      <section className="tm-franchise-hero martop" aria-labelledby="franchise-heading">
         <div className="tm-container">
           <div className="tm-hero-grid">
             <div>
