@@ -346,7 +346,7 @@ a {
   min-height: 130px;
   padding: 25px 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   box-shadow: 0 10px 30px rgba(38, 60, 61, .07);
 }
 
@@ -372,7 +372,10 @@ a {
 }
 
 .perk strong {
-  font: 700 15px/1.15 var(--font-display), sans-serif;
+  font: 800 40px/1.15 var(--font-display), sans-serif;
+}
+.perk span{
+   font: 700 18px/1.15 var(--font-display), sans-serif;
 }
 
 .icon-spot {

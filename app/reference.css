@@ -13332,7 +13332,7 @@ body {
 .tmx-awards-section {
   position: relative;
   width: 100%;
-  padding: 110px 0 100px;
+  /* padding: 110px 0 100px; */
   background: #FFF8EE;
   overflow: hidden;
   color: #263C3D;

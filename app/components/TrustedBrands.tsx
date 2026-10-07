@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRef } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation } from "swiper/modules";
+import { Autoplay, Navigation, FreeMode } from "swiper/modules";
 
 import type { Swiper as SwiperType } from "swiper";
 
@@ -46,24 +46,28 @@ const brands = [
 
 export default function TrustedBrands() {
   const swiperRef = useRef<SwiperType | null>(null);
-
+const marqueeBrands = [...brands, ...brands, ...brands];
   return (
     <section
-      className="tmx-trusted-brands"
-      aria-label="TeaMax trusted partners"
+      className="tmx-trusted-brands container-xl section-space"
+      aria-label="TeaMax trusted partners "
     >
+          <div className="section-heading why-heading">
+          <div><h2 id="why-heading">Our Associate Partners</h2><span className="short-line" /></div>
+          {/* <p>A simple, profitable and scalable café business backed by a strong brand and dedicated support.</p> */}
+        </div>
       <div className="tmx-trusted-brands-inner">
 
         {/* =========================================
             TEAMAX BACKGROUND LOGO
         ========================================= */}
 
-        <img
+        {/* <img
           src="/images/logo4.png"
           alt=""
           aria-hidden="true"
           className="tmx-trusted-brands-background-logo"
-        />
+        /> */}
 
 
         {/* =========================================
@@ -87,81 +91,80 @@ export default function TrustedBrands() {
               SWIPER
           ========================================= */}
 
-          <Swiper
-            modules={[Autoplay, Navigation]}
-            className="tmx-trusted-brands-swiper"
+         <Swiper
+  modules={[Autoplay, Navigation, FreeMode]}
+  className="tmx-trusted-brands-swiper"
 
-            onSwiper={(swiper) => {
-              swiperRef.current = swiper;
-            }}
+  onSwiper={(swiper) => {
+    swiperRef.current = swiper;
+  }}
 
-            navigation={{
-              prevEl: ".tmx-trusted-swipe-left",
-              nextEl: ".tmx-trusted-swipe-right",
-            }}
+  navigation={{
+    prevEl: ".tmx-trusted-swipe-left",
+    nextEl: ".tmx-trusted-swipe-right",
+  }}
 
-            slidesPerView={7}
-            spaceBetween={24}
+  slidesPerView={7}
+  spaceBetween={24}
 
-            speed={650}
+  loop={true}
+  loopAdditionalSlides={brands.length}
 
-            allowTouchMove={true}
+  speed={5000}
 
-            grabCursor={true}
+  freeMode={{
+    enabled: true,
+    momentum: false,
+  }}
 
-            loop={true}
+  allowTouchMove={true}
+  grabCursor={true}
 
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
+  autoplay={{
+    delay: 0,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: false,
+  }}
 
-            breakpoints={{
-              /* Mobile */
-              0: {
-                slidesPerView: 3,
-                spaceBetween: 14,
-              },
+  breakpoints={{
+    0: {
+      slidesPerView: 3,
+      spaceBetween: 14,
+    },
 
-              /* Large Mobile */
-              480: {
-                slidesPerView: 3,
-                spaceBetween: 16,
-              },
+    480: {
+      slidesPerView: 3,
+      spaceBetween: 16,
+    },
 
-              /* Tablet */
-              768: {
-                slidesPerView: 4,
-                spaceBetween: 20,
-              },
+    768: {
+      slidesPerView: 4,
+      spaceBetween: 20,
+    },
 
-              /* Desktop */
-              1100: {
-                slidesPerView: 7,
-                spaceBetween: 24,
-              },
-            }}
-          >
-            {brands.map((brand) => (
-              <SwiperSlide
-                key={brand.name}
-                className="tmx-trusted-brands-slide"
-              >
-                <div className="tmx-trusted-brand-circle">
-
-                  <Image
-                    src={brand.image}
-                    alt={brand.name}
-                    width={142}
-                    height={142}
-                    className="tmx-trusted-brand-image"
-                  />
-
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
+    1100: {
+      slidesPerView: 7,
+      spaceBetween: 24,
+    },
+  }}
+>
+{marqueeBrands.map((brand, index) => (
+    <SwiperSlide
+      key={`${brand.name}-${index}`}
+      className="tmx-trusted-brands-slide"
+    >
+      <div className="tmx-trusted-brand-circle">
+        <Image
+          src={brand.image}
+          alt={brand.name}
+          width={142}
+          height={142}
+          className="tmx-trusted-brand-image"
+        />
+      </div>
+    </SwiperSlide>
+  ))}
+</Swiper>
 
 
           {/* MOBILE NEXT BUTTON */}

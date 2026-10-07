@@ -19,6 +19,8 @@ import HowItWorks from "../app/HowItWorks";
 import FranchiseStories from "../app/components/FranchiseStories";
 import TrustedBrands from "../app/components/TrustedBrands";
 import HomeBlogSection from "../app/components/HomeBlogSection";
+import WhyChooseUs from "../app/components/WhyChooseUs";
+import AwardsRecognitions from "../app/components/AwardsRecognitions";
 
 const A = "https://cafe-blueprint-magic.lovable.app/assets";
 
@@ -31,10 +33,10 @@ const menuItems = [
 ];
 
 const benefits = [
-  { icon: IndianRupee, label: <>No<br />Royalty</> },
-  { icon: BarChart3, label: <>Quick<br />ROI</> },
-  { icon: ChefHat, label: <>Chef-less<br />SOP Cooking</> },
-  { icon: Target, label: <>Complete<br />Support</> },
+  { icon: IndianRupee, label: <>1242 +<br /></>,des:<>Franchise Partners</> },
+  { icon: BarChart3, label: <>27 +<br /></> ,des:<>States</>},
+  { icon: ChefHat, label: <>51 +<br /></>,des:<>Months</> },
+  // { icon: Target, label: <>Complete<br /></>,des:<>Franchise Partners</> },
 ];
 
 const whyChoose = [
@@ -82,13 +84,14 @@ export default function Home() {
 
       <section id="about" className="container-xl perks-wrap" aria-label="TeaMax benefits">
         <div className="perks">
-          {benefits.map(({ icon: Icon, label }, i) => (
+          {benefits.map(({ icon: Icon, label , des}, i) => (
             <div className={`perk perk-${i + 1}`} key={i}>
-              <span className="icon-spot"><Icon size={31} strokeWidth={1.6} /></span>
+              {/* <span className="icon-spot"><Icon size={31} strokeWidth={1.6} /></span> */}
               <strong>{label}</strong>
+              <span>{des}</span>
             </div>
           ))}
-        </div>
+        </div>  
       </section>
 
       <section id="menu" className="menu-section container-xl section-space">
@@ -114,8 +117,9 @@ export default function Home() {
         </div>
       </section>
       <TrustedBrands/>
+      <AwardsRecognitions/>
 
-      <section id="franchise" className="franchise-section section-space">
+      <section id="franchise" className="franchise-section">
         <div className="franchise-photo">
           <Image src={`${A}/shop-cafe-BAkc0VxX.jpg`} alt="TeaMax café store interior" width={1024} height={1024} unoptimized loading="lazy" />
         </div>
@@ -137,7 +141,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="stats-band " aria-label="TeaMax by the numbers">
+      {/* <section className="stats-band " aria-label="TeaMax by the numbers">
         <div className="container-xl stats-inner">
           <div className="stats-map" aria-hidden="true"><MapPinned size={76} strokeWidth={0.7} /></div>
           <div className="stat"><strong>1242+</strong><span>Franchise Partners</span></div>
@@ -145,9 +149,9 @@ export default function Home() {
           <div className="stat"><strong>51</strong><span>Months</span></div>
           <p className="stats-script">Brewing<br />Success<br /><span>Together ♥</span></p>
         </div>
-      </section>
+      </section> */}
 
-      <section className="why-section container-xl section-space" aria-labelledby="why-heading">
+      {/* <section className="why-section container-xl section-space" aria-labelledby="why-heading">
         <div className="section-heading why-heading">
           <div><h2 id="why-heading">Why Choose TeaMax?</h2><span className="short-line" /></div>
           <p>A simple, profitable and scalable café business backed by a strong brand and dedicated support.</p>
@@ -171,7 +175,8 @@ export default function Home() {
             <div className="story-arrows"><Link href="/blog" aria-label="Previous partner story">‹</Link><Link href="/blog" aria-label="Next partner story">›</Link></div>
           </div>
         </div>
-      </section>
+      </section> */}
+      <WhyChooseUs/>
 
       {/* <section id="gallery" className="steps-section container-xl section-space" aria-labelledby="how-heading">
         <div className="section-heading steps-heading">
