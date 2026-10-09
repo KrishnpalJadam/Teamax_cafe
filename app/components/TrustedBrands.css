@@ -39,7 +39,7 @@
   justify-content: center;
 
   box-sizing: border-box;
- 
+
 }
 
 
@@ -71,7 +71,7 @@
   pointer-events: none;
 
   user-select: none;
-  
+
 }
 
 
@@ -155,7 +155,7 @@
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease;
-     overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 
@@ -259,6 +259,11 @@
   transform: translateY(-1px);
 }
 
+@media (max-width: 768px) {
+  .tmx-trusted-brands {
+    padding: 20px;
+  }
+}
 
 /* Hover */
 

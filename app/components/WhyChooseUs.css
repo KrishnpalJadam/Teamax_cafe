@@ -1,6 +1,5 @@
 /* =========================================================
    TEAMAX — WHY CHOOSE US
-   Unique classes only
 ========================================================= */
 
 .tmx-why-choose {
@@ -9,13 +8,10 @@
   --tmx-wcu-white: #fff8ee;
 
   width: 100%;
-
   background: var(--tmx-wcu-teal);
-
   color: #ffffff;
 
   overflow: hidden;
-
   position: relative;
 }
 
@@ -26,7 +22,6 @@
 
 .tmx-why-choose-inner {
   width: min(1500px, 100%);
-
   margin: 0 auto;
 
   padding: 90px 55px 95px;
@@ -63,13 +58,11 @@
 
 .tmx-why-choose-product {
   width: 290px;
-
   height: 210px;
 
   margin-bottom: 20px;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
@@ -87,10 +80,10 @@
 
 
 /* =========================================================
-   LEFT HEADING
+   HEADING
 ========================================================= */
 
-.tmx-why-choose-main-title {
+.tmx-why-choose-heading {
   margin: 0;
 
   max-width: 540px;
@@ -110,12 +103,11 @@
 
 
 /* =========================================================
-   YELLOW BRUSH LINE
+   YELLOW LINE
 ========================================================= */
 
 .tmx-why-choose-yellow-line {
   width: 285px;
-
   height: 9px;
 
   margin-top: 14px;
@@ -150,7 +142,7 @@
 
 
 /* =========================================================
-   LEFT DESCRIPTION
+   DESCRIPTION
 ========================================================= */
 
 .tmx-why-choose-description {
@@ -174,49 +166,6 @@
 
 .tmx-why-choose-content {
   width: 100%;
-}
-
-
-/* =========================================================
-   HEADING
-========================================================= */
-
-.tmx-why-choose-heading-wrap {
-  text-align: center;
-
-  margin-bottom: 28px;
-}
-
-.tmx-why-choose-heading {
-  margin: 0;
-
-  color: #ffffff;
-
-  font-family: var(--font-display), Arial, sans-serif;
-
-  font-size: clamp(40px, 4vw, 56px);
-
-  font-weight: 700;
-
-  line-height: 1;
-
-  letter-spacing: -1.5px;
-}
-
-.tmx-why-choose-heading-line {
-  display: block;
-
-  width: 185px;
-
-  height: 8px;
-
-  margin: 13px auto 0;
-
-  background: var(--tmx-wcu-yellow);
-
-  border-radius: 50%;
-
-  transform: rotate(-1deg);
 }
 
 
@@ -246,28 +195,150 @@
 
   border-radius: 19px;
 
-  background:
-    rgba(255, 255, 255, 0.025);
+  background: rgba(255, 255, 255, 0.025);
 
   display: flex;
-
   flex-direction: column;
-
   align-items: flex-start;
 
+  position: relative;
+
+  overflow: hidden;
+
+  isolation: isolate;
+
   transition:
-    transform 0.25s ease,
-    border-color 0.25s ease,
-    background 0.25s ease;
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
 }
+
+
+/* =========================================================
+   WHITE HOVER FADE
+========================================================= */
+
+.tmx-why-choose-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.11) 28%,
+      rgba(255, 255, 255, 0.04) 52%,
+      transparent 75%
+    );
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.35s ease;
+
+  z-index: -1;
+}
+
+
+/* =========================================================
+   CARD HOVER
+========================================================= */
 
 .tmx-why-choose-card:hover {
   transform: translateY(-5px);
 
-  border-color: rgba(255, 237, 130, 0.45);
+  border-color: rgba(255, 255, 255, 0.38);
 
-  background:
-    rgba(255, 255, 255, 0.055);
+  background: rgba(255, 255, 255, 0.045);
+
+  box-shadow:
+    0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+.tmx-why-choose-card:hover::before {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   CARD NUMBER
+   HIDDEN UNTIL HOVER
+========================================================= */
+
+.tmx-why-choose-card-number {
+  position: absolute !important;
+
+  top: 16px !important;
+  right: 17px !important;
+
+  left: auto !important;
+  bottom: auto !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  width: auto !important;
+  height: auto !important;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  line-height: 1;
+
+  letter-spacing: 0.5px;
+
+  color: #ffffff;
+
+  opacity: 0;
+
+  visibility: hidden;
+
+  transform: translateY(-6px);
+
+  pointer-events: none;
+
+  z-index: 10;
+
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease,
+    transform 0.3s ease;
+}
+
+
+/* =========================================================
+   NUMBER ON HOVER
+========================================================= */
+
+.tmx-why-choose-card:hover .tmx-why-choose-card-number {
+  opacity: 1;
+
+  visibility: visible;
+
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.tmx-why-choose-card > * {
+  position: relative;
+
+  z-index: 2;
 }
 
 
@@ -277,7 +348,6 @@
 
 .tmx-why-choose-icon {
   width: 76px;
-
   height: 76px;
 
   flex: 0 0 76px;
@@ -285,9 +355,7 @@
   border-radius: 50%;
 
   display: flex;
-
   align-items: center;
-
   justify-content: center;
 
   margin-bottom: 14px;
@@ -296,7 +364,9 @@
 }
 
 
-/* Yellow */
+/* =========================================================
+   ICON COLORS
+========================================================= */
 
 .tmx-wcu-icon-yellow {
   background: linear-gradient(
@@ -306,9 +376,6 @@
   );
 }
 
-
-/* Mint */
-
 .tmx-wcu-icon-mint {
   background: linear-gradient(
     145deg,
@@ -316,9 +383,6 @@
     #41dcb3
   );
 }
-
-
-/* Blue */
 
 .tmx-wcu-icon-blue {
   background: linear-gradient(
@@ -328,9 +392,6 @@
   );
 }
 
-
-/* Purple */
-
 .tmx-wcu-icon-purple {
   background: linear-gradient(
     145deg,
@@ -339,9 +400,6 @@
   );
 }
 
-
-/* Green */
-
 .tmx-wcu-icon-green {
   background: linear-gradient(
     145deg,
@@ -349,9 +407,6 @@
     #b7df4c
   );
 }
-
-
-/* Red */
 
 .tmx-wcu-icon-red {
   background: linear-gradient(
@@ -431,6 +486,7 @@
 
 /* =========================================================
    TABLET
+   2 CARDS PER ROW
 ========================================================= */
 
 @media (max-width: 1000px) {
@@ -461,7 +517,7 @@
     height: 200px;
   }
 
-  .tmx-why-choose-main-title {
+  .tmx-why-choose-heading {
     max-width: 700px;
   }
 
@@ -472,7 +528,16 @@
   .tmx-why-choose-content {
     max-width: 850px;
 
+    width: 100%;
+
     margin: 0 auto;
+  }
+
+  /* 2 cards per row */
+  .tmx-why-choose-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 16px;
   }
 }
 
@@ -492,14 +557,12 @@
 
   .tmx-why-choose-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 14px;
   }
 
   .tmx-why-choose-card {
     min-height: 220px;
-  }
-
-  .tmx-why-choose-main-title {
-    font-size: 38px;
   }
 
   .tmx-why-choose-heading {
@@ -510,6 +573,7 @@
 
 /* =========================================================
    MOBILE
+   1 CARD PER ROW
 ========================================================= */
 
 @media (max-width: 560px) {
@@ -523,9 +587,7 @@
     gap: 45px;
   }
 
-
   /* Product */
-
   .tmx-why-choose-product {
     width: 250px;
 
@@ -535,10 +597,9 @@
   }
 
 
-  /* Left heading */
-
-  .tmx-why-choose-main-title {
-    font-size: 31px;
+  /* Heading */
+  .tmx-why-choose-heading {
+    font-size: 38px;
 
     line-height: 1.08;
 
@@ -546,6 +607,7 @@
   }
 
 
+  /* Yellow line */
   .tmx-why-choose-yellow-line {
     width: 210px;
 
@@ -555,6 +617,7 @@
   }
 
 
+  /* Description */
   .tmx-why-choose-description {
     margin-top: 22px;
 
@@ -564,29 +627,7 @@
   }
 
 
-  /* Heading */
-
-  .tmx-why-choose-heading-wrap {
-    margin-bottom: 24px;
-  }
-
-  .tmx-why-choose-heading {
-    font-size: 38px;
-
-    letter-spacing: -1px;
-  }
-
-  .tmx-why-choose-heading-line {
-    width: 140px;
-
-    height: 6px;
-
-    margin-top: 10px;
-  }
-
-
   /* Cards */
-
   .tmx-why-choose-grid {
     grid-template-columns: 1fr;
 
@@ -602,6 +643,7 @@
   }
 
 
+  /* Icon */
   .tmx-why-choose-icon {
     width: 68px;
 
@@ -614,18 +656,32 @@
 
   .tmx-why-choose-icon svg {
     width: 35px;
+
     height: 35px;
   }
 
 
+  /* Title */
   .tmx-why-choose-card-title {
     font-size: 19px;
   }
 
+
+  /* Description */
   .tmx-why-choose-card-description {
     font-size: 13px;
 
     line-height: 1.55;
+  }
+
+
+  /* Mobile number */
+  .tmx-why-choose-card-number {
+    top: 14px !important;
+
+    right: 15px !important;
+
+    font-size: 13px;
   }
 }
 
@@ -638,11 +694,8 @@
 
   .tmx-why-choose-inner {
     padding-left: 15px;
-    padding-right: 15px;
-  }
 
-  .tmx-why-choose-main-title {
-    font-size: 28px;
+    padding-right: 15px;
   }
 
   .tmx-why-choose-heading {
@@ -651,6 +704,7 @@
 
   .tmx-why-choose-product {
     width: 220px;
+
     height: 150px;
   }
 

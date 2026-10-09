@@ -28,7 +28,7 @@
   font-family: var(--tm-font-sans);
   min-height: 100vh;
   position: relative;
-  overflow-x: hidden;
+  overflow-x: clip; /* clip ≠ scroll container; sticky cards still work */
   -webkit-font-smoothing: antialiased;
 }
 
@@ -3254,7 +3254,9 @@ body {
 .tm-page {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+  /* overflow-x: clip does NOT create a scroll container unlike overflow-x: hidden,
+     so position:sticky children (award cards) can still stick to the viewport */
+  overflow-x: clip;
 }
 
 .tm-container {

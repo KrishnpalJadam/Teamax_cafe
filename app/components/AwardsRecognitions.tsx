@@ -1,4 +1,6 @@
-import Link from "next/link";
+"use client";
+
+import { useEffect, useRef } from "react";
 import "./AwardsRecognitions.css";
 
 const awards = [
@@ -33,128 +35,118 @@ const awards = [
 ];
 
 export default function AwardsRecognitions() {
+  const stackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const stack = stackRef.current;
+    if (!stack) return;
+
+    const cards = Array.from(
+      stack.querySelectorAll<HTMLElement>(".tmx-award-card")
+    );
+    if (cards.length === 0) return;
+
+    let ticking = false;
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        cards.forEach((card, index) => {
+          if (index === cards.length - 1) return; // Last card stays scale 1
+          const nextPin = cards[index + 1]?.parentElement;
+          if (!nextPin) return;
+
+          const cardRect = card.getBoundingClientRect();
+          const nextRect = nextPin.getBoundingClientRect();
+
+          // How much the next card has overlapped over this card
+          const overlap = Math.max(0, cardRect.bottom - nextRect.top);
+          const range = cardRect.height * 0.9;
+          const progress = Math.min(1, Math.max(0, overlap / (range || 1)));
+
+          // Scale smoothly down to 0.94 and slightly dim
+          const scale = 1 - progress * 0.055;
+          const brightness = 1 - progress * 0.08;
+
+          card.style.transform = `scale(${scale.toFixed(3)})`;
+          card.style.filter = `brightness(${brightness.toFixed(3)})`;
+        });
+        ticking = false;
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    onScroll();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
   return (
     <section
-      className="tmx-awards-section section-space"
+      className="tmx-awards-section"
+      id="awards-recognition"
       aria-labelledby="tmx-awards-title"
     >
       <div className="tmx-awards-container">
+        {/* Header */}
 
-        {/* =========================================
-            HEADER
-        ========================================= */}
+        <div className="section-heading steps-heading">
 
-        {/* <header className="tmx-awards-header">
-
-          <div className="tmx-awards-eyebrow">
-            <span />
-            <span>Awards &amp; Recognition</span>
-          </div>
-
-          <h2
-            id="tmx-awards-title"
-            className="tmx-awards-heading"
-          >
-            Awards &amp; <em>Recognitions.</em>
-          </h2>
-
-          <p className="tmx-awards-subtitle">
-            Celebrating the milestones, achievements and recognition
-            that have shaped the TeaMax Café journey.
-          </p>
-
-        </header> */}
- <div className="section-heading menu-heading-grid">
           <div>
-            {/* <p className="kicker"><span>O</span>ur Menu</p> */}
-            <h2>Award &amp; Recognition </h2>
+            <h2 id="how-heading"> Award &amp; Recognition</h2>
             <span className="short-line" />
           </div>
-          <div className="menu-intro">
-            <p> Celebrating the milestones, achievements and recognition
-            that have shaped the TeaMax Café journey.
-</p>
-            {/* <Link href="/menu" className="cafe-action cafe-outline">Explore Full Menu <ArrowRight size={17} /></Link> */}
-          </div>
+
+          <p>
+            Celebrating the milestones, achievements and recognition that have shaped the TeaMax Café journey.
+          </p>
         </div>
-
-        {/* =========================================
-            STICKY AWARD STACK
-        ========================================= */}
-
-        <div className="tmx-awards-stack">
-
+        {/* Overlapping Card Stack */}
+        <div ref={stackRef} className="tmx-awards-stack">
           {awards.map((award, index) => (
             <div
-              className="tmx-award-pin"
               key={`${award.year}-${award.title}`}
+              className="tmx-award-card-pin"
+              style={{
+                top: `calc(90px + ${index * 26}px)`,
+                zIndex: index + 1,
+                ["--pin-idx" as string]: index,
+              } as React.CSSProperties}
             >
               <article
-                className={`tmx-award-card ${
-                  index % 2 === 1
-                    ? "tmx-award-card-reverse"
-                    : ""
-                }`}
+                className={`tmx-award-card ${index % 2 === 1 ? "tmx-award-card-reverse" : ""
+                  }`}
               >
-
-                {/* =====================================
-                    IMAGE
-                ===================================== */}
-
                 <div className="tmx-award-image-box">
-
                   <img
                     src={award.image}
                     alt={award.alt}
                     className="tmx-award-image"
                     loading={index === 0 ? "eager" : "lazy"}
                   />
-
                 </div>
 
-
-                {/* =====================================
-                    CONTENT
-                ===================================== */}
-
                 <div className="tmx-award-content">
-
                   <div className="tmx-award-meta">
-
-                    <span className="tmx-award-label">
-                      TeaMax Recognition
-                    </span>
-
-                    <span className="tmx-award-year">
-                      {award.year}
-                    </span>
-
+                    <span className="tmx-award-label">TeaMax Recognition</span>
+                    <span className="tmx-award-year">{award.year}</span>
                   </div>
-
-
-                  <h3 className="tmx-award-title">
-                    {award.title}
-                  </h3>
-
-
-                  <p className="tmx-award-text">
-                    {award.text}
-                  </p>
-
-
+                  <h3 className="tmx-award-title">{award.title}</h3>
+                  <p className="tmx-award-text">{award.text}</p>
                   <div className="tmx-award-accent">
                     <span />
                     <span />
                   </div>
-
                 </div>
-
               </article>
             </div>
           ))}
-
         </div>
-
       </div>
     </section>
   );

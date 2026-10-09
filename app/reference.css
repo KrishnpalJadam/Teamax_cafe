@@ -11541,8 +11541,8 @@ body {
   color: var(--teamax-ink)
 }
 
-body {
-  overflow-x: hidden
+html {
+  overflow-x: clip
 }
 
 ::selection {
@@ -12744,7 +12744,7 @@ a {
 html,
 body {
   max-width: 100% !important;
-  overflow-x: hidden !important;
+  overflow-x: clip !important;
 }
 
 /* =========================================================

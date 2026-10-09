@@ -57,7 +57,7 @@ const whyChooseItems = [
 export default function WhyChooseUs() {
   return (
     <section
-      className="tmx-why-choose "
+      className="tmx-why-choose"
       aria-labelledby="tmx-why-choose-title"
     >
       <div className="tmx-why-choose-inner container-xl">
@@ -68,26 +68,21 @@ export default function WhyChooseUs() {
 
         <div className="tmx-why-choose-intro">
 
-          {/* <div className="tmx-why-choose-product">
+          <div className="tmx-why-choose-product">
             <img
-              src="/images/why-choose-product.webp"
+              src="/images/High Standards. Lower Costs.webp"
               alt="TeaMax tea packaging"
               loading="lazy"
             />
-          </div> */}
+          </div>
 
-         
+          <h2
+            id="tmx-why-choose-title"
+            className="tmx-why-choose-heading"
+          >
+            Why Choose Us?
+          </h2>
 
-            <h2
-              id="tmx-why-choose-title"
-              className="tmx-why-choose-heading"
-            >
-              Why Choose Us?
-            </h2>
-
-            
-
-          
           <div className="tmx-why-choose-yellow-line" />
 
           <p className="tmx-why-choose-description">
@@ -99,19 +94,15 @@ export default function WhyChooseUs() {
 
         </div>
 
-
         {/* =========================================
             RIGHT CONTENT
         ========================================= */}
 
         <div className="tmx-why-choose-content">
 
-        
-
-
           <div className="tmx-why-choose-grid">
 
-            {whyChooseItems.map((item) => {
+            {whyChooseItems.map((item, index) => {
               const Icon = item.icon;
 
               return (
@@ -120,6 +111,15 @@ export default function WhyChooseUs() {
                   className="tmx-why-choose-card"
                 >
 
+                  {/* Number - appears on hover */}
+                  <span
+                    className="tmx-why-choose-card-number"
+                    aria-hidden="true"
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  {/* Icon */}
                   <div
                     className={`tmx-why-choose-icon ${item.iconClass}`}
                   >
@@ -129,10 +129,12 @@ export default function WhyChooseUs() {
                     />
                   </div>
 
+                  {/* Title */}
                   <h3 className="tmx-why-choose-card-title">
                     {item.title}
                   </h3>
 
+                  {/* Description */}
                   <p className="tmx-why-choose-card-description">
                     {item.description}
                   </p>

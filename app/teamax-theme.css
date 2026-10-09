@@ -222,7 +222,7 @@ a {
 
 /* Home — same section rhythm, typography and palette as the reference */
 .tm-home {
-  overflow: hidden;
+  overflow: visible;
   background: var(--tm-cream);
   color: var(--tm-text);
 }
