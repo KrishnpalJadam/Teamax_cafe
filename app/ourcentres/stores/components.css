@@ -1,0 +1,2864 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900;1000&family=Caveat:wght@700&display=swap");
+
+
+
+.detailscentres-page {
+
+    --detailscentres-cream: #fff8ee;
+
+    --detailscentres-yellow: #ffed82;
+
+    --detailscentres-teal: #263c3d;
+
+    --detailscentres-ink: #101f2b;
+
+    --detailscentres-muted: #5e7180;
+
+    --detailscentres-border: #eadfce;
+
+    --detailscentres-card: #fffefd;
+
+    background: var(--detailscentres-cream);
+
+    color: var(--detailscentres-ink);
+
+    font-family: "Nunito Sans", Arial, sans-serif;
+
+    font-size: 14px;
+
+    min-height: 100vh;
+
+}
+
+
+
+.detailscentres-page * {
+
+    box-sizing: border-box;
+
+}
+
+
+
+.detailscentres-page a {
+
+    color: inherit;
+
+    text-decoration: none;
+
+}
+
+
+
+.detailscentres-page button,
+
+.detailscentres-page input {
+
+    font: inherit;
+
+}
+
+
+
+.detailscentres-container {
+
+    width: min(1320px, calc(100% - 48px));
+
+    margin-inline: auto;
+
+}
+
+
+
+.detailscentres-main {
+
+    padding-bottom: 30px;
+
+}
+
+
+
+.detailscentres-header {
+
+    height: 86px;
+
+    border-bottom: 1px solid var(--detailscentres-border);
+
+    background: var(--detailscentres-cream);
+
+}
+
+
+
+.detailscentres-header-inner {
+
+    height: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 28px;
+
+}
+
+
+
+.detailscentres-brand {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+    font-weight: 1000;
+
+    font-size: 31px;
+
+    letter-spacing: -1.4px;
+
+    white-space: nowrap;
+
+}
+
+
+
+.detailscentres-brand svg {
+
+    transform: rotate(-12deg);
+
+}
+
+
+
+.detailscentres-nav {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: clamp(12px, 1.8vw, 28px);
+
+}
+
+
+
+.detailscentres-nav a {
+
+    font-size: 13px;
+
+    font-weight: 850;
+
+    white-space: nowrap;
+
+}
+
+
+
+.detailscentres-nav a.active {
+
+    padding: 11px 22px;
+
+    border-radius: 28px;
+
+    background: #ffda4e;
+
+}
+
+
+
+.detailscentres-btn {
+
+    min-height: 40px;
+
+    padding: 10px 15px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    border: 1px solid transparent;
+
+    border-radius: 7px;
+
+    font-weight: 850;
+
+    font-size: 12px;
+
+    cursor: pointer;
+
+    transition: transform .18s, background .18s;
+
+    white-space: nowrap;
+
+}
+
+
+
+.detailscentres-btn:hover {
+
+    transform: translateY(-1px);
+
+}
+
+
+
+.detailscentres-btn svg {
+
+    width: 17px;
+
+    height: 17px;
+
+    flex-shrink: 0;
+
+}
+
+
+
+.detailscentres-btn-primary {
+
+    background: #263c3d;
+
+    color: #fff;
+
+}
+
+
+
+.detailscentres-btn-primary:hover {
+
+    background: transparent;
+    color: #263c3d;
+    border: 1px solid #263c3d;
+
+}
+
+
+
+.detailscentres-btn-yellow {
+
+    background: #ffdc4d;
+
+    color: var(--detailscentres-teal);
+
+}
+
+
+
+.detailscentres-btn-outline {
+
+    border-color: var(--detailscentres-teal);
+
+    color: var(--detailscentres-teal);
+
+    background: transparent;
+
+}
+
+
+
+.detailscentres-franchise {
+
+    border-radius: 26px;
+
+    padding-inline: 20px;
+
+}
+
+
+
+.detailscentres-mobile-toggle {
+
+    display: none;
+
+    border: 0;
+
+    background: transparent;
+
+    padding: 7px;
+
+}
+
+
+
+.detailscentres-breadcrumbs {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 9px;
+
+    padding: 24px 0;
+
+    color: var(--detailscentres-muted);
+
+    font-size: 13px;
+
+}
+
+
+
+.detailscentres-breadcrumbs svg {
+
+    width: 13px;
+
+    height: 13px;
+
+}
+
+
+
+.detailscentres-hero {
+
+    display: grid;
+
+    grid-template-columns: .94fr 1.06fr;
+
+    gap: 34px;
+
+    align-items: start;
+
+}
+
+
+
+.detailscentres-store-info {
+
+    padding-top: 24px;
+
+    position: relative;
+
+}
+
+
+
+.detailscentres-eyebrow {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    font-size: 12px;
+
+    font-weight: 950;
+
+    letter-spacing: .2px;
+
+}
+
+
+
+.detailscentres-eyebrow::before {
+
+    content: "";
+
+    width: 30px;
+
+    height: 3px;
+
+    background: #ffda4e;
+
+    display: inline-block;
+
+}
+
+
+
+.detailscentres-store-info h1 {
+
+    font-size: clamp(27px, 2.5vw, 39px);
+
+    line-height: 1.15;
+
+    font-weight: 1000;
+
+    letter-spacing: -.8px;
+
+    margin: 17px 0 20px;
+
+}
+
+
+
+.detailscentres-title-mark {
+
+    color: #f4bd27;
+
+    padding-left: 4px;
+
+}
+
+
+
+.detailscentres-rating {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: #e8ac00;
+
+}
+
+
+
+.detailscentres-rating strong {
+
+    color: var(--detailscentres-ink);
+
+    font-size: 16px;
+
+}
+
+
+
+.detailscentres-rating strong span {
+
+    color: var(--detailscentres-muted);
+
+    font-weight: 650;
+
+    font-size: 13px;
+
+}
+
+
+
+.detailscentres-address {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 13px;
+
+    margin: 20px 0;
+
+    color: var(--detailscentres-muted);
+
+    line-height: 1.55;
+
+    font-size: 15px;
+
+}
+
+
+
+.detailscentres-address svg {
+
+    flex-shrink: 0;
+
+}
+
+
+
+.detailscentres-status-line {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 13px;
+
+    font-size: 12px;
+
+    font-weight: 850;
+
+    margin-bottom: 25px;
+
+}
+
+
+
+.detailscentres-open-badge {
+
+    background: #a7e88e;
+
+    border-radius: 22px;
+
+    padding: 9px 13px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+}
+
+
+
+.detailscentres-open-badge i {
+
+    width: 6px;
+
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--detailscentres-teal);
+
+}
+
+
+
+.detailscentres-hours-short {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+}
+
+
+
+.detailscentres-text-button {
+
+    border: 0;
+
+    padding: 0;
+
+    background: transparent;
+
+    color: #164b73;
+
+    text-decoration: underline;
+
+    display: inline-flex;
+
+    gap: 6px;
+
+    align-items: center;
+
+    cursor: pointer;
+
+    font-weight: 850;
+
+}
+
+
+
+.detailscentres-hours-popover {
+
+    position: absolute;
+
+    z-index: 5;
+
+    top: 250px;
+
+    right: 0;
+
+    background: white;
+
+    border: 1px solid var(--detailscentres-border);
+
+    border-radius: 10px;
+
+    box-shadow: 0 12px 35px #172b2817;
+
+    padding: 15px;
+
+    display: grid;
+
+    gap: 7px;
+
+    min-width: 220px;
+    margin-top: 20px;
+}
+
+
+
+.detailscentres-hours-popover small {
+
+    color: var(--detailscentres-muted);
+
+}
+
+
+
+.detailscentres-actions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+}
+
+
+
+.detailscentres-photos {
+
+    min-width: 0;
+
+}
+
+
+
+.detailscentres-main-photo {
+
+    height: 300px;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    background: #e9ddca;
+
+}
+
+
+
+.detailscentres-main-photo>img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+}
+
+
+
+.detailscentres-photo-count {
+
+    position: absolute;
+
+    right: 14px;
+
+    top: 13px;
+
+    background: var(--detailscentres-teal);
+
+    color: white;
+
+    border-radius: 5px;
+
+    padding: 6px 10px;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+}
+
+
+
+.detailscentres-photo-arrow {
+
+    position: absolute;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 38px;
+
+    height: 38px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #fffdf4eF;
+
+    display: grid;
+
+    place-items: center;
+
+    cursor: pointer;
+
+}
+
+
+
+.detailscentres-photo-arrow.detailscentres-prev {
+
+    left: 12px;
+
+}
+
+
+
+.detailscentres-photo-arrow.detailscentres-next {
+
+    right: 12px;
+
+}
+
+
+
+.detailscentres-thumbnails {
+
+    display: grid;
+
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+
+    gap: 8px;
+
+    margin-top: 9px;
+
+}
+
+
+
+.detailscentres-thumbnails button {
+
+    padding: 0;
+
+    border: 2px solid transparent;
+
+    border-radius: 7px;
+
+    height: 70px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    background: #e7dccb;
+
+    cursor: pointer;
+
+}
+
+
+
+.detailscentres-thumbnails button.detailscentres-selected {
+
+    border-color: #ffda4e;
+
+}
+
+
+
+.detailscentres-thumbnails img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+
+}
+
+
+
+.detailscentres-thumbnails .detailscentres-more-photos {
+
+    background: var(--detailscentres-teal);
+
+    color: #263c3d;
+
+    font-weight: 900;
+    border: 1px solid #263c3d;
+
+}
+
+
+
+.detailscentres-facilities {
+
+    display: grid;
+
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+
+    margin: 26px 0 22px;
+
+    padding: 16px 8px;
+
+    border: 1px solid var(--detailscentres-border);
+
+    border-radius: 9px;
+
+    background: #fffefd;
+
+    box-shadow: 0 3px 12px #4c3d2510;
+
+}
+
+
+
+.detailscentres-facility {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 0 10px;
+
+    border-right: 1px solid var(--detailscentres-border);
+
+    min-width: 0;
+
+}
+
+
+
+.detailscentres-facility:last-child {
+
+    border-right: 0;
+
+}
+
+
+
+.detailscentres-round-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+    flex: 0 0 40px;
+
+    border-radius: 50%;
+
+    display: inline-grid;
+
+    place-items: center;
+
+    background: #ffedb2;
+
+    color: var(--detailscentres-teal);
+
+}
+
+
+
+.detailscentres-facility b,
+
+.detailscentres-facility small {
+
+    display: block;
+
+    line-height: 1.35;
+
+}
+
+
+
+.detailscentres-facility b {
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+}
+
+
+
+.detailscentres-facility small {
+
+    font-size: 11px;
+
+}
+
+
+
+.detailscentres-promo-row {
+
+    display: grid;
+
+    grid-template-columns: 1.07fr 1fr;
+
+    gap: 25px;
+
+    margin: 22px 0 36px;
+
+}
+
+
+
+.detailscentres-promo {
+
+    height: 195px;
+
+    padding: 20px 24px;
+
+    border-radius: 9px;
+
+    overflow: hidden;
+
+    position: relative;
+
+}
+
+
+
+.detailscentres-chai-promo {
+
+    background: #263c3d;
+
+    color: white;
+
+}
+
+
+
+.detailscentres-promo-label {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    position: relative;
+
+    z-index: 1;
+
+    font-weight: 900;
+
+}
+
+
+
+.detailscentres-promo-label .detailscentres-round-icon,
+
+.detailscentres-delivery-promo>.detailscentres-round-icon {
+
+    width: 39px;
+
+    height: 39px;
+
+    flex-basis: 39px;
+    color: #263c3d;
+
+}
+
+
+
+.detailscentres-chai-promo h2 {
+
+    color: #ffda4e;
+
+    font-size: 28px;
+
+    line-height: 1.16;
+
+    margin: 12px 0 14px 51px;
+
+    position: relative;
+
+    z-index: 1;
+
+    font-weight: 1000;
+
+}
+
+
+
+.detailscentres-chai-promo>.detailscentres-btn {
+
+    margin-left: 51px;
+    padding: 12px 18px;
+    border-radius: 25px;
+
+    position: relative;
+    color: #263c3d;
+    z-index: 1;
+    height: 13px;
+
+}
+
+
+
+.detailscentres-promo-food {
+
+    position: absolute;
+
+    right: -5px;
+
+    bottom: 0;
+
+    width: 47%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    mask-image: linear-gradient(to right, transparent, black 42%);
+
+}
+
+
+
+.detailscentres-delivery-promo {
+
+    background: #ffeba3;
+
+    color: var(--detailscentres-ink);
+
+}
+
+
+
+.detailscentres-delivery-promo>.detailscentres-round-icon {
+
+    position: absolute;
+
+    left: 22px;
+
+    top: 21px;
+
+}
+
+
+
+.detailscentres-delivery-content {
+
+    padding-left: 53px;
+
+    position: relative;
+
+    z-index: 1;
+
+}
+
+
+
+.detailscentres-delivery-content h2 {
+
+    font-size: 23px;
+
+    line-height: 1.1;
+
+    font-weight: 1000;
+
+    margin: 3px 0 9px;
+
+}
+
+
+
+.detailscentres-delivery-content p {
+
+    max-width: 265px;
+
+    line-height: 1.5;
+
+    font-size: 13px;
+
+}
+
+
+
+.detailscentres-delivery-links {
+
+    display: flex;
+
+    gap: 9px;
+
+    margin-top: 12px;
+
+}
+
+
+
+.detailscentres-delivery-links a {
+
+    padding: 6px 12px;
+
+    border-radius: 6px;
+
+    background: #e94d32;
+
+    color: white;
+
+    font-weight: 1000;
+
+}
+
+
+
+.detailscentres-delivery-links a+a {
+
+    background: #ffb93d;
+
+    color: #163a34;
+
+}
+
+
+
+.detailscentres-delivery-art {
+
+    position: absolute;
+
+    right: 19px;
+
+    bottom: 15px;
+
+    color: var(--detailscentres-teal);
+
+    stroke-width: 1.5;
+
+}
+
+
+
+.detailscentres-section {
+
+    margin: 36px 0;
+
+}
+
+
+
+.detailscentres-section-heading {
+
+    display: flex;
+
+    align-items: end;
+
+    justify-content: space-between;
+
+    gap: 16px;
+
+    margin-bottom: 19px;
+
+}
+
+
+
+.detailscentres-section-heading h2,
+
+.detailscentres-faq-intro h2 {
+
+    font-size: clamp(23px, 2vw, 30px);
+
+    line-height: 1.18;
+
+    font-weight: 1000;
+
+    margin-top: 9px;
+
+    letter-spacing: -.4px;
+
+}
+
+
+
+.detailscentres-section-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    font-weight: 900;
+
+    font-size: 13px;
+
+    color: #174e6c !important;
+
+    white-space: nowrap;
+
+}
+
+
+
+.detailscentres-menu-tabs {
+
+    display: flex;
+
+    gap: 9px;
+
+    margin-bottom: 17px;
+
+}
+
+
+
+.detailscentres-menu-tabs button {
+
+    padding: 4px 16px;
+
+    border: 1px solid var(--detailscentres-border);
+
+    border-radius: 24px;
+
+    background: #fffdf8;
+
+    cursor: pointer;
+
+    font-weight: 600;
+    font-size: 15px;
+
+}
+
+
+
+.detailscentres-menu-tabs button.detailscentres-chosen {
+
+    background: #263c3d;
+
+    color: #fff;
+
+    border-color: var(--detailscentres-teal);
+
+}
+
+
+
+.detailscentres-menu-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+
+    gap: 15px;
+
+}
+
+
+
+.detailscentres-menu-card {
+
+    border: 1px solid var(--detailscentres-border);
+
+    border-radius: 9px;
+
+    overflow: hidden;
+
+    background: #fffefd;
+
+}
+
+
+
+.detailscentres-menu-card>img {
+
+    width: 100%;
+
+    height: 130px;
+
+    object-fit: cover;
+
+    display: block;
+
+}
+
+
+
+.detailscentres-menu-card-body {
+
+    padding: 12px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 7px;
+
+}
+
+
+
+.detailscentres-menu-card h3 {
+
+    font-size: 13px;
+
+    font-weight: 900;
+
+    margin-bottom: 5px;
+
+}
+
+
+
+.detailscentres-menu-card p {
+
+    font-weight: 800;
+
+}
+
+
+
+.detailscentres-add-btn {
+
+    width: 31px;
+
+    height: 31px;
+
+    border-radius: 50%;
+
+    border: 1px solid var(--detailscentres-teal);
+
+    color: var(--detailscentres-teal);
+
+    background: transparent;
+
+    display: grid;
+
+    place-items: center;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+
+}
+
+
+
+.detailscentres-cart-notice {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: var(--detailscentres-teal);
+
+    margin-top: 13px;
+
+    font-weight: 800;
+
+}
+
+
+
+.detailscentres-review-summary {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #d9a500;
+
+    font-size: 14px;
+
+}
+
+
+
+.detailscentres-review-summary b {
+
+    color: var(--detailscentres-ink);
+
+}
+
+
+
+.detailscentres-review-summary span {
+
+    color: var(--detailscentres-muted);
+
+}
+
+
+
+.detailscentres-reviews-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 18px;
+
+}
+
+
+
+.detailscentres-review-card {
+
+    display: flex;
+
+    gap: 13px;
+
+    border: 1px solid var(--detailscentres-border);
+
+    border-radius: 9px;
+
+    padding: 19px;
+
+    background: #fffefd;
+
+}
+
+
+
+.detailscentres-avatar {
+
+    flex: 0 0 44px;
+
+    width: 44px;
+
+    height: 44px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: #456c70;
+
+    color: white;
+
+    font-weight: 900;
+
+}
+
+
+
+.detailscentres-review-card h3 {
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    margin-bottom: 3px;
+
+}
+
+
+
+.detailscentres-stars {
+
+    color: #eab500;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 7px;
+
+}
+
+
+
+.detailscentres-review-card p {
+
+    color: var(--detailscentres-muted);
+
+    line-height: 1.5;
+
+    font-size: 13px;
+
+}
+
+
+
+.detailscentres-location-grid {
+
+    display: grid;
+
+    grid-template-columns: 1.35fr 1fr;
+
+    gap: 22px;
+
+}
+
+
+
+.detailscentres-map-panel,
+
+.detailscentres-contact-panel,
+
+.detailscentres-hours-panel {
+
+    background: #fffefd;
+
+    border: 1px solid var(--detailscentres-border);
+
+    border-radius: 9px;
+
+    padding: 19px;
+
+}
+
+
+
+.detailscentres-panel-heading {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 15px;
+
+}
+
+
+
+.detailscentres-panel-heading h3,
+
+.detailscentres-contact-panel h3,
+
+.detailscentres-hours-panel h3 {
+
+    font-size: 19px;
+
+    font-weight: 950;
+
+}
+
+
+
+.detailscentres-panel-heading a {
+
+    color: #174e6c;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    font-size: 12px;
+
+    font-weight: 850;
+
+}
+
+
+
+.detailscentres-map-placeholder {
+
+    min-height: 250px;
+
+    border-radius: 7px;
+
+    background: linear-gradient(135deg, #e8eddf, #e6f0ec 48%, #e3e9d9);
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    gap: 10px;
+
+    color: var(--detailscentres-teal);
+
+    padding: 20px;
+
+}
+
+
+
+.detailscentres-map-placeholder span {
+
+    color: #536a6b;
+
+}
+
+
+
+.detailscentres-contact-stack {
+
+    display: grid;
+
+    gap: 12px;
+
+}
+
+
+
+.detailscentres-contact-panel {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+}
+
+
+
+.detailscentres-contact-panel a,
+
+.detailscentres-contact-panel p {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    font-size: 13px;
+
+    color: var(--detailscentres-muted);
+
+}
+
+
+
+.detailscentres-contact-panel a svg,
+
+.detailscentres-contact-panel p svg {
+
+    color: var(--detailscentres-teal);
+
+    flex-shrink: 0;
+
+}
+
+
+
+.detailscentres-hours-panel h3 {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 14px;
+
+}
+
+
+
+.detailscentres-hours-panel>div {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    padding: 10px 0;
+
+    border-top: 1px solid var(--detailscentres-border);
+
+}
+
+
+
+.detailscentres-hours-panel small {
+
+    color: var(--detailscentres-muted);
+
+}
+
+
+
+.detailscentres-gallery-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    gap: 10px;
+
+}
+
+
+
+.detailscentres-gallery-item {
+
+    height: 180px;
+
+    border-radius: 9px;
+
+    overflow: hidden;
+
+}
+
+
+
+.detailscentres-gallery-item img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform .25s;
+
+}
+
+
+
+.detailscentres-gallery-item:hover img {
+
+    transform: scale(1.04);
+
+}
+
+
+
+.detailscentres-offers-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 18px;
+
+}
+
+
+
+.detailscentres-offers-grid article {
+
+    display: grid;
+
+    grid-template-columns: 42% 1fr;
+
+    min-height: 175px;
+
+    overflow: hidden;
+
+    background: #ffedb2;
+
+    border-radius: 9px;
+
+}
+
+
+
+.detailscentres-offers-grid article>img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+
+
+.detailscentres-offers-grid article>div {
+
+    padding: 17px 13px;
+
+}
+
+
+
+.detailscentres-offers-grid article span {
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    font-weight: 950;
+
+    color: #48635d;
+
+}
+
+
+
+.detailscentres-offers-grid h3 {
+
+    font-size: 17px;
+
+    line-height: 1.15;
+
+    margin: 7px 0;
+
+    font-weight: 1000;
+
+}
+
+
+
+.detailscentres-offers-grid p {
+
+    font-size: 12px;
+
+    color: #4f625d;
+
+    line-height: 1.4;
+
+    margin-bottom: 10px;
+
+}
+
+
+
+.detailscentres-offers-grid a {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    font-size: 11px;
+
+    font-weight: 900;
+
+}
+
+
+
+.detailscentres-faq-section {
+
+    display: grid;
+
+    grid-template-columns: .85fr 1fr;
+
+    gap: 40px;
+
+    align-items: start;
+
+}
+
+
+
+.detailscentres-faq-intro>p {
+
+    margin-top: 12px;
+
+    color: var(--detailscentres-muted);
+
+    line-height: 1.6;
+
+}
+
+
+
+.detailscentres-faq-art {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    margin-top: 18px;
+
+}
+
+
+
+.detailscentres-faq-art img {
+
+    width: 180px;
+
+    height: 140px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+}
+
+
+
+.detailscentres-faq-art span {
+
+    font-family: Caveat, cursive;
+
+    font-size: 31px;
+
+    line-height: 1;
+
+    font-weight: 800;
+
+    transform: rotate(-8deg);
+
+    color: var(--detailscentres-teal);
+
+}
+
+
+
+.detailscentres-faq-list {
+
+    border: 1px solid var(--detailscentres-border);
+
+    border-radius: 9px;
+
+    overflow: hidden;
+
+    background: #fffefd;
+
+}
+
+
+
+.detailscentres-faq-item+.detailscentres-faq-item {
+
+    border-top: 1px solid var(--detailscentres-border);
+
+}
+
+
+
+.detailscentres-faq-item button {
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    text-align: left;
+
+    border: 0;
+
+    background: transparent;
+
+    padding: 17px;
+
+    cursor: pointer;
+
+    font-weight: 900;
+
+}
+
+
+
+.detailscentres-faq-item p {
+
+    padding: 0 17px 17px;
+
+    line-height: 1.55;
+
+    color: var(--detailscentres-muted);
+
+}
+
+
+
+.detailscentres-footer {
+
+    margin-top: 30px;
+
+    padding: 35px 0 0;
+
+    background: var(--detailscentres-teal);
+
+    color: white;
+
+}
+
+
+
+.detailscentres-footer-grid {
+
+    display: grid;
+
+    grid-template-columns: 1.4fr .7fr .7fr 1.1fr;
+
+    gap: 35px;
+
+    padding-bottom: 30px;
+
+}
+
+
+
+.detailscentres-footer .detailscentres-brand {
+
+    color: white;
+
+    font-size: 28px;
+
+}
+
+
+
+.detailscentres-footer p {
+
+    margin-top: 12px;
+
+    line-height: 1.6;
+
+    color: #e0ece7;
+
+    font-size: 13px;
+
+}
+
+
+
+.detailscentres-footer-grid>div:not(:first-child) {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 9px;
+
+}
+
+
+
+.detailscentres-footer h3 {
+
+    font-size: 14px;
+
+    margin-bottom: 5px;
+
+}
+
+
+
+.detailscentres-footer-grid>div>a:not(.detailscentres-brand) {
+
+    display: inline-flex;
+
+    gap: 7px;
+
+    align-items: center;
+
+    color: #e0ece7;
+
+    font-size: 13px;
+
+}
+
+
+
+.detailscentres-socials {
+
+    display: flex;
+
+    gap: 14px;
+
+    margin-top: 16px;
+
+}
+
+
+
+.detailscentres-socials a {
+
+    color: white;
+
+}
+
+
+
+.detailscentres-footer-bottom {
+
+    border-top: 1px solid #ffffff25;
+
+    padding: 15px 24px;
+
+    text-align: center;
+
+    color: #d7e4df;
+
+    font-size: 12px;
+
+}
+
+
+
+@media (max-width: 1150px) {
+
+    .detailscentres-header-inner {
+
+        gap: 16px;
+
+    }
+
+
+
+    .detailscentres-brand {
+
+        font-size: 26px;
+
+    }
+
+
+
+    .detailscentres-nav {
+
+        gap: 12px;
+
+    }
+
+
+
+    .detailscentres-nav a {
+
+        font-size: 12px;
+
+    }
+
+
+
+    .detailscentres-franchise {
+
+        padding-inline: 12px;
+
+    }
+
+
+
+    .detailscentres-hero {
+
+        gap: 22px;
+
+    }
+
+
+
+    .detailscentres-facility {
+
+        padding-inline: 5px;
+
+        gap: 6px;
+
+    }
+
+
+
+    .detailscentres-round-icon {
+
+        width: 33px;
+
+        height: 33px;
+
+        flex-basis: 33px;
+
+    }
+
+
+
+    .detailscentres-menu-grid {
+
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    }
+
+}
+
+
+
+@media (max-width: 850px) {
+
+    .detailscentres-header {
+
+        height: 72px;
+
+    }
+
+
+
+    .detailscentres-header-inner {
+
+        position: relative;
+
+    }
+
+
+
+    .detailscentres-mobile-toggle {
+
+        display: inline-grid;
+
+        place-items: center;
+
+    }
+
+
+
+    .detailscentres-nav {
+
+        display: none;
+
+        position: absolute;
+
+        top: 71px;
+
+        left: -24px;
+
+        right: -24px;
+
+        z-index: 20;
+
+        padding: 20px 24px;
+
+        background: var(--detailscentres-cream);
+
+        border-bottom: 1px solid var(--detailscentres-border);
+
+        box-shadow: 0 12px 25px #0000000d;
+
+    }
+
+
+
+    .detailscentres-nav.detailscentres-is-open {
+
+        display: grid;
+
+        grid-template-columns: repeat(3, 1fr);
+
+        gap: 18px;
+
+    }
+
+
+
+    .detailscentres-hero {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+
+    .detailscentres-store-info {
+
+        padding-top: 0;
+
+    }
+
+
+
+    .detailscentres-main-photo {
+
+        height: auto;
+
+        aspect-ratio: 1.8;
+
+    }
+
+
+
+    .detailscentres-facilities {
+
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+
+        gap: 15px 0;
+
+    }
+
+
+
+    .detailscentres-facility:nth-child(4) {
+
+        border-right: 0;
+
+    }
+
+
+
+    .detailscentres-promo-row {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+
+    .detailscentres-reviews-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+
+    .detailscentres-location-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+
+    .detailscentres-offers-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+
+    .detailscentres-offers-grid article {
+
+        min-height: 190px;
+
+        grid-template-columns: 35% 1fr;
+
+    }
+
+
+
+    .detailscentres-faq-section {
+
+        grid-template-columns: 1fr;
+
+        gap: 20px;
+
+    }
+
+
+
+    .detailscentres-footer-grid {
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    }
+
+}
+
+
+
+@media (max-width: 560px) {
+
+    .detailscentres-container {
+
+        width: calc(100% - 30px);
+
+    }
+
+
+
+    .detailscentres-header {
+
+        height: 66px;
+
+    }
+
+
+
+    .detailscentres-header-inner {
+
+        gap: 7px;
+
+    }
+
+
+
+    .detailscentres-brand {
+
+        font-size: 23px;
+
+    }
+
+
+
+    .detailscentres-brand svg {
+
+        width: 29px;
+
+    }
+
+
+
+    .detailscentres-franchise {
+
+        font-size: 10px;
+
+        min-height: 34px;
+
+        padding: 7px 9px;
+
+        gap: 4px;
+
+    }
+
+
+
+    .detailscentres-franchise svg {
+
+        width: 13px;
+
+    }
+
+
+
+    .detailscentres-nav {
+
+        top: 65px;
+
+        left: -15px;
+
+        right: -15px;
+
+    }
+
+
+
+    .detailscentres-nav.detailscentres-is-open {
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        text-align: center;
+
+    }
+
+
+
+    .detailscentres-breadcrumbs {
+
+        padding: 17px 0;
+
+        font-size: 11px;
+
+        gap: 5px;
+
+    }
+
+
+
+    .detailscentres-store-info h1 {
+
+        font-size: 30px;
+
+    }
+
+
+
+    .detailscentres-address {
+
+        font-size: 13px;
+
+    }
+
+
+
+    .detailscentres-status-line {
+
+        gap: 9px;
+
+    }
+
+
+
+    .detailscentres-actions {
+
+        display: grid;
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    }
+
+
+
+    .detailscentres-actions .detailscentres-btn {
+
+        padding-inline: 7px;
+
+        font-size: 11px;
+
+    }
+
+
+
+    .detailscentres-thumbnails {
+
+        gap: 5px;
+
+    }
+
+
+
+    .detailscentres-thumbnails button {
+
+        height: 52px;
+
+    }
+
+
+
+    .detailscentres-facilities {
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        padding: 14px 7px;
+
+        gap: 13px 0;
+
+    }
+
+
+
+    .detailscentres-facility:nth-child(2n) {
+
+        border-right: 0;
+
+    }
+
+
+
+    .detailscentres-facility:nth-child(4) {
+
+        border-right: 0;
+
+    }
+
+
+
+    .detailscentres-promo {
+
+        height: 180px;
+
+        padding: 17px;
+
+    }
+
+
+
+    .detailscentres-chai-promo h2 {
+
+        margin-left: 0;
+
+        font-size: 25px;
+
+    }
+
+
+
+    .detailscentres-chai-promo>.detailscentres-btn {
+
+        margin-left: 0;
+
+    }
+
+
+
+    .detailscentres-promo-food {
+
+        width: 45%;
+
+    }
+
+
+
+    .detailscentres-delivery-content {
+
+        padding-left: 0;
+
+        padding-top: 45px;
+
+    }
+
+
+
+    .detailscentres-delivery-content h2 {
+
+        font-size: 20px;
+
+    }
+
+
+
+    .detailscentres-delivery-content p {
+
+        max-width: 235px;
+
+    }
+
+
+
+    .detailscentres-delivery-art {
+
+        width: 64px;
+
+        right: 9px;
+
+        bottom: 10px;
+
+    }
+
+
+
+    .detailscentres-section {
+
+        margin: 29px 0;
+
+    }
+
+
+
+    .detailscentres-section-heading {
+
+        align-items: flex-start;
+
+    }
+
+
+
+    .detailscentres-section-heading h2,
+
+    .detailscentres-faq-intro h2 {
+
+        font-size: 24px;
+
+    }
+
+
+
+    .detailscentres-section-link {
+
+        font-size: 11px;
+
+    }
+
+
+
+    .detailscentres-menu-grid {
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 10px;
+
+    }
+
+
+
+    .detailscentres-menu-card>img {
+
+        height: 115px;
+
+    }
+
+
+
+    .detailscentres-menu-card-body {
+
+        padding: 9px;
+
+    }
+
+
+
+    .detailscentres-menu-card h3 {
+
+        font-size: 12px;
+
+    }
+
+
+
+    .detailscentres-menu-tabs {
+
+        overflow-x: auto;
+
+    }
+
+
+
+    .detailscentres-review-card {
+
+        padding: 14px;
+
+    }
+
+
+
+    .detailscentres-panel-heading {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+
+
+    .detailscentres-map-placeholder {
+
+        min-height: 220px;
+
+    }
+
+
+
+    .detailscentres-hours-panel>div {
+
+        flex-direction: column;
+
+        gap: 4px;
+
+    }
+
+
+
+    .detailscentres-gallery-grid {
+
+        grid-template-columns: repeat(5, 145px);
+
+        overflow-x: auto;
+
+        padding-bottom: 5px;
+
+    }
+
+
+
+    .detailscentres-gallery-item {
+
+        height: 130px;
+
+    }
+
+
+
+    .detailscentres-faq-art img {
+
+        width: 145px;
+
+        height: 120px;
+
+    }
+
+
+
+    .detailscentres-faq-art span {
+
+        font-size: 27px;
+
+    }
+
+
+
+    .detailscentres-footer-grid {
+
+        gap: 25px 18px;
+
+    }
+
+
+
+    .detailscentres-footer-grid>div:first-child,
+
+    .detailscentres-footer-grid>div:last-child {
+
+        grid-column: 1 / -1;
+
+    }
+
+}
+
+/* Real Google Map */
+.detailscentres-real-map {
+    position: relative;
+    width: 100%;
+    height: 314px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #e7eee6;
+}
+
+.detailscentres-real-map iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* TeaMax branded badge */
+.detailscentres-map-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: #fffdf9;
+    box-shadow: 0 4px 18px rgba(20, 40, 38, 0.16);
+    pointer-events: none;
+}
+
+.detailscentres-map-cup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #ffed82;
+    font-size: 21px;
+}
+
+.detailscentres-map-badge strong,
+.detailscentres-map-badge span {
+    display: block;
+}
+
+.detailscentres-map-badge strong {
+    color: #263c3d;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.detailscentres-map-badge div span {
+    margin-top: 2px;
+    color: #66716d;
+    font-size: 12px;
+}
+
+.detailscentres-map-directions {
+    position: absolute;
+    z-index: 2;
+    right: 14px;
+    bottom: 14px;
+    text-decoration: none;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 600px) {
+    .detailscentres-real-map {
+        height: 280px;
+    }
+
+    .detailscentres-map-badge {
+        top: 10px;
+        left: 10px;
+        padding: 8px 10px;
+    }
+
+    .detailscentres-map-directions {
+        right: 10px;
+        bottom: 10px;
+    }
+}

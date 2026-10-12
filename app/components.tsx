@@ -20,6 +20,7 @@ export function Header({ active }: { active?: string }) {
     ["/", "Home"],
     ["/about-us", "Our Stories"],
     ["/menu", "Menu"],
+    ["/ourcentres", "Our Centres"],
     ["/franchise", "Franchise"],
     ["/blog", "Blog"],
     // ["/stores", "Gallery"],
@@ -28,31 +29,31 @@ export function Header({ active }: { active?: string }) {
 
   return (
     <header className="site-header" aria-label="TeaMax site header">
-        <div className="site-header-inner">
-      <Link href="/" className="brand" aria-label="TeaMax home">
-       
-        <img className="brand-max" width={200} src="/images/logomain.avif" alt="" />
-      </Link>
+      <div className="site-header-inner">
+        <Link href="/" className="brand" aria-label="TeaMax home">
 
-      <nav className="site-nav" aria-label="Main navigation">
-        {nav.map(([href, label]) => (
-          <Link key={href} href={href} aria-current={active === href ? "page" : undefined}>
-            {label}
-          </Link>
-        ))}
-      </nav>
+          <img className="brand-max" width={200} src="/images/logomain.avif" alt="" />
+        </Link>
 
-      <div className="header-action">
-        <Link href="/franchise#apply" className="cafe-action">Apply for Franchise <ArrowRight size={17} /></Link>
-      </div>
-
-      <details className="mobile-menu">
-        <summary aria-label="Open menu"><Menu size={22} /></summary>
-        <nav aria-label="Mobile navigation">
-          {nav.map(([href, label]) => <Link key={href} href={href}>{label}</Link>)}
-          <Link href="/franchise#apply" className="cafe-action">Apply for Franchise <ArrowRight size={17} /></Link>
+        <nav className="site-nav" aria-label="Main navigation">
+          {nav.map(([href, label]) => (
+            <Link key={href} href={href} aria-current={active === href ? "page" : undefined}>
+              {label}
+            </Link>
+          ))}
         </nav>
-      </details>
+
+        <div className="header-action">
+          <Link href="/franchise#apply" className="cafe-action">Apply for Franchise <ArrowRight size={17} /></Link>
+        </div>
+
+        <details className="mobile-menu">
+          <summary aria-label="Open menu"><Menu size={22} /></summary>
+          <nav aria-label="Mobile navigation">
+            {nav.map(([href, label]) => <Link key={href} href={href}>{label}</Link>)}
+            <Link href="/franchise#apply" className="cafe-action">Apply for Franchise <ArrowRight size={17} /></Link>
+          </nav>
+        </details>
       </div>
     </header>
   );
