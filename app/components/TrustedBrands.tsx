@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -5,12 +6,10 @@ import { useRef } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, FreeMode } from "swiper/modules";
-
 import type { Swiper as SwiperType } from "swiper";
 
 import "swiper/css";
 import "swiper/css/navigation";
-
 import "./TrustedBrands.css";
 
 const brands = [
@@ -46,140 +45,141 @@ const brands = [
 
 export default function TrustedBrands() {
   const swiperRef = useRef<SwiperType | null>(null);
-const marqueeBrands = [...brands, ...brands, ...brands];
+
+  // Duplicate items for a continuous loop.
+  const marqueeBrands = [...brands, ...brands, ...brands];
+
   return (
-    <section
-      className="tmx-trusted-brands container-xl section-space"
-      aria-label="TeaMax trusted partners "
-    >
-          <div className="section-heading why-heading">
-          <div><h2 id="why-heading">Our Associate Partners</h2><span className="short-line" /></div>
-          {/* <p>A simple, profitable and scalable café business backed by a strong brand and dedicated support.</p> */}
+    <>
+      <div className="container-xl mt-5 pt-5">
+        <div className="container-xl tmx-trusted-heading-container">
+          <div className="section-heading why-heading tmx-trusted-heading">
+            <div>
+              <h2 id="why-heading">Our Associate Partners</h2>
+              <span className="short-line" />
+            </div>
+          </div>
         </div>
-      <div className="tmx-trusted-brands-inner">
-
-        {/* =========================================
-            TEAMAX BACKGROUND LOGO
-        ========================================= */}
-
-        {/* <img
-          src="/images/logo4.png"
-          alt=""
-          aria-hidden="true"
-          className="tmx-trusted-brands-background-logo"
-        /> */}
-
-
-        {/* =========================================
-            SLIDER
-        ========================================= */}
-
-        <div className="tmx-trusted-brands-slider">
-
-          {/* MOBILE PREVIOUS BUTTON */}
-
-          <button
-            type="button"
-            className="tmx-trusted-swipe-arrow tmx-trusted-swipe-left"
-            aria-label="Previous brand"
-          >
-            <span>‹</span>
-          </button>
-
-
-          {/* =========================================
-              SWIPER
-          ========================================= */}
-
-         <Swiper
-  modules={[Autoplay, Navigation, FreeMode]}
-  className="tmx-trusted-brands-swiper"
-
-  onSwiper={(swiper) => {
-    swiperRef.current = swiper;
-  }}
-
-  navigation={{
-    prevEl: ".tmx-trusted-swipe-left",
-    nextEl: ".tmx-trusted-swipe-right",
-  }}
-
-  slidesPerView={7}
-  spaceBetween={24}
-
-  loop={true}
-  loopAdditionalSlides={brands.length}
-
-  speed={5000}
-
-  freeMode={{
-    enabled: true,
-    momentum: false,
-  }}
-
-  allowTouchMove={true}
-  grabCursor={true}
-
-  autoplay={{
-    delay: 0,
-    disableOnInteraction: false,
-    pauseOnMouseEnter: false,
-  }}
-
-  breakpoints={{
-    0: {
-      slidesPerView: 3,
-      spaceBetween: 14,
-    },
-
-    480: {
-      slidesPerView: 3,
-      spaceBetween: 16,
-    },
-
-    768: {
-      slidesPerView: 4,
-      spaceBetween: 20,
-    },
-
-    1100: {
-      slidesPerView: 7,
-      spaceBetween: 24,
-    },
-  }}
->
-{marqueeBrands.map((brand, index) => (
-    <SwiperSlide
-      key={`${brand.name}-${index}`}
-      className="tmx-trusted-brands-slide"
-    >
-      <div className="tmx-trusted-brand-circle">
-        <Image
-          src={brand.image}
-          alt={brand.name}
-          width={142}
-          height={142}
-          className="tmx-trusted-brand-image"
-        />
       </div>
-    </SwiperSlide>
-  ))}
-</Swiper>
+      <section
+        className="tmx-trusted-brands"
+        aria-label="TeaMax associate partners"
+      >
+        {/* Heading aligned with the other XL sections */}
 
 
-          {/* MOBILE NEXT BUTTON */}
+        {/* Full-width wallpaper with slider on top */}
+        <div className="tmx-trusted-brands-inner">
+          <div className="tmx-trusted-brands-slider">
+            {/* Previous button */}
+            <button
+              type="button"
+              className="tmx-trusted-swipe-arrow tmx-trusted-swipe-left"
+              aria-label="Previous brand"
+              onClick={() => swiperRef.current?.slidePrev()}
+            >
+              <svg
+                viewBox="0 0 16 26"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M13 3L3 13L13 23"
+                  stroke="currentColor"
+                  strokeWidth="2.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
 
-          <button
-            type="button"
-            className="tmx-trusted-swipe-arrow tmx-trusted-swipe-right"
-            aria-label="Next brand"
-          >
-            <span>›</span>
-          </button>
+            {/* Brand carousel */}
+            <Swiper
+              modules={[Autoplay, Navigation, FreeMode]}
+              className="tmx-trusted-brands-swiper"
+              onSwiper={(swiper) => {
+                swiperRef.current = swiper;
+              }}
+              slidesPerView={7}
+              spaceBetween={24}
+              loop={true}
+              loopAdditionalSlides={brands.length}
+              speed={5000}
+              freeMode={{
+                enabled: true,
+                momentum: false,
+              }}
+              allowTouchMove={true}
+              grabCursor={true}
+              autoplay={{
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: false,
+                stopOnLastSlide: false,
+                waitForTransition: false,
+              }}
+              breakpoints={{
+                0: {
+                  slidesPerView: 2.5,
+                  spaceBetween: 12,
+                },
+                480: {
+                  slidesPerView: 3,
+                  spaceBetween: 16,
+                },
+                768: {
+                  slidesPerView: 4,
+                  spaceBetween: 20,
+                },
+                1100: {
+                  slidesPerView: 7,
+                  spaceBetween: 24,
+                },
+              }}
+            >
+              {marqueeBrands.map((brand, index) => (
+                <SwiperSlide
+                  key={`${brand.name}-${index}`}
+                  className="tmx-trusted-brands-slide"
+                >
+                  <div className="tmx-trusted-brand-circle">
+                    <Image
+                      src={brand.image}
+                      alt={brand.name}
+                      width={142}
+                      height={142}
+                      sizes="(max-width: 480px) 86px, (max-width: 767px) 96px, (max-width: 1100px) 112px, 126px"
+                      className="tmx-trusted-brand-image"
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
 
+            {/* Next button */}
+            <button
+              type="button"
+              className="tmx-trusted-swipe-arrow tmx-trusted-swipe-right"
+              aria-label="Next brand"
+              onClick={() => swiperRef.current?.slideNext()}
+            >
+              <svg
+                viewBox="0 0 16 26"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M3 3L13 13L3 23"
+                  stroke="currentColor"
+                  strokeWidth="2.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
-
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

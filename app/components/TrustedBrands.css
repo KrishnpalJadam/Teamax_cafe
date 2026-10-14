@@ -1,634 +1,291 @@
-/* =========================================================
-   TEAMAX TRUSTED BRANDS
-========================================================= */
+/* =========================================
+   TEAMAX ASSOCIATE PARTNERS
+   Full Background Image + Auto Slider
+========================================= */
 
 .tmx-trusted-brands {
-  --tmx-tb-teal: #263c3d;
+  --tmx-tb-cream: #fff8ee;
+  --tmx-tb-yellow: #ffed82;
 
   position: relative;
-
+  isolation: isolate;
   width: 100%;
-
-  min-height: 335px;
-
+  /* padding: 75px 0 65px; */
   overflow: hidden;
-
-  /* background: var(--tmx-tb-teal); */
-
-  /* box-sizing: border-box; */
-}
-
-
-/* =========================================================
-   INNER
-========================================================= */
-
-.tmx-trusted-brands-inner {
-  position: relative;
-
-  width: 100%;
-
-  min-height: 215px;
-
-  padding: 0 55px 16px;
-
-  display: flex;
-
-  align-items: flex-end;
-
-  justify-content: center;
-
   box-sizing: border-box;
 
+  /* Original wallpaper image */
+  background: url("https://i.ibb.co/Dft0bwvQ/Tea-Max-Wallpaper-Design-2026.png") center center / cover no-repeat;
 }
 
+/* Remove every overlay */
+.tmx-trusted-brands::before,
+.tmx-trusted-brands::after {
+  content: none !important;
+  display: none !important;
+}
 
-/* =========================================================
-   LARGE TEAMAX LOGO
-========================================================= */
+/* Heading aligned with container-xl */
+.tmx-trusted-heading-container {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 38px;
+}
 
-.tmx-trusted-brands-background-logo {
-  position: absolute;
+.tmx-trusted-brands .tmx-trusted-heading {
+  position: relative;
+  top: auto;
+  display: flex;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+  text-align: left;
+}
 
-  top: 12px;
+.tmx-trusted-brands .tmx-trusted-heading h2 {
+  margin: 0;
+  color: var(--tmx-tb-cream);
+}
 
-  left: 50%;
+.tmx-trusted-brands .tmx-trusted-heading .short-line {
+  display: block;
+  background: var(--tmx-tb-yellow);
+}
 
-  transform: translateX(-50%);
-
-  width: min(1250px, 100vw);
-
-  max-height: 245px;
-
-  height: auto;
-
-  object-fit: contain;
-
-  opacity: 0.95;
-
+/* Slider area stays transparent */
+.tmx-trusted-brands-inner {
+  position: relative;
   z-index: 1;
-
-  pointer-events: none;
-
-  user-select: none;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 200px;
+  padding: 12px 0;
+  background: transparent !important;
+  box-sizing: border-box;
 }
-
-
-/* =========================================================
-   SLIDER WRAPPER
-========================================================= */
 
 .tmx-trusted-brands-slider {
   position: relative;
-
-  z-index: 3;
-
+  z-index: 2;
   width: 100%;
-
-  max-width: 1300px;
-
-  overflow: hidden;
-
+  max-width: 1440px;
+  margin-inline: auto;
+  padding: 0 44px;
   box-sizing: border-box;
 }
-
-
-/* =========================================================
-   SWIPER
-========================================================= */
 
 .tmx-trusted-brands-swiper {
   width: 100%;
-
-  overflow: visible;
+  overflow: hidden;
 }
 
-
-/* =========================================================
-   SLIDE
-========================================================= */
+.tmx-trusted-brands-swiper .swiper-wrapper {
+  align-items: center;
+  transition-timing-function: linear !important;
+}
 
 .tmx-trusted-brands-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: auto;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
   box-sizing: border-box;
 }
 
-
-/* =========================================================
-   WHITE LOGO CIRCLE
-========================================================= */
-
+/* White logo circles */
 .tmx-trusted-brand-circle {
-  width: 142px;
-
-  height: 142px;
-
-  flex: 0 0 142px;
-
-  padding: 19px;
-
-  margin: 0 auto;
-
-  border-radius: 50%;
-
-  background: #ffffff;
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
+  width: 126px;
+  height: 126px;
+  flex: 0 0 126px;
+  padding: 17px;
+  margin: 0 auto;
   box-sizing: border-box;
-
-  /* box-shadow:
-    0 7px 18px rgba(0, 0, 0, 0.14); */
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
-  overflow-x: hidden;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.16);
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-
-/* =========================================================
-   IMAGE
-========================================================= */
+.tmx-trusted-brand-circle:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.24);
+}
 
 .tmx-trusted-brand-image {
-  width: 100%;
-
-  height: 100%;
-
   display: block;
-
+  width: 100%;
+  height: 100%;
   object-fit: contain;
-
   user-select: none;
-
   pointer-events: none;
-
   -webkit-user-drag: none;
 }
 
-
-/* =========================================================
-   DESKTOP HOVER
-========================================================= */
-
-/* .tmx-trusted-brand-circle:hover {
-  transform: translateY(-6px);
-
-  box-shadow:
-    0 14px 25px rgba(0, 0, 0, 0.20);
-} */
-
-
-/* =========================================================
-   ARROWS
-   Hidden by default
-========================================================= */
-
+/* Slider arrows */
 .tmx-trusted-swipe-arrow {
-  display: none;
-
   position: absolute;
-
   top: 50%;
-
-  transform: translateY(-50%);
-
-  z-index: 50;
-
-  width: 32px;
-
-  height: 32px;
-
-  padding: 0;
-
-  border: none;
-
-  border-radius: 50%;
-
-  background: rgba(255, 255, 255, 0.20);
-
-  color: #ffffff;
-
+  z-index: 5;
+  display: flex;
   align-items: center;
-
   justify-content: center;
-
+  width: 30px;
+  height: 48px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #fff8ee;
   cursor: pointer;
-
-  backdrop-filter: blur(5px);
-
-  -webkit-backdrop-filter: blur(5px);
-
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
-
-  /* Very important */
-  pointer-events: auto;
-
   touch-action: manipulation;
+  transform: translateY(-50%);
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
-
-/* Arrow character */
-
-.tmx-trusted-swipe-arrow span {
+.tmx-trusted-swipe-arrow svg {
   display: block;
-
-  font-family: Arial, sans-serif;
-
-  font-size: 25px;
-
-  line-height: 1;
-
-  font-weight: 400;
-
-  transform: translateY(-1px);
+  width: 16px;
+  height: 26px;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.3));
 }
-
-@media (max-width: 768px) {
-  .tmx-trusted-brands {
-    padding: 20px;
-  }
-}
-
-/* Hover */
 
 .tmx-trusted-swipe-arrow:hover {
-  background: rgba(255, 255, 255, 0.35);
+  color: var(--tmx-tb-yellow);
 }
-
-
-/* Click */
-
-.tmx-trusted-swipe-arrow:active {
-  transform: translateY(-50%) scale(0.88);
-}
-
-
-/* Left */
 
 .tmx-trusted-swipe-left {
-  left: 2px;
+  left: 5px;
 }
-
-
-/* Right */
 
 .tmx-trusted-swipe-right {
-  right: 2px;
+  right: 5px;
 }
 
+.tmx-trusted-swipe-left:hover {
+  transform: translate(-2px, -50%);
+}
 
-/* =========================================================
-   DESKTOP
-========================================================= */
+.tmx-trusted-swipe-right:hover {
+  transform: translate(2px, -50%);
+}
 
-@media (min-width: 1101px) {
-
+/* Tablet */
+@media (max-width: 1100px) {
   .tmx-trusted-brands {
-    min-height: 335px;
+    padding: 65px 0 55px;
+  }
+
+  .tmx-trusted-heading-container {
+    margin-bottom: 30px;
   }
 
   .tmx-trusted-brands-inner {
-    min-height: 215px;
-
-    padding-left: 55px;
-
-    padding-right: 55px;
+    min-height: 190px;
   }
-
-  .tmx-trusted-brands-background-logo {
-    width: min(850px, 70vw);
-
-    max-height: 245px;
-  }
-
-  .tmx-trusted-brand-circle {
-    width: 142px;
-
-    height: 142px;
-
-    flex-basis: 142px;
-  }
-
-
-  /*
-    Desktop par arrows hidden
-  */
-
-  .tmx-trusted-swipe-arrow {
-    display: none !important;
-  }
-
-  .tmx-trusted-brands-swiper {
-    cursor: default;
-  }
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (min-width: 768px) and (max-width: 1100px) {
-
-  .tmx-trusted-brands {
-    min-height: 290px;
-  }
-
-  .tmx-trusted-brands-inner {
-    min-height: 200px;
-
-    padding-left: 35px;
-
-    padding-right: 35px;
-  }
-
-  .tmx-trusted-brands-background-logo {
-    width: 650px;
-
-    max-width: 80vw;
-
-    max-height: 205px;
-  }
-
-  .tmx-trusted-brand-circle {
-    width: 115px;
-
-    height: 115px;
-
-    flex-basis: 115px;
-
-    padding: 15px;
-  }
-
-  .tmx-trusted-swipe-arrow {
-    display: none !important;
-  }
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 767px) {
-
-  .tmx-trusted-brands {
-    min-height: auto;
-
-    padding: 35px 0 32px;
-  }
-
-
-  /* Inner */
-
-  .tmx-trusted-brands-inner {
-    min-height: auto;
-
-    display: block;
-
-    padding: 0 10px;
-  }
-
-
-  /* Teamax logo */
-
-  .tmx-trusted-brands-background-logo {
-    position: relative;
-
-    top: auto;
-
-    left: auto;
-
-    transform: none;
-
-    display: block;
-
-    width: min(470px, 92%);
-
-    max-width: 100%;
-
-    max-height: 130px;
-
-    margin: 0 auto 12px;
-  }
-
-
-  /* Slider */
 
   .tmx-trusted-brands-slider {
-    width: 100%;
-
-    overflow: hidden;
-
-    position: relative;
+    padding: 0 36px;
   }
-
-
-  /* Swiper */
-
-  .tmx-trusted-brands-swiper {
-    width: 100%;
-
-    overflow: visible;
-
-    cursor: grab;
-
-    touch-action: pan-y;
-  }
-
-  .tmx-trusted-brands-swiper:active {
-    cursor: grabbing;
-  }
-
-
-  /* Circle */
 
   .tmx-trusted-brand-circle {
-    width: 100px;
-
-    height: 100px;
-
-    flex: 0 0 100px;
-
-    padding: 13px;
-
-    margin: 0 auto;
-  }
-
-
-  /* No hover movement */
-
-  .tmx-trusted-brand-circle:hover {
-    transform: none;
-
-    box-shadow:
-      0 7px 18px rgba(0, 0, 0, 0.14);
-  }
-
-
-  /* =========================================
-     SHOW ARROWS
-  ========================================= */
-
-  .tmx-trusted-swipe-arrow {
-    display: flex;
-
-    visibility: visible;
-
-    opacity: 1;
+    width: 112px;
+    height: 112px;
+    flex-basis: 112px;
+    padding: 15px;
   }
 }
 
-
-/* =========================================================
-   LARGE MOBILE
-========================================================= */
-
-@media (min-width: 481px) and (max-width: 767px) {
-
+/* Mobile */
+@media (max-width: 767px) {
   .tmx-trusted-brands {
-    padding-top: 35px;
+    padding: 48px 0 40px;
+    background-position: center center;
+  }
 
-    padding-bottom: 35px;
+  .tmx-trusted-heading-container {
+    margin-bottom: 24px;
   }
 
   .tmx-trusted-brands-inner {
-    padding-left: 16px;
-
-    padding-right: 16px;
+    min-height: 155px;
+    padding: 8px 0;
   }
 
-  .tmx-trusted-brands-background-logo {
-    width: min(470px, 90%);
-
-    max-height: 125px;
-
-    margin-bottom: 14px;
+  .tmx-trusted-brands-slider {
+    padding: 0 27px;
   }
 
   .tmx-trusted-brand-circle {
-    width: 108px;
-
-    height: 108px;
-
-    flex-basis: 108px;
-
-    padding: 14px;
-  }
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
-@media (max-width: 480px) {
-
-  .tmx-trusted-brands {
-    padding-top: 28px;
-
-    padding-bottom: 28px;
-  }
-
-  .tmx-trusted-brands-inner {
-    padding-left: 10px;
-
-    padding-right: 10px;
-  }
-
-  .tmx-trusted-brands-background-logo {
-    width: 92%;
-
-    max-height: 110px;
-
-    margin-bottom: 9px;
-  }
-
-  .tmx-trusted-brand-circle {
-    width: 94px;
-
-    height: 94px;
-
-    flex-basis: 94px;
-
+    width: 96px;
+    height: 96px;
+    flex-basis: 96px;
     padding: 12px;
   }
 
   .tmx-trusted-swipe-arrow {
-    width: 27px;
-
-    height: 27px;
+    width: 22px;
+    height: 38px;
   }
 
-  .tmx-trusted-swipe-arrow span {
-    font-size: 22px;
+  .tmx-trusted-swipe-arrow svg {
+    width: 12px;
+    height: 20px;
+  }
+
+  .tmx-trusted-swipe-left {
+    left: 0;
+  }
+
+  .tmx-trusted-swipe-right {
+    right: 0;
   }
 }
 
-
-/* =========================================================
-   VERY SMALL MOBILE
-========================================================= */
-
-@media (max-width: 360px) {
-
+/* Small mobile */
+@media (max-width: 480px) {
   .tmx-trusted-brands {
-    padding-top: 25px;
-
-    padding-bottom: 25px;
+    padding: 42px 0 34px;
   }
 
   .tmx-trusted-brands-inner {
-    padding-left: 8px;
-
-    padding-right: 8px;
+    min-height: 135px;
   }
 
-  .tmx-trusted-brands-background-logo {
-    width: 94%;
-
-    max-height: 100px;
-
-    margin-bottom: 8px;
+  .tmx-trusted-brands-slider {
+    padding: 0 23px;
   }
 
   .tmx-trusted-brand-circle {
-    width: 88px;
-
-    height: 88px;
-
-    flex-basis: 88px;
-
+    width: 86px;
+    height: 86px;
+    flex-basis: 86px;
     padding: 11px;
   }
 
   .tmx-trusted-swipe-arrow {
-    width: 25px;
-
-    height: 25px;
+    width: 18px;
+    height: 32px;
   }
 
-  .tmx-trusted-swipe-arrow span {
-    font-size: 20px;
+  .tmx-trusted-swipe-arrow svg {
+    width: 11px;
+    height: 18px;
   }
 }
 
-.tmx-trusted-brands-swiper .swiper-wrapper {
-  transition-timing-function: linear !important;
+@media (prefers-reduced-motion: reduce) {
+  .tmx-trusted-brand-circle {
+    transition: none;
+  }
+
+  .tmx-trusted-brand-circle:hover {
+    transform: none;
+  }
 }

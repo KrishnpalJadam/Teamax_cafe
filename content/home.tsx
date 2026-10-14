@@ -33,9 +33,9 @@ const menuItems = [
 ];
 
 const benefits = [
-  { icon: IndianRupee, label: <>1242 +<br /></>,des:<>Franchise Partners</> },
-  { icon: BarChart3, label: <>27 +<br /></> ,des:<>States</>},
-  { icon: ChefHat, label: <>51 +<br /></>,des:<>Months</> },
+  { icon: IndianRupee, label: <>1242 +<br /></>, des: <>Franchise Partners</> },
+  { icon: BarChart3, label: <>27 +<br /></>, des: <>States</> },
+  { icon: ChefHat, label: <>51 +<br /></>, des: <>Months</> },
   // { icon: Target, label: <>Complete<br /></>,des:<>Franchise Partners</> },
 ];
 
@@ -48,10 +48,26 @@ const whyChoose = [
 ];
 
 const faqs = [
-  ["What is TeaMax Café?", "TeaMax is an Indian café brand built around tea, coffee, beverages, desserts and café favourites, with a franchise-led growth model."],
-  ["How can I apply for a TeaMax franchise?", "You can submit a franchise enquiry through the TeaMax franchise page. The team can then discuss location, investment and setup requirements."],
-  ["What does TeaMax support include?", "TeaMax presents a structured support model covering setup guidance, operating processes, staff training, technology and marketing support."],
-  ["Where can I find the TeaMax menu?", "The complete menu is available on the TeaMax Menu page, covering tea, coffee, shakes, juices, ice creams and other café favourites."],
+  [
+    "What should I consider before investing in a cafe franchise in India?",
+    "Before investing in a cafe franchise, entrepreneurs should evaluate factors such as investment requirement, brand support, menu options, operational guidance, location suitability, and long-term business potential. A structured franchise model can help first-time business owners start their café journey with proper guidance."
+  ],
+  [
+    "Why is TeaMax Cafe considered an affordable cafe franchise opportunity in India?",
+    "TeaMax Cafe provides an affordable café franchise model with a focus on simplified operations, standardized processes, menu support, training, and branding assistance. It is designed for entrepreneurs looking for an organized entry into the food and beverage industry."
+  ],
+  [
+    "What makes TeaMax Cafe a suitable chai franchise option for new entrepreneurs?",
+    "TeaMax Cafe combines the popularity of chai culture in India with a wider café menu including beverages and snacks. The model supports entrepreneurs with setup guidance, training, operational systems, and marketing assistance to help manage the outlet effectively."
+  ],
+  [
+    "How can I start a cafe franchise business with TeaMax Cafe?",
+    "To start a TeaMax Cafe franchise, you can submit a franchise enquiry, discuss business requirements with the team, finalize a suitable location, complete the franchise process, and receive support for café setup, training, and launch."
+  ],
+  [
+    "What support does TeaMax Cafe provide to cafe franchise partners?",
+    "TeaMax Cafe supports franchise partners with café setup guidance, equipment assistance, menu planning, training, branding support, digital marketing assistance, and operational guidance to help establish the outlet."
+  ]
 ];
 
 export default function Home() {
@@ -84,14 +100,14 @@ export default function Home() {
 
       <section id="about" className="container-xl perks-wrap" aria-label="TeaMax benefits">
         <div className="perks">
-          {benefits.map(({ icon: Icon, label , des}, i) => (
+          {benefits.map(({ icon: Icon, label, des }, i) => (
             <div className={`perk perk-${i + 1}`} key={i}>
               {/* <span className="icon-spot"><Icon size={31} strokeWidth={1.6} /></span> */}
               <strong>{label}</strong>
               <span>{des}</span>
             </div>
           ))}
-        </div>  
+        </div>
       </section>
 
       <section id="menu" className="menu-section container-xl section-space">
@@ -103,7 +119,7 @@ export default function Home() {
           </div>
           <div className="menu-intro">
             <p>From classic teas and coffees to shakes, snacks and quick bites, TeaMax offers a menu designed for everyday café moments.
-</p>
+            </p>
             <Link href="/menu" className="cafe-action cafe-outline">Explore Full Menu <ArrowRight size={17} /></Link>
           </div>
         </div>
@@ -116,8 +132,8 @@ export default function Home() {
           ))}
         </div>
       </section>
-      <TrustedBrands/>
-      <AwardsRecognitions/>
+      <TrustedBrands />
+      <AwardsRecognitions />
 
       <section id="franchise" className="franchise-section">
         <div className="franchise-photo">
@@ -176,7 +192,7 @@ export default function Home() {
           </div>
         </div>
       </section> */}
-      <WhyChooseUs/>
+      <WhyChooseUs />
 
       {/* <section id="gallery" className="steps-section container-xl section-space" aria-labelledby="how-heading">
         <div className="section-heading steps-heading">
@@ -199,9 +215,9 @@ export default function Home() {
         </div>
       </section> */}
 
-      <HowItWorks/>
-<FranchiseStories/>
-<HomeBlogSection/>
+      <HowItWorks />
+      <FranchiseStories />
+      <HomeBlogSection />
       <section className="home-faq container-xl " aria-labelledby="faq-heading">
         <div className="home-faq-inner">
           <div><p className="eyebrow">QUICK ANSWERS</p><h2 id="faq-heading">TeaMax Café<br /><span className="marker">FAQs.</span></h2><p>Clear answers about TeaMax, the menu and the franchise opportunity.</p></div>

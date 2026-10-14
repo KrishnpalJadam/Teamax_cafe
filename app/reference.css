@@ -13341,7 +13341,7 @@ body {
 
 /* Subtle background detail */
 
-.tmx-awards-section::before {
+/* .tmx-awards-section::before {
   content: "TEAMAX";
   position: absolute;
   top: 25px;
@@ -13355,7 +13355,7 @@ body {
   color: rgba(38, 60, 61, 0.025);
   pointer-events: none;
   user-select: none;
-}
+} */
 
 
 /* Container */
@@ -13565,7 +13565,7 @@ body {
   display: flex;
   gap: 18px;
 
-  padding: 25px 23px 28px;
+  padding: 0px 12px 0px;
 }
 
 

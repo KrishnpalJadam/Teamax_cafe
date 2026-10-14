@@ -127,65 +127,42 @@ export default function OurStoryPage() {
         {/* =================================================================
             01 / HERO SECTION
             ================================================================= */}
-        <section className="tm-hero" aria-labelledby="story-hero-heading">
-          <div className="tm-container">
-            <div className="tm-hero-grid">
-              <div>
-                <span className="tm-eyebrow">01 / Our Story · Est. 2020</span>
-                <h1 id="story-hero-heading" className="tm-heading-xl">
-                  Rooted in tea.<br />
-                 Built for business
-                </h1>
-                <p className="tm-lead">
-                  TeaMax Cafe is a venture of Ashoka Group, an Indian business group established in 1969. We bring together café experiences and a structured franchise model for entrepreneurs across India.
 
+        {/* 01 / OUR STORY HERO */}
+        <section className="tm-story-hero" aria-labelledby="story-hero-heading">
+          <div className="tm-story-hero__inner">
+            <div className="tm-story-hero__content">
+
+              <div className="tm-story-hero__eyebrow">
+                <span>ABOUT US</span>
+                <span className="tm-story-hero__eyebrow-line" />
+              </div>
+
+              <h1 id="story-hero-heading" className="tm-story-hero__title">
+                Finding Inspiration
+                <br />
+                <span>in Every Turn</span>
+              </h1>
+
+              <p className="tm-story-hero__description">
+                Welcome to TeaMax Café, the prestigious brand of the F&B Division within the renowned Ashoka Group, a prominent Indian conglomerate since 1969. With a diverse portfolio spanning across various sectors, including B2B and B2C segments, our headquarters are located in Hyderabad. As a trusted name in the industry, we excel in providing exceptional educational solutions, logistics and supply chain services, real estate development, retail product innovation, and, of course, the delightful world of food and beverages.
+              </p>
+
+              <div className="tm-story-hero__highlight">
+                <div className="tm-story-hero__leaf" aria-hidden="true">
+                  ❧
+                </div>
+
+                <p>
+                  At <strong>TeaMax Café</strong>, we are committed to delivering an unparalleled dining experience to our valued customers. Our menu reflects a perfect blend of innovation and tradition, continually evolving to introduce new flavors and recipes that will delight your taste buds.
                 </p>
-
-
-                <div style={{ display: "flex", gap: "12px", marginTop: "28px", flexWrap: "wrap" }}>
-                  <Link href="/menu" className="tm-btn tm-btn-yellow">
-                    Explore the Menu →
-                  </Link>
-                  <Link href="/franchise#apply" className="tm-btn tm-btn-outline">
-                    Franchise Opportunities
-                  </Link>
-                </div>
-
-                {/* Statistics Ribbon */}
-                <div className="tm-stats-ribbon">
-                  <div className="tm-stat-item">
-                    <strong>1,298+</strong>
-                    <span>FRANCHISEE PARTNERS</span>
-                  </div>
-                  <div className="tm-stat-item">
-                    <strong>27+</strong>
-                    <span>STATES ACROSS INDIA
-</span>
-                  </div>
-                  <div className="tm-stat-item">
-                    <strong>53</strong>
-                    <span>MONTHS OF EXPANSION</span>
-                  </div>
-                  <div className="tm-stat-item">
-                    <strong>1969</strong>
-                    <span>ASHOKA GROUP ESTABLISHED</span>
-                  </div>
-                </div>
               </div>
 
-              <div className="tm-hero-media">
-                <img
-                  src="/images/cafe-interior.jpg"
-                  alt="TeaMax Café warm contemporary interior with welcoming seating"
-                  width={640}
-                  height={520}
-                  loading="eager"
-                />
-                <div className="tm-hero-tag">
-                  <strong>TeaMax Café</strong>
-                  <span>A Taste Worth Sharing</span>
-                </div>
-              </div>
+              <p className="tm-story-hero__description tm-story-hero__description--bottom">
+                Driven by our passion for excellence, we strive to create an inviting atmosphere where customers can relax and indulge in culinary delights. Whether you are seeking a cozy ambiance for a casual gathering or a vibrant space for a business meeting, TeaMax Cafe offers the perfect setting for every occasion.
+              </p>
+
+
             </div>
           </div>
         </section>
@@ -193,21 +170,21 @@ export default function OurStoryPage() {
         {/* =================================================================
             02 / THE 3-IN-1 CONCEPT
             ================================================================= */}
-        <section className="tm-section" style={{ backgroundColor: "var(--tm-cream-soft)" }} aria-labelledby="concept-heading">
+        {/* <section className="tm-section" style={{ backgroundColor: "var(--tm-cream-soft)" }} aria-labelledby="concept-heading">
           <div className="tm-container">
             <div style={{ maxWidth: "680px" }}>
               <span className="tm-eyebrow">02 / The Cafe Experience</span>
               <h2 id="concept-heading" className="tm-heading-lg">
-              One welcoming space.<br />
-               A menu for every craving.
+                One welcoming space.<br />
+                A menu for every craving.
               </h2>
               <p className="tm-lead">
-               From classic teas and coffees to shakes, snacks and quick bites, TeaMax brings a varied café menu together under one roof.
+                From classic teas and coffees to shakes, snacks and quick bites, TeaMax brings a varied café menu together under one roof.
               </p>
             </div>
 
             <div className="tm-feature-grid">
-              {/* Feature 1: The Cafe */}
+             
               <article className="tm-feature-card">
                 <div>
                   <span className="tm-feature-num">EXPERIENCE · 01</span>
@@ -221,7 +198,7 @@ export default function OurStoryPage() {
                   </div>
                   <h3 className="tm-heading-md">Tea & Coffee</h3>
                   <p className="tm-body">
-                   Explore 12+ tea varieties and 7+ coffee options, with menu flexibility for different customer preferences.
+                    Explore 12+ tea varieties and 7+ coffee options, with menu flexibility for different customer preferences.
                   </p>
                 </div>
                 <div style={{ marginTop: "16px", paddingTop: "14px", borderTop: "1px solid var(--tm-teal-border)" }}>
@@ -229,7 +206,7 @@ export default function OurStoryPage() {
                 </div>
               </article>
 
-              {/* Feature 2: The Juice Center */}
+             
               <article className="tm-feature-card">
                 <div>
                   <span className="tm-feature-num">EXPERIENCE · 02</span>
@@ -251,7 +228,7 @@ export default function OurStoryPage() {
                 </div>
               </article>
 
-              {/* Feature 3: Ice Cream & Shakes */}
+             
               <article className="tm-feature-card">
                 <div>
                   <span className="tm-feature-num">EXPERIENCE · 03</span>
@@ -264,7 +241,7 @@ export default function OurStoryPage() {
                   </div>
                   <h3 className="tm-heading-md">Snacks & Quick Bites</h3>
                   <p className="tm-body">
-                   Complete the café experience with sandwiches, burgers, French fries and a selection of 16+ snacks.
+                    Complete the café experience with sandwiches, burgers, French fries and a selection of 16+ snacks.
                   </p>
                 </div>
                 <div style={{ marginTop: "16px", paddingTop: "14px", borderTop: "1px solid var(--tm-teal-border)" }}>
@@ -273,12 +250,12 @@ export default function OurStoryPage() {
               </article>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* =================================================================
             03 / FOUNDER'S VISION & PURPOSE
             ================================================================= */}
-        <section className="tm-section" id="founder" aria-labelledby="founder-heading">
+        {/* <section className="tm-section" id="founder" aria-labelledby="founder-heading">
           <div className="tm-container">
             <div className="tm-hero-grid" style={{ alignItems: "center" }}>
               <div className="tm-hero-media" style={{ maxWidth: "460px", margin: "0 auto" }}>
@@ -298,12 +275,12 @@ export default function OurStoryPage() {
               <div>
                 <span className="tm-eyebrow">03 / The Purpose Behind The Cup</span>
                 <h2 id="founder-heading" className="tm-heading-lg">
-                 Built on experience.
-<br />
-                 Driven by a clear vision.
+                  Built on experience.
+                  <br />
+                  Driven by a clear vision.
                 </h2>
                 <p className="tm-lead">
-                 TeaMax is a venture of Ashoka Group, an Indian business group established in 1969. Our approach combines café experience with structured franchise support for entrepreneurs across India.
+                  TeaMax is a venture of Ashoka Group, an Indian business group established in 1969. Our approach combines café experience with structured franchise support for entrepreneurs across India.
 
                 </p>
 
@@ -317,12 +294,12 @@ export default function OurStoryPage() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* =================================================================
             04 / INTERACTIVE MILESTONES & JOURNEY
             ================================================================= */}
-        <section className="tm-section" style={{ backgroundColor: "var(--tm-cream-soft)" }} aria-labelledby="milestones-heading">
+        {/* <section className="tm-section" style={{ backgroundColor: "var(--tm-cream-soft)" }} aria-labelledby="milestones-heading">
           <div className="tm-container">
             <div style={{ textAlign: "center", maxWidth: "680px", margin: "0 auto 40px auto" }}>
               <span className="tm-eyebrow">04 / Our Milestones</span>
@@ -385,7 +362,7 @@ export default function OurStoryPage() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* =================================================================
             05 / SIX CORE QUALITY PILLARS
