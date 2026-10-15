@@ -14503,3 +14503,12 @@ body {
 .teamax-mobile summary::marker {
   display: none;
 }
+
+.pricename {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tx-menu-product-description {
+  margin-top: 10px;
+}

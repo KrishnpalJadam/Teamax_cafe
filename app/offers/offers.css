@@ -1,0 +1,681 @@
+/* TeaMax offers page — header and footer are provided by the existing app layout. */
+.teamax-offers-page {
+    --offers-cream: #fff9ef;
+    --offers-ink: #102b35;
+    --offers-teal: #153b3d;
+    --offers-yellow: #ffe86a;
+    --offers-muted: #52616a;
+    background: var(--offers-cream);
+    color: var(--offers-ink);
+    font-family: "DM Sans", Arial, sans-serif;
+    overflow: hidden;
+    padding-bottom: 28px;
+}
+
+.teamax-offers-page * {
+    box-sizing: border-box;
+}
+
+.teamax-offers-page h1,
+.teamax-offers-page h2,
+.teamax-offers-page p {
+    margin: 0;
+}
+
+.teamax-offers-page a {
+    text-decoration: none;
+}
+
+.offers-container {
+    width: min(1240px, calc(100% - 48px));
+    margin-inline: auto;
+}
+
+.offers-hero {
+    min-height: 280px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    isolation: isolate;
+}
+
+.offers-hero-photo {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: 59%;
+    z-index: -1;
+    background-image: linear-gradient(90deg, var(--offers-cream) 0%, rgba(255, 249, 239, .25) 27%, transparent 52%), url("https://responsive-pixel-prime.lovable.app/__l5e/assets-v1/ccbeae9a-eeec-4801-b67a-8c16ae2a3ae7/teamax-hero.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.offers-hero-inner {
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+}
+
+.offers-hero-copy {
+    max-width: 490px;
+    padding: 22px 0 25px;
+}
+
+.offers-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: .02em;
+}
+
+.offers-eyebrow span {
+    width: 32px;
+    height: 3px;
+    display: inline-block;
+    background: #f5cc26;
+}
+
+.offers-hero-copy h1 {
+    margin-top: 14px;
+    font-size: clamp(42px, 4.5vw, 58px);
+    font-weight: 1000;
+    line-height: 1.02;
+    letter-spacing: -.04em;
+}
+
+.offers-hero-copy h1 span {
+    box-shadow: inset 0 -7px 0 var(--offers-yellow);
+}
+
+.offers-hero-description {
+    max-width: 440px;
+    margin-top: 16px !important;
+    color: var(--offers-muted);
+    font-size: 17px;
+    line-height: 1.5;
+}
+
+.offers-hero-highlight {
+    display: inline-block;
+    margin-top: 12px !important;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: #fff0a5;
+    font-size: 13px;
+}
+
+.offers-handwritten {
+    position: absolute;
+    top: 16px;
+    right: 4%;
+    color: #d6a800;
+    font-family: cursive;
+    font-weight: 700;
+    font-size: 23px;
+    line-height: 1.05;
+    transform: rotate(-8deg);
+    text-align: center;
+}
+
+.offers-list-section {
+    position: relative;
+}
+
+.offers-category-filters {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 14px;
+    margin: 0 6px 22px;
+}
+
+.offers-filter-button {
+    min-height: 44px;
+    border: 1px solid #e9e1d3;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .62);
+    color: var(--offers-ink);
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease;
+}
+
+.offers-filter-button.is-active {
+    color: #fff;
+    background: var(--offers-teal);
+    border-color: var(--offers-teal);
+}
+
+.offers-filter-button:hover:not(.is-active) {
+    background: #fff0a5;
+}
+
+.offers-card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.offers-card {
+    overflow: hidden;
+    border: 1px solid rgba(31, 57, 55, .06);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .8);
+    box-shadow: 0 4px 18px rgba(31, 57, 55, .025);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.offers-card-image-wrap {
+    position: relative;
+    aspect-ratio: 1.82;
+    overflow: hidden;
+    background: #ead8b6;
+}
+
+.offers-card-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform .35s ease;
+}
+
+.offers-card:hover .offers-card-image {
+    transform: scale(1.035);
+}
+
+.offers-card-category {
+    position: absolute;
+    left: 13px;
+    top: 13px;
+    padding: 5px 13px;
+    border-radius: 999px;
+    background: #fffdf3;
+    color: #142b30;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.offers-card-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 76px;
+    height: 82px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: pre-line;
+    padding: 6px;
+    border-radius: 42% 48% 44% 48%;
+    background: var(--offers-yellow);
+    color: #102b35;
+    font-size: 14px;
+    line-height: 1.15;
+    font-weight: 1000;
+    transform: rotate(4deg);
+}
+
+.offers-card-content {
+    padding: 13px 19px 16px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: flex-start;
+}
+
+.offers-card-content h2 {
+    font-size: 19px;
+    line-height: 1.25;
+    font-weight: 1000;
+    letter-spacing: -.02em;
+}
+
+.offers-card-content>p {
+    margin-top: 6px;
+    color: var(--offers-muted);
+    font-size: 14px;
+    line-height: 1.45;
+    min-height: 41px;
+}
+
+.offers-validity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 12px 0 13px;
+    color: #34464e;
+    font-size: 13px;
+}
+
+.offers-validity svg {
+    flex: 0 0 auto;
+}
+
+.offers-card-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 40px;
+    padding: 0 17px;
+    border-radius: 999px;
+    background: var(--offers-yellow);
+    color: #102b35;
+    font-size: 13px;
+    font-weight: 900;
+    transition: transform .2s ease, background .2s ease;
+}
+
+.offers-card-cta:hover {
+    background: #ffdc39;
+    transform: translateY(-1px);
+}
+
+.offers-empty {
+    text-align: center;
+    padding: 55px 12px;
+    color: var(--offers-muted);
+}
+
+.offers-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0 16px;
+}
+
+.offers-page-button {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid #eee6d9;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--offers-ink);
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.offers-page-button.is-active {
+    color: #fff;
+    background: var(--offers-teal);
+    border-color: var(--offers-teal);
+}
+
+.offers-page-button:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.offers-franchise-banner {
+    margin-top: 5px;
+    position: relative;
+    padding: 26px 32px 22px;
+    border-radius: 18px;
+    background: linear-gradient(110deg, #fff0a9, #fff8d8 68%, #ffef9d);
+    overflow: hidden;
+}
+
+.offers-franchise-banner::after {
+    content: "✳";
+    position: absolute;
+    top: 13px;
+    left: 48%;
+    color: #e9bd00;
+    font-size: 35px;
+    transform: rotate(18deg);
+}
+
+.offers-franchise-copy {
+    position: relative;
+    z-index: 1;
+    max-width: 53%;
+}
+
+.offers-franchise-kicker {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .03em;
+}
+
+.offers-franchise-copy h2 {
+    margin-top: 9px;
+    font-size: clamp(26px, 3vw, 34px);
+    line-height: 1.1;
+    letter-spacing: -.035em;
+    font-weight: 1000;
+}
+
+.offers-franchise-copy>p:last-child {
+    max-width: 510px;
+    margin-top: 10px;
+    color: #43565b;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.offers-franchise-visual {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 47%;
+    height: 205px;
+}
+
+.offers-franchise-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: multiply;
+    mask-image: linear-gradient(to right, transparent, #000 20%, #000 90%, transparent);
+}
+
+.offers-franchise-cta {
+    position: absolute;
+    right: 2%;
+    bottom: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 43px;
+    padding: 0 24px;
+    border-radius: 999px;
+    background: var(--offers-teal);
+    color: white;
+    font-size: 13px;
+    font-weight: 900;
+    box-shadow: 0 5px 15px rgba(20, 52, 52, .16);
+}
+
+.offers-franchise-features {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 22px;
+    position: relative;
+    z-index: 1;
+}
+
+.offers-franchise-features>div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+}
+
+.offers-feature-icon {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .75);
+    flex: 0 0 auto;
+}
+
+.offers-franchise-features strong,
+.offers-franchise-features small {
+    display: block;
+}
+
+.offers-franchise-features strong {
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.offers-franchise-features small {
+    margin-top: 3px;
+    color: #536064;
+    font-size: 10px;
+    line-height: 1.35;
+}
+
+@media (min-width: 1400px) {
+    .offers-hero-photo {
+        width: 56%;
+    }
+}
+
+@media (max-width: 991px) {
+    .offers-container {
+        width: min(720px, calc(100% - 36px));
+    }
+
+    .offers-hero {
+        min-height: 300px;
+    }
+
+    .offers-hero-inner {
+        min-height: 300px;
+    }
+
+    .offers-hero-photo {
+        width: 58%;
+        opacity: .9;
+    }
+
+    .offers-hero-copy {
+        max-width: 420px;
+    }
+
+    .offers-hero-copy h1 {
+        font-size: 46px;
+    }
+
+    .offers-hero-description {
+        max-width: 360px;
+        font-size: 15px;
+    }
+
+    .offers-category-filters {
+        gap: 9px;
+    }
+
+    .offers-filter-button {
+        font-size: 12px;
+    }
+
+    .offers-card-grid {
+        gap: 16px;
+    }
+
+    .offers-card-content {
+        padding: 12px 14px 14px;
+    }
+
+    .offers-card-content h2 {
+        font-size: 17px;
+    }
+
+    .offers-card-content>p {
+        font-size: 13px;
+    }
+
+    .offers-card-cta {
+        gap: 7px;
+        padding: 0 11px;
+        font-size: 11px;
+    }
+
+    .offers-card-badge {
+        width: 64px;
+        height: 70px;
+        font-size: 12px;
+    }
+
+    .offers-franchise-banner {
+        padding: 24px 22px 20px;
+    }
+
+    .offers-franchise-copy {
+        max-width: 58%;
+    }
+
+    .offers-franchise-copy h2 {
+        font-size: 27px;
+    }
+
+    .offers-franchise-visual {
+        width: 44%;
+        height: 190px;
+    }
+
+    .offers-franchise-features {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .offers-container {
+        width: calc(100% - 32px);
+    }
+
+    .offers-hero {
+        min-height: 470px;
+        align-items: flex-start;
+    }
+
+    .offers-hero-inner {
+        min-height: 470px;
+        align-items: flex-start;
+    }
+
+    .offers-hero-copy {
+        padding-top: 26px;
+        max-width: 100%;
+    }
+
+    .offers-hero-copy h1 {
+        font-size: 42px;
+    }
+
+    .offers-hero-description {
+        max-width: 340px;
+        font-size: 15px;
+    }
+
+    .offers-hero-photo {
+        top: auto;
+        bottom: 0;
+        height: 225px;
+        width: 100%;
+        opacity: 1;
+        background-image: linear-gradient(to bottom, var(--offers-cream), transparent 35%), url("/images/teamax-hero.jpg");
+    }
+
+    .offers-handwritten {
+        top: 230px;
+        right: 8px;
+        font-size: 18px;
+    }
+
+    .offers-category-filters {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+        margin: 16px 0 18px;
+    }
+
+    .offers-filter-button {
+        min-height: 39px;
+        font-size: 12px;
+    }
+
+    .offers-card-grid {
+        grid-template-columns: 1fr;
+        gap: 17px;
+    }
+
+    .offers-card-image-wrap {
+        aspect-ratio: 1.8;
+    }
+
+    .offers-card-content {
+        padding: 14px 17px 17px;
+    }
+
+    .offers-card-content h2 {
+        font-size: 20px;
+    }
+
+    .offers-card-content>p {
+        min-height: 0;
+        font-size: 14px;
+    }
+
+    .offers-card-cta {
+        font-size: 13px;
+        padding: 0 16px;
+    }
+
+    .offers-franchise-banner {
+        padding: 24px 19px 20px;
+        border-radius: 15px;
+    }
+
+    .offers-franchise-banner::after {
+        left: auto;
+        right: 14px;
+        top: 12px;
+    }
+
+    .offers-franchise-copy {
+        max-width: 100%;
+    }
+
+    .offers-franchise-copy h2 {
+        font-size: 28px;
+    }
+
+    .offers-franchise-visual {
+        position: relative;
+        width: calc(100% + 38px);
+        margin: 12px -19px 0;
+        height: 190px;
+    }
+
+    .offers-franchise-visual img {
+        mask-image: linear-gradient(to bottom, transparent, #000 15%, #000 90%, transparent);
+    }
+
+    .offers-franchise-cta {
+        right: 16px;
+        bottom: 8px;
+        padding: 0 18px;
+    }
+
+    .offers-franchise-features {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px 10px;
+        margin-top: 12px;
+    }
+
+    .offers-franchise-features>div {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .offers-franchise-features strong {
+        font-size: 11px;
+    }
+
+    .offers-franchise-features small {
+        font-size: 10px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .teamax-offers-page *,
+    .teamax-offers-page *::before,
+    .teamax-offers-page *::after {
+        transition: none !important;
+    }
+}

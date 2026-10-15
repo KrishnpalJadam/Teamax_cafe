@@ -208,7 +208,7 @@ export function StorePromos() {
 
             <h2>Buy 2 Chai<br />Get 1 Free</h2>
 
-            <a className="detailscentres-btn detailscentres-btn-yellow" href="/menu">Explore Menu <ArrowRight size={15} /></a>
+            <a className="detailscentres-btn detailscentres-btn-yellow" href="/offers">Explore Menu <ArrowRight size={15} /></a>
 
             <img className="detailscentres-promo-food" src={`https://teamaax-remake-showcase.lovable.app/assets/chai-BiiVcbvM.jpg`} alt="A glass of hot chai" />
 
@@ -248,7 +248,7 @@ export function StoreSections() {
 
             <div className="detailscentres-menu-tabs">{["All", "Chai", "Coffee", "Snacks"].map((tab) => <button key={tab} className={category === tab ? "detailscentres-chosen" : ""} onClick={() => setCategory(tab)}>{tab}</button>)}</div>
 
-            <div className="detailscentres-menu-grid">{filtered.map((item) => <article className="detailscentres-menu-card" key={item.name}><img src={item.image} alt={item.name} /><div className="detailscentres-menu-card-body"><div><h3>{item.name}</h3><p>{item.price}</p></div><button aria-label={`Add ${item.name}`} className="detailscentres-add-btn" onClick={() => setAdded(item.name)}><Plus size={18} /></button></div></article>)}</div>
+            <div className="detailscentres-menu-grid">{filtered.map((item) => <article className="detailscentres-menu-card" key={item.name}><img src={item.image} alt={item.name} /><div className="detailscentres-menu-card-body"><div><h3>{item.name}</h3><p>{item.price}</p></div></div></article>)}</div>
 
             {added && <p className="detailscentres-cart-notice"><Check size={17} /> {added} selected. Online ordering can be connected to your ordering system.</p>}
 
@@ -367,7 +367,7 @@ export function StoreSections() {
 
         <section className="detailscentres-section detailscentres-offers-section">
 
-            <div className="detailscentres-section-heading"><div><span className="detailscentres-eyebrow">MADE FOR YOUR BREAK</span><h2>Offers worth sharing</h2></div><a className="detailscentres-section-link" href="/menu">Explore Menu <ArrowRight size={16} /></a></div>
+            <div className="detailscentres-section-heading"><div><span className="detailscentres-eyebrow">MADE FOR YOUR BREAK</span><h2>Offers worth sharing</h2></div><a className="detailscentres-section-link" href="/offers">Explore Offers <ArrowRight size={16} /></a></div>
 
             <div className="detailscentres-offers-grid"><article><img src={`https://teamaax-remake-showcase.lovable.app/assets/chai-BiiVcbvM.jpg`} alt="Tea offer" /><div><span>CHAI TIME</span><h3>Buy 2 Chai, Get 1 Free</h3><p>Make your tea break a little better.</p><a href="/menu">Explore offer <ArrowRight size={14} /></a></div></article><article><img src={`https://teamaax-remake-showcase.lovable.app/assets/coffee-CVqt-QHj.jpg`} alt="Coffee offer" /><div><span>COFFEE BREAK</span><h3>Your daily cup of comfort</h3><p>Take a moment and sip something lovely.</p><a href="/menu">View menu <ArrowRight size={14} /></a></div></article><article><img src={`https://teamaax-remake-showcase.lovable.app/assets/burger-BJddoAQv.jpg`} alt="Snack offer" /><div><span>GOODNESS</span><h3>Snacks for every craving</h3><p>Pair your favourite snack with chai.</p><a href="/menu">Discover more <ArrowRight size={14} /></a></div></article></div>
 

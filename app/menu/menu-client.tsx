@@ -348,7 +348,7 @@ export function MenuClient({
               (category) => {
                 const Icon =
                   categoryIcons[
-                    category.icon
+                  category.icon
                   ] ?? Soup;
 
                 const isSelected =
@@ -359,11 +359,10 @@ export function MenuClient({
                   <button
                     key={category.id}
                     type="button"
-                    className={`tx-menu-category-button ${
-                      isSelected
-                        ? "is-selected"
-                        : ""
-                    }`}
+                    className={`tx-menu-category-button ${isSelected
+                      ? "is-selected"
+                      : ""
+                      }`}
                     aria-pressed={isSelected}
                     onClick={() =>
                       setSelectedCategory(
@@ -476,7 +475,7 @@ export function MenuClient({
                 const image =
                   item.image ||
                   categoryImages[
-                    item.categoryId
+                  item.categoryId
                   ] ||
                   "/images/chai.webp";
 
@@ -506,30 +505,24 @@ export function MenuClient({
                     <div className="tx-menu-product-details">
 
                       <div>
-                        <h3 className="tx-menu-product-name">
-                          {item.name}
-                        </h3>
+                        <div className="pricename">
+                          <h3 className="tx-menu-product-name">
+                            {item.name}
+                          </h3>
 
-                        {/* <p className="tx-menu-product-price">
-                          ₹{item.price ?? "—"}
-                        </p> */}
+
+                        </div>
+
 
                         <p className="tx-menu-product-description">
                           {item.description}
                         </p>
                       </div>
 
-                      <button
-                        type="button"
-                        className="tx-menu-add-button"
-                        aria-label={`Add ${item.name}`}
-                      >
-                        <Plus
-                          size={18}
-                          strokeWidth={2.4}
-                        />
-                      </button>
 
+                      <p className="tx-menu-product-price">
+                        ₹{item.price ?? "—"}
+                      </p>
                     </div>
                   </article>
                 );
@@ -541,16 +534,16 @@ export function MenuClient({
         </div>
       </div>
 
-   
-<section id="contact" className="container-xl contact-section topmaring">
+
+      <section id="contact" className="container-xl contact-section topmaring">
         <div className="contact-banner">
-          <img  src="/images/signature-chai.webp"  width={1200} height={704} alt="A warm cup of chai at TeaMax Café"  loading="lazy" />
+          <img src="/images/signature-chai.webp" width={1200} height={704} alt="A warm cup of chai at TeaMax Café" loading="lazy" />
           <div className="contact-shape">
             <h2>Try Our Signature<br /> Masala Chai</h2>
-        
-           
+
+
             <p>  A perfect blend of spices, served with
-            love to make your day better.</p>
+              love to make your day better.</p>
             <Link href="/franchise#apply" className="cafe-action">Get Franchise Details <ArrowRight size={17} /></Link>
           </div>
           <div className="contact-script">Chai<br /><span>People</span><br />Good<br /><span>Stories</span></div>
