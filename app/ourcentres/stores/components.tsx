@@ -208,7 +208,7 @@ export function StorePromos() {
 
             <h2>Buy 2 Chai<br />Get 1 Free</h2>
 
-            <a className="detailscentres-btn detailscentres-btn-yellow" href="/offers">Explore Menu <ArrowRight size={15} /></a>
+            <a className="detailscentres-btn detailscentres-btn-yellow" href="/offers">Explore Offers <ArrowRight size={15} /></a>
 
             <img className="detailscentres-promo-food" src={`https://teamaax-remake-showcase.lovable.app/assets/chai-BiiVcbvM.jpg`} alt="A glass of hot chai" />
 
