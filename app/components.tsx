@@ -23,8 +23,8 @@ export function Header({ active }: { active?: string }) {
     ["/ourcentres", "Our Centres"],
     ["/franchise", "Franchise"],
     ["/blog", "Blog"],
-    // ["/stores", "Gallery"],
-    ["/#contact", "Contact"],
+    ["/offers", "Offers"],
+    // ["/#contact", "Contact"],
   ] as const;
 
   return (
