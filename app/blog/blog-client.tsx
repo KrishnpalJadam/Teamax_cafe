@@ -1,20 +1,82 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { BlogPost } from "./blog-data";
+import { getBlogs } from "../lib/api";
 
 export function BlogClient({ initialPosts }: { initialPosts: BlogPost[] }) {
+  const [posts, setPosts] = useState<BlogPost[]>(initialPosts);
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const categories = useMemo(() => {
-    const cats = Array.from(new Set(initialPosts.map((p) => p.category)));
-    return ["All", ...cats];
+  useEffect(() => {
+    let mounted = true;
+    getBlogs().then((dbBlogs) => {
+      if (mounted && Array.isArray(dbBlogs) && dbBlogs.length > 0) {
+        const mapped: BlogPost[] = dbBlogs
+          .filter((b: any) => b.status === "published" || !b.status)
+          .map((b: any) => {
+            const rawDate = b.publishDate || b.createdAt;
+            const dateStr = rawDate
+              ? new Date(rawDate).toLocaleDateString("en-IN", {
+                  month: "long",
+                  year: "numeric",
+                })
+              : "Recent";
+
+            return {
+              id: b.id,
+              slug: b.slug,
+              title: b.title,
+              subtitle: b.excerpt || "",
+              excerpt: b.excerpt || "",
+              category: (b.category as any) || "Chai Culture",
+              readTime: b.readingTime || "5 min read",
+              date: dateStr,
+              isoDate: b.publishDate || b.createdAt || new Date().toISOString(),
+              author: {
+                name: b.author || "TeaMax Editorial Team",
+                role: b.authorDesignation || "TeaMax Culinary Research",
+                avatar: b.authorAvatar || "/images/cafe-interior.jpg",
+              },
+              tags: b.seoKeywords
+                ? b.seoKeywords.split(",").map((s: string) => s.trim())
+                : [b.category || "Chai"],
+              coverImage: b.coverImage || "/images/cafe-interior.jpg",
+              metaDescription: b.metaDescription || b.excerpt || "",
+              keywords: b.seoKeywords
+                ? b.seoKeywords.split(",").map((s: string) => s.trim())
+                : [],
+              content: {
+                intro: b.excerpt || "",
+                keyTakeaway: "",
+                sections: [],
+                conclusion: "",
+              },
+            };
+          });
+
+        const existingSlugs = new Set(mapped.map((p) => p.slug));
+        const merged = [
+          ...mapped,
+          ...initialPosts.filter((p) => !existingSlugs.has(p.slug)),
+        ];
+        setPosts(merged);
+      }
+    });
+    return () => {
+      mounted = false;
+    };
   }, [initialPosts]);
 
+  const categories = useMemo(() => {
+    const cats = Array.from(new Set(posts.map((p) => p.category)));
+    return ["All", ...cats];
+  }, [posts]);
+
   const filteredPosts = useMemo(() => {
-    return initialPosts.filter((post) => {
+    return posts.filter((post) => {
       const matchesCategory =
         selectedCategory === "All" || post.category === selectedCategory;
       const matchesSearch =
@@ -25,7 +87,7 @@ export function BlogClient({ initialPosts }: { initialPosts: BlogPost[] }) {
 
       return matchesCategory && matchesSearch;
     });
-  }, [initialPosts, selectedCategory, searchQuery]);
+  }, [posts, selectedCategory, searchQuery]);
 
   return (
     <div className="tm-container" style={{ paddingBottom: "100px" }}>

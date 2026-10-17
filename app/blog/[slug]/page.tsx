@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Header, Footer, JsonLd } from "../../components";
-import { getAllBlogPosts, getBlogPostBySlug, getRelatedPosts } from "../blog-data";
+import { getAllBlogPosts, getBlogPostBySlug, getRelatedPosts, BlogPost } from "../blog-data";
 import { ShareButtons } from "./share-buttons";
+import { getBlogs, getBlogBySlug } from "../../lib/api";
 
 export const dynamic = "force-static";
 
@@ -11,6 +12,16 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.teamaxcafe.in";
 
 export async function generateStaticParams() {
   const posts = getAllBlogPosts();
+  try {
+    const dbBlogs = await getBlogs();
+    if (Array.isArray(dbBlogs) && dbBlogs.length > 0) {
+      const existing = new Set(posts.map((p) => p.slug));
+      const extra = dbBlogs
+        .filter((b) => b.slug && !existing.has(b.slug))
+        .map((b) => ({ slug: b.slug }));
+      return [...posts.map((p) => ({ slug: p.slug })), ...extra];
+    }
+  } catch (_) {}
   return posts.map((post) => ({
     slug: post.slug,
   }));
@@ -22,9 +33,18 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  let post = getBlogPostBySlug(slug);
 
   if (!post) {
+    try {
+      const apiBlog = await getBlogBySlug(slug);
+      if (apiBlog) {
+        return {
+          title: `${apiBlog.title} | TeaMax Café`,
+          description: apiBlog.metaDescription || apiBlog.excerpt,
+        };
+      }
+    } catch (_) {}
     return {
       title: "Story Not Found | TeaMax Café",
       description: "The requested article could not be found.",
@@ -72,7 +92,59 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  let post = getBlogPostBySlug(slug);
+
+  if (!post) {
+    try {
+      const apiBlog = await getBlogBySlug(slug);
+      if (apiBlog) {
+        const rawDate = apiBlog.publishDate || apiBlog.createdAt;
+        const dateStr = rawDate
+          ? new Date(rawDate).toLocaleDateString("en-IN", {
+              month: "long",
+              year: "numeric",
+            })
+          : "Recent";
+
+        post = {
+          id: apiBlog.id,
+          slug: apiBlog.slug,
+          title: apiBlog.title,
+          subtitle: apiBlog.excerpt || "",
+          excerpt: apiBlog.excerpt || "",
+          category: (apiBlog.category as any) || "Chai Culture",
+          readTime: apiBlog.readingTime || "5 min read",
+          date: dateStr,
+          isoDate: apiBlog.publishDate || apiBlog.createdAt || new Date().toISOString(),
+          author: {
+            name: apiBlog.author || "TeaMax Editorial Team",
+            role: apiBlog.authorDesignation || "TeaMax Culinary Research",
+            avatar: apiBlog.authorAvatar || "/images/cafe-interior.jpg",
+          },
+          tags: apiBlog.seoKeywords
+            ? apiBlog.seoKeywords.split(",").map((s: string) => s.trim())
+            : [apiBlog.category || "Chai"],
+          coverImage: apiBlog.coverImage || "/images/cafe-interior.jpg",
+          metaDescription: apiBlog.metaDescription || apiBlog.excerpt || "",
+          keywords: apiBlog.seoKeywords
+            ? apiBlog.seoKeywords.split(",").map((s: string) => s.trim())
+            : [],
+          content: {
+            intro: apiBlog.excerpt || "",
+            keyTakeaway: "",
+            sections: [
+              {
+                heading: "Overview",
+                id: "overview",
+                body: [apiBlog.content || ""],
+              },
+            ],
+            conclusion: "",
+          },
+        };
+      }
+    } catch (_) {}
+  }
 
   if (!post) {
     notFound();

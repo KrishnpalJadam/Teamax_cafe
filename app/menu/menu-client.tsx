@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Search,
   Grid2X2,
@@ -16,6 +16,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
+import { getCommonCategories, getCommonMenu } from "../lib/api";
 
 export interface MenuItem {
   id: string;
@@ -58,6 +59,25 @@ const categoryIcons: Record<string, React.ElementType> = {
   "hot-beverages": Coffee,
   "special-coffees": Coffee,
   "herbal-teas": Coffee,
+  "classic-chai": Coffee,
+  "artisanal-teas": Coffee,
+  "kulhad-specials": Coffee,
+  "cold-brews-iced-teas": IceCreamBowl,
+  "quick-bites-samosas": Popcorn,
+  "signature-sandwiches": Sandwich,
+};
+
+export const getCategoryIcon = (iconOrId?: string) => {
+  if (!iconOrId) return Coffee;
+  const key = iconOrId.toLowerCase();
+  if (categoryIcons[key]) return categoryIcons[key];
+  if (key.includes("all")) return Grid2X2;
+  if (key.includes("chai") || key.includes("tea") || key.includes("coffee") || key.includes("kulhad") || key.includes("beverage")) return Coffee;
+  if (key.includes("burger")) return Utensils;
+  if (key.includes("sandwich") || key.includes("panini") || key.includes("bread")) return Sandwich;
+  if (key.includes("snack") || key.includes("bite") || key.includes("samosa") || key.includes("fries")) return Popcorn;
+  if (key.includes("shake") || key.includes("cold") || key.includes("ice") || key.includes("brew") || key.includes("juice")) return IceCreamBowl;
+  return Soup;
 };
 
 const categoryImages: Record<string, string> = {
@@ -69,7 +89,7 @@ const categoryImages: Record<string, string> = {
   thickshakes: "/images/milkshake.webp",
 };
 
-const displayCategories = [
+const defaultDisplayCategories = [
   {
     id: "all",
     name: "All Items",
@@ -227,6 +247,9 @@ export function MenuClient({
   categories,
   items,
 }: MenuClientProps) {
+  const [liveCategories, setLiveCategories] = useState<MenuCategory[]>(categories);
+  const [liveItems, setLiveItems] = useState<MenuItem[]>(items);
+
   const [selectedCategory, setSelectedCategory] =
     useState("all");
 
@@ -236,13 +259,78 @@ export function MenuClient({
   const [sortBy, setSortBy] =
     useState("popular");
 
-  const sourceItems = normalizeItems(items);
+  useEffect(() => {
+    let mounted = true;
+    async function syncLiveMenu() {
+      try {
+        const [apiCategories, apiItems] = await Promise.all([
+          getCommonCategories(),
+          getCommonMenu(),
+        ]);
+
+        if (mounted && Array.isArray(apiCategories) && apiCategories.length > 0) {
+          setLiveCategories(
+            apiCategories.map((c: any) => ({
+              id: c.id,
+              name: c.name,
+              description: c.description || "",
+              count: c._count?.menuItems || 0,
+              image: c.image || "/images/chai.webp",
+              icon: c.slug || c.icon || c.name.toLowerCase(),
+            }))
+          );
+        }
+
+        if (mounted && Array.isArray(apiItems) && apiItems.length > 0) {
+          setLiveItems(
+            apiItems.map((item: any) => ({
+              id: item.id,
+              name: item.name,
+              description: item.description || "",
+              category: item.category?.name || "General",
+              categoryId: item.categoryId || item.category?.id || "general",
+              categorySlug: item.category?.slug,
+              isVeg: item.dietary === "veg" || item.dietary === "vegan" || item.isVeg === true,
+              isPopular: item.isPopular,
+              badge: item.isPopular ? "Popular" : undefined,
+              price: item.price,
+              image: item.image,
+            }))
+          );
+        }
+      } catch (err) {
+        console.warn("[MenuClient] Live menu sync error:", err);
+      }
+    }
+    syncLiveMenu();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const displayCategories = useMemo(() => {
+    if (liveCategories && liveCategories.length > 0) {
+      return [
+        { id: "all", name: "All Items", icon: "all" },
+        ...liveCategories.map((c) => ({
+          id: c.id,
+          name: c.name,
+          icon: c.icon || c.id,
+        })),
+      ];
+    }
+    return defaultDisplayCategories;
+  }, [liveCategories]);
+
+  const sourceItems = normalizeItems(liveItems);
 
   const filteredItems = useMemo(() => {
     let result = sourceItems.filter((item) => {
       const categoryMatch =
         selectedCategory === "all" ||
-        item.categoryId === selectedCategory;
+        item.categoryId === selectedCategory ||
+        (item as any).categorySlug === selectedCategory ||
+        (item as any).category?.toLowerCase() === selectedCategory.toLowerCase();
 
       const query =
         searchQuery.trim().toLowerCase();
@@ -346,10 +434,7 @@ export function MenuClient({
 
             {displayCategories.map(
               (category) => {
-                const Icon =
-                  categoryIcons[
-                  category.icon
-                  ] ?? Soup;
+                const Icon = getCategoryIcon(category.icon || category.id);
 
                 const isSelected =
                   selectedCategory ===

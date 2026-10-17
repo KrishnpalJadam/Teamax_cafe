@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
     ArrowLeft,
@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import "./offers.css";
 import { Footer, Header } from "../components";
+import { getAllOffers } from "../lib/api";
 
 type Offer = {
     category: string;
@@ -21,7 +22,7 @@ type Offer = {
     badge: string;
 };
 
-const offers: Offer[] = [
+const defaultOffers: Offer[] = [
     {
         category: "Chai",
         title: "Buy 2 Chai Get 1 Free",
@@ -49,23 +50,75 @@ const offers: Offer[] = [
         validTill: "30 Nov 2026",
         badge: "COMBO\n₹149\nONLY",
     },
-
 ];
 
-const categories = ["All Offers", "Chai", "Coffee", "Burgers", "Snacks", "Combos"];
 const franchiseHref = "/franchise";
 
 export default function OffersPage() {
+    const [offerList, setOfferList] = useState<Offer[]>(defaultOffers);
     const [activeCategory, setActiveCategory] = useState("All Offers");
     const [currentPage, setCurrentPage] = useState(1);
     const perPage = 6;
 
+    useEffect(() => {
+        let mounted = true;
+        async function loadOffers() {
+            try {
+                const data = await getAllOffers();
+                if (mounted && Array.isArray(data) && data.length > 0) {
+                    const mapped: Offer[] = data.map((item: any) => {
+                        let badge = "SPECIAL\nOFFER";
+                        if (item.promoCode) {
+                            badge = item.promoCode;
+                        } else if (item.discountType === "percentage" && item.discountValue) {
+                            badge = `FLAT\n${item.discountValue}%\nOFF`;
+                        } else if (item.discountType === "fixed" && item.discountValue) {
+                            badge = `FLAT\n₹${item.discountValue}\nOFF`;
+                        }
+
+                        let formattedDate = "30 Nov 2026";
+                        if (item.endDate) {
+                            try {
+                                formattedDate = new Date(item.endDate).toLocaleDateString("en-IN", {
+                                    day: "numeric",
+                                    month: "short",
+                                    year: "numeric",
+                                });
+                            } catch (_) {}
+                        }
+
+                        return {
+                            category: item.applicableCategory || "Special",
+                            title: item.title,
+                            description: item.shortDescription || item.detailedDescription || "",
+                            image: item.bannerImage || "/images/teamax-chai.jpg",
+                            validTill: formattedDate,
+                            badge: badge,
+                        };
+                    });
+                    setOfferList(mapped);
+                }
+            } catch (err) {
+                console.warn("[OffersPage] Failed to fetch live offers:", err);
+            }
+        }
+        loadOffers();
+        return () => {
+            mounted = false;
+        };
+    }, []);
+
+    const categories = useMemo(() => {
+        const dynamicCats = Array.from(new Set(offerList.map((o) => o.category).filter(Boolean)));
+        return ["All Offers", ...dynamicCats];
+    }, [offerList]);
+
     const filteredOffers = useMemo(
         () =>
             activeCategory === "All Offers"
-                ? offers
-                : offers.filter((offer) => offer.category === activeCategory),
-        [activeCategory],
+                ? offerList
+                : offerList.filter((offer) => offer.category === activeCategory),
+        [activeCategory, offerList],
     );
 
     const pageCount = Math.max(1, Math.ceil(filteredOffers.length / perPage));

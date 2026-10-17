@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { submitFranchiseEnquiry } from "../lib/api";
 
 interface FormData {
   fullName: string;
@@ -67,7 +68,7 @@ export function FranchiseForm() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage("");
 
@@ -117,14 +118,27 @@ export function FranchiseForm() {
 
     setIsSubmitting(true);
 
-    // SAME API CAN BE USED HERE
-    console.log("Franchise Payload:", formData);
-
-    // Temporary simulation
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      await submitFranchiseEnquiry({
+        fullName: formData.fullName,
+        phone: formData.phone,
+        email: formData.email,
+        city: formData.city,
+        state: formData.state,
+        budget: formData.budget,
+        space: formData.space,
+        consent: formData.consent,
+      });
       setIsSubmitted(true);
-    }, 800);
+    } catch (err: any) {
+      console.warn("Franchise form submission error:", err);
+      setErrorMessage(
+        err.message ||
+          "Failed to submit application. Please check your connection and try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {

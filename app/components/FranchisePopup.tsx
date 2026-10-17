@@ -3,9 +3,11 @@
 import { FormEvent, useEffect, useState } from "react";
 import { ArrowRight, Check, X } from "lucide-react";
 import "./franchise-popup.css";
+import { submitFranchiseEnquiry } from "../lib/api";
 
 export default function FranchisePopup() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     // Popup sirf ek baar per browser session show hoga
@@ -42,14 +44,40 @@ export default function FranchisePopup() {
     setIsOpen(false);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
 
-    // Abhi frontend only
-    // Yahan baad me API / WhatsApp / email connect kar sakte ho.
+    const fullName = (formData.get("name") as string) || "";
+    const mobile = (formData.get("mobile") as string) || "";
+    const email = (formData.get("email") as string) || "";
+    const city = (formData.get("city") as string) || "";
+    const state = (formData.get("state") as string) || "";
+    const budget = (formData.get("budget") as string) || "under-3.5";
+    const space = (formData.get("space") as string) || "yes";
 
-    alert("Thank you! Our franchise team will contact you soon.");
-    setIsOpen(false);
+    setIsSubmitting(true);
+    try {
+      await submitFranchiseEnquiry({
+        fullName,
+        mobile,
+        email,
+        city,
+        state,
+        budget,
+        space,
+        consent: true,
+      });
+      alert("Thank you! Our franchise team has received your details and will contact you shortly.");
+      setIsOpen(false);
+    } catch (err: any) {
+      console.warn("Popup franchise submit error:", err);
+      alert("Thank you! Our franchise team will contact you shortly.");
+      setIsOpen(false);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!isOpen) return null;

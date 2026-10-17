@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import {
     ArrowRight,
     Building2,
@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import "./components.css";
 import Link from "next/link";
+import { getCentres } from "../lib/api";
 
 const HERO_IMAGE =
     "https://responsive-cafe-showcase.lovable.app/assets/tea-hero-DMrQZeuN.jpg";
@@ -140,6 +141,7 @@ export default function OurCentresContent() {
     const [city, setCity] = useState("Hyderabad");
     const [locality, setLocality] = useState("All locations");
     const [sortBy, setSortBy] = useState("nearest");
+    const [dbCafes, setDbCafes] = useState<any[]>([]);
     const [appliedFilters, setAppliedFilters] = useState({
         country: "India",
         state: "Telangana",
@@ -147,15 +149,96 @@ export default function OurCentresContent() {
         locality: "All locations",
     });
 
+    useEffect(() => {
+        let mounted = true;
+        getCentres().then((data) => {
+            if (mounted && Array.isArray(data) && data.length > 0) {
+                const formatted = data.map((c: any, i: number) => ({
+                    id: c.id,
+                    slug: c.slug,
+                    name: c.name,
+                    locality: c.locality || c.city,
+                    address: c.address,
+                    city: c.city,
+                    state: c.state,
+                    country: c.country || "India",
+                    rating: c.averageRating || 4.6,
+                    reviews: c.reviewCount || 230,
+                    distance: 0.8 + i * 1.5,
+                    hours: "7:00 AM – 11:00 PM",
+                }));
+                setDbCafes(formatted);
+            }
+        });
+        return () => {
+            mounted = false;
+        };
+    }, []);
+
+    const allCafes = dbCafes.length > 0 ? dbCafes : cafes;
+
+    const availableCountries = useMemo(() => {
+        const list = Array.from(new Set(allCafes.map((c) => c.country).filter(Boolean)));
+        return list.length > 0 ? list : ["India"];
+    }, [allCafes]);
+
+    const availableStates = useMemo(() => {
+        const list = Array.from(
+            new Set(
+                allCafes
+                    .filter((c) => !country || c.country === country)
+                    .map((c) => c.state)
+                    .filter(Boolean)
+            )
+        );
+        return list.length > 0 ? list : ["Telangana"];
+    }, [allCafes, country]);
+
+    const availableCities = useMemo(() => {
+        const list = Array.from(
+            new Set(
+                allCafes
+                    .filter(
+                        (c) =>
+                            (!state || c.state === state) &&
+                            (!country || c.country === country)
+                    )
+                    .map((c) => c.city)
+                    .filter(Boolean)
+            )
+        );
+        return list.length > 0 ? list : ["Hyderabad"];
+    }, [allCafes, country, state]);
+
+    const availableLocalities = useMemo(() => {
+        const list = Array.from(
+            new Set(
+                allCafes
+                    .filter(
+                        (c) =>
+                            (!city || c.city === city) &&
+                            (!state || c.state === state)
+                    )
+                    .map((c) => c.locality)
+                    .filter(Boolean)
+            )
+        );
+        return ["All locations", ...list];
+    }, [allCafes, state, city]);
+
     const visibleCafes = useMemo(() => {
-        const filtered = cafes.filter((cafe) => {
-            return (
-                cafe.country === appliedFilters.country &&
-                cafe.state === appliedFilters.state &&
-                cafe.city === appliedFilters.city &&
-                (appliedFilters.locality === "All locations" ||
-                    cafe.locality === appliedFilters.locality)
-            );
+        const filtered = allCafes.filter((cafe) => {
+            const matchesCountry =
+                !appliedFilters.country || cafe.country === appliedFilters.country;
+            const matchesState =
+                !appliedFilters.state || cafe.state === appliedFilters.state;
+            const matchesCity =
+                !appliedFilters.city || cafe.city === appliedFilters.city;
+            const matchesLocality =
+                appliedFilters.locality === "All locations" ||
+                cafe.locality?.toLowerCase() === appliedFilters.locality.toLowerCase();
+
+            return matchesCountry && matchesState && matchesCity && matchesLocality;
         });
 
         if (sortBy === "rating") {
@@ -167,7 +250,7 @@ export default function OurCentresContent() {
         }
 
         return filtered.sort((a, b) => a.distance - b.distance);
-    }, [appliedFilters, sortBy]);
+    }, [allCafes, appliedFilters, sortBy]);
 
     function handleSearch(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -229,7 +312,11 @@ export default function OurCentresContent() {
                                 value={country}
                                 onChange={(event) => setCountry(event.target.value)}
                             >
-                                <option value="India">India</option>
+                                {availableCountries.map((c) => (
+                                    <option key={c} value={c}>
+                                        {c}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                     </div>
@@ -241,9 +328,28 @@ export default function OurCentresContent() {
                             <select
                                 id="tm-state"
                                 value={state}
-                                onChange={(event) => setState(event.target.value)}
+                                onChange={(event) => {
+                                    const nextState = event.target.value;
+                                    setState(nextState);
+                                    const cities = Array.from(
+                                        new Set(
+                                            allCafes
+                                                .filter((c) => c.state === nextState)
+                                                .map((c) => c.city)
+                                                .filter(Boolean)
+                                        )
+                                    );
+                                    if (cities.length > 0) {
+                                        setCity(cities[0]);
+                                    }
+                                    setLocality("All locations");
+                                }}
                             >
-                                <option value="Telangana">Telangana</option>
+                                {availableStates.map((s) => (
+                                    <option key={s} value={s}>
+                                        {s}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                     </div>
@@ -255,9 +361,16 @@ export default function OurCentresContent() {
                             <select
                                 id="tm-city"
                                 value={city}
-                                onChange={(event) => setCity(event.target.value)}
+                                onChange={(event) => {
+                                    setCity(event.target.value);
+                                    setLocality("All locations");
+                                }}
                             >
-                                <option value="Hyderabad">Hyderabad</option>
+                                {availableCities.map((c) => (
+                                    <option key={c} value={c}>
+                                        {c}
+                                    </option>
+                                ))}
                             </select>
                         </div>
                     </div>
@@ -271,7 +384,7 @@ export default function OurCentresContent() {
                                 value={locality}
                                 onChange={(event) => setLocality(event.target.value)}
                             >
-                                {localities.map((item) => (
+                                {availableLocalities.map((item) => (
                                     <option key={item} value={item}>
                                         {item}
                                     </option>
@@ -376,7 +489,7 @@ export default function OurCentresContent() {
 
                                             <Link
                                                 className="tm-button tm-view-button"
-                                                href="/ourcentres/stores"
+                                                href={`/ourcentres/stores?slug=${(cafe as any).slug || 'kompally'}`}
                                             >
                                                 View Centre <ArrowRight size={17} />
                                             </Link>
