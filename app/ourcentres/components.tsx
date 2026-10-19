@@ -166,6 +166,7 @@ export default function OurCentresContent() {
                     reviews: c.reviewCount || 230,
                     distance: 0.8 + i * 1.5,
                     hours: "7:00 AM – 11:00 PM",
+                    image: c.coverImage || CAFE_IMAGE,
                 }));
                 setDbCafes(formatted);
             }
@@ -431,7 +432,7 @@ export default function OurCentresContent() {
                                     <div className="tm-cafe-image-wrap">
                                         <img
                                             className="tm-cafe-image"
-                                            src={CAFE_IMAGE}
+                                            src={cafe.image || CAFE_IMAGE}
                                             alt={`${cafe.name} interior`}
                                             loading="lazy"
                                         />

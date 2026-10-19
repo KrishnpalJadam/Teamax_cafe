@@ -162,13 +162,18 @@ export function StoreHero() {
     const [showHours, setShowHours] = useState(false);
 
     const photos = useMemo(() => {
-        if (centre?.galleryImages && Array.isArray(centre.galleryImages) && centre.galleryImages.length > 0) {
-            return centre.galleryImages.map((src: string, i: number) => ({
-                src,
-                alt: `${centre.name || "TeaMax"} photo ${i + 1}`,
-            }));
+        const list: Array<{ src: string; alt: string }> = [];
+        if (centre?.coverImage) {
+            list.push({ src: centre.coverImage, alt: `${centre.name || "TeaMax"} Cover Photo` });
         }
-        return defaultPhotos;
+        if (centre?.galleryImages && Array.isArray(centre.galleryImages) && centre.galleryImages.length > 0) {
+            centre.galleryImages.forEach((src: string, i: number) => {
+                if (src !== centre.coverImage) {
+                    list.push({ src, alt: `${centre.name || "TeaMax"} photo ${i + 1}` });
+                }
+            });
+        }
+        return list.length > 0 ? list : defaultPhotos;
     }, [centre]);
 
     const current = photos[(activePhoto - 1) % photos.length];

@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
         hostname: "cafe-blueprint-magic.lovable.app",
         pathname: "/assets/**",
       },
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/**",
+      },
     ],
   },
 };
