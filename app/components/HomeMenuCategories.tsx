@@ -172,7 +172,7 @@ export default function HomeMenuCategories() {
             />
             <div className="menu-card-copy">
               <h3>{item.name}</h3>
-              <p>{item.qnt} +</p>
+              <p>Start from ₹{item.qnt} </p>
             </div>
           </Link>
         ))}

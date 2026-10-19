@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Header, Footer, JsonLd } from "../../components";
 import { getAllBlogPosts, getBlogPostBySlug, getRelatedPosts, BlogPost } from "../blog-data";
 import { ShareButtons } from "./share-buttons";
+import { RelatedBlogs } from "./related-blogs";
 import { getBlogs, getBlogBySlug } from "../../lib/api";
 
 export const dynamic = "force-static";
@@ -512,46 +513,19 @@ export default async function BlogPostPage({
         </div>
 
         {/* Related Posts Section */}
-        {related.length > 0 && (
-          <section
-            style={{
-              padding: "60px 0 80px 0",
-              borderTop: "1px solid var(--tm-teal-border)",
-            }}
-          >
-            <div style={{ marginBottom: "32px" }}>
-              <span className="tm-eyebrow">Continue Reading</span>
-              <h2 className="tm-heading-lg" style={{ margin: 0 }}>
-                Related stories &amp; <em>guides</em>
-              </h2>
-            </div>
-
-            <div className="tm-blog-grid">
-              {related.map((rel) => (
-                <Link
-                  key={rel.id}
-                  href={`/blog/${rel.slug}`}
-                  className="tm-blog-card group"
-                >
-                  <div>
-                    <div className="tm-blog-card-top">
-                      <span className="tm-blog-card-cat">{rel.category}</span>
-                      <span className="tm-blog-card-time">{rel.readTime}</span>
-                    </div>
-                    <h3 className="tm-blog-card-title">{rel.title}</h3>
-                    <p className="tm-blog-card-excerpt">{rel.excerpt}</p>
-                  </div>
-                  <div className="tm-blog-card-footer">
-                    <span>{rel.date}</span>
-                    <span className="tm-blog-card-readmore">
-                      Read story →
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+        <RelatedBlogs
+          currentSlug={post.slug}
+          currentCategory={post.category}
+          initialRelated={related.map((rel) => ({
+            id: rel.id,
+            slug: rel.slug,
+            title: rel.title,
+            category: rel.category,
+            readTime: rel.readTime,
+            excerpt: (rel.excerpt || "").replace(/<[^>]+>/g, "").trim(),
+            date: rel.date,
+          }))}
+        />
       </main>
 
       <Footer />
