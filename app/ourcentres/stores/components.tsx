@@ -438,12 +438,39 @@ export function StoreSections() {
                 </div>
 
                 <div className="detailscentres-reviews-grid">
-                    {defaultReviews.map((review) => (
-                        <article className="detailscentres-review-card" key={review.initials}>
-                            <div className="detailscentres-avatar">{review.initials}</div>
+                    {((centre?.reviews && centre.reviews.length > 0)
+                        ? centre.reviews.map((r: any) => ({
+                            id: r.id,
+                            name: r.reviewerName,
+                            initials: (r.reviewerName || "TM")
+                                .split(" ")
+                                .map((n: string) => n[0])
+                                .join("")
+                                .slice(0, 2)
+                                .toUpperCase(),
+                            avatar: r.reviewerAvatar,
+                            text: r.reviewText,
+                            stars: r.starRating || 5,
+                        }))
+                        : defaultReviews
+                    ).map((review: any) => (
+                        <article className="detailscentres-review-card" key={review.id || review.initials}>
+                            <div className="detailscentres-avatar">
+                                {review.avatar ? (
+                                    <img
+                                        src={review.avatar}
+                                        alt={review.name}
+                                        style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover" }}
+                                    />
+                                ) : (
+                                    review.initials
+                                )}
+                            </div>
                             <div>
                                 <h3>{review.name}</h3>
-                                <div className="detailscentres-stars">★★★★★</div>
+                                <div className="detailscentres-stars">
+                                    {"★".repeat(review.stars || 5)}
+                                </div>
                                 <p>{review.text}</p>
                             </div>
                         </article>

@@ -109,3 +109,21 @@ export async function getBlogs(category?: string) {
 export async function getBlogBySlug(idOrSlug: string) {
   return fetchFromApi<any>(`/blogs/${encodeURIComponent(idOrSlug)}`);
 }
+
+// 8. Reviews & Testimonials
+export async function getReviews(params: {
+  displayOn?: string;
+  reviewType?: string;
+  relatedCentreId?: string;
+  isFeatured?: boolean;
+  status?: string;
+} = {}) {
+  const query = new URLSearchParams(
+    Object.entries(params).reduce((acc, [k, v]) => {
+      if (v !== undefined && v !== null && v !== '') acc[k] = String(v);
+      return acc;
+    }, {} as Record<string, string>)
+  ).toString();
+  const data = await fetchFromApi<any[]>(`/reviews${query ? `?${query}` : ''}`);
+  return Array.isArray(data) ? data : [];
+}

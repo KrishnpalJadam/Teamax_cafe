@@ -20,6 +20,7 @@ export interface BlogPost {
   content: {
     intro: string;
     keyTakeaway: string;
+    rawHtml?: string;
     sections: {
       heading: string;
       id: string;
