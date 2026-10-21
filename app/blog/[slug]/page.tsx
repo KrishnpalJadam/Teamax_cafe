@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Header, Footer, JsonLd } from "../../components";
 import { getAllBlogPosts, getBlogPostBySlug, getRelatedPosts, BlogPost } from "../blog-data";
 import { ShareButtons } from "./share-buttons";
+import { RelatedBlogs } from "./related-blogs";
 import { getBlogs, getBlogBySlug } from "../../lib/api";
 
 export const dynamic = "force-static";
@@ -132,13 +133,8 @@ export default async function BlogPostPage({
           content: {
             intro: apiBlog.excerpt || "",
             keyTakeaway: "",
-            sections: [
-              {
-                heading: "Overview",
-                id: "overview",
-                body: [apiBlog.content || ""],
-              },
-            ],
+            rawHtml: apiBlog.content || "",
+            sections: [],
             conclusion: "",
           },
         };
@@ -256,77 +252,95 @@ export default async function BlogPostPage({
           {/* Left Column: Article Body */}
           <article className="tm-post-main">
             <div className="tm-article-body">
-              {/* Introduction */}
-              <p className="tm-lead">{post.content.intro}</p>
+              {/* Introduction (only if distinct from rawHtml) */}
+              {post.content.intro && !post.content.rawHtml && (
+                <p className="tm-lead">{post.content.intro}</p>
+              )}
 
-              {/* Key Takeaway Callout (AEO Optimized) */}
-              <div className="tm-callout-box" role="region" aria-label="Key Takeaway">
-                <h4>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                  </svg>
-                  Key Takeaway for Entrepreneurs &amp; Readers
-                </h4>
-                <p>{post.content.keyTakeaway}</p>
-              </div>
+              {/* Key Takeaway Callout (AEO Optimized - only when provided) */}
+              {post.content.keyTakeaway ? (
+                <div className="tm-callout-box" role="region" aria-label="Key Takeaway">
+                  <h4>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="12" y1="16" x2="12" y2="12"></line>
+                      <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    Key Takeaway for Entrepreneurs &amp; Readers
+                  </h4>
+                  <p>{post.content.keyTakeaway}</p>
+                </div>
+              ) : null}
 
-              {/* Article Sections */}
-              {post.content.sections.map((sec) => (
-                <section key={sec.id} id={sec.id}>
-                  <h2>{sec.heading}</h2>
+              {/* If article has HTML content from CMS / RichTextEditor */}
+              {post.content.rawHtml ? (
+                <div
+                  className="tm-article-raw-html"
+                  dangerouslySetInnerHTML={{ __html: post.content.rawHtml }}
+                />
+              ) : (
+                /* Article Sections for structured static posts */
+                post.content.sections.map((sec) => (
+                  <section key={sec.id} id={sec.id}>
+                    <h2>{sec.heading}</h2>
 
-                  {sec.body.map((p, idx) => (
-                    <p key={idx}>{p}</p>
-                  ))}
+                    {sec.body.map((p, idx) => (
+                      /<[a-z][\s\S]*>/i.test(p) ? (
+                        <div key={idx} dangerouslySetInnerHTML={{ __html: p }} />
+                      ) : (
+                        <p key={idx}>{p}</p>
+                      )
+                    ))}
 
-                  {sec.bulletPoints && sec.bulletPoints.length > 0 && (
-                    <ul>
-                      {sec.bulletPoints.map((bp, bpIdx) => (
-                        <li key={bpIdx}>{bp}</li>
-                      ))}
-                    </ul>
-                  )}
+                    {sec.bulletPoints && sec.bulletPoints.length > 0 && (
+                      <ul>
+                        {sec.bulletPoints.map((bp, bpIdx) => (
+                          <li key={bpIdx}>{bp}</li>
+                        ))}
+                      </ul>
+                    )}
 
-                  {sec.quote && (
-                    <blockquote>
-                      <p>"{sec.quote}"</p>
-                    </blockquote>
-                  )}
+                    {sec.quote && (
+                      <blockquote>
+                        <p>"{sec.quote}"</p>
+                      </blockquote>
+                    )}
 
-                  {sec.tableData && (
-                    <div className="tm-inv-table-wrap" style={{ margin: "28px 0" }}>
-                      <table className="tm-inv-table">
-                        <thead>
-                          <tr>
-                            {sec.tableData.headers.map((th, thIdx) => (
-                              <th key={thIdx}>{th}</th>
-                            ))}
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {sec.tableData.rows.map((row, rIdx) => (
-                            <tr key={rIdx}>
-                              {row.map((cell, cIdx) => (
-                                <td key={cIdx}>
-                                  {cIdx === 0 ? <strong>{cell}</strong> : cell}
-                                </td>
+                    {sec.tableData && (
+                      <div className="tm-inv-table-wrap" style={{ margin: "28px 0" }}>
+                        <table className="tm-inv-table">
+                          <thead>
+                            <tr>
+                              {sec.tableData.headers.map((th, thIdx) => (
+                                <th key={thIdx}>{th}</th>
                               ))}
                             </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  )}
-                </section>
-              ))}
+                          </thead>
+                          <tbody>
+                            {sec.tableData.rows.map((row, rIdx) => (
+                              <tr key={rIdx}>
+                                {row.map((cell, cIdx) => (
+                                  <td key={cIdx}>
+                                    {cIdx === 0 ? <strong>{cell}</strong> : cell}
+                                  </td>
+                                ))}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+                  </section>
+                ))
+              )}
 
-              {/* Conclusion */}
-              <section id="conclusion">
-                <h2>Conclusion &amp; Next Steps</h2>
-                <p>{post.content.conclusion}</p>
-              </section>
+              {/* Conclusion (only when provided) */}
+              {post.content.conclusion ? (
+                <section id="conclusion">
+                  <h2>Conclusion &amp; Next Steps</h2>
+                  <p>{post.content.conclusion}</p>
+                </section>
+              ) : null}
 
               {/* Tags */}
               <div style={{ marginTop: "40px", paddingTop: "24px", borderTop: "1px solid var(--tm-teal-border)" }}>
@@ -386,26 +400,30 @@ export default async function BlogPostPage({
 
           {/* Right Column: Sticky Sidebar */}
           <aside className="tm-post-sidebar">
-            {/* Table of Contents */}
-            <div className="tm-sidebar-widget">
-              <h3 className="tm-sidebar-title">Table of Contents</h3>
-              <nav aria-label="Table of contents">
-                <ul className="tm-toc-list">
-                  {post.content.sections.map((sec) => (
-                    <li key={sec.id}>
-                      <a href={`#${sec.id}`} className="tm-toc-link">
-                        {sec.heading}
-                      </a>
-                    </li>
-                  ))}
-                  <li>
-                    <a href="#conclusion" className="tm-toc-link">
-                      Conclusion &amp; Next Steps
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
+            {/* Table of Contents (only for structured multi-section posts) */}
+            {post.content.sections && post.content.sections.length > 0 && (
+              <div className="tm-sidebar-widget">
+                <h3 className="tm-sidebar-title">Table of Contents</h3>
+                <nav aria-label="Table of contents">
+                  <ul className="tm-toc-list">
+                    {post.content.sections.map((sec) => (
+                      <li key={sec.id}>
+                        <a href={`#${sec.id}`} className="tm-toc-link">
+                          {sec.heading}
+                        </a>
+                      </li>
+                    ))}
+                    {post.content.conclusion && (
+                      <li>
+                        <a href="#conclusion" className="tm-toc-link">
+                          Conclusion &amp; Next Steps
+                        </a>
+                      </li>
+                    )}
+                  </ul>
+                </nav>
+              </div>
+            )}
 
             {/* Author / Editorial Desk Card */}
             <div className="tm-sidebar-widget">
@@ -495,46 +513,19 @@ export default async function BlogPostPage({
         </div>
 
         {/* Related Posts Section */}
-        {related.length > 0 && (
-          <section
-            style={{
-              padding: "60px 0 80px 0",
-              borderTop: "1px solid var(--tm-teal-border)",
-            }}
-          >
-            <div style={{ marginBottom: "32px" }}>
-              <span className="tm-eyebrow">Continue Reading</span>
-              <h2 className="tm-heading-lg" style={{ margin: 0 }}>
-                Related stories &amp; <em>guides</em>
-              </h2>
-            </div>
-
-            <div className="tm-blog-grid">
-              {related.map((rel) => (
-                <Link
-                  key={rel.id}
-                  href={`/blog/${rel.slug}`}
-                  className="tm-blog-card group"
-                >
-                  <div>
-                    <div className="tm-blog-card-top">
-                      <span className="tm-blog-card-cat">{rel.category}</span>
-                      <span className="tm-blog-card-time">{rel.readTime}</span>
-                    </div>
-                    <h3 className="tm-blog-card-title">{rel.title}</h3>
-                    <p className="tm-blog-card-excerpt">{rel.excerpt}</p>
-                  </div>
-                  <div className="tm-blog-card-footer">
-                    <span>{rel.date}</span>
-                    <span className="tm-blog-card-readmore">
-                      Read story →
-                    </span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
+        <RelatedBlogs
+          currentSlug={post.slug}
+          currentCategory={post.category}
+          initialRelated={related.map((rel) => ({
+            id: rel.id,
+            slug: rel.slug,
+            title: rel.title,
+            category: rel.category,
+            readTime: rel.readTime,
+            excerpt: (rel.excerpt || "").replace(/<[^>]+>/g, "").trim(),
+            date: rel.date,
+          }))}
+        />
       </main>
 
       <Footer />

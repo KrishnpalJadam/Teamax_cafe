@@ -162,13 +162,18 @@ export function StoreHero() {
     const [showHours, setShowHours] = useState(false);
 
     const photos = useMemo(() => {
-        if (centre?.galleryImages && Array.isArray(centre.galleryImages) && centre.galleryImages.length > 0) {
-            return centre.galleryImages.map((src: string, i: number) => ({
-                src,
-                alt: `${centre.name || "TeaMax"} photo ${i + 1}`,
-            }));
+        const list: Array<{ src: string; alt: string }> = [];
+        if (centre?.coverImage) {
+            list.push({ src: centre.coverImage, alt: `${centre.name || "TeaMax"} Cover Photo` });
         }
-        return defaultPhotos;
+        if (centre?.galleryImages && Array.isArray(centre.galleryImages) && centre.galleryImages.length > 0) {
+            centre.galleryImages.forEach((src: string, i: number) => {
+                if (src !== centre.coverImage) {
+                    list.push({ src, alt: `${centre.name || "TeaMax"} photo ${i + 1}` });
+                }
+            });
+        }
+        return list.length > 0 ? list : defaultPhotos;
     }, [centre]);
 
     const current = photos[(activePhoto - 1) % photos.length];
@@ -433,12 +438,39 @@ export function StoreSections() {
                 </div>
 
                 <div className="detailscentres-reviews-grid">
-                    {defaultReviews.map((review) => (
-                        <article className="detailscentres-review-card" key={review.initials}>
-                            <div className="detailscentres-avatar">{review.initials}</div>
+                    {((centre?.reviews && centre.reviews.length > 0)
+                        ? centre.reviews.map((r: any) => ({
+                            id: r.id,
+                            name: r.reviewerName,
+                            initials: (r.reviewerName || "TM")
+                                .split(" ")
+                                .map((n: string) => n[0])
+                                .join("")
+                                .slice(0, 2)
+                                .toUpperCase(),
+                            avatar: r.reviewerAvatar,
+                            text: r.reviewText,
+                            stars: r.starRating || 5,
+                        }))
+                        : defaultReviews
+                    ).map((review: any) => (
+                        <article className="detailscentres-review-card" key={review.id || review.initials}>
+                            <div className="detailscentres-avatar">
+                                {review.avatar ? (
+                                    <img
+                                        src={review.avatar}
+                                        alt={review.name}
+                                        style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover" }}
+                                    />
+                                ) : (
+                                    review.initials
+                                )}
+                            </div>
                             <div>
                                 <h3>{review.name}</h3>
-                                <div className="detailscentres-stars">★★★★★</div>
+                                <div className="detailscentres-stars">
+                                    {"★".repeat(review.stars || 5)}
+                                </div>
                                 <p>{review.text}</p>
                             </div>
                         </article>

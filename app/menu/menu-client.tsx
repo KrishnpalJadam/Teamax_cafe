@@ -253,6 +253,16 @@ export function MenuClient({
   const [selectedCategory, setSelectedCategory] =
     useState("all");
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const catParam = params.get("category");
+      if (catParam) {
+        setSelectedCategory(catParam);
+      }
+    }
+  }, []);
+
   const [searchQuery, setSearchQuery] =
     useState("");
 

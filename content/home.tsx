@@ -21,16 +21,9 @@ import TrustedBrands from "../app/components/TrustedBrands";
 import HomeBlogSection from "../app/components/HomeBlogSection";
 import WhyChooseUs from "../app/components/WhyChooseUs";
 import AwardsRecognitions from "../app/components/AwardsRecognitions";
+import HomeMenuCategories from "../app/components/HomeMenuCategories";
 
 const A = "https://cafe-blueprint-magic.lovable.app/assets";
-
-const menuItems = [
-  { name: "Tea", qnt: "20", image: `${A}/menu-tea-GDCVsE9V.jpg`, alt: "Tea served at TeaMax" },
-  { name: "Coffee", qnt: "49", image: `${A}/menu-coffee-DRjZy5Da.jpg`, alt: "Coffee served at TeaMax" },
-  { name: "Burgers", qnt: "149", image: `${A}/hero-cafe-zlWPzgb-.jpg`, alt: "TeaMax burger with fries and coffee" },
-  { name: "Snacks", qnt: "59", image: `${A}/menu-fries-CAp5uNC2.jpg`, alt: "TeaMax fries and snacks" },
-  { name: "Thickshakes", qnt: "99", image: `${A}/menu-shake-DCrFsPuS.jpg`, alt: "TeaMax thickshake" },
-];
 
 const benefits = [
   { icon: IndianRupee, label: <>1242 +<br /></>, des: <>Franchise Partners</> },
@@ -110,28 +103,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="menu" className="menu-section container-xl section-space">
-        <div className="section-heading menu-heading-grid">
-          <div>
-            <p className="kicker"><span>O</span>ur Menu</p>
-            <h2>Something for<br />Every Craving </h2>
-            <span className="short-line" />
-          </div>
-          <div className="menu-intro">
-            <p>From classic teas and coffees to shakes, snacks and quick bites, TeaMax offers a menu designed for everyday café moments.
-            </p>
-            <Link href="/menu" className="cafe-action cafe-outline">Explore Full Menu <ArrowRight size={17} /></Link>
-          </div>
-        </div>
-        <div id="menu-cards" className="menu-grid">
-          {menuItems.map((item) => (
-            <Link href="/menu" className="menu-card" key={item.name}>
-              <Image src={item.image} alt={item.alt} width={816} height={816} unoptimized loading="lazy" />
-              <div className="menu-card-copy"><h3>{item.name}</h3><p> {item.qnt} +</p></div>
-            </Link>
-          ))}
-        </div>
-      </section>
+      <HomeMenuCategories />
       <TrustedBrands />
       <AwardsRecognitions />
 

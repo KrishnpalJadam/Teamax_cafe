@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Header, Footer, JsonLd } from "../components";
-import { getAllBlogPosts } from "./blog-data";
+import { getAllBlogPosts, BlogPost } from "./blog-data";
 import { BlogClient } from "./blog-client";
+import { getBlogs } from "../lib/api";
 
 export const dynamic = "force-static";
 
@@ -38,8 +39,58 @@ export const metadata: Metadata = {
   },
 };
 
-export default function BlogIndexPage() {
-  const posts = getAllBlogPosts();
+export default async function BlogIndexPage() {
+  let posts: BlogPost[] = getAllBlogPosts();
+
+  try {
+    const apiBlogs = await getBlogs();
+    if (Array.isArray(apiBlogs) && apiBlogs.length > 0) {
+      const mappedApiBlogs: BlogPost[] = apiBlogs.map((b: any) => {
+        const rawDate = b.publishDate || b.createdAt;
+        const dateStr = rawDate
+          ? new Date(rawDate).toLocaleDateString("en-IN", {
+              month: "long",
+              year: "numeric",
+            })
+          : "Recent";
+
+        return {
+          id: b.id,
+          slug: b.slug,
+          title: b.title,
+          subtitle: (b.excerpt || "").replace(/<[^>]+>/g, ""),
+          excerpt: (b.excerpt || "").replace(/<[^>]+>/g, ""),
+          category: (b.category as any) || "Chai Culture",
+          readTime: b.readingTime || "5 min read",
+          date: dateStr,
+          isoDate: b.publishDate || b.createdAt || new Date().toISOString(),
+          author: {
+            name: b.author || "TeaMax Editorial Team",
+            role: b.authorDesignation || "TeaMax Culinary Research",
+            avatar: b.authorAvatar || "/images/cafe-interior.jpg",
+          },
+          tags: b.seoKeywords
+            ? b.seoKeywords.split(",").map((s: string) => s.trim())
+            : [b.category || "Chai"],
+          coverImage: b.coverImage || "/images/cafe-interior.jpg",
+          metaDescription: (b.metaDescription || b.excerpt || "").replace(/<[^>]+>/g, ""),
+          keywords: b.seoKeywords
+            ? b.seoKeywords.split(",").map((s: string) => s.trim())
+            : [],
+          content: {
+            intro: (b.excerpt || "").replace(/<[^>]+>/g, ""),
+            keyTakeaway: "",
+            rawHtml: b.content || "",
+            sections: [],
+            conclusion: "",
+          },
+        };
+      });
+
+      const existingSlugs = new Set(mappedApiBlogs.map((b) => b.slug));
+      posts = [...mappedApiBlogs, ...posts.filter((p) => !existingSlugs.has(p.slug))];
+    }
+  } catch (_) {}
 
   const blogSchema = {
     "@context": "https://schema.org",
