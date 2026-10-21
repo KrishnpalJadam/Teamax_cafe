@@ -287,7 +287,7 @@ export default function OurCentresContent() {
                         <span>Cafe</span>
                     </h1>
 
-                    <p>
+                    <p className="text-dark2">
                         Your neighbourhood spot for good tea, fresh coffee
                         and tasty bites.
                     </p>

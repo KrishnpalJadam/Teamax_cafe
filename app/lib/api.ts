@@ -1,7 +1,7 @@
 // Client & Server API utility for TeaMax Cafe website
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api/v1';
+  process.env.NEXT_PUBLIC_API_URL || 'https://teamaxbackend-production.up.railway.app/api/v1';
 
 async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Promise<T | null> {
   try {

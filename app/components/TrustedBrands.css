@@ -15,7 +15,7 @@
   box-sizing: border-box;
 
   /* Original wallpaper image */
-  background: url("https://i.ibb.co/Dft0bwvQ/Tea-Max-Wallpaper-Design-2026.png") center center / cover no-repeat;
+  background: url("/images/back.png") center center / cover no-repeat;
 }
 
 /* Remove every overlay */

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Header, Footer, JsonLd, FaqJsonLd } from "../components";
+import OurTeamPage from "../our-team/page";
 
 export const dynamic = "force-static";
 
@@ -166,6 +167,7 @@ export default function OurStoryPage() {
             </div>
           </div>
         </section>
+        <OurTeamPage />
 
         {/* =================================================================
             02 / THE 3-IN-1 CONCEPT
@@ -370,7 +372,7 @@ export default function OurStoryPage() {
         <section className="tm-section" aria-labelledby="principles-heading">
           <div className="tm-container">
             <div style={{ maxWidth: "640px" }}>
-              <span className="tm-eyebrow">05 / The TeaMax Standard</span>
+              {/* <span className="tm-eyebrow">05 / The TeaMax Standard</span> */}
               <h2 id="principles-heading" className="tm-heading-lg">
                 Six principles that guide<br />
                 <em>every single brew.</em>
@@ -443,7 +445,7 @@ export default function OurStoryPage() {
             ================================================================= */}
         <section className="tm-section tm-section-teal" aria-labelledby="certifications-heading">
           <div className="tm-container" style={{ textAlign: "center" }}>
-            <span className="tm-eyebrow tm-eyebrow-light">06 / Quality & Governance</span>
+            {/* <span className="tm-eyebrow tm-eyebrow-light">06 / Quality & Governance</span> */}
             <h2 id="certifications-heading" className="tm-heading-lg" style={{ color: "#FFF8EE" }}>
               Certified excellence.<br />
               <em>Rooted in compliance.</em>
@@ -505,7 +507,7 @@ export default function OurStoryPage() {
           <div className="tm-container">
             <div className="tm-geo-strip">
               <div>
-                <span className="tm-eyebrow">Local Footprint · Across India</span>
+                {/* <span className="tm-eyebrow">Local Footprint · Across India</span> */}
                 <h3 id="presence-heading" className="tm-heading-md" style={{ margin: "4px 0 8px 0" }}>
                   Serving 250+ locations across 6 vibrant states.
                 </h3>
@@ -560,7 +562,7 @@ export default function OurStoryPage() {
             ================================================================= */}
         <section className="tm-section" style={{ textAlign: "center", paddingBottom: "120px" }}>
           <div className="tm-container" style={{ maxWidth: "640px" }}>
-            <span className="tm-eyebrow">Experience TeaMax</span>
+            {/* <span className="tm-eyebrow">Experience TeaMax</span> */}
             <h2 className="tm-heading-lg">
               Every craving.<br />
               <em>One comforting café.</em>

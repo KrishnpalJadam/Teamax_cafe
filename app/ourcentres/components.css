@@ -806,3 +806,7 @@
         animation-duration: 0.01ms !important;
     }
 }
+
+.text-dark2 {
+    color: #073638;
+}
