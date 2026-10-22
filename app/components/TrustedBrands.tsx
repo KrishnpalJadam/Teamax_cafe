@@ -50,16 +50,16 @@ export default function TrustedBrands() {
   const marqueeBrands = [...brands, ...brands, ...brands];
 
   return (
-    <>
-      <div className="container-xl mt-5 pt-5">
-        <div className="container-xl tmx-trusted-heading-container">
-          <div className="section-heading why-heading tmx-trusted-heading">
-            <div>
-              <h2 id="why-heading">Our Associate Partners</h2>
-              <span className="short-line" />
-            </div>
+    <section className="section-space mainspace">
+
+      <div className="container-xl tmx-trusted-heading-container">
+        <div className="section-heading why-heading tmx-trusted-heading">
+          <div>
+            <h2 id="why-heading">Our Associate Partners</h2>
+            <span className="short-line" />
           </div>
         </div>
+
       </div>
       <section
         className="tmx-trusted-brands"
@@ -180,6 +180,6 @@ export default function TrustedBrands() {
           </div>
         </div>
       </section>
-    </>
+    </section>
   );
 }

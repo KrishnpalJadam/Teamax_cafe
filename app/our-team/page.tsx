@@ -37,7 +37,7 @@ const teamMembers = [
         name: "Vikas Singh",
         role: "Ivey Business School Alumni",
         image:
-            "https://pixel-perfect-design-revival.lovable.app/teamax/vikas.jpg",
+            "/images/Vikas%20Singh.webp",
         imageAlt: "Vikas Singh, TeaMax Café team",
         side: "left",
     },
@@ -45,7 +45,7 @@ const teamMembers = [
         name: "Jai Prakash",
         role: "CMD, Ashoka Group",
         image:
-            "https://pixel-perfect-design-revival.lovable.app/teamax/jai.jpg",
+            "/images/Jai%20Prakash.webp",
         imageAlt: "Jai Prakash, TeaMax Café team",
         side: "right",
     },

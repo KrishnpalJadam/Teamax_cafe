@@ -1,51 +1,34 @@
 "use client";
 
-import { useState } from "react";
-import { submitFranchiseEnquiry } from "../lib/api";
+import React, { useState } from "react";
+import { BadgeCheck } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 
-interface FormData {
-  fullName: string;
-  phone: string;
-  email: string;
-  city: string;
-  state: string;
-  budget: string;
-  space: string;
-  consent: boolean;
-}
+export default function FranchiseFormSection() {
+  const initialFormData = {
+    fullName: "",
+    phone: "",
+    city: "",
+    whenToStart: "",
+    haveShop: "",
+    investmentReadiness: "",
+  };
 
-const initialData: FormData = {
-  fullName: "",
-  phone: "",
-  email: "",
-  city: "",
-  state: "",
-  budget: "",
-  space: "",
-  consent: false,
-};
-
-export function FranchiseForm() {
-  const [formData, setFormData] = useState<FormData>(initialData);
+  const [formData, setFormData] = useState(initialFormData);
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement
-    >
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const { name, value, type } = e.target;
+    const { name, value } = e.target;
 
-    if (type === "checkbox") {
-      const checked = (e.target as HTMLInputElement).checked;
-
+    if (name === "phone") {
       setFormData((prev) => ({
         ...prev,
-        [name]: checked,
+        phone: value.replace(/\D/g, "").slice(0, 10),
       }));
-
       return;
     }
 
@@ -55,20 +38,7 @@ export function FranchiseForm() {
     }));
   };
 
-  const handlePhoneChange = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const value = e.target.value
-      .replace(/\D/g, "")
-      .slice(0, 10);
-
-    setFormData((prev) => ({
-      ...prev,
-      phone: value,
-    }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage("");
 
@@ -77,13 +47,8 @@ export function FranchiseForm() {
       return;
     }
 
-    if (!/^[0-9]{10}$/.test(formData.phone)) {
-      setErrorMessage("Please enter a valid 10-digit mobile number.");
-      return;
-    }
-
-    if (!formData.email.trim()) {
-      setErrorMessage("Please enter your email address.");
+    if (!/^[6-9]\d{9}$/.test(formData.phone)) {
+      setErrorMessage("Please enter a valid 10-digit Indian mobile number.");
       return;
     }
 
@@ -92,476 +57,349 @@ export function FranchiseForm() {
       return;
     }
 
-    if (!formData.state) {
-      setErrorMessage("Please select your state.");
+    if (!formData.whenToStart) {
+      setErrorMessage("Please select when you want to start.");
       return;
     }
 
-    if (!formData.budget) {
-      setErrorMessage("Please select your investment budget.");
+    if (!formData.haveShop) {
+      setErrorMessage("Please select your shop availability.");
       return;
     }
 
-    if (!formData.space) {
-      setErrorMessage(
-        "Please select whether you have your own space."
-      );
-      return;
-    }
-
-    if (!formData.consent) {
-      setErrorMessage(
-        "Please agree to the Terms & Privacy Policy."
-      );
+    if (!formData.investmentReadiness) {
+      setErrorMessage("Please select your investment readiness.");
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      await submitFranchiseEnquiry({
-        fullName: formData.fullName,
-        phone: formData.phone,
-        email: formData.email,
-        city: formData.city,
-        state: formData.state,
-        budget: formData.budget,
-        space: formData.space,
-        consent: formData.consent,
-      });
-      setIsSubmitted(true);
-    } catch (err: any) {
-      console.warn("Franchise form submission error:", err);
-      setErrorMessage(
-        err.message ||
-          "Failed to submit application. Please check your connection and try again."
-      );
+      const message = [
+        "Hi TeaMax, I am interested in a franchise.",
+        "",
+        `Full Name: ${formData.fullName.trim()}`,
+        `WhatsApp Number: +91${formData.phone}`,
+        `City: ${formData.city.trim()}`,
+        `When to Start: ${formData.whenToStart}`,
+        `Shop Availability: ${formData.haveShop}`,
+        `Investment Readiness: ${formData.investmentReadiness}`,
+      ].join("\n");
+
+      const whatsappUrl = `https://api.whatsapp.com/send?phone=919505047047&text=${encodeURIComponent(
+        message
+      )}`;
+
+      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+      setFormSubmitted(true);
+    } catch (error) {
+      console.error("Franchise enquiry error:", error);
+      setErrorMessage("Unable to open WhatsApp. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  if (isSubmitted) {
-    return (
-      <div
-        className="tm-form-card tm-animate-fade"
-        style={{
-          textAlign: "center",
-          padding: "48px 32px",
-        }}
-      >
-        <div
-          style={{
-            width: "56px",
-            height: "56px",
-            borderRadius: "50%",
-            background: "rgba(38, 60, 61, 0.08)",
-            color: "var(--tm-teal)",
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginBottom: "16px",
-          }}
-        >
-          <svg
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
-        </div>
-
-        <h3
-          style={{
-            fontFamily: "var(--tm-font-serif)",
-            fontSize: "26px",
-            color: "var(--tm-teal)",
-            marginBottom: "10px",
-          }}
-        >
-          Application Received
-        </h3>
-
-        <p
-          style={{
-            color: "var(--tm-teal-muted)",
-            fontSize: "14.5px",
-            lineHeight: 1.6,
-            maxWidth: "460px",
-            margin: "0 auto 24px",
-          }}
-        >
-          Thank you, <strong>{formData.fullName}</strong>. Our
-          franchise expansion team has received your inquiry for{" "}
-          <strong>{formData.city}</strong>. We will review your
-          profile and reach out within 24 business hours.
-        </p>
-
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "12px",
-            justifyContent: "center",
-          }}
-        >
-          <a
-            href={`https://api.whatsapp.com/send?phone=919505047047&text=${encodeURIComponent(
-              `Hi TeaMax, I just submitted a franchise application for ${formData.city}. My investment budget is ${formData.budget} and space status is ${formData.space}. Please share the brochure.`
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="tm-btn tm-btn-teal tm-btn-sm"
-          >
-            Chat on WhatsApp
-          </a>
-
-          <button
-            type="button"
-            onClick={() => {
-              setFormData(initialData);
-              setIsSubmitted(false);
-              setErrorMessage("");
-            }}
-            className="tm-btn tm-btn-outline tm-btn-sm"
-          >
-            Submit Another Query
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div id="apply" className="tm-form-card">
-
-      <div style={{ marginBottom: "24px" }}>
-        <p className="tmx-franchise-form-eyebrow">
-          TEAMAX / FRANCHISE ENQUIRY
-        </p>
-      </div>
-
-      {errorMessage && (
-        <div
-          style={{
-            background: "rgba(220, 38, 38, 0.08)",
-            border: "1px solid rgba(220, 38, 38, 0.25)",
-            color: "#991b1b",
-            fontSize: "13px",
-            padding: "10px 14px",
-            borderRadius: "10px",
-            marginBottom: "18px",
-          }}
-          role="alert"
-        >
-          {errorMessage}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} noValidate>
-
-        <div className="tm-form-grid">
-
-          {/* NAME + PHONE */}
-
-          <div className="tm-form-grid tm-form-grid-2">
-
-            <div className="tm-field-group">
-              <label htmlFor="fullName">
-                Full Name *
-              </label>
-
-              <input
-                id="fullName"
-                name="fullName"
-                type="text"
-                required
-                placeholder="Your full name"
-                value={formData.fullName}
-                onChange={handleChange}
-                className="tm-field-input"
-              />
-            </div>
-
-            <div className="tm-field-group">
-              <label htmlFor="phone">
-                Mobile Number *
-              </label>
-
-              <input
-                id="phone"
-                name="phone"
-                type="tel"
-                inputMode="numeric"
-                maxLength={10}
-                required
-                placeholder="10-digit mobile number"
-                value={formData.phone}
-                onChange={handlePhoneChange}
-                className="tm-field-input"
-              />
-            </div>
-
+    <section id="franchise-form" className="tm-fc-form-section">
+      <div className="tm-fc-container">
+        <div className="tm-fc-form-card">
+          {/* Left Photo */}
+          <div className="tm-fc-form-media">
+            <img
+              src="/images/franchise-storefront.jpg"
+              alt="TeaMax Store Interior and Counter"
+              width="600"
+              height="450"
+            />
           </div>
 
+          {/* Right Form */}
+          <div className="tm-fc-form-body">
+            <h2>Ready to Start Your Own TeaMax?</h2>
 
-          {/* EMAIL + CITY */}
+            <p className="sub">
+              Get the complete franchise proposal, investment breakup and
+              setup process.
+            </p>
 
-          <div className="tm-form-grid tm-form-grid-2">
-
-            <div className="tm-field-group">
-              <label htmlFor="email">
-                Email Address *
-              </label>
-
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                placeholder="Your email address"
-                value={formData.email}
-                onChange={handleChange}
-                className="tm-field-input"
-              />
-            </div>
-
-            <div className="tm-field-group">
-              <label htmlFor="city">
-                Your City *
-              </label>
-
-              <input
-                id="city"
-                name="city"
-                type="text"
-                required
-                placeholder="Your city"
-                value={formData.city}
-                onChange={handleChange}
-                className="tm-field-input"
-              />
-            </div>
-
-          </div>
-
-
-          {/* STATE + BUDGET */}
-
-          <div className="tm-form-grid tm-form-grid-2">
-
-            <div className="tm-field-group">
-              <label htmlFor="state">
-                State *
-              </label>
-
-              <select
-                id="state"
-                name="state"
-                value={formData.state}
-                onChange={handleChange}
-                className="tm-field-select"
-                required
+            {formSubmitted ? (
+              <div
+                style={{
+                  background: "rgba(255, 208, 40, 0.15)",
+                  border: "1px solid #ffd028",
+                  padding: "24px",
+                  borderRadius: "12px",
+                  textAlign: "center",
+                }}
               >
-                <option value="">
-                  State
-                </option>
-
-                <option>Madhya Pradesh</option>
-                <option>Maharashtra</option>
-                <option>Rajasthan</option>
-                <option>Gujarat</option>
-                <option>Delhi</option>
-                <option>Uttar Pradesh</option>
-                <option>Telangana</option>
-                <option>Andhra Pradesh</option>
-                <option>Karnataka</option>
-                <option>Tamil Nadu</option>
-                <option>West Bengal</option>
-                <option>Odisha</option>
-                <option>Other</option>
-              </select>
-            </div>
-
-            <div className="tm-field-group">
-              <label htmlFor="budget">
-                Investment Budget *
-              </label>
-
-              <select
-                id="budget"
-                name="budget"
-                value={formData.budget}
-                onChange={handleChange}
-                className="tm-field-select"
-                required
-              >
-                <option value="">
-                  Select Investment Budget
-                </option>
-
-                <option value="Under ₹3.5L">
-                  Under ₹3.5L
-                </option>
-
-                <option value="₹3.5L–7L">
-                  ₹3.5L–7L
-                </option>
-
-                <option value="₹7L–15L">
-                  ₹7L–15L
-                </option>
-              </select>
-            </div>
-
-          </div>
-
-
-          {/* OWN SPACE */}
-
-          <div className="tm-field-group">
-
-            <label>
-              Do you have your own space? *
-            </label>
-
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns:
-                  "repeat(3, minmax(0, 1fr))",
-                gap: "10px",
-              }}
-            >
-
-              {["Yes", "No", "Looking"].map((option) => (
-                <label
-                  key={option}
+                <div
                   style={{
-                    position: "relative",
-                    cursor: "pointer",
+                    display: "inline-flex",
+                    marginBottom: "8px",
+                    color: "#ffd028",
                   }}
                 >
-                  <input
-                    type="radio"
-                    name="space"
-                    value={option}
-                    checked={formData.space === option}
-                    onChange={handleChange}
-                    required
-                    style={{
-                      position: "absolute",
-                      opacity: 0,
-                    }}
-                  />
+                  <BadgeCheck size={36} />
+                </div>
 
-                  <span
+                <h3
+                  style={{
+                    color: "#ffd028",
+                    fontSize: "20px",
+                    marginBottom: "8px",
+                  }}
+                >
+                  Thank You!
+                </h3>
+
+                <p
+                  style={{
+                    color: "#ffffff",
+                    fontSize: "14px",
+                    marginBottom: "20px",
+                  }}
+                >
+                  Your franchise enquiry is ready. Continue the conversation
+                  with our team on WhatsApp.
+                </p>
+
+                <button
+                  type="button"
+                  className="tm-fc-btn-submit"
+                  onClick={() => {
+                    const message = [
+                      "Hi TeaMax, I am interested in a franchise.",
+                      `Full Name: ${formData.fullName.trim()}`,
+                      `WhatsApp Number: +91${formData.phone}`,
+                      `City: ${formData.city.trim()}`,
+                      `When to Start: ${formData.whenToStart}`,
+                      `Shop Availability: ${formData.haveShop}`,
+                      `Investment Readiness: ${formData.investmentReadiness}`,
+                    ].join("\n");
+
+                    window.open(
+                      `https://api.whatsapp.com/send?phone=919505047047&text=${encodeURIComponent(
+                        message
+                      )}`,
+                      "_blank",
+                      "noopener,noreferrer"
+                    );
+                  }}
+                >
+                  <FaWhatsapp size={20} />
+                  <span>Continue on WhatsApp</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="tm-fc-btn-submit"
+                  style={{
+                    marginTop: "12px",
+                    width: "100%",
+                    background: "rgba(255, 255, 255, 0.12)",
+                    color: "#ffffff",
+                    border: "1px solid rgba(255, 255, 255, 0.2)",
+                  }}
+                  onClick={() => {
+                    setFormData(initialFormData);
+                    setFormSubmitted(false);
+                    setErrorMessage("");
+                  }}
+                >
+                  Submit Another Enquiry
+                </button>
+              </div>
+            ) : (
+              <form onSubmit={handleFormSubmit}>
+                {errorMessage && (
+                  <div
+                    role="alert"
                     style={{
-                      minHeight: "48px",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      border: "1px solid #dedbc9",
+                      color: "#991b1b",
+                      background: "#fff1f2",
+                      border: "1px solid #fecaca",
+                      padding: "12px",
                       borderRadius: "8px",
-                      background:
-                        formData.space === option
-                          ? "#ead6a6"
-                          : "#f5f2e8",
-                      color: "#425548",
-                      fontSize: "12px",
-                      fontWeight: 600,
+                      marginBottom: "16px",
+                      fontSize: "14px",
                     }}
                   >
-                    {option}
+                    {errorMessage}
+                  </div>
+                )}
+
+                <div className="tm-fc-form-fields-grid">
+                  {/* Row 1: Full Name */}
+                  <div className="tm-fc-input-group">
+                    <input
+                      type="text"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleInputChange}
+                      placeholder="Full Name"
+                      className="tm-fc-input"
+                      autoComplete="name"
+                      required
+                    />
+                  </div>
+
+                  {/* Row 1: WhatsApp Number */}
+                  <div className="tm-fc-input-group">
+                    <div className="tm-fc-phone-wrap">
+                      <div className="tm-fc-phone-flag">
+                        <svg
+                          width="20"
+                          height="14"
+                          viewBox="0 0 30 20"
+                          style={{
+                            borderRadius: "2px",
+                            overflow: "hidden",
+                            flexShrink: 0,
+                          }}
+                          aria-label="Indian flag"
+                        >
+                          <rect width="30" height="6.66" fill="#FF9933" />
+                          <rect
+                            y="6.66"
+                            width="30"
+                            height="6.66"
+                            fill="#FFFFFF"
+                          />
+                          <rect
+                            y="13.33"
+                            width="30"
+                            height="6.67"
+                            fill="#138808"
+                          />
+                          <circle cx="15" cy="10" r="2.5" fill="#000080" />
+                        </svg>
+                        <span>+91</span>
+                      </div>
+
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        placeholder="WhatsApp Number"
+                        className="tm-fc-phone-input"
+                        inputMode="numeric"
+                        autoComplete="tel-national"
+                        maxLength={10}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  {/* Row 2: City */}
+                  <div className="tm-fc-input-group">
+                    <input
+                      type="text"
+                      name="city"
+                      value={formData.city}
+                      onChange={handleInputChange}
+                      placeholder="City"
+                      className="tm-fc-input"
+                      autoComplete="address-level2"
+                      required
+                    />
+                  </div>
+
+                  {/* Row 2: When to Start */}
+                  <div className="tm-fc-input-group">
+                    <select
+                      name="whenToStart"
+                      value={formData.whenToStart}
+                      onChange={handleInputChange}
+                      className="tm-fc-select"
+                      required
+                    >
+                      <option value="">When to Start?</option>
+                      <option value="Immediately">Immediately</option>
+                      <option value="Within 1 Month">Within 1 Month</option>
+                      <option value="1-3 Months">1 to 3 Months</option>
+                      <option value="Exploring">Just Exploring</option>
+                    </select>
+                  </div>
+
+                  {/* Row 3: Shop Availability */}
+                  <div className="tm-fc-input-group">
+                    <select
+                      name="haveShop"
+                      value={formData.haveShop}
+                      onChange={handleInputChange}
+                      className="tm-fc-select"
+                      required
+                    >
+                      <option value="">Do you have a shop?</option>
+                      <option value="Yes, Owned Commercial Space">
+                        Yes, Owned Commercial Space
+                      </option>
+                      <option value="Yes, Rented Commercial Space">
+                        Yes, Rented Commercial Space
+                      </option>
+                      <option value="Looking for Location">
+                        Looking for Location
+                      </option>
+                      <option value="No Space Yet">No Space Yet</option>
+                    </select>
+                  </div>
+
+                  {/* Row 3: Investment Readiness */}
+                  <div className="tm-fc-input-group">
+                    <select
+                      name="investmentReadiness"
+                      value={formData.investmentReadiness}
+                      onChange={handleInputChange}
+                      className="tm-fc-select"
+                      required
+                    >
+                      <option value="">Investment Readiness</option>
+                      <option value="Ready with ₹4–5 Lakhs">
+                        Ready with ₹4–5 Lakhs
+                      </option>
+                      <option value="Ready with ₹5–10 Lakhs">
+                        Ready with ₹5–10 Lakhs
+                      </option>
+                      <option value="Arranging Funds / Loan">
+                        Arranging Funds / Loan
+                      </option>
+                      <option value="Need Proposal First">
+                        Need Proposal First
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Submit Button */}
+                <button
+                  type="submit"
+                  className="tm-fc-btn-submit"
+                  disabled={isSubmitting}
+                  style={{
+                    width: "100%",
+                    opacity: isSubmitting ? 0.7 : 1,
+                    cursor: isSubmitting ? "not-allowed" : "pointer",
+                  }}
+                >
+                  <span>
+                    {isSubmitting
+                      ? "Preparing Enquiry..."
+                      : "Get Franchise Details on WhatsApp"}
                   </span>
-                </label>
-              ))}
+                  <FaWhatsapp size={20} />
+                </button>
 
-            </div>
+                <p className="tm-fc-form-disclaimer">
+                  Submitting an enquiry does not guarantee franchise or
+                  location approval.
+                </p>
+              </form>
+            )}
           </div>
-
-
-          {/* CONSENT */}
-
-          <label
-            style={{
-              display: "flex",
-              alignItems: "flex-start",
-              gap: "10px",
-              cursor: "pointer",
-              fontSize: "12px",
-              lineHeight: 1.5,
-              color: "var(--tm-teal-muted)",
-            }}
-          >
-            <input
-              type="checkbox"
-              name="consent"
-              checked={formData.consent}
-              onChange={handleChange}
-              required
-              style={{
-                width: "18px",
-                height: "18px",
-                flex: "0 0 auto",
-                marginTop: "1px",
-              }}
-            />
-
-            <span>
-              I agree to the{" "}
-              <a
-                href="/terms"
-                style={{
-                  color: "var(--tm-teal)",
-                  textDecoration: "underline",
-                }}
-              >
-                Terms
-              </a>{" "}
-              &{" "}
-              <a
-                href="/privacy"
-                style={{
-                  color: "var(--tm-teal)",
-                  textDecoration: "underline",
-                }}
-              >
-                Privacy Policy
-              </a>{" "}
-              and consent to being contacted by TeaMax.
-            </span>
-          </label>
-
-
-          {/* SUBMIT */}
-
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="tm-btn tm-btn-teal"
-            style={{
-              width: "100%",
-              marginTop: "8px",
-            }}
-          >
-            {isSubmitting
-              ? "Submitting Inquiry..."
-              : "Get Franchise Details →"}
-          </button>
-
         </div>
-
-        <p className="tm-form-disclaimer">
-          🔒 Your privacy is protected. We will only contact you
-          regarding TeaMax franchise opportunities. No spam.
-        </p>
-
-      </form>
-    </div>
+      </div>
+    </section>
   );
 }

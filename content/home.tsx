@@ -28,7 +28,7 @@ const A = "https://cafe-blueprint-magic.lovable.app/assets";
 const benefits = [
   { icon: IndianRupee, label: <>1242 +<br /></>, des: <>Franchise Partners</> },
   { icon: BarChart3, label: <>27 +<br /></>, des: <>States</> },
-  { icon: ChefHat, label: <>51 +<br /></>, des: <>Months</> },
+  // { icon: ChefHat, label: <>51 +<br /></>, des: <>Months</> },
   // { icon: Target, label: <>Complete<br /></>,des:<>Franchise Partners</> },
 ];
 
@@ -65,7 +65,7 @@ const faqs = [
 
 export default function Home() {
   return (
-    <div className="tm-home">
+    <div className="tm-home ">
       <section className="hero-section martop" aria-labelledby="hero-title">
         <Image
           className="hero-image"
@@ -83,15 +83,15 @@ export default function Home() {
             <p className="hero-description">Build your café with TeaMax  – a structured franchise model with no royalty and support across setup, training, technology and marketing. </p>
             <div className="hero-actions">
               <Link href="/franchise#apply" className="cafe-action">Get Franchise Details <ArrowRight size={17} /></Link>
-              <Link href="/blog" className="play-button" aria-label="Watch TeaMax stories"><Play size={15} fill="currentColor" /></Link>
-              <span className="watch-label">Watch Video</span>
+              {/* <Link href="/about-us" className="play-button" aria-label="Watch TeaMax stories"><Play size={15} fill="currentColor" /></Link>
+              <span className="watch-label">Read More</span> */}
             </div>
           </div>
           <div className="hero-handwriting" aria-hidden="true">Good<br />Tea<br /><span>Brighter<br />Days</span></div>
         </div>
       </section>
 
-      <section id="about" className="container-xl perks-wrap" aria-label="TeaMax benefits">
+      <section id="about" className="containernew perks-wrap" aria-label="TeaMax benefits">
         <div className="perks">
           {benefits.map(({ icon: Icon, label, des }, i) => (
             <div className={`perk perk-${i + 1}`} key={i}>
@@ -102,7 +102,12 @@ export default function Home() {
           ))}
         </div>
       </section>
-
+      <div className="hero-mobile-cta">
+        <Link href="/franchise#apply" className="cafe-action">
+          Get Franchise Details
+          <ArrowRight size={17} />
+        </Link>
+      </div>
       <HomeMenuCategories />
       <TrustedBrands />
       <AwardsRecognitions />
@@ -190,7 +195,7 @@ export default function Home() {
       <HowItWorks />
       <FranchiseStories />
       <HomeBlogSection />
-      <section className="home-faq container-xl " aria-labelledby="faq-heading">
+      <section className="home-faq container-xl" aria-labelledby="faq-heading">
         <div className="home-faq-inner">
           <div><p className="eyebrow">QUICK ANSWERS</p><h2 id="faq-heading">TeaMax Café<br /><span className="marker">FAQs.</span></h2><p>Clear answers about TeaMax, the menu and the franchise opportunity.</p></div>
           <div className="faq-list">

@@ -3,6 +3,7 @@ import { Header, Footer, JsonLd } from "../components";
 import { getAllBlogPosts, BlogPost } from "./blog-data";
 import { BlogClient } from "./blog-client";
 import { getBlogs } from "../lib/api";
+import Link from "next/link";
 
 export const dynamic = "force-static";
 
@@ -49,9 +50,9 @@ export default async function BlogIndexPage() {
         const rawDate = b.publishDate || b.createdAt;
         const dateStr = rawDate
           ? new Date(rawDate).toLocaleDateString("en-IN", {
-              month: "long",
-              year: "numeric",
-            })
+            month: "long",
+            year: "numeric",
+          })
           : "Recent";
 
         return {
@@ -90,7 +91,7 @@ export default async function BlogIndexPage() {
       const existingSlugs = new Set(mappedApiBlogs.map((b) => b.slug));
       posts = [...mappedApiBlogs, ...posts.filter((p) => !existingSlugs.has(p.slug))];
     }
-  } catch (_) {}
+  } catch (_) { }
 
   const blogSchema = {
     "@context": "https://schema.org",
@@ -141,7 +142,7 @@ export default async function BlogIndexPage() {
             <div>
               <span className="tm-eyebrow">Insights &amp; Stories</span>
               <h1 id="story-hero-heading" className="tm-heading-xl ">
-                Stories from the <em>brew.</em>
+                Stories from the brew.
               </h1>
               <p className="tm-franchise-hero-lead">
                 A curated collection of business guides, brewing craft, beverage trends, and
@@ -149,20 +150,14 @@ export default async function BlogIndexPage() {
               </p>
 
               <div className="tm-hero-actions-wrap">
-                <a href="#apply" className="tm-btn tm-btn-yellow">
+                <Link href="/franchise" className="tm-btn tm-btn-yellow">
                   Enquire for Franchise
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M5 12h14"></path>
                     <path d="m12 5 7 7-7 7"></path>
                   </svg>
-                </a>
-                <a href="#models" className="tm-btn tm-btn-outline" style={{ color: "var(--tm-cream)", borderColor: "rgba(255, 248, 238, 0.3)" }}>
-                  Explore Models
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M7 17L17 7"></path>
-                    <path d="M7 7h10v10"></path>
-                  </svg>
-                </a>
+                </Link>
+
               </div>
             </div>
 

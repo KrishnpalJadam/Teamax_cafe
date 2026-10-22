@@ -18,6 +18,10 @@
   background: url("/images/back.png") center center / cover no-repeat;
 }
 
+.mainspace {
+  padding-bottom: 0px !important;
+}
+
 /* Remove every overlay */
 .tmx-trusted-brands::before,
 .tmx-trusted-brands::after {

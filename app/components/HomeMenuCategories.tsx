@@ -114,9 +114,15 @@ export default function HomeMenuCategories() {
         const menuList = Array.isArray(apiMenu) ? apiMenu : [];
 
         // Filter active categories and sort by displayOrder
+        // Filter active categories, sort by displayOrder,
+        // and show only the first 5 categories
         const activeCategories = apiCategories
           .filter((c: any) => c.status === "active")
-          .sort((a: any, b: any) => (a.displayOrder ?? 99) - (b.displayOrder ?? 99));
+          .sort(
+            (a: any, b: any) =>
+              (a.displayOrder ?? 99) - (b.displayOrder ?? 99)
+          )
+          .slice(0, 5);
 
         if (activeCategories.length > 0) {
           const dynamicCards: CategoryCardItem[] = activeCategories.map((c: any) => ({

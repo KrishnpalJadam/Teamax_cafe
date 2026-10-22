@@ -336,7 +336,7 @@ export function StorePromos() {
             </article>
 
             <article className="detailscentres-promo detailscentres-delivery-promo">
-                <span className="detailscentres-round-icon"><Bike /></span>
+                {/* <span className="detailscentres-round-icon"><Bike /></span> */}
 
                 <div className="detailscentres-delivery-content">
                     <h2>Order Online from<br />TeaMax {locality}</h2>

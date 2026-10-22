@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Header, Footer, JsonLd, FaqJsonLd } from "../components";
 import OurTeamPage from "../our-team/page";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 export const dynamic = "force-static";
 
@@ -386,7 +388,7 @@ export default function OurStoryPage() {
               <div className="tm-principle-card">
                 <span className="tm-pill tm-pill-yellow" style={{ marginBottom: "14px" }}>01 / Purity</span>
                 <h3>Whole Leaves & Fresh Milk</h3>
-                <p className="tm-body">
+                <p className=" tm-body2">
                   No synthetic tea concentrates or powdered milk. We source estate-fresh tea leaves and combine
                   them with pure dairy and hand-crushed whole spices.
                 </p>
@@ -395,7 +397,7 @@ export default function OurStoryPage() {
               <div className="tm-principle-card">
                 <span className="tm-pill tm-pill-yellow" style={{ marginBottom: "14px" }}>02 / Health</span>
                 <h3>Zero Added Water Juices</h3>
-                <p className="tm-body">
+                <p className="">
                   Our juice center extracts pure nectar straight from ripe, hand-selected fruits without watering
                   down the nutritional integrity or authentic taste.
                 </p>
@@ -404,7 +406,7 @@ export default function OurStoryPage() {
               <div className="tm-principle-card">
                 <span className="tm-pill tm-pill-yellow" style={{ marginBottom: "14px" }}>03 / Hospitality</span>
                 <h3>Quick, Friendly Service</h3>
-                <p className="tm-body">
+                <p className="">
                   Whether you have two minutes between meetings or two hours to catch up with friends, our team
                   serves you promptly with genuine warmth.
                 </p>
@@ -413,7 +415,7 @@ export default function OurStoryPage() {
               <div className="tm-principle-card">
                 <span className="tm-pill tm-pill-yellow" style={{ marginBottom: "14px" }}>04 / Atmosphere</span>
                 <h3>Contemporary Ambience</h3>
-                <p className="tm-body">
+                <p className="">
                   Thoughtfully designed spaces with soothing cream tones, deep accents, comfortable seating,
                   and ambient lighting where everyone feels at home.
                 </p>
@@ -422,7 +424,7 @@ export default function OurStoryPage() {
               <div className="tm-principle-card">
                 <span className="tm-pill tm-pill-yellow" style={{ marginBottom: "14px" }}>05 / Value</span>
                 <h3>Affordable Everyday Luxury</h3>
-                <p className="tm-body">
+                <p className="">
                   Great taste and beautiful surroundings should be accessible every day, not just on special occasions.
                   Our pricing reflects honest value.
                 </p>
@@ -431,7 +433,7 @@ export default function OurStoryPage() {
               <div className="tm-principle-card">
                 <span className="tm-pill tm-pill-yellow" style={{ marginBottom: "14px" }}>06 / Partnership</span>
                 <h3>360° Franchise Care</h3>
-                <p className="tm-body">
+                <p className="">
                   We empower our outlet owners with comprehensive training, standardized operations, robust marketing,
                   and ongoing operational mentoring.
                 </p>
@@ -503,35 +505,7 @@ export default function OurStoryPage() {
         {/* =================================================================
             07 / GEOGRAPHIC PRESENCE & STORE DIRECTORY NOTE
             ================================================================= */}
-        <section className="tm-section" aria-labelledby="presence-heading">
-          <div className="tm-container">
-            <div className="tm-geo-strip">
-              <div>
-                {/* <span className="tm-eyebrow">Local Footprint · Across India</span> */}
-                <h3 id="presence-heading" className="tm-heading-md" style={{ margin: "4px 0 8px 0" }}>
-                  Serving 250+ locations across 6 vibrant states.
-                </h3>
-                <p className="tm-body" style={{ margin: 0, maxWidth: "600px" }}>
-                  Find a TeaMax Café in your neighborhood or highway stop. We are proudly brewing fresh daily in:
-                </p>
-                <div className="tm-city-badges">
-                  <span className="tm-city-badge">Telangana (Hyderabad, Warangal)</span>
-                  <span className="tm-city-badge">Andhra Pradesh (Vijayawada, Vizag, Guntur)</span>
-                  <span className="tm-city-badge">Karnataka (Bangalore, Mysuru)</span>
-                  <span className="tm-city-badge">Tamil Nadu (Chennai, Coimbatore)</span>
-                  <span className="tm-city-badge">West Bengal (Kolkata)</span>
-                  <span className="tm-city-badge">Odisha (Bhubaneswar, Cuttack)</span>
-                </div>
-              </div>
 
-              <div>
-                <Link href="/stores" className="tm-btn tm-btn-teal" style={{ whiteSpace: "nowrap" }}>
-                  Find Nearest Café ↗
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* =================================================================
             08 / ANSWER ENGINE OPTIMIZATION (AEO) FAQs
@@ -560,24 +534,15 @@ export default function OurStoryPage() {
         {/* =================================================================
             09 / CALL TO ACTION
             ================================================================= */}
-        <section className="tm-section" style={{ textAlign: "center", paddingBottom: "120px" }}>
-          <div className="tm-container" style={{ maxWidth: "640px" }}>
-            {/* <span className="tm-eyebrow">Experience TeaMax</span> */}
-            <h2 className="tm-heading-lg">
-              Every craving.<br />
-              <em>One comforting café.</em>
-            </h2>
-            <p className="tm-lead">
-              Come in for a warm chai, an icy cold-pressed juice, or a rich scoop of ice cream. We would love to share a cup with you.
-            </p>
-            <div style={{ display: "flex", gap: "14px", justifyContent: "center", flexWrap: "wrap", marginTop: "24px" }}>
-              <Link href="/menu" className="tm-btn tm-btn-yellow">
-                View Full Menu →
-              </Link>
-              <Link href="/franchise#apply" className="tm-btn tm-btn-outline">
-                Become a Franchisee
-              </Link>
+        <section id="contact" className="container-xl contact-section mt-10">
+          <div className="contact-banner">
+            <Image src="./images/tea-valley.webp" width={1200} height={704} alt="A warm cup of chai at TeaMax Café" unoptimized loading="lazy" />
+            <div className="contact-shape">
+              <h2>Let&apos;s Brew<br />Your Success Story</h2>
+              <p>Own a TeaMax Café and be part of a growing community of successful franchise partners.</p>
+              <Link href="/franchise#apply" className="cafe-action">Get Franchise Details <ArrowRight size={17} /></Link>
             </div>
+            <div className="contact-script">Chai<br /><span>People</span><br />Good<br /><span>Stories</span></div>
           </div>
         </section>
       </main>

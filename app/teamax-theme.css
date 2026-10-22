@@ -70,6 +70,15 @@ a {
   padding-inline: 24px;
 }
 
+.containernew {
+  max-width: 1140px;
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 24px;
+  box-sizing: border-box;
+}
+
+
 .site-header .brand {
   display: inline-flex;
   align-items: center;
@@ -342,26 +351,32 @@ a {
 }
 
 .perks {
-  background: rgba(255, 248, 238, .94);
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(255, 248, 238, 0.94);
   border-radius: 28px;
   min-height: 130px;
   padding: 25px 0;
+
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  box-shadow: 0 10px 30px rgba(38, 60, 61, .07);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+
+  box-shadow: 0 10px 30px rgba(38, 60, 61, 0.07);
 }
 
 .perk {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
   text-align: center;
-  justify-content: center;
-  position: relative;
   gap: 6px;
+  min-width: 0;
+  position: relative;
 }
 
-.perk:not(:last-child):after {
+.perk:not(:last-child)::after {
   content: "";
   width: 1px;
   height: 63px;
@@ -378,6 +393,25 @@ a {
 
 .perk span {
   font: 700 18px/1.15 var(--font-display), sans-serif;
+}
+
+@media (max-width: 600px) {
+  .containernew {
+    padding-inline: 16px;
+  }
+
+  .perks {
+    border-radius: 20px;
+    padding: 22px 0;
+  }
+
+  .perk strong {
+    font-size: 30px;
+  }
+
+  .perk span {
+    font-size: 18px;
+  }
 }
 
 .icon-spot {
@@ -835,18 +869,18 @@ a {
 }
 
 .step h3 {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 800;
   margin: 3px 0 0;
 }
 
 .step p {
-  font-size: 12px;
+  font-size: 16px;
   margin: 0;
 }
 
 .home-faq {
-  padding: 55px 0 60px;
+  padding: 30px 0 30px;
   /* background: var(--tm-cream-2); */
 }
 
@@ -855,7 +889,7 @@ a {
   grid-template-columns: .7fr 1.3fr;
   gap: 70px;
   align-items: start;
-  padding: 22px;
+  /* padding: 22px; */
 }
 
 .home-faq-inner>div:first-child>p:last-child {
@@ -1039,7 +1073,7 @@ a {
 }
 
 .tm-section {
-  padding-block: 80px;
+  padding-block: 30px;
 }
 
 .tm-hero-media,
@@ -1211,7 +1245,7 @@ a {
   }
 
   .franchise-features strong {
-    font-size: 11px;
+    font-size: 18px;
   }
 
   .round-icon {
@@ -1349,7 +1383,7 @@ a {
   }
 
   .section-space {
-    padding-top: 44px;
+    padding-top: 30px;
   }
 
   .section-heading h2,
@@ -1493,7 +1527,7 @@ a {
 
   .contact-shape {
     width: 100%;
-    height: 62%;
+    height: 46%;
     padding: 28px 26px;
     border-radius: 0 0 42% 0 / 0 0 16% 0;
   }
@@ -1573,7 +1607,7 @@ a {
   }
 
   .franchise-features strong {
-    font-size: 10px;
+    font-size: 18px;
   }
 
   .round-icon {
@@ -1590,6 +1624,105 @@ a {
   * {
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* Desktop: Existing design unchanged */
+.hero-mobile-cta {
+  display: none;
+}
+
+/* Mobile only */
+@media (max-width: 600px) {
+  .hero-section {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-inner {
+    height: auto;
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 16px 20px;
+
+  }
+
+  .hero-copy {
+    max-width: 100%;
+    padding-bottom: 0;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(38px, 10vw, 48px);
+    line-height: 0.98;
+  }
+
+  .hero-description {
+    margin-bottom: 0;
+  }
+
+  .hero-image {
+    position: relative !important;
+    inset: auto;
+    order: 2;
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero-actions,
+  .hero-handwriting {
+    display: none;
+  }
+
+  .perks-wrap {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 0 16px;
+    margin-top: 0;
+  }
+
+  .perks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-height: 104px;
+    padding: 18px 0;
+    border-radius: 20px;
+  }
+
+  .perk strong {
+    font-size: 24px;
+  }
+
+  .perk span {
+    font-size: 18px;
+  }
+
+  .perk:not(:last-child)::after {
+    height: 48px;
+  }
+
+  .hero-mobile-cta {
+    display: flex;
+    justify-content: center;
+    padding: 20px 16px 28px;
+  }
+
+  .hero-mobile-cta .cafe-action {
+    width: 100%;
+    max-width: 320px;
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
   }
 }
 
@@ -1662,6 +1795,9 @@ a {
   gap: 30px;
 }
 
+details[open]>summary {
+  color: #000;
+}
 
 /* =========================================================
    LOGO

@@ -62,7 +62,7 @@ export default function FranchiseStories() {
 
         const listToUse = filtered.length > 0 ? filtered : data;
 
-        const formatted = listToUse.slice(0, 6).map((r: any, idx: number) => ({
+        const formatted = listToUse.slice(0, 3).map((r: any, idx: number) => ({
           id: r.id || `live-${idx}`,
           name: r.reviewerName || "Verified Guest",
           location:

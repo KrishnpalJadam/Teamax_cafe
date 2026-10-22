@@ -165,8 +165,13 @@
 .tm-body {
     position: relative;
     overflow: hidden;
-    padding: 65px 0 55px;
+    padding: 30px 0 30px;
     /* background: var(--tm-cream); */
+}
+
+.tm-body2 {
+    /* padding: 30px 0px 0px 30px !important; */
+    margin-bottom: 0 !important;
 }
 
 .tm-body-content {
@@ -457,9 +462,9 @@
         font-size: clamp(2rem, 8vw, 2.7rem);
     }
 
-    .tm-body {
+    /* .tm-body {
         padding: 42px 0;
-    }
+    } */
 
     .tm-people {
         gap: 38px;

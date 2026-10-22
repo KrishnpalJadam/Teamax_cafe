@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import "./franchise.css";
 import { Header } from "../components";
+import FranchiseFormSection from "./franchise-form";
 import {
   Users,
   MapPin,
@@ -33,83 +34,37 @@ import {
   Star,
   HelpCircle,
   ChevronDown,
-  Globe2,
-  ShieldCheck,
-  BadgeCheck,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+
+
+import dynamic from "next/dynamic";
+
+const FranchiseIndiaMap = dynamic(
+  () => import("./FranchiseIndiaMap"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="tm-fc-map-loading">Loading map...</div>
+    ),
+  }
+);
 
 export function FranchiseClient() {
   // FAQ accordion state
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  // Form state
-  const [formData, setFormData] = useState({
-    fullName: "",
-    phone: "",
-    city: "",
-    whenToStart: "",
-    haveShop: "",
-    investmentReadiness: "",
-  });
+  // Categories slider state
+  const [catIndex, setCatIndex] = useState(0);
+  const [itemsPerViewCat, setItemsPerViewCat] = useState(6);
+  const catTouchStartX = useRef<number | null>(null);
 
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  // Testimonials slider state
+  const [testIndex, setTestIndex] = useState(0);
+  const [itemsPerViewTest, setItemsPerViewTest] = useState(3);
+  const testTouchStartX = useRef<number | null>(null);
 
-  const toggleFaq = (index: number) => {
-    setOpenFaq(openFaq === index ? null : index);
-  };
-
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.fullName || !formData.phone) {
-      alert("Please enter your name and WhatsApp number.");
-      return;
-    }
-
-    // Compose prefilled WhatsApp message
-    const msg = `Hi TeaMax Team, I am interested in opening a TeaMax Franchise.
-Name: ${formData.fullName}
-Phone: ${formData.phone}
-City: ${formData.city || "Not specified"}
-When to Start: ${formData.whenToStart || "Exploring"}
-Shop Status: ${formData.haveShop || "Not specified"}
-Investment Readiness: ${formData.investmentReadiness || "Not specified"}
-Please share the franchise proposal and setup details.`;
-
-    const waUrl = `https://api.whatsapp.com/send?phone=919505047047&text=${encodeURIComponent(
-      msg
-    )}`;
-
-    setFormSubmitted(true);
-    window.open(waUrl, "_blank");
-  };
-
-  const handleHeroWhatsApp = () => {
-    const msg =
-      "Hi TeaMax Team, I would like to get franchise details for TeaMax Cafe (₹3.69 Lakh model). Please send me the franchise proposal.";
-    window.open(
-      `https://api.whatsapp.com/send?phone=919505047047&text=${encodeURIComponent(
-        msg
-      )}`,
-      "_blank"
-    );
-  };
-
-  const scrollToForm = () => {
-    const el = document.getElementById("franchise-form");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  // Categories list
+  // Categories list (8 items)
   const categories = [
     {
       name: "Tea & Coffee",
@@ -141,6 +96,68 @@ Please share the franchise proposal and setup details.`;
       image:
         "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=400&q=80",
     },
+    {
+      name: "Gourmet Momos",
+      image:
+        "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=400&q=80",
+    },
+    {
+      name: "Artisanal Desserts",
+      image:
+        "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80",
+    },
+  ];
+
+  // Testimonials list (6 items)
+  const testimonials = [
+    {
+      name: "Rohit Sharma",
+      city: "Bangalore",
+      quote:
+        "Simple operations, great support and a popular brand. TeaMax has been a wonderful business opportunity for me.",
+      image:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80",
+    },
+    {
+      name: "Pooja Nair",
+      city: "Kolkata",
+      quote:
+        "The training and marketing guidance helped us open smoothly. Our customers love the menu and quality.",
+      image:
+        "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80",
+    },
+    {
+      name: "Amit Verma",
+      city: "Pune",
+      quote:
+        "No royalty and a clear business model. TeaMax is easy to manage and gives exceptional daily returns.",
+      image:
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80",
+    },
+    {
+      name: "Rajesh Patel",
+      city: "Ahmedabad",
+      quote:
+        "The chef-less setup made it so simple to launch. Footfall and repeat chai lovers have exceeded our targets.",
+      image:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80",
+    },
+    {
+      name: "Sneha Reddy",
+      city: "Hyderabad",
+      quote:
+        "From location audit to Swiggy & Zomato onboarding, the operational helpline supported us at every stage.",
+      image:
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80",
+    },
+    {
+      name: "Vikram Chauhan",
+      city: "Jaipur",
+      quote:
+        "Low investment with turnkey 25-day opening. TeaMax provides true national brand power and high margins.",
+      image:
+        "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=150&q=80",
+    },
   ];
 
   // FAQs list
@@ -170,6 +187,95 @@ Please share the franchise proposal and setup details.`;
       a: "While no business can guarantee absolute profits, TeaMax provides high gross margins (55%–65%), proven operating SOPs, national marketing visibility, and aggregator onboarding (Swiggy/Zomato) to maximize your success.",
     },
   ];
+
+  // Screen resize listener for dynamic slide counts
+  useEffect(() => {
+    const handleResize = () => {
+      const w = window.innerWidth;
+      if (w < 480) {
+        setItemsPerViewCat(2);
+        setItemsPerViewTest(1);
+      } else if (w < 768) {
+        setItemsPerViewCat(3);
+        setItemsPerViewTest(1);
+      } else if (w < 1024) {
+        setItemsPerViewCat(4);
+        setItemsPerViewTest(2);
+      } else {
+        setItemsPerViewCat(6);
+        setItemsPerViewTest(3);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Category slider controls
+  const maxCatIndex = Math.max(0, categories.length - itemsPerViewCat);
+  const handleCatPrev = () => {
+    setCatIndex((prev) => (prev > 0 ? prev - 1 : maxCatIndex));
+  };
+  const handleCatNext = () => {
+    setCatIndex((prev) => (prev < maxCatIndex ? prev + 1 : 0));
+  };
+
+  // Testimonial slider controls
+  const maxTestIndex = Math.max(0, testimonials.length - itemsPerViewTest);
+  const handleTestPrev = () => {
+    setTestIndex((prev) => (prev > 0 ? prev - 1 : maxTestIndex));
+  };
+  const handleTestNext = () => {
+    setTestIndex((prev) => (prev < maxTestIndex ? prev + 1 : 0));
+  };
+
+  // Touch Swipe handlers for Categories
+  const handleCatTouchStart = (e: React.TouchEvent) => {
+    catTouchStartX.current = e.touches[0].clientX;
+  };
+  const handleCatTouchEnd = (e: React.TouchEvent) => {
+    if (catTouchStartX.current === null) return;
+    const diff = catTouchStartX.current - e.changedTouches[0].clientX;
+    if (diff > 40) handleCatNext();
+    else if (diff < -40) handleCatPrev();
+    catTouchStartX.current = null;
+  };
+
+  // Touch Swipe handlers for Testimonials
+  const handleTestTouchStart = (e: React.TouchEvent) => {
+    testTouchStartX.current = e.touches[0].clientX;
+  };
+  const handleTestTouchEnd = (e: React.TouchEvent) => {
+    if (testTouchStartX.current === null) return;
+    const diff = testTouchStartX.current - e.changedTouches[0].clientX;
+    if (diff > 40) handleTestNext();
+    else if (diff < -40) handleTestPrev();
+    testTouchStartX.current = null;
+  };
+
+  const toggleFaq = (index: number) => {
+    setOpenFaq(openFaq === index ? null : index);
+  };
+
+  const handleHeroWhatsApp = () => {
+    const msg =
+      "Hi TeaMax Team, I would like to get franchise details for TeaMax Cafe (₹3.69 Lakh model). Please send me the franchise proposal.";
+    window.open(
+      `https://api.whatsapp.com/send?phone=919505047047&text=${encodeURIComponent(
+        msg
+      )}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
+  };
+
+  const scrollToForm = () => {
+    const el = document.getElementById("franchise-form");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <div className="tm-fc-page">
@@ -205,17 +311,17 @@ Please share the franchise proposal and setup details.`;
               <div className="tm-fc-hero-stats">
                 <div className="tm-fc-hero-stat-item">
                   <div className="tm-fc-stat-icon-wrap">
-                    <Users size={20} strokeWidth={2.2} />
+                    <Users size={18} strokeWidth={2.2} />
                   </div>
                   <div className="tm-fc-hero-stat-info">
                     <strong>1,200+</strong>
-                    <span>Franchise Partner Signups</span>
+                    <span>Partner Signups</span>
                   </div>
                 </div>
 
                 <div className="tm-fc-hero-stat-item">
                   <div className="tm-fc-stat-icon-wrap">
-                    <MapPin size={20} strokeWidth={2.2} />
+                    <MapPin size={18} strokeWidth={2.2} />
                   </div>
                   <div className="tm-fc-hero-stat-info">
                     <strong>27+</strong>
@@ -225,7 +331,7 @@ Please share the franchise proposal and setup details.`;
 
                 <div className="tm-fc-hero-stat-item">
                   <div className="tm-fc-stat-icon-wrap">
-                    <Percent size={20} strokeWidth={2.5} />
+                    <Percent size={18} strokeWidth={2.5} />
                   </div>
                   <div className="tm-fc-hero-stat-info">
                     <strong>0%</strong>
@@ -240,16 +346,16 @@ Please share the franchise proposal and setup details.`;
                   onClick={handleHeroWhatsApp}
                   className="tm-fc-btn-primary"
                 >
-                  <span>Get Franchise Details on WhatsApp</span>
-                  <FaWhatsapp size={20} />
+                  <span>Get Details on WhatsApp</span>
+                  <FaWhatsapp size={19} />
                 </button>
 
                 <button
                   onClick={scrollToForm}
                   className="tm-fc-btn-secondary"
                 >
-                  <span>Download Franchise Proposal</span>
-                  <Download size={18} strokeWidth={2.2} />
+                  <span>Download Proposal</span>
+                  <Download size={17} strokeWidth={2.2} />
                 </button>
               </div>
 
@@ -313,7 +419,7 @@ Please share the franchise proposal and setup details.`;
               <div className="tm-fc-ribbon-sub">Equipment & training</div>
             </div>
 
-            <div className="tm-fc-ribbon-item">
+            <div className="tm-fc-ribbon-item ribbon-span-mobile">
               <div className="tm-fc-ribbon-icon">
                 <Award size={23} strokeWidth={2.2} />
               </div>
@@ -482,7 +588,7 @@ Please share the franchise proposal and setup details.`;
                 </div>
 
                 <div className="tm-fc-table-highlight">
-                  <span>Illustrative Total (Excluding Taxes)</span>
+                  <span>Illustrative Total (Excl. Taxes)</span>
                   <strong>₹4,39,999</strong>
                 </div>
               </div>
@@ -640,7 +746,7 @@ Please share the franchise proposal and setup details.`;
                     <Maximize2 size={18} strokeWidth={2.3} />
                   </div>
                   <strong>80-100 sq. ft.</strong>
-                  <span>Minimum Space</span>
+                  <span>Min. Space</span>
                 </div>
 
                 <div className="tm-fc-space-stat-pill">
@@ -698,18 +804,20 @@ Please share the franchise proposal and setup details.`;
                 </ul>
               </div>
 
-              <img
-                src="/images/franchise-storefront.jpg"
-                alt="Compact TeaMax Kiosk Storefront"
-                className="tm-fc-space-img"
-              />
+              <div className="tm-fc-space-img-wrap">
+                <img
+                  src="/images/franchise-storefront.jpg"
+                  alt="Compact TeaMax Kiosk Storefront"
+                  className="tm-fc-space-img"
+                />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ====================================================================
-          8. ONE CAFÉ. MULTIPLE FOOD & BEVERAGE CATEGORIES. - Lucide Chevrons
+          8. ONE CAFÉ. MULTIPLE FOOD & BEVERAGE CATEGORIES. (ACTIVE SLIDER)
           ==================================================================== */}
       <section className="tm-fc-categories-section">
         <div className="tm-fc-container">
@@ -723,50 +831,77 @@ Please share the franchise proposal and setup details.`;
             </p>
           </div>
 
-          <div className="tm-fc-cat-slider-wrap">
+          <div
+            className="tm-fc-slider-wrapper"
+            onTouchStart={handleCatTouchStart}
+            onTouchEnd={handleCatTouchEnd}
+          >
             <button
-              className="tm-fc-cat-nav-btn"
-              onClick={() => {
-                const el = document.getElementById("cat-grid");
-                if (el) el.scrollBy({ left: -220, behavior: "smooth" });
-              }}
-              aria-label="Previous categories"
+              className="tm-fc-slider-arrow prev"
+              onClick={handleCatPrev}
+              aria-label="Previous category slide"
             >
               <ChevronLeft size={22} strokeWidth={2.5} />
             </button>
 
-            <div id="cat-grid" className="tm-fc-cat-grid">
-              {categories.map((cat) => (
-                <div key={cat.name} className="tm-fc-cat-card">
-                  <div className="tm-fc-cat-thumb">
-                    <img
-                      src={cat.image}
-                      alt={cat.name}
-                      width="200"
-                      height="150"
-                    />
+            <div className="tm-fc-slider-track-container">
+              <div
+                className="tm-fc-slider-track"
+                style={{
+                  transform: `translateX(-${(catIndex * 100) / itemsPerViewCat}%)`,
+                }}
+              >
+                {categories.map((cat) => (
+                  <div
+                    key={cat.name}
+                    className="tm-fc-slide-item"
+                    style={{
+                      flex: `0 0 ${100 / itemsPerViewCat}%`,
+                      maxWidth: `${100 / itemsPerViewCat}%`,
+                    }}
+                  >
+                    <div className="tm-fc-cat-card">
+                      <div className="tm-fc-cat-thumb">
+                        <img
+                          src={cat.image}
+                          alt={cat.name}
+                          width="240"
+                          height="180"
+                          loading="lazy"
+                        />
+                      </div>
+                      <h3 className="tm-fc-cat-name">{cat.name}</h3>
+                    </div>
                   </div>
-                  <h3 className="tm-fc-cat-name">{cat.name}</h3>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
 
             <button
-              className="tm-fc-cat-nav-btn"
-              onClick={() => {
-                const el = document.getElementById("cat-grid");
-                if (el) el.scrollBy({ left: 220, behavior: "smooth" });
-              }}
-              aria-label="Next categories"
+              className="tm-fc-slider-arrow next"
+              onClick={handleCatNext}
+              aria-label="Next category slide"
             >
               <ChevronRight size={22} strokeWidth={2.5} />
             </button>
+          </div>
+
+          {/* Dots Indicator */}
+          <div className="tm-fc-slider-dots">
+            {Array.from({ length: maxCatIndex + 1 }).map((_, idx) => (
+              <button
+                key={idx}
+                className={`tm-fc-dot ${catIndex === idx ? "active" : ""}`}
+                onClick={() => setCatIndex(idx)}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>
 
       {/* ====================================================================
-          9. FROM APPLICATION TO CAFÉ LAUNCH (TIMELINE) - Lucide Icons
+          9. FROM APPLICATION TO CAFÉ LAUNCH (TIMELINE)
           ==================================================================== */}
       <section className="tm-fc-timeline-section">
         <div className="tm-fc-container">
@@ -844,12 +979,12 @@ Please share the franchise proposal and setup details.`;
       </section>
 
       {/* ====================================================================
-          10. BUSINESS SUPPORT + FRANCHISE NETWORK - Lucide Icons
+          10. BUSINESS SUPPORT + FRANCHISE NETWORK
           ==================================================================== */}
       <section className="tm-fc-network-section">
         <div className="tm-fc-container">
           <div className="tm-fc-network-grid">
-            {/* Left Column */}
+
             <div className="tm-fc-support-col">
               <h2>
                 You&apos;re in Business
@@ -901,9 +1036,9 @@ Please share the franchise proposal and setup details.`;
               </ul>
             </div>
 
-            {/* Right Column: Dark Stats & India Map */}
+
             <div className="tm-fc-network-card">
-              <div className="tm-fc-network-stats-col">
+              {/* <div className="tm-fc-network-stats-col">
                 <h3>Our Franchise Network</h3>
                 <div className="tm-fc-network-stats-grid">
                   <div className="tm-fc-net-stat-row">
@@ -948,7 +1083,7 @@ Please share the franchise proposal and setup details.`;
                 </div>
               </div>
 
-              {/* Stylized Vector India Map */}
+             
               <div className="tm-fc-network-map-col">
                 <span className="tm-fc-map-tag">Growing Across India</span>
                 <svg
@@ -957,14 +1092,12 @@ Please share the franchise proposal and setup details.`;
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  {/* Stylized India geometric silhouette */}
                   <path
                     d="M135 25 L160 20 L180 40 L165 75 L200 95 L220 85 L250 115 L230 140 L200 135 L190 170 L210 190 L180 230 L160 270 L140 330 L130 290 L100 240 L85 200 L75 160 L50 145 L70 110 L100 95 L110 50 Z"
                     fill="#0a3d38"
                     stroke="#1c5c55"
                     strokeWidth="2"
                   />
-                  {/* Decorative geographic grid lines */}
                   <line
                     x1="60"
                     y1="100"
@@ -993,7 +1126,7 @@ Please share the franchise proposal and setup details.`;
                     strokeDasharray="4 4"
                   />
 
-                  {/* Pulsing Location Nodes */}
+                 
                   <circle cx="135" cy="85" r="5" fill="#ffd028" />
                   <circle
                     cx="135"
@@ -1053,14 +1186,16 @@ Please share the franchise proposal and setup details.`;
                     opacity="0.3"
                   />
                 </svg>
-              </div>
+              </div> */}
+              <FranchiseIndiaMap />
             </div>
           </div>
         </div>
+
       </section>
 
       {/* ====================================================================
-          11. WHAT OUR FRANCHISE PARTNERS SAY - Lucide Chevrons & Stars
+          11. WHAT OUR FRANCHISE PARTNERS SAY (ACTIVE SLIDER)
           ==================================================================== */}
       <section className="tm-fc-testimonials-section">
         <div className="tm-fc-container">
@@ -1070,113 +1205,101 @@ Please share the franchise proposal and setup details.`;
             </h2>
           </div>
 
-          <div className="tm-fc-test-slider-wrap">
+          <div
+            className="tm-fc-slider-wrapper"
+            onTouchStart={handleTestTouchStart}
+            onTouchEnd={handleTestTouchEnd}
+          >
             <button
-              className="tm-fc-cat-nav-btn"
-              onClick={() => {
-                const el = document.getElementById("test-grid");
-                if (el) el.scrollBy({ left: -260, behavior: "smooth" });
-              }}
-              aria-label="Previous testimonials"
+              className="tm-fc-slider-arrow prev"
+              onClick={handleTestPrev}
+              aria-label="Previous testimonial slide"
             >
               <ChevronLeft size={22} strokeWidth={2.5} />
             </button>
 
-            <div id="test-grid" className="tm-fc-test-grid">
-              <div className="tm-fc-test-card">
-                <div style={{ display: "flex", gap: "4px", marginBottom: "12px" }}>
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={15} fill="#ffd028" color="#ffd028" />
-                  ))}
-                </div>
-                <p className="tm-fc-test-quote">
-                  “Simple operations, great support and a popular brand. TeaMax
-                  has been a wonderful business opportunity for me.”
-                </p>
-                <div className="tm-fc-test-author">
-                  <img
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80"
-                    alt="Rohit Sharma"
-                    className="tm-fc-test-avatar"
-                  />
-                  <div className="tm-fc-test-info">
-                    <strong>Rohit Sharma</strong>
-                    <span>Bangalore</span>
+            <div className="tm-fc-slider-track-container">
+              <div
+                className="tm-fc-slider-track"
+                style={{
+                  transform: `translateX(-${(testIndex * 100) / itemsPerViewTest}%)`,
+                }}
+              >
+                {testimonials.map((test) => (
+                  <div
+                    key={test.name}
+                    className="tm-fc-slide-item"
+                    style={{
+                      flex: `0 0 ${100 / itemsPerViewTest}%`,
+                      maxWidth: `${100 / itemsPerViewTest}%`,
+                    }}
+                  >
+                    <div className="tm-fc-test-card">
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "4px",
+                          marginBottom: "12px",
+                        }}
+                      >
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            size={15}
+                            fill="#ffd028"
+                            color="#ffd028"
+                          />
+                        ))}
+                      </div>
+                      <p className="tm-fc-test-quote">“{test.quote}”</p>
+                      <div className="tm-fc-test-author">
+                        <img
+                          src={test.image}
+                          alt={test.name}
+                          className="tm-fc-test-avatar"
+                        />
+                        <div className="tm-fc-test-info">
+                          <strong>{test.name}</strong>
+                          <span>{test.city}</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-
-              <div className="tm-fc-test-card">
-                <div style={{ display: "flex", gap: "4px", marginBottom: "12px" }}>
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={15} fill="#ffd028" color="#ffd028" />
-                  ))}
-                </div>
-                <p className="tm-fc-test-quote">
-                  “The training and marketing guidance helped us open smoothly.
-                  Our customers love the menu.”
-                </p>
-                <div className="tm-fc-test-author">
-                  <img
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80"
-                    alt="Pooja Nair"
-                    className="tm-fc-test-avatar"
-                  />
-                  <div className="tm-fc-test-info">
-                    <strong>Pooja Nair</strong>
-                    <span>Kolkata</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="tm-fc-test-card">
-                <div style={{ display: "flex", gap: "4px", marginBottom: "12px" }}>
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} size={15} fill="#ffd028" color="#ffd028" />
-                  ))}
-                </div>
-                <p className="tm-fc-test-quote">
-                  “No royalty and a clear business model. TeaMax is easy to
-                  manage and gives good returns.”
-                </p>
-                <div className="tm-fc-test-author">
-                  <img
-                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80"
-                    alt="Amit Verma"
-                    className="tm-fc-test-avatar"
-                  />
-                  <div className="tm-fc-test-info">
-                    <strong>Amit Verma</strong>
-                    <span>Pune</span>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
             <button
-              className="tm-fc-cat-nav-btn"
-              onClick={() => {
-                const el = document.getElementById("test-grid");
-                if (el) el.scrollBy({ left: 260, behavior: "smooth" });
-              }}
-              aria-label="Next testimonials"
+              className="tm-fc-slider-arrow next"
+              onClick={handleTestNext}
+              aria-label="Next testimonial slide"
             >
               <ChevronRight size={22} strokeWidth={2.5} />
             </button>
+          </div>
+
+          {/* Dots Indicator */}
+          <div className="tm-fc-slider-dots">
+            {Array.from({ length: maxTestIndex + 1 }).map((_, idx) => (
+              <button
+                key={idx}
+                className={`tm-fc-dot ${testIndex === idx ? "active" : ""}`}
+                onClick={() => setTestIndex(idx)}
+                aria-label={`Go to testimonial ${idx + 1}`}
+              />
+            ))}
           </div>
         </div>
       </section>
 
       {/* ====================================================================
-          12. FREQUENTLY ASKED QUESTIONS - Lucide HelpCircle & ChevronDown
+          12. FREQUENTLY ASKED QUESTIONS
           ==================================================================== */}
       <section className="tm-fc-faq-section">
         <div className="tm-fc-container">
           <div className="tm-fc-faq-top">
             <h2 className="tm-fc-section-title">Frequently Asked Questions</h2>
-            <Link href="#franchise-form" className="tm-fc-btn-pill-yellow">
-              View All FAQs
-            </Link>
+
           </div>
 
           <div className="tm-fc-faq-grid">
@@ -1216,189 +1339,11 @@ Please share the franchise proposal and setup details.`;
       </section>
 
       {/* ====================================================================
-          13. BOTTOM LEAD CAPTURE FORM ("Ready to Start Your Own TeaMax?")
+          13. BOTTOM LEAD CAPTURE FORM (From franchise-form.tsx)
           ==================================================================== */}
-      <section id="franchise-form" className="tm-fc-form-section">
-        <div className="tm-fc-container">
-          <div className="tm-fc-form-card">
-            {/* Left Photo */}
-            <div className="tm-fc-form-media">
-              <img
-                src="/images/franchise-storefront.jpg"
-                alt="TeaMax Store Interior and Counter"
-              />
-            </div>
-
-            {/* Right Form */}
-            <div className="tm-fc-form-body">
-              <h2>Ready to Start Your Own TeaMax?</h2>
-              <p className="sub">
-                Get the complete franchise proposal, investment breakup and
-                setup process.
-              </p>
-
-              {formSubmitted ? (
-                <div
-                  style={{
-                    background: "rgba(255, 208, 40, 0.15)",
-                    border: "1px solid #ffd028",
-                    padding: "24px",
-                    borderRadius: "12px",
-                    textAlign: "center",
-                  }}
-                >
-                  <div style={{ display: "inline-flex", marginBottom: "8px", color: "#ffd028" }}>
-                    <BadgeCheck size={36} />
-                  </div>
-                  <h3
-                    style={{
-                      color: "#ffd028",
-                      fontSize: "20px",
-                      marginBottom: "8px",
-                    }}
-                  >
-                    Thank You!
-                  </h3>
-                  <p style={{ color: "#ffffff", fontSize: "14px", margin: 0 }}>
-                    Your franchise enquiry has been prepared. Our team is
-                    connecting with you on WhatsApp shortly!
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleFormSubmit}>
-                  <div className="tm-fc-form-fields-grid">
-                    {/* Row 1 */}
-                    <div className="tm-fc-input-group">
-                      <input
-                        type="text"
-                        name="fullName"
-                        value={formData.fullName}
-                        onChange={handleInputChange}
-                        placeholder="Full Name"
-                        className="tm-fc-input"
-                        required
-                      />
-                    </div>
-
-                    <div className="tm-fc-input-group">
-                      <div className="tm-fc-phone-wrap">
-                        <div className="tm-fc-phone-flag">
-                          {/* Mini Indian Tricolor Flag vector */}
-                          <svg
-                            width="20"
-                            height="14"
-                            viewBox="0 0 30 20"
-                            style={{ borderRadius: "2px", overflow: "hidden" }}
-                          >
-                            <rect width="30" height="6.66" fill="#FF9933" />
-                            <rect y="6.66" width="30" height="6.66" fill="#FFFFFF" />
-                            <rect y="13.33" width="30" height="6.66" fill="#138808" />
-                            <circle cx="15" cy="10" r="2.5" fill="#000080" />
-                          </svg>
-                          <span>+91</span>
-                        </div>
-                        <input
-                          type="tel"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          placeholder="WhatsApp Number"
-                          className="tm-fc-phone-input"
-                          maxLength={10}
-                          required
-                        />
-                      </div>
-                    </div>
-
-                    {/* Row 2 */}
-                    <div className="tm-fc-input-group">
-                      <input
-                        type="text"
-                        name="city"
-                        value={formData.city}
-                        onChange={handleInputChange}
-                        placeholder="City"
-                        className="tm-fc-input"
-                        required
-                      />
-                    </div>
-
-                    <div className="tm-fc-input-group">
-                      <select
-                        name="whenToStart"
-                        value={formData.whenToStart}
-                        onChange={handleInputChange}
-                        className="tm-fc-select"
-                      >
-                        <option value="">When to Start?</option>
-                        <option value="Immediately">Immediately</option>
-                        <option value="Within 1 Month">Within 1 Month</option>
-                        <option value="1-3 Months">1 to 3 Months</option>
-                        <option value="Exploring">Just Exploring</option>
-                      </select>
-                    </div>
-
-                    {/* Row 3 */}
-                    <div className="tm-fc-input-group">
-                      <select
-                        name="haveShop"
-                        value={formData.haveShop}
-                        onChange={handleInputChange}
-                        className="tm-fc-select"
-                      >
-                        <option value="">Do you have a shop?</option>
-                        <option value="Yes, Owned Commercial Space">
-                          Yes, Owned Commercial Space
-                        </option>
-                        <option value="Yes, Rented Commercial Space">
-                          Yes, Rented Commercial Space
-                        </option>
-                        <option value="Looking for Location">
-                          Looking for Location
-                        </option>
-                        <option value="No Space Yet">No Space Yet</option>
-                      </select>
-                    </div>
-
-                    <div className="tm-fc-input-group">
-                      <select
-                        name="investmentReadiness"
-                        value={formData.investmentReadiness}
-                        onChange={handleInputChange}
-                        className="tm-fc-select"
-                      >
-                        <option value="">Investment Readiness</option>
-                        <option value="Ready with ₹4–5 Lakhs">
-                          Ready with ₹4–5 Lakhs
-                        </option>
-                        <option value="Ready with ₹5–10 Lakhs">
-                          Ready with ₹5–10 Lakhs
-                        </option>
-                        <option value="Arranging Funds / Loan">
-                          Arranging Funds / Loan
-                        </option>
-                        <option value="Need Proposal First">
-                          Need Proposal First
-                        </option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <button type="submit" className="tm-fc-btn-submit">
-                    <span>Get Franchise Details on WhatsApp</span>
-                    <FaWhatsapp size={20} />
-                  </button>
-
-                  <p className="tm-fc-form-disclaimer">
-                    Submitting an enquiry does not guarantee franchise or
-                    location approval.
-                  </p>
-                </form>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
+      <div id="#apply">
+        <FranchiseFormSection />
+      </div>
     </div>
   );
 }

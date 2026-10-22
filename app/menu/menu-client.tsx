@@ -632,7 +632,7 @@ export function MenuClient({
 
       <section id="contact" className="container-xl contact-section topmaring">
         <div className="contact-banner">
-          <img src="/images/signature-chai.webp" width={1200} height={704} alt="A warm cup of chai at TeaMax Café" loading="lazy" />
+          <img src="/images/tea-valley.webp" width={1200} height={704} alt="A warm cup of chai at TeaMax Café" loading="lazy" />
           <div className="contact-shape">
             <h2>Try Our Signature<br /> Masala Chai</h2>
 

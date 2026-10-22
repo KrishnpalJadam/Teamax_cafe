@@ -429,7 +429,7 @@
 @media (max-width: 1100px) {
 
   .tm-home-blog-section {
-    padding: 85px 0 90px;
+    padding: 30px 0 30px;
   }
 
   .tm-home-blog-grid {
@@ -457,7 +457,7 @@
 @media (max-width: 767px) {
 
   .tm-home-blog-section {
-    padding: 65px 0 75px;
+    padding: 30px 0 30px;
   }
 
   .tm-home-blog-header {
@@ -485,7 +485,7 @@
 
   /* Hide desktop View All */
 
-  .tm-home-blog-header > .tm-home-blog-view-all {
+  .tm-home-blog-header>.tm-home-blog-view-all {
     display: none;
   }
 
@@ -538,7 +538,7 @@
 @media (max-width: 480px) {
 
   .tm-home-blog-section {
-    padding: 55px 0 65px;
+    padding: 30px 0 30px;
   }
 
   .tm-home-blog-eyebrow {

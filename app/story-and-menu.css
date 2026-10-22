@@ -146,6 +146,8 @@
   margin: 0 0 16px 0;
 }
 
+
+
 .tm-caption {
   font-size: 13px;
   line-height: 1.5;
@@ -345,8 +347,8 @@
 
 /* Sections */
 .tm-section {
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 30px;
+  padding-bottom: 30px;
   position: relative;
 }
 
@@ -489,7 +491,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 20px;
-  margin-top: 48px;
+  margin-top: 20px;
 }
 
 @media (min-width: 640px) {
@@ -3317,7 +3319,7 @@ body {
   background: var(--tm-cream);
   color: var(--tm-teal);
   overflow: hidden;
-  margin-top: 50px;
+  margin-top: 0px;
 }
 
 .tx-menu-area {
@@ -3325,8 +3327,8 @@ body {
 }
 
 .topmaring {
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 /* =========================================================

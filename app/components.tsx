@@ -18,7 +18,7 @@ import { WhatsAppButton } from "./WhatsAppButton";
 export function Header({ active }: { active?: string }) {
   const nav = [
     ["/", "Home"],
-    ["/about-us", "Our Stories"],
+    ["/about-us", "Our Storie"],
     ["/menu", "Menu"],
     ["/ourcentres", "Our Centres"],
     ["/franchise", "Franchise"],
@@ -65,9 +65,9 @@ export function Header({ active }: { active?: string }) {
 
 export function Footer() {
   return (
-    <footer id="footer" className="tm-footer">
+    <footer id="footer" className="tm-footer ">
 
-      <div className="tm-footer-container">
+      <div className="tm-footer-container container-xl">
 
         {/* =================================
             BRAND
@@ -248,14 +248,7 @@ export function Footer() {
 
       <div className="tm-footer-bottom">
 
-        <a
-          // href="https://www.teamaxcafe.in/general-8"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="tm-footer-policy"
-        >
-          General &amp; Privacy Policy
-        </a>
+        <Link href="/privacy-policy">General & Privacy Policy</Link>
 
         <p>
           © {new Date().getFullYear()} All Rights Reserved with{" "}
