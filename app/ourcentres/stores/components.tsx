@@ -56,6 +56,63 @@ const defaultFaqs = [
     { q: "Is parking available at the cafe?", a: "The location listing highlights ample parking. Contact the cafe if you need specific accessibility details." },
 ];
 
+// Helper to ensure external links have valid protocol
+function formatExternalUrl(url?: string, defaultUrl: string = ""): string {
+    if (!url || !url.trim()) return defaultUrl;
+    const trimmed = url.trim();
+    if (!/^https?:\/\//i.test(trimmed)) {
+        return `https://${trimmed}`;
+    }
+    return trimmed;
+}
+
+// Helper to resolve exact Google Map directions URL and embed iframe URL
+function getStoreMapUrls(centre: any, centreName: string, address: string) {
+    const rawMap = (centre?.mapUrl || centre?.googleMapUrl || "").trim();
+
+    // 1. Check if user pasted an embed iframe code
+    let iframeSrc = "";
+    if (rawMap.includes("<iframe")) {
+        const match = rawMap.match(/src=["']([^"']+)["']/i);
+        if (match && match[1]) {
+            iframeSrc = match[1];
+        }
+    } else if (rawMap.includes("/maps/embed")) {
+        iframeSrc = rawMap;
+    }
+
+    // 2. Direct directions URL
+    let directionsUrl = "";
+    if (rawMap.startsWith("http://") || rawMap.startsWith("https://")) {
+        if (!rawMap.includes("/maps/embed") && !rawMap.includes("<iframe")) {
+            directionsUrl = rawMap;
+        }
+    }
+
+    // 3. Fallback coordinates or formatted address query
+    const hasCoords = centre?.latitude != null && centre?.longitude != null;
+    const coordsQuery = hasCoords ? `${centre.latitude},${centre.longitude}` : "";
+    const addressQuery = `${centreName} ${address}`.trim();
+    const primaryQuery = coordsQuery || addressQuery;
+
+    if (!directionsUrl) {
+        directionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(primaryQuery)}`;
+    }
+
+    if (!iframeSrc) {
+        let embedQuery = primaryQuery;
+        if (rawMap && !rawMap.includes("<iframe") && !rawMap.includes("/maps/embed")) {
+            const coordMatch = rawMap.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/) || rawMap.match(/[?&]q=(-?\d+\.\d+),(-?\d+\.\d+)/);
+            if (coordMatch) {
+                embedQuery = `${coordMatch[1]},${coordMatch[2]}`;
+            }
+        }
+        iframeSrc = `https://maps.google.com/maps?q=${encodeURIComponent(embedQuery)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+    }
+
+    return { directionsUrl, iframeSrc };
+}
+
 // Context for Store Data synchronization
 interface StoreContextType {
     centre: any;
@@ -190,6 +247,11 @@ export function StoreHero() {
     const phone = centre?.contactNumber || "+919876543210";
     const whatsapp = centre?.whatsappNumber || phone;
 
+    const { directionsUrl: mapDirectionsUrl } = useMemo(
+        () => getStoreMapUrls(centre, centreName, address),
+        [centre, centreName, address]
+    );
+
     return (
         <>
             <div className="detailscentres-breadcrumbs">
@@ -242,7 +304,8 @@ export function StoreHero() {
                             className="detailscentres-btn detailscentres-btn-yellow"
                             target="_blank"
                             rel="noreferrer"
-                            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${centreName} ${address}`)}`}
+                            href={mapDirectionsUrl}
+                            title="Open Google Maps exact location"
                         >
                             <MapPin />Get Directions
                         </a>
@@ -342,8 +405,22 @@ export function StorePromos() {
                     <h2>Order Online from<br />TeaMax {locality}</h2>
                     <p>Get your favourite tea, coffee and snacks delivered to your doorstep.</p>
                     <div className="detailscentres-delivery-links">
-                        <a href="https://www.zomato.com/" target="_blank" rel="noreferrer">zomato</a>
-                        <a href="https://www.swiggy.com/" target="_blank" rel="noreferrer">Swiggy</a>
+                        <a
+                            href={formatExternalUrl(centre?.zomatoUrl, "https://www.zomato.com/")}
+                            target="_blank"
+                            rel="noreferrer"
+                            title={`Order on Zomato from TeaMax ${locality}`}
+                        >
+                            zomato
+                        </a>
+                        <a
+                            href={formatExternalUrl(centre?.swiggyUrl, "https://www.swiggy.com/")}
+                            target="_blank"
+                            rel="noreferrer"
+                            title={`Order on Swiggy from TeaMax ${locality}`}
+                        >
+                            Swiggy
+                        </a>
                     </div>
                 </div>
 
@@ -377,6 +454,11 @@ export function StoreSections() {
     const address = centre?.address || "Plot No. 12, Kompally Main Road, Kompally, Hyderabad, Telangana 500014";
     const phone = centre?.contactNumber || "+91 98765 43210";
     const whatsapp = centre?.whatsappNumber || phone;
+
+    const { directionsUrl: mapDirectionsUrl, iframeSrc: mapIframeSrc } = useMemo(
+        () => getStoreMapUrls(centre, centreName, address),
+        [centre, centreName, address]
+    );
 
     return (
         <>
@@ -494,7 +576,7 @@ export function StoreSections() {
                             <a
                                 target="_blank"
                                 rel="noreferrer"
-                                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${centreName} ${address}`)}`}
+                                href={mapDirectionsUrl}
                             >
                                 Open in Google Maps <ArrowRight size={14} />
                             </a>
@@ -503,7 +585,7 @@ export function StoreSections() {
                         <div className="detailscentres-real-map">
                             <iframe
                                 title={`${centreName} Location Map`}
-                                src={`https://maps.google.com/maps?q=${encodeURIComponent(`${centreName} ${address}`)}&t=&z=15&ie=UTF8&iwloc=&output=embed`}
+                                src={mapIframeSrc}
                                 width="100%"
                                 height="100%"
                                 style={{ border: 0 }}
@@ -524,7 +606,7 @@ export function StoreSections() {
                                 className="detailscentres-btn detailscentres-btn-primary detailscentres-map-directions"
                                 target="_blank"
                                 rel="noreferrer"
-                                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${centreName} ${address}`)}`}
+                                href={mapDirectionsUrl}
                             >
                                 <Navigation size={16} /> Get Directions
                             </a>
@@ -547,6 +629,58 @@ export function StoreSections() {
                             <p>
                                 <MapPin size={17} /> {address}
                             </p>
+
+                            {(centre?.swiggyUrl || centre?.zomatoUrl) && (
+                                <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid #f0ede6' }}>
+                                    <p style={{ fontSize: '11px', fontWeight: 800, color: '#687770', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
+                                        Order Online from this Outlet:
+                                    </p>
+                                    <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                                        {centre?.swiggyUrl && (
+                                            <a
+                                                href={formatExternalUrl(centre.swiggyUrl)}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                style={{
+                                                    display: 'inline-flex',
+                                                    alignItems: 'center',
+                                                    gap: '6px',
+                                                    padding: '6px 14px',
+                                                    borderRadius: '999px',
+                                                    background: '#FC8019',
+                                                    color: '#ffffff',
+                                                    fontSize: '12px',
+                                                    fontWeight: 700,
+                                                    textDecoration: 'none'
+                                                }}
+                                            >
+                                                Swiggy ↗
+                                            </a>
+                                        )}
+                                        {centre?.zomatoUrl && (
+                                            <a
+                                                href={formatExternalUrl(centre.zomatoUrl)}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                style={{
+                                                    display: 'inline-flex',
+                                                    alignItems: 'center',
+                                                    gap: '6px',
+                                                    padding: '6px 14px',
+                                                    borderRadius: '999px',
+                                                    background: '#E23744',
+                                                    color: '#ffffff',
+                                                    fontSize: '12px',
+                                                    fontWeight: 700,
+                                                    textDecoration: 'none'
+                                                }}
+                                            >
+                                                Zomato ↗
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
                         </article>
 
                         <article className="detailscentres-hours-panel">

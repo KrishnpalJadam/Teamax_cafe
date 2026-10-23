@@ -478,7 +478,7 @@ export default function OurCentresContent() {
                                         <div className="tm-cafe-actions">
                                             <a
                                                 className="tm-button tm-directions-button"
-                                                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                                                href={(cafe as any).mapUrl || (cafe as any).googleMapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
                                                     `${cafe.name}, ${cafe.address}`
                                                 )}`}
                                                 target="_blank"
