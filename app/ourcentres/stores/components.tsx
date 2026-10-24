@@ -430,6 +430,50 @@ export function StorePromos() {
     );
 }
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001/api/v1";
+
+function MomentsSection() {
+    const [photos, setPhotos] = useState<{ src: string; alt: string }[]>([]);
+
+    useEffect(() => {
+        fetch(`${API_BASE}/settings/moments`)
+            .then((r) => r.json())
+            .then((json) => {
+                const images: string[] = json?.data?.images || json?.images || [];
+                const valid = images.filter(Boolean);
+                if (valid.length > 0) {
+                    setPhotos(valid.map((src, i) => ({ src, alt: `TeaMax moment ${i + 1}` })));
+                } else {
+                    setPhotos(defaultPhotos);
+                }
+            })
+            .catch(() => {
+                setPhotos(defaultPhotos);
+            });
+    }, []);
+
+    const display = photos.length > 0 ? photos : defaultPhotos;
+
+    return (
+        <section className="detailscentres-section">
+            <div className="detailscentres-section-heading">
+                <div>
+                    <span className="detailscentres-eyebrow">A LITTLE LOOK INSIDE</span>
+                    <h2>Moments at TeaMax</h2>
+                </div>
+            </div>
+
+            <div className="detailscentres-gallery-grid">
+                {display.map((photo) => (
+                    <div className="detailscentres-gallery-item" key={photo.src}>
+                        <img src={photo.src} alt={photo.alt} />
+                    </div>
+                ))}
+            </div>
+        </section>
+    );
+}
+
 export function StoreSections() {
     const { featuredProducts, commonMenu, offer, centre } = useStoreData();
     const [category, setCategory] = useState("All");
@@ -697,23 +741,8 @@ export function StoreSections() {
                 </div>
             </section>
 
-            {/* Gallery Section */}
-            <section className="detailscentres-section">
-                <div className="detailscentres-section-heading">
-                    <div>
-                        <span className="detailscentres-eyebrow">A LITTLE LOOK INSIDE</span>
-                        <h2>Moments at TeaMax</h2>
-                    </div>
-                </div>
-
-                <div className="detailscentres-gallery-grid">
-                    {defaultPhotos.map((photo) => (
-                        <div className="detailscentres-gallery-item" key={photo.src}>
-                            <img src={photo.src} alt={photo.alt} />
-                        </div>
-                    ))}
-                </div>
-            </section>
+            {/* Gallery Section — dynamic from global /settings/moments, fallback to defaultPhotos */}
+            <MomentsSection />
 
             {/* Common Central Offer Section:
                 Strict requirement: Each franchise page must display only ONE offer at a time! */}
