@@ -1,0 +1,198 @@
+/* Isolated TeaMax review-card styles. These unique class names avoid menu/product CSS collisions. */
+.tx-menu-shell {
+    font-family: Arial, sans-serif !important;
+}
+
+.tx-reviews-shell .tm-review-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 20px !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+.tx-reviews-shell .tm-review-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 268px !important;
+    height: auto !important;
+    padding: 25px !important;
+    margin: 0 !important;
+    border: 1px solid #eadfce !important;
+    border-radius: 25px !important;
+    background: #fff !important;
+    box-shadow: 0 3px 10px rgb(38 60 61 / 5%) !important;
+    color: #263c3d !important;
+    overflow: visible !important;
+    text-align: left !important;
+}
+
+.tx-reviews-shell .tm-review-rating {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 4px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 0 16px !important;
+    padding: 0 !important;
+    color: #ffc928 !important;
+    line-height: 1 !important;
+}
+
+.tx-reviews-shell .tm-review-rating svg {
+    display: block !important;
+    flex: 0 0 auto !important;
+}
+
+.tx-reviews-shell blockquote.tm-review-quote,
+.tx-reviews-shell .tm-review-quote {
+    display: block !important;
+    flex: 1 1 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    color: #465452 !important;
+    /* font-family: inherit !important; */
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    font-style: italic !important;
+    line-height: 1.7 !important;
+    text-align: left !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
+    writing-mode: horizontal-tb !important;
+}
+
+.tx-reviews-shell .tm-review-divider {
+    display: block !important;
+    width: 100% !important;
+    height: 1px !important;
+    min-height: 1px !important;
+    flex: 0 0 1px !important;
+    margin: 20px 0 !important;
+    padding: 0 !important;
+    background: #eee3d5 !important;
+    border: 0 !important;
+}
+
+.tx-reviews-shell .tm-review-author {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 14px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.tx-reviews-shell .tm-review-avatar {
+    display: block !important;
+    flex: 0 0 52px !important;
+    width: 52px !important;
+    min-width: 52px !important;
+    max-width: 52px !important;
+    height: 52px !important;
+    min-height: 52px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 2px solid #ffcf26 !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+}
+
+.tx-reviews-shell .tm-review-author-copy {
+    display: block !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.tx-reviews-shell .tm-review-author-name {
+    display: block !important;
+    width: auto !important;
+    margin: 0 0 6px !important;
+    padding: 0 !important;
+    color: #182e2d !important;
+    font-size: 16px !important;
+    font-weight: 750 !important;
+    line-height: 1.35 !important;
+    text-align: left !important;
+    overflow-wrap: break-word !important;
+}
+
+.tx-reviews-shell .tm-review-location {
+    display: block !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    color: #65716e !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    text-align: left !important;
+    overflow-wrap: break-word !important;
+}
+
+.tx-reviews-shell .tm-review-read-more {
+    display: inline-flex !important;
+    align-items: center !important;
+    align-self: flex-start !important;
+    gap: 6px !important;
+    width: auto !important;
+    margin: 15px 0 0 !important;
+    padding: 0 !important;
+    color: #263c3d !important;
+    font-size: 13px !important;
+    font-weight: 650 !important;
+    text-decoration: none !important;
+}
+
+.tx-reviews-shell .tm-review-read-more:hover {
+    text-decoration: underline !important;
+}
+
+@media (max-width: 1100px) {
+    .tx-reviews-shell .tm-review-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 640px) {
+    .tx-reviews-shell .tm-review-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 14px !important;
+    }
+
+    .tx-reviews-shell .tm-review-card {
+        min-height: 0 !important;
+        padding: 22px 20px !important;
+        border-radius: 21px !important;
+    }
+
+    .tx-reviews-shell .tm-review-quote {
+        font-size: 15px !important;
+        line-height: 1.65 !important;
+    }
+}

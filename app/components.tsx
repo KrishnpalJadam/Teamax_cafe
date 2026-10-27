@@ -18,10 +18,11 @@ import { WhatsAppButton } from "./WhatsAppButton";
 export function Header({ active }: { active?: string }) {
   const nav = [
     ["/", "Home"],
-    ["/about-us", "Our Storie"],
+    ["/about-us", "Our Story"],
     ["/menu", "Menu"],
     ["/ourcentres", "Our Centres"],
     ["/franchise", "Franchise"],
+    ["/reviews", "Reviews"],
     ["/blog", "Blog"],
     ["/offers", "Offers"],
     // ["/#contact", "Contact"],
@@ -125,7 +126,27 @@ export function Footer() {
 
         <div className="tm-footer-column tm-footer-contact">
 
-          <h4>Contact Us</h4>
+          <h4>Important Links</h4>
+          <div className="tm-footer-links">
+            <Link href="/">Franchise Proposal</Link>
+            <Link href="/about-us">Franchise Explainer</Link>
+            <Link href="/menu">Franchise Booking</Link>
+            <Link href="/franchise#apply">Franchise List</Link>
+            <Link href="/blog">Team Login</Link>
+          </div>
+
+        </div>
+
+
+        {/* =================================
+            CONNECT
+        ================================= */}
+
+        <div className="tm-footer-column tm-footer-connect">
+
+
+          <h4>Contact Us </h4>
+
 
           <div className="tm-footer-office">
 
@@ -159,25 +180,9 @@ export function Footer() {
 
           </div>
 
-        </div>
-
-
-        {/* =================================
-            CONNECT
-        ================================= */}
-
-        <div className="tm-footer-column tm-footer-connect">
-
-          <h4>Connect With Us</h4>
-
-          <p className="tm-footer-made">
-            Made in <span>🇮🇳</span> for India
-          </p>
-
-
           {/* Social Icons */}
 
-          <div className="tm-footer-socials">
+          <div className="tm-footer-socials pt-5">
 
             <a
               href="https://www.youtube.com/@teamaxcafeindia"

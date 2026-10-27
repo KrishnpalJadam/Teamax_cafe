@@ -24,7 +24,7 @@ export function ShareButtons({ title, slug }: { title: string; slug: string }) {
 
   const shareWhatsapp = () => {
     const text = encodeURIComponent(`${title} — Read on TeaMax: ${getUrl()}`);
-    window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
+    window.open(`https://go.teamaxcafe.in/whatsapp?text=${text}`, "_blank");
   };
 
   const shareTwitter = () => {

@@ -321,6 +321,7 @@
     border-radius: 18px;
     background: linear-gradient(110deg, #fff0a9, #fff8d8 68%, #ffef9d);
     overflow: hidden;
+    margin-top: 50px;
 }
 
 .offers-franchise-banner::after {
@@ -398,7 +399,7 @@
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 16px;
-    margin-top: 22px;
+    margin-top: 51px;
     position: relative;
     z-index: 1;
 }

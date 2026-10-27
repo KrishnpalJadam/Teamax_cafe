@@ -5,6 +5,7 @@ import Link from "next/link";
 import "./franchise.css";
 import { Header } from "../components";
 import FranchiseFormSection from "./franchise-form";
+import { getCommonCategories, getCommonMenu } from "../lib/api";
 import {
   Users,
   MapPin,
@@ -63,102 +64,226 @@ export function FranchiseClient() {
   const [testIndex, setTestIndex] = useState(0);
   const [itemsPerViewTest, setItemsPerViewTest] = useState(3);
   const testTouchStartX = useRef<number | null>(null);
-
+  const [testimonials, setTestimonials] = useState<any[]>([]);
+  const [reviewsLoading, setReviewsLoading] = useState(true);
+  const [reviewsError, setReviewsError] = useState(false);
   // Categories list (8 items)
-  const categories = [
+
+  type FranchiseCategory = {
+    id: string;
+    name: string;
+    slug?: string;
+    image: string;
+  };
+
+  const CATEGORY_ASSETS =
+    "https://cafe-blueprint-magic.lovable.app/assets";
+
+  const defaultCategories: FranchiseCategory[] = [
     {
+      id: "tea",
       name: "Tea & Coffee",
-      image:
-        "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=400&q=80",
+      image: `${CATEGORY_ASSETS}/menu-tea-GDCVsE9V.jpg`,
     },
     {
+      id: "burgers",
       name: "Burgers & Sandwiches",
-      image:
-        "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80",
+      image: `${CATEGORY_ASSETS}/hero-cafe-zlWPzgb-.jpg`,
     },
     {
+      id: "snacks",
       name: "Fries & Snacks",
-      image:
-        "https://images.unsplash.com/photo-1576107232684-1279f3908594?auto=format&fit=crop&w=400&q=80",
+      image: `${CATEGORY_ASSETS}/menu-fries-CAp5uNC2.jpg`,
     },
     {
+      id: "pizza",
       name: "Pizza & Pasta",
       image:
         "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=80",
     },
     {
+      id: "shakes",
       name: "Milkshakes & Thickshakes",
-      image:
-        "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=400&q=80",
+      image: `${CATEGORY_ASSETS}/menu-shake-DCrFsPuS.jpg`,
     },
     {
+      id: "mojitos",
       name: "Mojitos & Refreshers",
       image:
         "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=400&q=80",
     },
     {
+      id: "momos",
       name: "Gourmet Momos",
       image:
         "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=400&q=80",
     },
     {
+      id: "desserts",
       name: "Artisanal Desserts",
       image:
         "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80",
     },
   ];
 
+  const [categories, setCategories] =
+    useState<FranchiseCategory[]>(defaultCategories);
+
+  useEffect(() => {
+    let mounted = true;
+
+    async function loadCategories() {
+      try {
+        const [apiCategories, apiMenu] = await Promise.all([
+          getCommonCategories(),
+          getCommonMenu().catch(() => []),
+        ]);
+
+        if (
+          !mounted ||
+          !Array.isArray(apiCategories) ||
+          apiCategories.length === 0
+        ) {
+          return;
+        }
+
+        const menuItems = Array.isArray(apiMenu) ? apiMenu : [];
+
+        const activeCategories = apiCategories
+          .filter((category: any) => category.status === "active")
+          .sort(
+            (a: any, b: any) =>
+              (a.displayOrder ?? 99) - (b.displayOrder ?? 99)
+          );
+
+        if (activeCategories.length === 0) return;
+
+        const dynamicCategories: FranchiseCategory[] =
+          activeCategories.map((category: any) => {
+            const name = category.name || "Menu Category";
+            const slug = (category.slug || "").toLowerCase();
+            const lowerName = name.toLowerCase();
+
+            let fallbackImage =
+              `${CATEGORY_ASSETS}/hero-cafe-zlWPzgb-.jpg`;
+
+            if (
+              lowerName.includes("tea") ||
+              lowerName.includes("chai") ||
+              slug.includes("tea") ||
+              slug.includes("chai")
+            ) {
+              fallbackImage =
+                `${CATEGORY_ASSETS}/menu-tea-GDCVsE9V.jpg`;
+            } else if (
+              lowerName.includes("coffee") ||
+              slug.includes("coffee")
+            ) {
+              fallbackImage =
+                `${CATEGORY_ASSETS}/menu-coffee-DRjZy5Da.jpg`;
+            } else if (
+              lowerName.includes("snack") ||
+              lowerName.includes("fries") ||
+              lowerName.includes("samosa") ||
+              slug.includes("snack")
+            ) {
+              fallbackImage =
+                `${CATEGORY_ASSETS}/menu-fries-CAp5uNC2.jpg`;
+            } else if (
+              lowerName.includes("shake") ||
+              slug.includes("shake")
+            ) {
+              fallbackImage =
+                `${CATEGORY_ASSETS}/menu-shake-DCrFsPuS.jpg`;
+            } else if (
+              lowerName.includes("sandwich") ||
+              slug.includes("sandwich")
+            ) {
+              fallbackImage =
+                "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=600&auto=format&fit=crop&q=80";
+            }
+
+            const categoryImage = category.image;
+
+            const image =
+              typeof categoryImage === "string" &&
+                categoryImage.trim() !== "" &&
+                !categoryImage.startsWith("blob:") &&
+                (
+                  categoryImage.startsWith("https://") ||
+                  categoryImage.startsWith("http://") ||
+                  categoryImage.startsWith("/")
+                )
+                ? categoryImage
+                : fallbackImage;
+
+            return {
+              id: String(category.id),
+              name,
+              slug: category.slug,
+              image,
+            };
+          });
+
+        if (mounted) {
+          setCategories(dynamicCategories);
+          setCatIndex(0);
+        }
+      } catch (error) {
+        console.error(
+          "Failed to fetch franchise categories:",
+          error
+        );
+        // Keep the existing default categories if the API fails.
+      }
+    }
+
+    loadCategories();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await fetch(
+          "https://teamaxbackend-production.up.railway.app/api/v1/reviews"
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch reviews");
+        }
+
+        const result = await response.json();
+
+        const franchiseReviews = (result.data || [])
+          .filter(
+            (review: any) =>
+              review.reviewType === "franchise" &&
+              review.status === "published" &&
+              review.displayOn?.includes("franchise_page")
+          )
+          .sort(
+            (a: any, b: any) =>
+              a.displayOrder - b.displayOrder
+          );
+
+        setTestimonials(franchiseReviews);
+      } catch (error) {
+        console.error("Error fetching franchise reviews:", error);
+        setReviewsError(true);
+      } finally {
+        setReviewsLoading(false);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
   // Testimonials list (6 items)
-  const testimonials = [
-    {
-      name: "Rohit Sharma",
-      city: "Bangalore",
-      quote:
-        "Simple operations, great support and a popular brand. TeaMax has been a wonderful business opportunity for me.",
-      image:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80",
-    },
-    {
-      name: "Pooja Nair",
-      city: "Kolkata",
-      quote:
-        "The training and marketing guidance helped us open smoothly. Our customers love the menu and quality.",
-      image:
-        "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=150&q=80",
-    },
-    {
-      name: "Amit Verma",
-      city: "Pune",
-      quote:
-        "No royalty and a clear business model. TeaMax is easy to manage and gives exceptional daily returns.",
-      image:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80",
-    },
-    {
-      name: "Rajesh Patel",
-      city: "Ahmedabad",
-      quote:
-        "The chef-less setup made it so simple to launch. Footfall and repeat chai lovers have exceeded our targets.",
-      image:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80",
-    },
-    {
-      name: "Sneha Reddy",
-      city: "Hyderabad",
-      quote:
-        "From location audit to Swiggy & Zomato onboarding, the operational helpline supported us at every stage.",
-      image:
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80",
-    },
-    {
-      name: "Vikram Chauhan",
-      city: "Jaipur",
-      quote:
-        "Low investment with turnkey 25-day opening. TeaMax provides true national brand power and high margins.",
-      image:
-        "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=150&q=80",
-    },
-  ];
+
 
   // FAQs list
   const faqs = [
@@ -258,17 +383,17 @@ export function FranchiseClient() {
     setOpenFaq(openFaq === index ? null : index);
   };
 
+
   const handleHeroWhatsApp = () => {
     const msg =
       "Hi TeaMax Team, I would like to get franchise details for TeaMax Cafe (₹3.69 Lakh model). Please send me the franchise proposal.";
-    window.open(
-      `https://api.whatsapp.com/send?phone=919505047047&text=${encodeURIComponent(
-        msg
-      )}`,
-      "_blank",
-      "noopener,noreferrer"
-    );
+
+    const whatsappUrl =
+      `https://go.teamaxcafe.in/whatsapp?text=${encodeURIComponent(msg)}`;
+
+    window.open(whatsappUrl, "_blank");
   };
+
 
   const scrollToForm = () => {
     const el = document.getElementById("franchise-form");
@@ -1197,6 +1322,7 @@ export function FranchiseClient() {
       {/* ====================================================================
           11. WHAT OUR FRANCHISE PARTNERS SAY (ACTIVE SLIDER)
           ==================================================================== */}
+
       <section className="tm-fc-testimonials-section">
         <div className="tm-fc-container">
           <div className="tm-fc-section-header">
@@ -1205,92 +1331,136 @@ export function FranchiseClient() {
             </h2>
           </div>
 
-          <div
-            className="tm-fc-slider-wrapper"
-            onTouchStart={handleTestTouchStart}
-            onTouchEnd={handleTestTouchEnd}
-          >
-            <button
-              className="tm-fc-slider-arrow prev"
-              onClick={handleTestPrev}
-              aria-label="Previous testimonial slide"
-            >
-              <ChevronLeft size={22} strokeWidth={2.5} />
-            </button>
-
-            <div className="tm-fc-slider-track-container">
+          {reviewsLoading ? (
+            <p className="tm-fc-testimonial-message">
+              Loading franchise testimonials...
+            </p>
+          ) : reviewsError ? (
+            <p className="tm-fc-testimonial-message">
+              Unable to load testimonials. Please try again later.
+            </p>
+          ) : testimonials.length === 0 ? (
+            <p className="tm-fc-testimonial-message">
+              No franchise testimonials available yet.
+            </p>
+          ) : (
+            <>
               <div
-                className="tm-fc-slider-track"
-                style={{
-                  transform: `translateX(-${(testIndex * 100) / itemsPerViewTest}%)`,
-                }}
+                className="tm-fc-slider-wrapper"
+                onTouchStart={handleTestTouchStart}
+                onTouchEnd={handleTestTouchEnd}
               >
-                {testimonials.map((test) => (
+                <button
+                  className="tm-fc-slider-arrow prev"
+                  onClick={handleTestPrev}
+                  aria-label="Previous testimonial slide"
+                  disabled={testimonials.length <= itemsPerViewTest}
+                >
+                  <ChevronLeft size={22} strokeWidth={2.5} />
+                </button>
+
+                <div className="tm-fc-slider-track-container">
                   <div
-                    key={test.name}
-                    className="tm-fc-slide-item"
+                    className="tm-fc-slider-track"
                     style={{
-                      flex: `0 0 ${100 / itemsPerViewTest}%`,
-                      maxWidth: `${100 / itemsPerViewTest}%`,
+                      transform: `translateX(-${(testIndex * 100) / itemsPerViewTest
+                        }%)`,
                     }}
                   >
-                    <div className="tm-fc-test-card">
+                    {testimonials.map((test) => (
                       <div
+                        key={test.id}
+                        className="tm-fc-slide-item"
                         style={{
-                          display: "flex",
-                          gap: "4px",
-                          marginBottom: "12px",
+                          flex: `0 0 ${100 / itemsPerViewTest}%`,
+                          maxWidth: `${100 / itemsPerViewTest}%`,
                         }}
                       >
-                        {[...Array(5)].map((_, i) => (
-                          <Star
-                            key={i}
-                            size={15}
-                            fill="#ffd028"
-                            color="#ffd028"
-                          />
-                        ))}
-                      </div>
-                      <p className="tm-fc-test-quote">“{test.quote}”</p>
-                      <div className="tm-fc-test-author">
-                        <img
-                          src={test.image}
-                          alt={test.name}
-                          className="tm-fc-test-avatar"
-                        />
-                        <div className="tm-fc-test-info">
-                          <strong>{test.name}</strong>
-                          <span>{test.city}</span>
+                        <div className="tm-fc-test-card">
+                          {/* Star Rating */}
+                          <div
+                            style={{
+                              display: "flex",
+                              gap: "4px",
+                              marginBottom: "12px",
+                            }}
+                          >
+                            {[...Array(5)].map((_, i) => (
+                              <Star
+                                key={i}
+                                size={15}
+                                fill={
+                                  i < (test.starRating || 0)
+                                    ? "#ffd028"
+                                    : "none"
+                                }
+                                color="#ffd028"
+                              />
+                            ))}
+                          </div>
+
+                          {/* Review Text */}
+                          <p className="tm-fc-test-quote">
+                            “{test.reviewText}”
+                          </p>
+
+                          {/* Reviewer Details */}
+                          <div className="tm-fc-test-author">
+                            <img
+                              src={
+                                test.reviewerAvatar ||
+                                "/images/default-avatar.png"
+                              }
+                              alt={test.reviewerName || "Franchise Partner"}
+                              className="tm-fc-test-avatar"
+                              loading="lazy"
+                            />
+
+                            <div className="tm-fc-test-info">
+                              <strong>{test.reviewerName}</strong>
+                              <span>{test.reviewerRole}</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    ))}
                   </div>
-                ))}
+                </div>
+
+                <button
+                  className="tm-fc-slider-arrow next"
+                  onClick={handleTestNext}
+                  aria-label="Next testimonial slide"
+                  disabled={testimonials.length <= itemsPerViewTest}
+                >
+                  <ChevronRight size={22} strokeWidth={2.5} />
+                </button>
               </div>
-            </div>
 
-            <button
-              className="tm-fc-slider-arrow next"
-              onClick={handleTestNext}
-              aria-label="Next testimonial slide"
-            >
-              <ChevronRight size={22} strokeWidth={2.5} />
-            </button>
-          </div>
-
-          {/* Dots Indicator */}
-          <div className="tm-fc-slider-dots">
-            {Array.from({ length: maxTestIndex + 1 }).map((_, idx) => (
-              <button
-                key={idx}
-                className={`tm-fc-dot ${testIndex === idx ? "active" : ""}`}
-                onClick={() => setTestIndex(idx)}
-                aria-label={`Go to testimonial ${idx + 1}`}
-              />
-            ))}
-          </div>
+              {/* Dots Indicator */}
+              {maxTestIndex > 0 && (
+                <div className="tm-fc-slider-dots">
+                  {Array.from({ length: maxTestIndex + 1 }).map(
+                    (_, idx) => (
+                      <button
+                        key={idx}
+                        className={`tm-fc-dot ${testIndex === idx ? "active" : ""
+                          }`}
+                        onClick={() => setTestIndex(idx)}
+                        aria-label={`Go to testimonial ${idx + 1}`}
+                        aria-current={
+                          testIndex === idx ? "true" : undefined
+                        }
+                      />
+                    )
+                  )}
+                </div>
+              )}
+            </>
+          )}
         </div>
       </section>
+
 
       {/* ====================================================================
           12. FREQUENTLY ASKED QUESTIONS

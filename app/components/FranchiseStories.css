@@ -177,19 +177,57 @@
 
 
 /* =========================================================
-   CARDS AREA
+   CARDS & SLIDER AREA (DESKTOP: > 800px)
+   Keep grid layout intact, hide slider controls, no sliding
 ========================================================= */
 
-.tmx-franchise-stories-cards {
-  display: grid;
+@media (min-width: 801px) {
+  .tmx-stories-slider-container {
+    width: 100%;
+    position: relative;
+  }
 
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  .tmx-stories-slider-wrapper {
+    position: relative;
+    width: 100%;
+  }
 
-  align-items: start;
+  .tmx-stories-slider-arrow {
+    display: none !important;
+  }
 
-  gap: 22px;
+  .tmx-stories-dots {
+    display: none !important;
+  }
 
-  padding-top: 22px;
+  .tmx-button-desktop {
+    display: inline-flex !important;
+  }
+
+  .tmx-button-mobile {
+    display: none !important;
+  }
+
+  .tmx-stories-track-container {
+    overflow: visible !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
+  .tmx-stories-slide-wrapper {
+    display: contents !important;
+  }
+
+  .tmx-franchise-stories-cards {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    align-items: start !important;
+    gap: 22px !important;
+    padding-top: 22px !important;
+    transform: none !important;
+    transition: none !important;
+    width: 100% !important;
+  }
 }
 
 
@@ -202,7 +240,7 @@
 
   min-height: 500px;
 
-  padding: 30px 30px 32px;
+  padding: 20px 20px 22px;
 
   border: 1.5px solid var(--tmx-fs-border);
 
@@ -233,11 +271,11 @@
 }
 
 .tmx-franchise-story-card-2 {
-  margin-top: -32px;
+  /* margin-top: -32px; */
 }
 
 .tmx-franchise-story-card-3 {
-  margin-top: 42px;
+  /* margin-top: 42px; */
 }
 
 
@@ -249,7 +287,7 @@
   width: 130px;
   height: 130px;
 
-  margin: 0 auto 22px;
+  margin: 0 auto 12px;
 
   border-radius: 50%;
 
@@ -334,7 +372,7 @@
 ========================================================= */
 
 .tmx-franchise-story-stars {
-  margin-top: 17px;
+  /* margin-top: 17px; */
 
   color: #f5ca22;
 
@@ -468,64 +506,235 @@
 @media (max-width: 800px) {
 
   .tmx-franchise-stories {
-    padding: 60px 0 70px;
+    padding: 50px 0 60px;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .tmx-franchise-stories.container-xl {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
   }
 
   .tmx-franchise-stories-inner {
-    width: min(600px, calc(100% - 32px));
-
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
     grid-template-columns: 1fr;
-
-    gap: 45px;
+    gap: 28px;
+    box-sizing: border-box;
   }
 
   .tmx-franchise-stories-intro {
-    /* text-align: center; */
+    text-align: center;
+    width: 100%;
   }
 
   .tmx-franchise-stories-eyebrow {
-    /* justify-content: center; */
+    justify-content: center;
   }
 
   .tmx-franchise-stories-intro h2 {
-    font-size: clamp(43px, 10vw, 62px);
+    font-size: clamp(34px, 8.5vw, 48px);
+    text-align: center;
   }
 
   .tmx-franchise-stories-intro p {
-    margin-left: auto;
-    margin-right: auto;
+    margin: 16px auto 0;
+    text-align: center;
+    max-width: 460px;
+    font-size: 14.5px;
   }
 
-  .tmx-franchise-stories-cards {
-    grid-template-columns: 1fr;
+  /* Desktop button hidden in intro on mobile */
+  .tmx-button-desktop {
+    display: none !important;
+  }
 
-    gap: 20px;
+  /* Mobile Slider Container */
+  .tmx-stories-slider-container {
+    width: 100% !important;
+    max-width: 100% !important;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
 
-    padding-top: 0;
+  .tmx-stories-slider-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+    user-select: none;
+    touch-action: pan-y;
+    gap: 8px;
+  }
+
+  /* Yellow Circular Navigation Arrows */
+  .tmx-stories-slider-arrow {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    border-radius: 50% !important;
+    background: #ffd028 !important;
+    color: #102d29 !important;
+    border: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 14px rgba(255, 208, 40, 0.45) !important;
+    transition: transform 0.2s ease, background 0.2s ease !important;
+    flex-shrink: 0 !important;
+    z-index: 10 !important;
+    touch-action: manipulation !important;
+    padding: 0 !important;
+  }
+
+  .tmx-stories-slider-arrow:hover {
+    background: #ffe066 !important;
+    transform: scale(1.08) !important;
+  }
+
+  .tmx-stories-slider-arrow:active {
+    transform: scale(0.92) !important;
+  }
+
+  /* Slider Track Container (flex: 1 with min-width: 0 prevents horizontal overflow) */
+  .tmx-stories-track-container {
+    flex: 1 1 0% !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    border-radius: 18px !important;
+    touch-action: pan-y !important;
+    box-sizing: border-box !important;
+    margin: 0 !important;
+  }
+
+  /* Sliding Track */
+  .tmx-franchise-stories-cards.tmx-stories-track {
+    display: flex !important;
+    grid-template-columns: none !important;
+    gap: 0 !important;
+    padding-top: 0 !important;
+    margin: 0 !important;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    will-change: transform;
+    width: 100% !important;
+    min-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Slide Items: exactly 100% width of track container */
+  .tmx-stories-slide-wrapper {
+    display: flex !important;
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 4px 2px !important;
+    justify-content: center !important;
   }
 
   .tmx-franchise-story-card,
+  .tmx-franchise-story-card-1,
   .tmx-franchise-story-card-2,
   .tmx-franchise-story-card-3 {
-    margin-top: 0;
-
-    min-height: auto;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    min-height: auto !important;
   }
 
   .tmx-franchise-story-card {
-    max-width: 430px;
-
-    width: 100%;
-
-    margin-left: auto;
-    margin-right: auto;
-
-    padding: 30px;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 26px 18px 28px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    text-decoration: none !important;
+    background: rgba(255, 252, 245, 0.96) !important;
+    border: 1.5px solid var(--tmx-fs-border) !important;
+    border-radius: 18px !important;
+    box-shadow: 0 6px 20px rgba(38, 60, 61, 0.05) !important;
   }
 
   .tmx-franchise-story-avatar {
-    width: 120px;
-    height: 120px;
+    width: 110px !important;
+    height: 110px !important;
+    margin: 0 auto 16px !important;
+  }
+
+  .tmx-franchise-story-card h3 {
+    font-size: 19px !important;
+    margin: 0 0 8px !important;
+  }
+
+  .tmx-franchise-story-location {
+    min-height: auto !important;
+    margin-bottom: 4px !important;
+    justify-content: center !important;
+  }
+
+  .tmx-franchise-story-stars {
+    margin-top: 10px !important;
+    font-size: 18px !important;
+  }
+
+  .tmx-franchise-story-divider {
+    margin: 16px 0 !important;
+  }
+
+  .tmx-franchise-story-card p {
+    font-size: 14px !important;
+    line-height: 1.55 !important;
+  }
+
+  /* Dots Pagination */
+  .tmx-stories-dots {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-top: 18px !important;
+  }
+
+  .tmx-stories-dot {
+    width: 9px !important;
+    height: 9px !important;
+    border-radius: 50% !important;
+    background: #e2d9c7 !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    transition: all 0.25s ease !important;
+  }
+
+  .tmx-stories-dot.active {
+    background: #263c3d !important;
+    width: 26px !important;
+    border-radius: 9999px !important;
+  }
+
+  /* Mobile "View More Stories" button shifted after cards */
+  .tmx-button-mobile {
+    display: inline-flex !important;
+    margin: 22px auto 0 !important;
   }
 }
 
@@ -537,18 +746,22 @@
 @media (max-width: 480px) {
 
   .tmx-franchise-stories {
-    padding: 50px 0 60px;
+    padding: 44px 0 54px;
+  }
+
+  .tmx-franchise-stories.container-xl {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
   }
 
   .tmx-franchise-stories-inner {
-    width: calc(100% - 24px);
+    padding: 0 4px !important;
+    gap: 22px;
   }
 
   .tmx-franchise-stories-eyebrow {
     font-size: 10px;
-
     gap: 10px;
-
     letter-spacing: 0.13em;
   }
 
@@ -557,29 +770,46 @@
   }
 
   .tmx-franchise-stories-intro h2 {
-    font-size: 43px;
+    font-size: 34px !important;
   }
 
   .tmx-franchise-stories-intro p {
-    font-size: 14px;
+    font-size: 13.5px !important;
+    padding: 0 4px !important;
+  }
 
-    padding: 0 8px;
+  .tmx-stories-slider-arrow {
+    width: 34px !important;
+    height: 34px !important;
+    min-width: 34px !important;
+  }
+
+  .tmx-stories-slider-wrapper {
+    gap: 6px !important;
   }
 
   .tmx-franchise-story-card {
-    padding: 25px 22px;
+    padding: 20px 14px 22px !important;
   }
 
   .tmx-franchise-story-avatar {
-    width: 105px;
-    height: 105px;
+    width: 95px !important;
+    height: 95px !important;
+    margin-bottom: 14px !important;
   }
 
   .tmx-franchise-story-card h3 {
-    font-size: 18px;
+    font-size: 17px !important;
   }
 
   .tmx-franchise-story-card p {
-    font-size: 13px;
+    font-size: 13px !important;
+  }
+
+  .tmx-button-mobile {
+    margin-top: 18px !important;
+    min-height: 48px !important;
+    font-size: 13.5px !important;
+    padding: 0 20px !important;
   }
 }

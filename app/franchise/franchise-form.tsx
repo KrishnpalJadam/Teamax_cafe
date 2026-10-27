@@ -1,20 +1,122 @@
+
 "use client";
 
 import React, { useState } from "react";
+import Select from "react-select";
 import { BadgeCheck } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 
-export default function FranchiseFormSection() {
-  const initialFormData = {
-    fullName: "",
-    phone: "",
-    city: "",
-    whenToStart: "",
-    haveShop: "",
-    investmentReadiness: "",
-  };
+type StateOption = {
+  value: string;
+  label: string;
+};
 
-  const [formData, setFormData] = useState(initialFormData);
+type FormData = {
+  fullName: string;
+  email: string;
+  phone: string;
+  city: string;
+  state: string;
+  whenToStart: string;
+  haveShop: string;
+};
+
+const indianStateOptions: StateOption[] = [
+  { value: "Andhra Pradesh", label: "Andhra Pradesh" },
+  { value: "Arunachal Pradesh", label: "Arunachal Pradesh" },
+  { value: "Assam", label: "Assam" },
+  { value: "Bihar", label: "Bihar" },
+  { value: "Chhattisgarh", label: "Chhattisgarh" },
+  { value: "Goa", label: "Goa" },
+  { value: "Gujarat", label: "Gujarat" },
+  { value: "Haryana", label: "Haryana" },
+  { value: "Himachal Pradesh", label: "Himachal Pradesh" },
+  { value: "Jharkhand", label: "Jharkhand" },
+  { value: "Karnataka", label: "Karnataka" },
+  { value: "Kerala", label: "Kerala" },
+  { value: "Madhya Pradesh", label: "Madhya Pradesh" },
+  { value: "Maharashtra", label: "Maharashtra" },
+  { value: "Manipur", label: "Manipur" },
+  { value: "Meghalaya", label: "Meghalaya" },
+  { value: "Mizoram", label: "Mizoram" },
+  { value: "Nagaland", label: "Nagaland" },
+  { value: "Odisha", label: "Odisha" },
+  { value: "Punjab", label: "Punjab" },
+  { value: "Rajasthan", label: "Rajasthan" },
+  { value: "Sikkim", label: "Sikkim" },
+  { value: "Tamil Nadu", label: "Tamil Nadu" },
+  { value: "Telangana", label: "Telangana" },
+  { value: "Tripura", label: "Tripura" },
+  { value: "Uttar Pradesh", label: "Uttar Pradesh" },
+  { value: "Uttarakhand", label: "Uttarakhand" },
+  { value: "West Bengal", label: "West Bengal" },
+  { value: "Andaman and Nicobar Islands", label: "Andaman and Nicobar Islands" },
+  { value: "Chandigarh", label: "Chandigarh" },
+  { value: "Dadra and Nagar Haveli and Daman and Diu", label: "Dadra and Nagar Haveli and Daman and Diu" },
+  { value: "Delhi", label: "Delhi" },
+  { value: "Jammu and Kashmir", label: "Jammu and Kashmir" },
+  { value: "Ladakh", label: "Ladakh" },
+  { value: "Lakshadweep", label: "Lakshadweep" },
+  { value: "Puducherry", label: "Puducherry" },
+];
+
+const initialFormData: FormData = {
+  fullName: "",
+  email: "",
+  phone: "",
+  city: "",
+  state: "",
+  whenToStart: "",
+  haveShop: "",
+};
+
+const shopOptions = [
+  { value: "Yes, Owned Commercial Space", label: "Yes, Owned Commercial Space" },
+  { value: "Yes, Rented Commercial Space", label: "Yes, Rented Commercial Space" },
+  { value: "Looking for Location", label: "Looking for Location" },
+  { value: "No Space Yet", label: "No Space Yet" },
+];
+
+const getFormattedStartMonth = (value: string) => {
+  if (!value) return "";
+
+  const [year, month] = value.split("-").map(Number);
+
+  return new Date(year, month - 1, 1).toLocaleDateString("en-IN", {
+    month: "long",
+    year: "numeric",
+  });
+};
+
+const buildWhatsAppMessage = (formData: FormData) => {
+  return [
+    "Hi TeaMax, I am interested in a franchise.",
+    "",
+    `Full Name: ${formData.fullName.trim()}`,
+    `Email: ${formData.email.trim()}`,
+    `WhatsApp Number: +91${formData.phone}`,
+    `City: ${formData.city.trim()}`,
+    `State: ${formData.state}`,
+    `When to Start: ${getFormattedStartMonth(formData.whenToStart)}`,
+    `Shop Availability: ${formData.haveShop}`,
+  ].join("\n");
+};
+
+
+const getWhatsAppUrl = (formData: FormData) => {
+  const message = buildWhatsAppMessage(formData);
+
+  return `https://go.teamaxcafe.in/whatsapp?text=${encodeURIComponent(
+    message
+  )}`;
+};
+
+
+export default function FranchiseFormSection() {
+  const [formData, setFormData] = useState<FormData>({
+    ...initialFormData,
+  });
+
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -29,21 +131,31 @@ export default function FranchiseFormSection() {
         ...prev,
         phone: value.replace(/\D/g, "").slice(0, 10),
       }));
-      return;
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
     }
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setErrorMessage("");
   };
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage("");
 
     if (!formData.fullName.trim()) {
       setErrorMessage("Please enter your full name.");
+      return;
+    }
+
+    if (
+      !formData.email.trim() ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())
+    ) {
+      setErrorMessage("Please enter a valid email address.");
       return;
     }
 
@@ -57,6 +169,15 @@ export default function FranchiseFormSection() {
       return;
     }
 
+    if (
+      !indianStateOptions.some(
+        (option) => option.value === formData.state
+      )
+    ) {
+      setErrorMessage("Please select a valid Indian state or union territory.");
+      return;
+    }
+
     if (!formData.whenToStart) {
       setErrorMessage("Please select when you want to start.");
       return;
@@ -67,30 +188,25 @@ export default function FranchiseFormSection() {
       return;
     }
 
-    if (!formData.investmentReadiness) {
-      setErrorMessage("Please select your investment readiness.");
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
-      const message = [
-        "Hi TeaMax, I am interested in a franchise.",
-        "",
-        `Full Name: ${formData.fullName.trim()}`,
-        `WhatsApp Number: +91${formData.phone}`,
-        `City: ${formData.city.trim()}`,
-        `When to Start: ${formData.whenToStart}`,
-        `Shop Availability: ${formData.haveShop}`,
-        `Investment Readiness: ${formData.investmentReadiness}`,
-      ].join("\n");
+      const whatsappUrl = getWhatsAppUrl(formData);
 
-      const whatsappUrl = `https://api.whatsapp.com/send?phone=919505047047&text=${encodeURIComponent(
-        message
-      )}`;
+      // Open WhatsApp only once
+      const whatsappWindow = window.open(
+        whatsappUrl,
+        "_blank"
+      );
 
-      window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+      if (!whatsappWindow) {
+        setErrorMessage(
+          "WhatsApp could not be opened. Please allow popups and try again."
+        );
+        return;
+      }
+
+      setErrorMessage("");
       setFormSubmitted(true);
     } catch (error) {
       console.error("Franchise enquiry error:", error);
@@ -100,11 +216,102 @@ export default function FranchiseFormSection() {
     }
   };
 
+
+  const stateSelectStyles = {
+    container: (base: any) => ({
+      ...base,
+      width: "100%",
+      minWidth: 0,
+    }),
+
+    control: (base: any, state: any) => ({
+      ...base,
+      minHeight: "58px",
+      height: "58px",
+      borderRadius: "8px",
+      borderColor: state.isFocused ? "#ffd028" : "#d1d5db",
+      boxShadow: "none",
+      cursor: "text",
+      "&:hover": {
+        borderColor: "#ffd028",
+      },
+    }),
+
+    valueContainer: (base: any) => ({
+      ...base,
+      padding: "0 14px",
+    }),
+
+    input: (base: any) => ({
+      ...base,
+      color: "#111827",
+      margin: 0,
+      padding: 0,
+    }),
+
+    placeholder: (base: any) => ({
+      ...base,
+      color: "#6b7280",
+      fontSize: "14px",
+    }),
+
+    singleValue: (base: any) => ({
+      ...base,
+      color: "#111827",
+      fontSize: "14px",
+    }),
+
+    indicatorsContainer: (base: any) => ({
+      ...base,
+      paddingRight: "6px",
+    }),
+
+    dropdownIndicator: (base: any) => ({
+      ...base,
+      color: "#6b7280",
+      "&:hover": {
+        color: "#111827",
+      },
+    }),
+
+    clearIndicator: (base: any) => ({
+      ...base,
+      padding: "6px",
+    }),
+
+    menu: (base: any) => ({
+      ...base,
+      zIndex: 20,
+      borderRadius: "8px",
+      overflow: "hidden",
+    }),
+
+    menuList: (base: any) => ({
+      ...base,
+      maxHeight: "220px",
+    }),
+
+    option: (base: any, state: any) => ({
+      ...base,
+      fontSize: "14px",
+      cursor: "pointer",
+      color: "#111827",
+      backgroundColor: state.isSelected
+        ? "#fff0a6"
+        : state.isFocused
+          ? "#fff8df"
+          : "#ffffff",
+      "&:active": {
+        backgroundColor: "#fff0a6",
+      },
+    }),
+  };
+
   return (
     <section id="franchise-form" className="tm-fc-form-section">
       <div className="tm-fc-container">
         <div className="tm-fc-form-card">
-          {/* Left Photo */}
+          {/* Left Photo - Existing UI unchanged */}
           <div className="tm-fc-form-media">
             <img
               src="/images/franchise-storefront.jpg"
@@ -114,7 +321,7 @@ export default function FranchiseFormSection() {
             />
           </div>
 
-          {/* Right Form */}
+          {/* Right Form - Existing UI unchanged */}
           <div className="tm-fc-form-body">
             <h2>Ready to Start Your Own TeaMax?</h2>
 
@@ -168,20 +375,8 @@ export default function FranchiseFormSection() {
                   type="button"
                   className="tm-fc-btn-submit"
                   onClick={() => {
-                    const message = [
-                      "Hi TeaMax, I am interested in a franchise.",
-                      `Full Name: ${formData.fullName.trim()}`,
-                      `WhatsApp Number: +91${formData.phone}`,
-                      `City: ${formData.city.trim()}`,
-                      `When to Start: ${formData.whenToStart}`,
-                      `Shop Availability: ${formData.haveShop}`,
-                      `Investment Readiness: ${formData.investmentReadiness}`,
-                    ].join("\n");
-
                     window.open(
-                      `https://api.whatsapp.com/send?phone=919505047047&text=${encodeURIComponent(
-                        message
-                      )}`,
+                      getWhatsAppUrl(formData),
                       "_blank",
                       "noopener,noreferrer"
                     );
@@ -202,7 +397,7 @@ export default function FranchiseFormSection() {
                     border: "1px solid rgba(255, 255, 255, 0.2)",
                   }}
                   onClick={() => {
-                    setFormData(initialFormData);
+                    setFormData({ ...initialFormData });
                     setFormSubmitted(false);
                     setErrorMessage("");
                   }}
@@ -230,7 +425,7 @@ export default function FranchiseFormSection() {
                 )}
 
                 <div className="tm-fc-form-fields-grid">
-                  {/* Row 1: Full Name */}
+                  {/* Full Name */}
                   <div className="tm-fc-input-group">
                     <input
                       type="text"
@@ -244,7 +439,21 @@ export default function FranchiseFormSection() {
                     />
                   </div>
 
-                  {/* Row 1: WhatsApp Number */}
+                  {/* Email Address */}
+                  <div className="tm-fc-input-group">
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="Email Address"
+                      className="tm-fc-input"
+                      autoComplete="email"
+                      required
+                    />
+                  </div>
+
+                  {/* WhatsApp Number */}
                   <div className="tm-fc-input-group">
                     <div className="tm-fc-phone-wrap">
                       <div className="tm-fc-phone-flag">
@@ -259,7 +468,11 @@ export default function FranchiseFormSection() {
                           }}
                           aria-label="Indian flag"
                         >
-                          <rect width="30" height="6.66" fill="#FF9933" />
+                          <rect
+                            width="30"
+                            height="6.66"
+                            fill="#FF9933"
+                          />
                           <rect
                             y="6.66"
                             width="30"
@@ -272,7 +485,12 @@ export default function FranchiseFormSection() {
                             height="6.67"
                             fill="#138808"
                           />
-                          <circle cx="15" cy="10" r="2.5" fill="#000080" />
+                          <circle
+                            cx="15"
+                            cy="10"
+                            r="2.5"
+                            fill="#000080"
+                          />
                         </svg>
                         <span>+91</span>
                       </div>
@@ -292,7 +510,7 @@ export default function FranchiseFormSection() {
                     </div>
                   </div>
 
-                  {/* Row 2: City */}
+                  {/* City */}
                   <div className="tm-fc-input-group">
                     <input
                       type="text"
@@ -306,24 +524,56 @@ export default function FranchiseFormSection() {
                     />
                   </div>
 
-                  {/* Row 2: When to Start */}
+                  {/* Searchable State Dropdown */}
                   <div className="tm-fc-input-group">
-                    <select
+                    <Select
+                      inputId="tm-fc-franchise-state"
+                      name="state"
+                      options={indianStateOptions}
+                      value={
+                        indianStateOptions.find(
+                          (option) => option.value === formData.state
+                        ) || null
+                      }
+                      onChange={(selectedOption) => {
+                        setFormData((prev) => ({
+                          ...prev,
+                          state: selectedOption?.value || "",
+                        }));
+                        setErrorMessage("");
+                      }}
+                      placeholder="Select State"
+                      isSearchable
+                      isClearable
+                      className="tm-fc-state-select"
+                      classNamePrefix="tm-fc-state"
+                      noOptionsMessage={() => "No state found"}
+                      menuPlacement="auto"
+                      menuPosition="fixed"
+                      menuShouldScrollIntoView={false}
+                      maxMenuHeight={220}
+                      components={{
+                        IndicatorSeparator: () => null,
+                      }}
+                      styles={stateSelectStyles}
+                    />
+                  </div>
+
+                  {/* When to Start - Month and Year */}
+                  <div className="tm-fc-input-group">
+                    <input
+                      type="month"
                       name="whenToStart"
                       value={formData.whenToStart}
                       onChange={handleInputChange}
-                      className="tm-fc-select"
+                      className="tm-fc-input"
+                      min="2026-10"
+                      aria-label="When to Start"
                       required
-                    >
-                      <option value="">When to Start?</option>
-                      <option value="Immediately">Immediately</option>
-                      <option value="Within 1 Month">Within 1 Month</option>
-                      <option value="1-3 Months">1 to 3 Months</option>
-                      <option value="Exploring">Just Exploring</option>
-                    </select>
+                    />
                   </div>
 
-                  {/* Row 3: Shop Availability */}
+                  {/* Shop Availability */}
                   <div className="tm-fc-input-group">
                     <select
                       name="haveShop"
@@ -332,47 +582,17 @@ export default function FranchiseFormSection() {
                       className="tm-fc-select"
                       required
                     >
-                      <option value="">Do you have a shop?</option>
-                      <option value="Yes, Owned Commercial Space">
-                        Yes, Owned Commercial Space
-                      </option>
-                      <option value="Yes, Rented Commercial Space">
-                        Yes, Rented Commercial Space
-                      </option>
-                      <option value="Looking for Location">
-                        Looking for Location
-                      </option>
-                      <option value="No Space Yet">No Space Yet</option>
-                    </select>
-                  </div>
-
-                  {/* Row 3: Investment Readiness */}
-                  <div className="tm-fc-input-group">
-                    <select
-                      name="investmentReadiness"
-                      value={formData.investmentReadiness}
-                      onChange={handleInputChange}
-                      className="tm-fc-select"
-                      required
-                    >
-                      <option value="">Investment Readiness</option>
-                      <option value="Ready with ₹4–5 Lakhs">
-                        Ready with ₹4–5 Lakhs
-                      </option>
-                      <option value="Ready with ₹5–10 Lakhs">
-                        Ready with ₹5–10 Lakhs
-                      </option>
-                      <option value="Arranging Funds / Loan">
-                        Arranging Funds / Loan
-                      </option>
-                      <option value="Need Proposal First">
-                        Need Proposal First
-                      </option>
+                      <option value="">Do you have a space?</option>
+                      {shopOptions.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
 
-                {/* Submit Button */}
+                {/* Submit Button - Existing UI unchanged */}
                 <button
                   type="submit"
                   className="tm-fc-btn-submit"

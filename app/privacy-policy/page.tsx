@@ -1,6 +1,9 @@
 
+import type { ComponentType } from "react";
 
+// @ts-expect-error PrivacyPolicy is an existing JavaScript JSX component.
 import PrivacyPolicy from "./PrivacyPolicy";
+
 export const metadata = {
     title: "General & Privacy Policy | TeaMax Cafe India",
     description:
@@ -8,5 +11,7 @@ export const metadata = {
 };
 
 export default function PrivacyPolicyPage() {
-    return <PrivacyPolicy />;
+    const PolicyComponent = PrivacyPolicy as ComponentType;
+
+    return <PolicyComponent />;
 }

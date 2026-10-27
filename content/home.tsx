@@ -69,7 +69,7 @@ export default function Home() {
       <section className="hero-section martop" aria-labelledby="hero-title">
         <Image
           className="hero-image"
-          src={`${A}/hero-cafe-zlWPzgb-.jpg`}
+          src="/images/Teamax-Coffee_-Burger-and-Fries.webp"
           width={1536}
           height={1024}
           priority
@@ -206,7 +206,7 @@ export default function Home() {
 
       <section id="contact" className="container-xl contact-section ">
         <div className="contact-banner">
-          <Image src={`${A}/cta-cafe-Du07tmgM.jpg`} width={1200} height={704} alt="A warm cup of chai at TeaMax Café" unoptimized loading="lazy" />
+          <Image src="/images/Steaming-TEAMAX-Café-Coffee-Cup.webp" width={1200} height={704} alt="A warm cup of chai at TeaMax Café" unoptimized loading="lazy" />
           <div className="contact-shape">
             <h2>Let&apos;s Brew<br />Your Success Story</h2>
             <p>Own a TeaMax Café and be part of a growing community of successful franchise partners.</p>

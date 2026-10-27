@@ -50,7 +50,7 @@ export default function TrustedBrands() {
   const marqueeBrands = [...brands, ...brands, ...brands];
 
   return (
-    <section className="section-space mainspace">
+    <section className=" mainspace">
 
       <div className="container-xl tmx-trusted-heading-container">
         <div className="section-heading why-heading tmx-trusted-heading">

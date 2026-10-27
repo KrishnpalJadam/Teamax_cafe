@@ -29,7 +29,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/dev/types/**/*.ts",
-    "app/components/PrivacyPolicy.jsx"
+    "app/privacy-policy/PrivacyPolicy.jsx"
   ],
   "exclude": [
     "node_modules"

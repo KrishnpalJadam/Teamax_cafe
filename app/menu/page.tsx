@@ -282,10 +282,10 @@ const menuSchema = {
               offers:
                 typeof item.price === "number"
                   ? {
-                      "@type": "Offer",
-                      price: item.price,
-                      priceCurrency: "INR",
-                    }
+                    "@type": "Offer",
+                    price: item.price,
+                    priceCurrency: "INR",
+                  }
                   : undefined,
             })),
         })
@@ -353,11 +353,11 @@ export default function MenuPage() {
 
             <div className="tx-menu-hero-art">
               <img
-                src="https://mockup-magic-menu.lovable.app/assets/hero-cup-DbXtK8h5.jpg"
+                src="/images/Teamax-Café-Coffee-Banner.webp"
                 alt="TeaMax style takeaway cup with fresh tea leaves"
                 width={1200}
                 height={656}
-                // priority
+              // priority
               />
 
               <div

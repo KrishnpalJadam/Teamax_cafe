@@ -84,7 +84,7 @@ export default function OffersPage() {
                                     month: "short",
                                     year: "numeric",
                                 });
-                            } catch (_) {}
+                            } catch (_) { }
                         }
 
                         return {
@@ -234,7 +234,7 @@ export default function OffersPage() {
                     )}
                 </section>
 
-                <section className="offers-container offers-franchise-banner" aria-labelledby="franchise-banner-title">
+                <section className="offers-container offers-franchise-banner " aria-labelledby="franchise-banner-title">
                     <div className="offers-franchise-copy">
                         <p className="offers-franchise-kicker">OWN A TEAMAX CAFÉ</p>
                         <h2 id="franchise-banner-title">Turn a Growing Brand<br />into Your Business</h2>
@@ -245,11 +245,9 @@ export default function OffersPage() {
                     </div>
                     <div className="offers-franchise-visual">
                         <img src="https://responsive-pixel-prime.lovable.app/__l5e/assets-v1/a777208a-72bd-4415-bd3d-5a7474c5ded8/teamax-cafe.jpg" alt="TeaMax café storefront" />
-                        <Link href={franchiseHref} className="offers-franchise-cta">
-                            Apply for Franchise <ArrowRight size={17} />
-                        </Link>
+
                     </div>
-                    <div className="offers-franchise-features">
+                    <div className="offers-franchise-features mt-20">
                         <div><span className="offers-feature-icon"><ArrowRight size={22} /></span><div><strong>Proven Business Model</strong><small>Strong brand & growing demand</small></div></div>
                         <div><span className="offers-feature-icon"><Coffee size={22} /></span><div><strong>End-to-End Support</strong><small>Setup to operations guidance</small></div></div>
                         <div><span className="offers-feature-icon"><Store size={22} /></span><div><strong>Multiple City Opportunities</strong><small>Be the first in your city</small></div></div>

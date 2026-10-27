@@ -2862,3 +2862,12 @@
         bottom: 10px;
     }
 }
+
+.desc {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.mar2 {
+    margin-top: 15px;
+}

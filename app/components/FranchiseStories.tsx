@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { getReviews } from "../lib/api";
 import "./FranchiseStories.css";
 
@@ -43,6 +44,50 @@ const defaultFranchiseStories = [
 
 export default function FranchiseStories() {
   const [stories, setStories] = useState(defaultFranchiseStories);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+
+  // Detect mobile viewport (<= 800px)
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 800);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Reset activeSlide if stories change
+  useEffect(() => {
+    if (activeSlide >= stories.length) {
+      setActiveSlide(0);
+    }
+  }, [stories, activeSlide]);
+
+  const handlePrev = () => {
+    setActiveSlide((prev) => (prev > 0 ? prev - 1 : stories.length - 1));
+  };
+
+  const handleNext = () => {
+    setActiveSlide((prev) => (prev < stories.length - 1 ? prev + 1 : 0));
+  };
+
+  // Touch Swipe gestures for mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (diff > 40) {
+      handleNext();
+    } else if (diff < -40) {
+      handlePrev();
+    }
+    touchStartX.current = null;
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -98,7 +143,7 @@ export default function FranchiseStories() {
         <div className="tmx-franchise-stories-intro">
           <div className="tmx-franchise-stories-eyebrow">
             <span />
-            <span>FRANCHISE STORIES &amp; REVIEWS</span>
+            <span>FRANCHISE PARTNER REVIEWS</span>
           </div>
 
           <h2 id="tmx-franchise-stories-title">
@@ -112,56 +157,126 @@ export default function FranchiseStories() {
             TeaMax Cafe across India.
           </p>
 
-          {/* Instagram Profile */}
+          {/* Instagram Profile - Desktop (hidden on mobile) */}
           <a
             href="https://www.instagram.com/teamaxcafe/"
             target="_blank"
             rel="noopener noreferrer"
-            className="tmx-franchise-stories-button"
+            className="tmx-franchise-stories-button tmx-button-desktop"
           >
             <span>View More Stories</span>
             <span className="tmx-franchise-stories-arrow">→</span>
           </a>
         </div>
 
-        {/* TESTIMONIAL CARDS */}
-        <div className="tmx-franchise-stories-cards">
-          {stories.map((story, index) => (
-            <a
-              key={story.id || story.name}
-              href={story.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`tmx-franchise-story-card tmx-franchise-story-card-${(index % 3) + 1}`}
-              aria-label={`View ${story.name}'s TeaMax story`}
-            >
-              <div className="tmx-franchise-story-avatar">
-                <img
-                  src={story.image}
-                  alt={story.name}
-                  loading="lazy"
-                />
-              </div>
-
-              <h3>{story.name}</h3>
-
-              <div className="tmx-franchise-story-location">
-                <span className="tmx-franchise-location-icon">●</span>
-                <span>{story.location}</span>
-              </div>
-
-              <div
-                className="tmx-franchise-story-stars"
-                aria-label={`${story.stars} out of 5 stars`}
+        {/* TESTIMONIAL CARDS (SLIDER ON MOBILE, GRID ON DESKTOP) */}
+        <div className="tmx-stories-slider-container">
+          <div
+            className="tmx-stories-slider-wrapper"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
+            {/* Left navigation arrow (mobile only) */}
+            {stories.length > 1 && (
+              <button
+                type="button"
+                className="tmx-stories-slider-arrow prev"
+                onClick={handlePrev}
+                aria-label="Previous story"
               >
-                {"★".repeat(story.stars || 5)}
+                <ChevronLeft size={20} strokeWidth={2.5} />
+              </button>
+            )}
+
+            {/* Slider track container */}
+            <div className="tmx-stories-track-container">
+              <div
+                className="tmx-franchise-stories-cards tmx-stories-track"
+                style={{
+                  transform: `translateX(-${activeSlide * 100}%)`,
+                }}
+              >
+                {stories.map((story, index) => (
+                  <div
+                    key={story.id || story.name}
+                    className="tmx-stories-slide-wrapper"
+                  >
+                    <a
+                      href={story.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`tmx-franchise-story-card tmx-franchise-story-card-${(index % 3) + 1}`}
+                      aria-label={`View ${story.name}'s TeaMax story`}
+                    >
+                      <div className="tmx-franchise-story-avatar">
+                        <img
+                          src={story.image}
+                          alt={story.name}
+                          loading="lazy"
+                        />
+                      </div>
+
+                      <h3>{story.name}</h3>
+
+                      <div className="tmx-franchise-story-location">
+                        <span className="tmx-franchise-location-icon">●</span>
+                        <span>{story.location}</span>
+                      </div>
+
+                      <div
+                        className="tmx-franchise-story-stars"
+                        aria-label={`${story.stars} out of 5 stars`}
+                      >
+                        {"★".repeat(story.stars || 5)}
+                      </div>
+
+                      <div className="tmx-franchise-story-divider" />
+
+                      <p>“{story.review}”</p>
+                    </a>
+                  </div>
+                ))}
               </div>
+            </div>
 
-              <div className="tmx-franchise-story-divider" />
+            {/* Right navigation arrow (mobile only) */}
+            {stories.length > 1 && (
+              <button
+                type="button"
+                className="tmx-stories-slider-arrow next"
+                onClick={handleNext}
+                aria-label="Next story"
+              >
+                <ChevronRight size={20} strokeWidth={2.5} />
+              </button>
+            )}
+          </div>
 
-              <p>“{story.review}”</p>
-            </a>
-          ))}
+          {/* Dots Indicator (mobile only) */}
+          {stories.length > 1 && (
+            <div className="tmx-stories-dots">
+              {stories.map((_, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  className={`tmx-stories-dot ${activeSlide === idx ? "active" : ""}`}
+                  onClick={() => setActiveSlide(idx)}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Mobile "View More Stories" Button (shifted after cards only on mobile) */}
+          <a
+            href="https://www.instagram.com/teamaxcafe/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="tmx-franchise-stories-button tmx-button-mobile"
+          >
+            <span>View More Stories</span>
+            <span className="tmx-franchise-stories-arrow">→</span>
+          </a>
         </div>
       </div>
 

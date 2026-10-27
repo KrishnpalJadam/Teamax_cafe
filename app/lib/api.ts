@@ -127,3 +127,11 @@ export async function getReviews(params: {
   const data = await fetchFromApi<any[]>(`/reviews${query ? `?${query}` : ''}`);
   return Array.isArray(data) ? data : [];
 }
+
+// 9. Moments (A Little Look Inside)
+export async function getMoments(): Promise<string[]> {
+  const data = await fetchFromApi<any>('/settings/moments');
+  if (!data) return [];
+  const raw = data?.images || (Array.isArray(data) ? data : []);
+  return Array.isArray(raw) ? raw.filter((s: any) => typeof s === 'string' && s.trim()) : [];
+}

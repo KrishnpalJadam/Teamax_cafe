@@ -186,13 +186,8 @@ export default function FranchisePopup() {
       ].join("\n");
 
       const whatsappUrl =
-        `https://api.whatsapp.com/send?phone=919505047047&text=${encodeURIComponent(message)}`;
-
-      const whatsappWindow = window.open(
-        whatsappUrl,
-        "_blank",
-        "noopener,noreferrer"
-      );
+        `https://go.teamaxcafe.in/whatsapp?text=${encodeURIComponent(message)}`;
+      const whatsappWindow = window.open(whatsappUrl, "_blank");
 
       if (!whatsappWindow) {
         setErrorMessage(
@@ -200,6 +195,10 @@ export default function FranchisePopup() {
         );
         return;
       }
+
+      setErrorMessage("");
+      setIsOpen(false);
+      setFormData(initialFormData);
 
       setIsOpen(false);
       setFormData(initialFormData);

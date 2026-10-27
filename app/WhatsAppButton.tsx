@@ -1,9 +1,10 @@
+
 import { FaWhatsapp } from "react-icons/fa";
 
 export function WhatsAppButton() {
     return (
         <a
-            href="https://link.teamaxcafe.in/whatsapp"
+            href="https://go.teamaxcafe.in/whatsapp"
             target="_blank"
             rel="noopener noreferrer"
             className="tm-whatsapp-float"

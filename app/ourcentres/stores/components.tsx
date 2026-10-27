@@ -430,26 +430,36 @@ export function StorePromos() {
     );
 }
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001/api/v1";
+const API_BASE =
+    process.env.NEXT_PUBLIC_API_URL ||
+    "https://teamaxbackend-production.up.railway.app/api/v1";
 
 function MomentsSection() {
     const [photos, setPhotos] = useState<{ src: string; alt: string }[]>([]);
 
     useEffect(() => {
+        let isMounted = true;
         fetch(`${API_BASE}/settings/moments`)
             .then((r) => r.json())
             .then((json) => {
-                const images: string[] = json?.data?.images || json?.images || [];
-                const valid = images.filter(Boolean);
+                if (!isMounted) return;
+                const raw = json?.data?.images || json?.images || (Array.isArray(json?.data) ? json.data : []);
+                const images: string[] = Array.isArray(raw) ? raw : [];
+                const valid = images.filter((img) => typeof img === "string" && img.trim().length > 0);
                 if (valid.length > 0) {
                     setPhotos(valid.map((src, i) => ({ src, alt: `TeaMax moment ${i + 1}` })));
                 } else {
                     setPhotos(defaultPhotos);
                 }
             })
-            .catch(() => {
-                setPhotos(defaultPhotos);
+            .catch((err) => {
+                console.warn("[MomentsSection] Error fetching moments from API:", err);
+                if (isMounted) setPhotos(defaultPhotos);
             });
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     const display = photos.length > 0 ? photos : defaultPhotos;
@@ -464,8 +474,8 @@ function MomentsSection() {
             </div>
 
             <div className="detailscentres-gallery-grid">
-                {display.map((photo) => (
-                    <div className="detailscentres-gallery-item" key={photo.src}>
+                {display.map((photo, index) => (
+                    <div className="detailscentres-gallery-item" key={`${photo.src}-${index}`}>
                         <img src={photo.src} alt={photo.alt} />
                     </div>
                 ))}
@@ -774,7 +784,22 @@ export function StoreSections() {
                     </article>
                 </div>
             </section>
+            <section className="" id="faq">
+                <div className="detailscentres-faq-intro">
+                    <span className="detailscentres-eyebrow">About us</span>
+                    <h3 className="desc mt-3">{centre?.shortDescription}</h3>
 
+                </div>
+
+                <div className="detailscentres-faq-list mar2">
+
+                    <article className="detailscentres-faq-item mt-4">
+
+                        <p>{centre?.detailedDescription}</p>
+                    </article>
+
+                </div>
+            </section>
             {/* FAQs Section */}
             <section className="detailscentres-section detailscentres-faq-section" id="faq">
                 <div className="detailscentres-faq-intro">
