@@ -133,6 +133,7 @@ export function Footer() {
             <Link href="/menu">Franchise Booking</Link>
             <Link href="/franchise#apply">Franchise List</Link>
             <Link href="/blog">Team Login</Link>
+            <Link href="/franchise-opportunities">Franchise Opportunities</Link>
           </div>
 
         </div>
