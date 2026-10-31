@@ -515,6 +515,11 @@
     color: var(--tm-teal);
 }
 
+.view2 {
+    margin-top: 20px !important;
+    width: 100% !important;
+}
+
 .tm-directions-button:hover {
     background: #f1f7f2;
 }

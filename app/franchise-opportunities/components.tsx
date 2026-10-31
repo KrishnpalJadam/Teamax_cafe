@@ -275,9 +275,9 @@ export default function OurFranchiseOpportunitiesContent() {
                                             {item.shortDescription}
                                         </p>
 
-                                        <div className="tm-cafe-actions">
+                                        <div className="tm-cafe-actions ">
                                             <Link
-                                                className="tm-button tm-view-button"
+                                                className="tm-button tm-view-button view2"
                                                 href={`/franchise-opportunities/${item.slug}`}
                                             >
                                                 View Opportunity <ArrowRight size={17} />
