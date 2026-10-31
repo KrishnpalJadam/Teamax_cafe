@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Header, Footer } from "../../components";
-import FranchiseOpportunityDetails, {
-    type FranchiseOpportunity,
-} from "./components";
-import "./components.css";
+import { FranchiseOpportunityDetails } from "./components";
+import type { FranchiseOpportunity } from "./components";
 
 const CAFE_IMAGE =
     "https://responsive-cafe-showcase.lovable.app/assets/cafe-1-2S3WQYFE.jpg";

@@ -14512,3 +14512,37 @@ body {
 .tx-menu-product-description {
   margin-top: 10px;
 }
+
+
+
+
+
+
+.not-found-page {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #fff8ee;
+}
+
+.not-found-link {
+  display: block;
+  width: 100%;
+  height: 100vh;
+}
+
+.not-found-link picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.not-found-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}

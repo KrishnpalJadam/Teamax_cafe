@@ -169,42 +169,7 @@ export default function OurFranchiseOpportunitiesContent() {
             <div className="tm-container tm-main-content">
                 {/* Country, State and City filters */}
                 <form className="tm-filter-panel" onSubmit={handleSearch}>
-                    <div className="tm-filter-field">
-                        <label htmlFor="tm-country">Country</label>
-                        <div className="tm-select-wrap">
-                            <Globe size={19} />
-                            <select
-                                id="tm-country"
-                                value={country}
-                                onChange={(event) => {
-                                    const nextCountry = event.target.value;
-                                    const nextStates = [
-                                        ...new Set(
-                                            franchiseOpportunities
-                                                .filter((item) => item.country === nextCountry)
-                                                .map((item) => item.state)
-                                        ),
-                                    ];
-                                    const nextState = nextStates[0] || "";
-                                    const nextCity =
-                                        franchiseOpportunities.find(
-                                            (item) =>
-                                                item.country === nextCountry &&
-                                                item.state === nextState
-                                        )?.city || "";
-                                    setCountry(nextCountry);
-                                    setState(nextState);
-                                    setCity(nextCity);
-                                }}
-                            >
-                                {availableCountries.map((item) => (
-                                    <option key={item} value={item}>
-                                        {item}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
+
 
                     <div className="tm-filter-field">
                         <label htmlFor="tm-state">State</label>
@@ -253,7 +218,7 @@ export default function OurFranchiseOpportunitiesContent() {
                     </div>
 
                     <button type="submit" className="tm-button tm-search-button">
-                        Find Opportunities <ArrowRight size={18} />
+                        Search <ArrowRight size={18} />
                     </button>
                 </form>
 
@@ -288,10 +253,10 @@ export default function OurFranchiseOpportunitiesContent() {
                                             alt={item.franchiseName}
                                             loading="lazy"
                                         />
-                                        <span className="tm-open-badge">
+                                        {/* <span className="tm-open-badge">
                                             <span />
                                             FRANCHISE AVAILABLE
-                                        </span>
+                                        </span> */}
                                     </div>
 
                                     <div className="tm-cafe-body">
@@ -347,12 +312,12 @@ export default function OurFranchiseOpportunitiesContent() {
                         <h2>Bring the TeaMax experience to your city.</h2>
                         <p>Explore an opportunity and take the next step.</p>
                     </div>
-                    <a
-                        href="#tm-franchise-opportunities"
+                    <Link
+                        href="/ourcentres"
                         className="tm-button tm-cta-button"
                     >
-                        Explore Opportunities <ArrowRight size={18} />
-                    </a>
+                        Explore Our Centres <ArrowRight size={18} />
+                    </Link>
                 </section>
             </div>
         </main>
