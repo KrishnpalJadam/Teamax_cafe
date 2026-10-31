@@ -1718,9 +1718,6 @@
         width: 100%;
     }
 
-    .tm-fc-features-grid {
-        grid-template-columns: 1fr;
-    }
 
     .tm-fc-package-grid {
         grid-template-columns: 1fr;

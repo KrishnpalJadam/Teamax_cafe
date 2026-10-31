@@ -1719,7 +1719,7 @@
   }
 
   .tm-fc-features-grid {
-    grid-template-columns: 1fr;
+    /* grid-template-columns: 1fr; */
   }
 
   .tm-fc-package-grid {

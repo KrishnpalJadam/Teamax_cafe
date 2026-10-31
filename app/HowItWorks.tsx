@@ -34,7 +34,7 @@ export default function HowItWorks() {
   return (
     <section
       id="how-it-works"
-      className="steps-section container-xl "
+      className="steps-section container-xl"
       aria-labelledby="how-heading"
     >
       <div className="section-heading steps-heading">
@@ -43,26 +43,31 @@ export default function HowItWorks() {
           <span className="short-line" />
         </div>
 
-        <p>
-          A simple 4-step process to start your TeaMax Café.
-        </p>
+
       </div>
 
       <div className="steps-grid">
         {steps.map(({ icon: Icon, title, detail }, index) => (
           <div className="step" key={title}>
+
+            {/* Step Number */}
             <div className="step-count">
-              <span>{index + 1}</span>
-              {/* <b>{index + 1}</b> */}
+              <span>{String(index + 1).padStart(2, "0")}</span>
             </div>
 
-            <span className="step-icon" aria-hidden="true">
-              <Icon size={28} strokeWidth={1.5} />
-            </span>
+            {/* Lucide Icon */}
+            <div className="step-icon-wrap">
+              <Icon
+                size={40}
+                strokeWidth={1.8}
+              />
+            </div>
 
+            {/* Step Content */}
             <h3>{title}</h3>
 
             <p>{detail}</p>
+
           </div>
         ))}
       </div>

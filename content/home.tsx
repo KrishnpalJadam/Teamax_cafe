@@ -127,7 +127,7 @@ export default function Home() {
               { icon: BarChart3, a: "8–12 Months", b: "ROI" },
               { icon: MapPinned, a: "Pan India", b: "Support" },
             ].map(({ icon: Icon, a, b }) => (
-              <div key={a}><span className="round-icon"><Icon size={25} strokeWidth={1.5} /></span><strong>{a}<br />{b}</strong></div>
+              <div key={a}><span className="round-icon"><Icon size={30} strokeWidth={1.5} /></span><strong className="fs44">{a}<br />{b}</strong></div>
             ))}
           </div>
           <Link href="/franchise#apply" className="cafe-action">Apply for Franchise <ArrowRight size={17} /></Link>
