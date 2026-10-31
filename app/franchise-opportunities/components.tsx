@@ -4,11 +4,11 @@ import { useMemo, useState } from "react";
 import {
     ArrowRight,
     Building2,
-    Globe,
     MapPin,
 } from "lucide-react";
 import Link from "next/link";
-import "./coponents.css"
+import "./coponents.css";
+
 const HERO_IMAGE =
     "https://responsive-cafe-showcase.lovable.app/assets/tea-hero-DMrQZeuN.jpg";
 
