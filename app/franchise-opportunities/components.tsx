@@ -117,7 +117,7 @@ export default function OurFranchiseOpportunitiesContent() {
         [appliedFilters]
     );
 
-    function handleSearch(event) {
+    function handleSearch(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setAppliedFilters({ country, state, city });
     }

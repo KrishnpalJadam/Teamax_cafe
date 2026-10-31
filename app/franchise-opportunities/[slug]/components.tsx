@@ -1,1299 +1,482 @@
-// "use client";
-
-// import Link from "next/link";
-// import {
-//     Users,
-//     MapPin,
-//     Percent,
-//     ChefHat,
-//     Coins,
-//     Laptop,
-//     Megaphone,
-//     Headphones,
-//     ArrowRight,
-// } from "lucide-react";
-
-// export type FranchiseOpportunity = {
-//     id: number;
-//     franchiseName: string;
-//     slug: string;
-//     country: string;
-//     state: string;
-//     city: string;
-//     shortDescription: string;
-//     description: string;
-//     primaryImage: string;
-// };
-
-// type Props = {
-//     opportunity: FranchiseOpportunity;
-// };
-
-// export default function FranchiseOpportunityDetails({
-//     opportunity,
-// }: Props) {
-//     const handleWhatsApp = () => {
-//         const message = `Hi TeaMax Team, I would like to get more details about the ${opportunity.franchiseName} franchise opportunity in ${opportunity.city}.`;
-//         const whatsappUrl = `https://go.teamaxcafe.in/whatsapp?text=${encodeURIComponent(message)}`;
-//         window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-//     };
-
-//     return (
-//         <div className="tm-fc-page mt-20">
-//             {/* HERO SECTION */}
-//             <section className="tm-fc-hero">
-//                 <div className="tm-fc-container">
-//                     <div className="tm-fc-hero-grid">
-//                         <div className="tm-fc-hero-content">
-//                             <span className="tm-fc-tag-script">#aajkichai</span>
-
-//                             <h1 className="tm-fc-hero-title">
-//                                 Start Your Own
-//                                 <br />
-//                                 TeaMax Café Franchise
-//                                 <span className="highlight-yellow">
-//                                     {opportunity.city ? ` in ${opportunity.city}` : ""}
-//                                 </span>
-//                             </h1>
-
-//                             <p className="tm-fc-hero-sub">
-//                                 {opportunity.shortDescription}
-//                             </p>
-
-//                             <div className="tm-fc-hero-stats">
-//                                 <div className="tm-fc-hero-stat-item">
-//                                     <div className="tm-fc-stat-icon-wrap">
-//                                         <Users size={18} strokeWidth={2.2} />
-//                                     </div>
-//                                     <div className="tm-fc-hero-stat-info">
-//                                         <strong>1,200+</strong>
-//                                         <span>Partner Signups</span>
-//                                     </div>
-//                                 </div>
-
-//                                 <div className="tm-fc-hero-stat-item">
-//                                     <div className="tm-fc-stat-icon-wrap">
-//                                         <MapPin size={18} strokeWidth={2.2} />
-//                                     </div>
-//                                     <div className="tm-fc-hero-stat-info">
-//                                         <strong>27+</strong>
-//                                         <span>States</span>
-//                                     </div>
-//                                 </div>
-
-//                                 <div className="tm-fc-hero-stat-item">
-//                                     <div className="tm-fc-stat-icon-wrap">
-//                                         <Percent size={18} strokeWidth={2.5} />
-//                                     </div>
-//                                     <div className="tm-fc-hero-stat-info">
-//                                         <strong>0%</strong>
-//                                         <span>Royalty</span>
-//                                     </div>
-//                                 </div>
-//                             </div>
-
-//                             <div className="tm-fc-hero-actions">
-//                                 <button
-//                                     type="button"
-//                                     onClick={handleWhatsApp}
-//                                     className="tm-fc-btn-primary"
-//                                 >
-//                                     <span>Get Details on WhatsApp</span>
-//                                     <ArrowRight size={19} />
-//                                 </button>
-
-//                                 <Link
-//                                     href="/franchise-opportunities"
-//                                     className="tm-fc-btn-secondary"
-//                                 >
-//                                     <span>Explore Other Locations</span>
-//                                     <ArrowRight size={17} strokeWidth={2.2} />
-//                                 </Link>
-//                             </div>
-
-//                             <p className="tm-fc-hero-disclaimer">
-//                                 {opportunity.city}, {opportunity.state}, {opportunity.country}
-//                             </p>
-//                         </div>
-
-//                         <div className="tm-fc-hero-visual">
-//                             <div className="tm-fc-hero-img-wrap">
-//                                 <img
-//                                     src={opportunity.primaryImage}
-//                                     alt={opportunity.franchiseName}
-//                                     className="tm-fc-hero-img"
-//                                     width="500"
-//                                     height="500"
-//                                 />
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </section>
-//             <section className="detailscentres-about-section" id="faq">
-//                 <div className="container-xl">
-
-//                     {/* About Us Heading + Short Description */}
-//                     <div className="detailscentres-about-header">
-//                         <span className="detailscentres-eyebrow">
-//                             About Us
-//                         </span>
-
-//                         <h2 className="detailscentres-about-short">
-//                             {opportunity.shortDescription}
-//                         </h2>
-//                     </div>
-
-//                     {/* Long Description */}
-//                     <div className="detailscentres-about-content">
-//                         {opportunity.description && (
-//                             <div
-//                                 className="detailscentres-about-long"
-//                                 dangerouslySetInnerHTML={{
-//                                     __html: opportunity.description,
-//                                 }}
-//                             />
-//                         )}
-//                     </div>
-
-//                 </div>
-//             </section>
-//             {/* ABOUT US SECTION */}
-//             <section
-//                 className="tm-fc-simple-section"
-//                 id="franchise-description"
-//             >
-//                 <div className="tm-fc-container">
-//                     <div className="tm-fc-simple-grid">
-//                         <div className="tm-fc-simple-media">
-//                             <img
-//                                 src="/images/franchise-storefront.jpg"
-//                                 alt="TeaMax Cafe Storefront and Counter"
-//                                 width="600"
-//                                 height="450"
-//                                 loading="lazy"
-//                             />
-//                         </div>
-
-//                         <div className="tm-fc-simple-content">
-//                             <h2>
-//                                 Your Café Business,
-//                                 <br />
-//                                 Made Simple.
-//                             </h2>
-
-
-
-//                             <div className="tm-fc-features-grid">
-//                                 <div className="tm-fc-feature-card">
-//                                     <div className="tm-fc-feature-icon">
-//                                         <Percent size={20} strokeWidth={2.4} />
-//                                     </div>
-//                                     <div className="tm-fc-feature-text">
-//                                         <strong>No Royalty</strong>
-//                                         <span>on your sales</span>
-//                                     </div>
-//                                 </div>
-
-//                                 <div className="tm-fc-feature-card">
-//                                     <div className="tm-fc-feature-icon">
-//                                         <ChefHat size={21} strokeWidth={2.2} />
-//                                     </div>
-//                                     <div className="tm-fc-feature-text">
-//                                         <strong>Chef-less</strong>
-//                                         <span>operations</span>
-//                                     </div>
-//                                 </div>
-
-//                                 <div className="tm-fc-feature-card">
-//                                     <div className="tm-fc-feature-icon">
-//                                         <Coins size={20} strokeWidth={2.2} />
-//                                     </div>
-//                                     <div className="tm-fc-feature-text">
-//                                         <strong>Low Investment</strong>
-//                                         <span>Affordable setup</span>
-//                                     </div>
-//                                 </div>
-
-//                                 <div className="tm-fc-feature-card">
-//                                     <div className="tm-fc-feature-icon">
-//                                         <Laptop size={20} strokeWidth={2.2} />
-//                                     </div>
-//                                     <div className="tm-fc-feature-text">
-//                                         <strong>Training &</strong>
-//                                         <span>POS support</span>
-//                                     </div>
-//                                 </div>
-
-//                                 <div className="tm-fc-feature-card">
-//                                     <div className="tm-fc-feature-icon">
-//                                         <Megaphone size={20} strokeWidth={2.2} />
-//                                     </div>
-//                                     <div className="tm-fc-feature-text">
-//                                         <strong>Marketing</strong>
-//                                         <span>guidance</span>
-//                                     </div>
-//                                 </div>
-
-//                                 <div className="tm-fc-feature-card">
-//                                     <div className="tm-fc-feature-icon">
-//                                         <Headphones size={20} strokeWidth={2.2} />
-//                                     </div>
-//                                     <div className="tm-fc-feature-text">
-//                                         <strong>Ongoing</strong>
-//                                         <span>franchise support</span>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </section>
-//         </div>
-//     );
-// }
-
-
-
-
-
-
-
-
-
-
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import "./components.css";
-// import { Header } from "../components";
-import FranchiseFormSection from "./franchise-form";
-// import { getCommonCategories, getCommonMenu } from "../lib/api";
 import {
-    Users,
-    MapPin,
-    Percent,
-    Download,
-    IndianRupee,
-    ChefHat,
-    Coins,
-    Store,
-    Award,
-    TrendingUp,
-    Laptop,
-    Megaphone,
-    Headphones,
-    Calculator,
-    Maximize2,
-    Building2,
     ArrowRight,
-    ChevronLeft,
-    ChevronRight,
-    FileText,
-    Handshake,
-    LayoutGrid,
-    Wrench,
-    Rocket,
-    Check,
-    Star,
-    HelpCircle,
+    Coffee,
+    ChefHat,
+    Percent,
+    CheckCircle2,
     ChevronDown,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import FranchiseFormSection from "./franchise-form";
 
+export type FranchiseOpportunity = {
+    id: number;
+    franchiseName: string;
+    slug: string;
+    country: string;
+    state: string;
+    city: string;
+    shortDescription: string;
+    description: string;
+    primaryImage: string;
+};
 
-
-
-
-export function FranchiseOpportunityDetails({
-    opportunity,
-}: {
+type Props = {
     opportunity: FranchiseOpportunity;
-}) {
-    // FAQ accordion state
+};
+
+// Target prime locations grouped by state
+const stateLocationsData: Record<string, Array<{ name: string; desc: string }>> = {
+    Telangana: [
+        { name: "Hyderabad", desc: "Central & IT Hub (Gachibowli, Hitech City, Kompally)" },
+        { name: "Warangal", desc: "Commercial & University Corridor" },
+        { name: "Karimnagar", desc: "Prime High Street Market" },
+        { name: "Nizamabad", desc: "Transit Hub & College Zone" },
+        { name: "Khammam", desc: "High Density Retail Corridor" },
+        { name: "Nalgonda", desc: "Prime High Street & Town Center" },
+        { name: "Mahbubnagar", desc: "Developing Transit & Market Area" },
+    ],
+    "Madhya Pradesh": [
+        { name: "Indore", desc: "Vijay Nagar, Palasia & Bhawar Kuan Youth Belts" },
+        { name: "Bhopal", desc: "MP Nagar Business Zone & Arera Colony" },
+        { name: "Ujjain", desc: "Freeganj Commercial Area & Mahakal Corridor" },
+        { name: "Gwalior", desc: "Lashkar & City Centre High Street" },
+        { name: "Jabalpur", desc: "Wright Town & Civil Lines Retail Hub" },
+        { name: "Sagar", desc: "Civil Lines & Katra Commercial Market" },
+        { name: "Ratlam", desc: "Station Road & Do Batti Prime Market" },
+    ],
+};
+
+const otherCitiesList = [
+    "Franchise Telangana",
+    "Franchise Hyderabad",
+    "Franchise Indore",
+    "Franchise Bhopal",
+    "Franchise Bengaluru",
+    "Franchise Pune",
+    "Franchise Mumbai",
+    "Franchise Delhi NCR",
+    "Franchise Ahmedabad",
+    "Franchise Chennai",
+    "Franchise Kolkata",
+    "Franchise Lucknow",
+    "Franchise Nagpur",
+    "Franchise Surat",
+    "Franchise Chandigarh",
+    "Franchise Coimbatore",
+    "Franchise Vijayawada",
+    "Franchise Visakhapatnam",
+    "Franchise Gwalior",
+    "Franchise Jabalpur",
+    "Franchise Jaipur",
+    "Franchise Patna",
+    "Franchise Raipur",
+    "Franchise Dehradun",
+];
+
+export function FranchiseOpportunityDetails({ opportunity }: Props) {
+    const stateName = opportunity.state || "Telangana";
+    const cityName = opportunity.city || "Hyderabad";
+
+    // Pick locations for this state or default
+    const locations =
+        stateLocationsData[stateName] ||
+        stateLocationsData["Telangana"];
+
+    // FAQ state
     const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-    // Categories slider state
-    const [catIndex, setCatIndex] = useState(0);
-    const [itemsPerViewCat, setItemsPerViewCat] = useState(6);
-    const catTouchStartX = useRef<number | null>(null);
+    // Form State
+    const [formData, setFormData] = useState({
+        fullName: "",
+        phone: "",
+        email: "",
+        city: cityName,
+        state: stateName,
+        preferredLocation: "",
+        model: "Regular Franchise",
+        message: "",
+        agree: true,
+    });
 
-    // Testimonials slider state
-    const [testIndex, setTestIndex] = useState(0);
-    const [itemsPerViewTest, setItemsPerViewTest] = useState(3);
-    const testTouchStartX = useRef<number | null>(null);
-    const [testimonials, setTestimonials] = useState<any[]>([]);
-    const [reviewsLoading, setReviewsLoading] = useState(true);
-    const [reviewsError, setReviewsError] = useState(false);
-    // Categories list (8 items)
+    const [formSubmitted, setFormSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
 
-    type FranchiseCategory = {
-        id: string;
-        name: string;
-        slug?: string;
-        image: string;
-    };
-
-    const CATEGORY_ASSETS =
-        "https://cafe-blueprint-magic.lovable.app/assets";
-
-    const defaultCategories: FranchiseCategory[] = [
-        {
-            id: "tea",
-            name: "Tea & Coffee",
-            image: `${CATEGORY_ASSETS}/menu-tea-GDCVsE9V.jpg`,
-        },
-        {
-            id: "burgers",
-            name: "Burgers & Sandwiches",
-            image: `${CATEGORY_ASSETS}/hero-cafe-zlWPzgb-.jpg`,
-        },
-        {
-            id: "snacks",
-            name: "Fries & Snacks",
-            image: `${CATEGORY_ASSETS}/menu-fries-CAp5uNC2.jpg`,
-        },
-        {
-            id: "pizza",
-            name: "Pizza & Pasta",
-            image:
-                "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=400&q=80",
-        },
-        {
-            id: "shakes",
-            name: "Milkshakes & Thickshakes",
-            image: `${CATEGORY_ASSETS}/menu-shake-DCrFsPuS.jpg`,
-        },
-        {
-            id: "mojitos",
-            name: "Mojitos & Refreshers",
-            image:
-                "https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=400&q=80",
-        },
-        {
-            id: "momos",
-            name: "Gourmet Momos",
-            image:
-                "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=400&q=80",
-        },
-        {
-            id: "desserts",
-            name: "Artisanal Desserts",
-            image:
-                "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80",
-        },
-    ];
-
-    const [categories, setCategories] =
-        useState<FranchiseCategory[]>(defaultCategories);
-
-
-
-
-    useEffect(() => {
-        const fetchTestimonials = async () => {
-            try {
-                const response = await fetch(
-                    "https://teamaxbackend-production.up.railway.app/api/v1/reviews"
-                );
-
-                if (!response.ok) {
-                    throw new Error("Failed to fetch reviews");
-                }
-
-                const result = await response.json();
-
-                const franchiseReviews = (result.data || [])
-                    .filter(
-                        (review: any) =>
-                            review.reviewType === "franchise" &&
-                            review.status === "published" &&
-                            review.displayOn?.includes("franchise_page")
-                    )
-                    .sort(
-                        (a: any, b: any) =>
-                            a.displayOrder - b.displayOrder
-                    );
-
-                setTestimonials(franchiseReviews);
-            } catch (error) {
-                console.error("Error fetching franchise reviews:", error);
-                setReviewsError(true);
-            } finally {
-                setReviewsLoading(false);
-            }
-        };
-
-        fetchTestimonials();
-    }, []);
-    // Testimonials list (6 items)
-
-
-    // FAQs list
     const faqs = [
         {
-            q: "How much does a TeaMax franchise cost?",
-            a: "The core TeaMax franchise package starts at ₹3,69,999 (+ applicable taxes). Depending on your chosen location, initial raw materials, transport and shop interior setup (approx ₹60,000–₹70,000 for 100 sq.ft), the total estimated setup budget is approximately ₹4.39 Lakhs.",
+            q: `What is the TeaMax franchise investment in ${stateName}?`,
+            a: `The core TeaMax franchise package starts at ₹3,69,999 (+ applicable taxes). Modular shop interior setup (approx ₹60,000–₹70,000 for 100 sq.ft) and initial inventory give an illustrative setup budget of approximately ₹4.39 Lakhs.`,
         },
         {
-            q: "What is the franchise license period?",
-            a: "The standard franchise license agreement is granted for 5 Years. After 5 years, license renewal terms apply as per company policy with minimal administrative overhead.",
+            q: "Is there any ongoing royalty or monthly commission?",
+            a: "No! TeaMax operates on a 100% Zero Royalty model. All revenues and daily profits from beverage and snack sales belong entirely to you.",
         },
         {
-            q: "Does TeaMax charge royalty?",
-            a: "No! TeaMax operates on a 0% ongoing royalty model. All profits from your day-to-day beverage and food sales belong 100% to you as the franchise partner.",
+            q: "Do I need prior food or restaurant experience?",
+            a: "No prior experience is necessary. Our chef-less operating model, standardized recipes, automated machinery, and comprehensive on-site training ensure seamless daily operations.",
         },
         {
-            q: "How long does café setup take?",
-            a: "Our streamlined setup timeline is only 25 to 30 days from agreement signing to store inauguration, thanks to our standardized kitchen equipment package and modular counter designs.",
-        },
-        {
-            q: "Do I need experience in the food business?",
-            a: "No prior experience is necessary. Our chef-less operating model, standardized recipes, automated kitchen machinery, and in-depth training ensure anyone can operate the cafe smoothly.",
-        },
-        {
-            q: "Does TeaMax guarantee profits?",
-            a: "While no business can guarantee absolute profits, TeaMax provides high gross margins (55%–65%), proven operating SOPs, national marketing visibility, and aggregator onboarding (Swiggy/Zomato) to maximize your success.",
+            q: `How do I check location availability in ${stateName}?`,
+            a: `Fill out the consultation form below. Our expansion team analyzes your proposed location, verifies territorial exclusivity, and connects with you within 24 hours.`,
         },
     ];
 
-    // Screen resize listener for dynamic slide counts
-    useEffect(() => {
-        const handleResize = () => {
-            const w = window.innerWidth;
-            if (w < 480) {
-                setItemsPerViewCat(2);
-                setItemsPerViewTest(1);
-            } else if (w < 768) {
-                setItemsPerViewCat(3);
-                setItemsPerViewTest(1);
-            } else if (w < 1024) {
-                setItemsPerViewCat(4);
-                setItemsPerViewTest(2);
-            } else {
-                setItemsPerViewCat(6);
-                setItemsPerViewTest(3);
-            }
-        };
-
-        handleResize();
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
-
-    // Category slider controls
-    const maxCatIndex = Math.max(0, categories.length - itemsPerViewCat);
-    const handleCatPrev = () => {
-        setCatIndex((prev) => (prev > 0 ? prev - 1 : maxCatIndex));
-    };
-    const handleCatNext = () => {
-        setCatIndex((prev) => (prev < maxCatIndex ? prev + 1 : 0));
+    const handleInputChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+    ) => {
+        const { name, value } = e.target;
+        if (name === "phone") {
+            setFormData((prev) => ({
+                ...prev,
+                phone: value.replace(/\D/g, "").slice(0, 10),
+            }));
+        } else {
+            setFormData((prev) => ({
+                ...prev,
+                [name]: value,
+            }));
+        }
+        setErrorMessage("");
     };
 
-    // Testimonial slider controls
-    const maxTestIndex = Math.max(0, testimonials.length - itemsPerViewTest);
-    const handleTestPrev = () => {
-        setTestIndex((prev) => (prev > 0 ? prev - 1 : maxTestIndex));
-    };
-    const handleTestNext = () => {
-        setTestIndex((prev) => (prev < maxTestIndex ? prev + 1 : 0));
-    };
+    const handleFormSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!formData.fullName.trim()) {
+            setErrorMessage("Please enter your full name.");
+            return;
+        }
+        if (!formData.phone.trim() || formData.phone.length < 10) {
+            setErrorMessage("Please enter a valid 10-digit mobile number.");
+            return;
+        }
+        if (!formData.email.trim() || !formData.email.includes("@")) {
+            setErrorMessage("Please enter a valid email address.");
+            return;
+        }
 
-    // Touch Swipe handlers for Categories
-    const handleCatTouchStart = (e: React.TouchEvent) => {
-        catTouchStartX.current = e.touches[0].clientX;
-    };
-    const handleCatTouchEnd = (e: React.TouchEvent) => {
-        if (catTouchStartX.current === null) return;
-        const diff = catTouchStartX.current - e.changedTouches[0].clientX;
-        if (diff > 40) handleCatNext();
-        else if (diff < -40) handleCatPrev();
-        catTouchStartX.current = null;
-    };
+        setIsSubmitting(true);
 
-    // Touch Swipe handlers for Testimonials
-    const handleTestTouchStart = (e: React.TouchEvent) => {
-        testTouchStartX.current = e.touches[0].clientX;
-    };
-    const handleTestTouchEnd = (e: React.TouchEvent) => {
-        if (testTouchStartX.current === null) return;
-        const diff = testTouchStartX.current - e.changedTouches[0].clientX;
-        if (diff > 40) handleTestNext();
-        else if (diff < -40) handleTestPrev();
-        testTouchStartX.current = null;
-    };
+        const waMessage = [
+            `*New Franchise Enquiry - ${stateName}*`,
+            `• Name: ${formData.fullName}`,
+            `• Phone: +91 ${formData.phone}`,
+            `• Email: ${formData.email}`,
+            `• City: ${formData.city}`,
+            `• State: ${formData.state}`,
+            `• Preferred Location: ${formData.preferredLocation || "Not specified"}`,
+            `• Model: ${formData.model}`,
+            `• Note: ${formData.message || "Looking for franchise details"}`,
+        ].join("\n");
 
-    const toggleFaq = (index: number) => {
-        setOpenFaq(openFaq === index ? null : index);
-    };
-
-
-    const handleHeroWhatsApp = () => {
-        const msg =
-            "Hi TeaMax Team, I would like to get franchise details for TeaMax Cafe (₹3.69 Lakh model). Please send me the franchise proposal.";
-
-        const whatsappUrl =
-            `https://go.teamaxcafe.in/whatsapp?text=${encodeURIComponent(msg)}`;
-
-        window.open(whatsappUrl, "_blank");
+        setTimeout(() => {
+            setIsSubmitting(false);
+            setFormSubmitted(true);
+            window.open(
+                `https://go.teamaxcafe.in/whatsapp?text=${encodeURIComponent(waMessage)}`,
+                "_blank"
+            );
+        }, 600);
     };
 
-
-    const scrollToForm = () => {
-        const el = document.getElementById("franchise-form");
+    const scrollToApply = (e: React.MouseEvent) => {
+        e.preventDefault();
+        const el = document.getElementById("apply-form");
         if (el) {
             el.scrollIntoView({ behavior: "smooth" });
         }
     };
 
     return (
-        <div className="tm-fc-page mt-20">
-
-
+        <div className="tmf-detail-page">
             {/* ====================================================================
-          2. HERO SECTION
+          1. HERO SECTION (Dark Forest Green with Arch Visual)
           ==================================================================== */}
-            <section className="tm-fc-hero">
-                <div className="tm-fc-container">
-                    <div className="tm-fc-hero-grid">
-                        {/* Left Content */}
-                        <div className="tm-fc-hero-content">
-                            <span className="tm-fc-tag-script">#aajkichai</span>
+            <section className="tmf-hero">
+                <div className="tmf-container">
+                    <div className="tmf-hero-grid">
+                        {/* Left Column Content */}
+                        <div className="tmf-hero-left">
+                            <div className="tmf-eyebrow-tag">
+                                <span className="tmf-eyebrow-dot" />
+                                <span>TEAMAX • {stateName.toUpperCase()}</span>
+                            </div>
 
-                            <h1 className="tm-fc-hero-title">
-                                Start Your Own
+                            <span className="tmf-hero-subtitle-tag">
+                                TEA FRANCHISE OPPORTUNITY
+                            </span>
+
+                            <h1 className="tmf-hero-title">
+                                Tea Franchise
                                 <br />
-                                TeaMax Café Franchise in
-                                <span className="highlight-yellow">Indore</span>
+                                Opportunity in
+                                <br />
+                                {stateName}
                             </h1>
 
-
-                            <p className="tm-fc-hero-sub">
-                                Zero Royalty. Chef-less Operations.
-                                <br />
-                                Complete Franchise Support.
+                            <p className="tmf-hero-desc">
+                                Start a modern, high-return tea café franchise in {cityName},{" "}
+                                {stateName}. Low investment, zero royalty, chef-less operations
+                                and pan-India brand trust.
                             </p>
 
+                            <p className="tmf-hero-note">
+                                Join growing network of tea cafés across {stateName} with 1,200+
+                                partner signups. Proven business model, complete training, and
+                                end-to-end launch support.
+                            </p>
 
-
-                            {/* Action Buttons */}
-                            <div className="tm-fc-hero-actions">
-                                <button
-                                    onClick={handleHeroWhatsApp}
-                                    className="tm-fc-btn-primary"
+                            <div>
+                                <a
+                                    href="#apply-form"
+                                    onClick={scrollToApply}
+                                    className="tmf-btn-gold"
                                 >
-                                    <span>Get Details on WhatsApp</span>
-                                    <FaWhatsapp size={19} />
-                                </button>
-
-
-                                <Link
-                                    href="/franchise-opportunities"
-                                    className="tm-fc-btn-secondary"
-                                >
-                                    <span>Explore Other Locations</span>
-                                    <ArrowRight size={17} strokeWidth={2.2} />
-                                </Link>
+                                    <span>Apply for Franchise</span>
+                                    <ArrowRight size={17} strokeWidth={2.4} />
+                                </a>
                             </div>
-
-
                         </div>
 
-                        {/* Right Visual Image */}
-                        <div className="tm-fc-hero-visual">
-                            <div className="tm-fc-hero-img-wrap">
+                        {/* Right Column Arch Visual */}
+                        <div className="tmf-hero-visual-wrap">
+                            <div className="tmf-arch-frame">
                                 <img
-                                    src="/images/franchise-hero-combo.jpg"
-                                    alt="TeaMax Food & Beverage Combo Spread"
-                                    className="tm-fc-hero-img"
-                                    width="500"
-                                    height="500"
+                                    src={opportunity.primaryImage || "/images/cafe-interior.jpg"}
+                                    alt={`TeaMax Café in ${cityName}, ${stateName}`}
+                                    className="tmf-arch-img"
                                 />
+
+
                             </div>
                         </div>
                     </div>
-                </div>
-            </section >
-
-            {/* ====================================================================
-          3. KEY HIGHLIGHTS BAR (Ribbon) - Lucide Icons
-          ==================================================================== */}
-            < section className="tm-fc-ribbon" >
-                <div className="tm-fc-container">
-                    <div className="tm-fc-ribbon-grid">
-                        <div className="tm-fc-ribbon-item">
-                            <div className="tm-fc-ribbon-icon">
-                                <Percent size={22} strokeWidth={2.5} />
-                            </div>
-                            <div className="tm-fc-ribbon-title">Zero Royalty</div>
-                            <div className="tm-fc-ribbon-sub">No monthly royalty</div>
-                        </div>
-
-                        <div className="tm-fc-ribbon-item">
-                            <div className="tm-fc-ribbon-icon">
-                                <ChefHat size={23} strokeWidth={2.2} />
-                            </div>
-                            <div className="tm-fc-ribbon-title">Chef-less Model</div>
-                            <div className="tm-fc-ribbon-sub">Easy SOP operations</div>
-                        </div>
-
-                        <div className="tm-fc-ribbon-item">
-                            <div className="tm-fc-ribbon-icon">
-                                <IndianRupee size={22} strokeWidth={2.4} />
-                            </div>
-                            <div className="tm-fc-ribbon-title">Affordable Investment</div>
-                            <div className="tm-fc-ribbon-sub">₹3.69 Lakh + taxes</div>
-                        </div>
-
-                        <div className="tm-fc-ribbon-item">
-                            <div className="tm-fc-ribbon-icon">
-                                <Store size={22} strokeWidth={2.2} />
-                            </div>
-                            <div className="tm-fc-ribbon-title">Complete Setup Support</div>
-                            <div className="tm-fc-ribbon-sub">Equipment & training</div>
-                        </div>
-
-                        <div className="tm-fc-ribbon-item ribbon-span-mobile">
-                            <div className="tm-fc-ribbon-icon">
-                                <Award size={23} strokeWidth={2.2} />
-                            </div>
-                            <div className="tm-fc-ribbon-title">Proven Business Model</div>
-                            <div className="tm-fc-ribbon-sub">Pan India success</div>
-                        </div>
-                    </div>
-                </div>
-            </section >
-
-
-            {/* About Franchise Section */}
-            <section className="tm-fc-about-section">
-                <div className="tm-fc-container">
-
-                    <div className="tm-fc-about-label">
-                        <span></span>
-                        <strong>About us</strong>
-                    </div>
-
-                    {/* Dynamic shortDescription will be displayed here */}
-                    <h2 className="tm-fc-about-title">
-                        Your neighborhood spot for good tea, fresh snacks, and good food in indore.
-                    </h2>
-
-                    {/* Dynamic longDescription will be displayed here */}
-                    <div className="tm-fc-about-description">
-                        Located on indore Main Road, this flagship Indore franchise outlet
-                        features warm wooden cafe interiors, high-speed Wi-Fi, and signature
-                        kulhad teas. this was very good location.
-                    </div>
-
                 </div>
             </section>
 
             {/* ====================================================================
-          4. YOUR CAFÉ BUSINESS, MADE SIMPLE. - Lucide Icons
+          2. FEATURE PILLS BAR (Cream Strip)
           ==================================================================== */}
-            < section className="tm-fc-simple-section" >
-                <div className="tm-fc-container">
-                    <div className="tm-fc-simple-grid">
-                        <div className="tm-fc-simple-media">
-                            <img
-                                src="/images/franchise-storefront.jpg"
-                                alt="Modern TeaMax Cafe Storefront and Counter"
-                                width="600"
-                                height="450"
-                            />
+            <section className="tmf-feature-bar">
+                <div className="tmf-container">
+                    <div className="tmf-feature-pills-wrap">
+                        <div className="tmf-feature-pill">
+                            <span className="tmf-pill-icon">
+                                <Coffee size={18} strokeWidth={2.2} />
+                            </span>
+                            <span>All-day coffee, snacks & more</span>
                         </div>
 
-                        <div className="tm-fc-simple-content">
-                            <h2>
-                                Your Café Business,
-                                <br />
-                                Made Simple.
+                        <div className="tmf-feature-pill">
+                            <span className="tmf-pill-icon">
+                                <ChefHat size={19} strokeWidth={2.2} />
+                            </span>
+                            <span>Chef-Less Kitchen</span>
+                        </div>
+
+                        <div className="tmf-feature-pill">
+                            <span className="tmf-pill-icon">
+                                <Percent size={18} strokeWidth={2.4} />
+                            </span>
+                            <span>Zero Royalty & Low Investment</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ====================================================================
+          3. STATS STRIP (Dark Forest Green)
+          ==================================================================== */}
+            <section className="tmf-stats-strip">
+                <div className="tmf-container">
+                    <div className="tmf-stats-grid">
+                        <div className="tmf-stat-col">
+                            <div className="tmf-stat-num">₹3.69 Lakhs*</div>
+                            <div className="tmf-stat-lbl">Minimum Setup Budget</div>
+                        </div>
+
+                        <div className="tmf-stat-col">
+                            <div className="tmf-stat-num">100 – 200 sq.ft</div>
+                            <div className="tmf-stat-lbl">Space Required</div>
+                        </div>
+
+                        <div className="tmf-stat-col">
+                            <div className="tmf-stat-num">25 – 30 Days</div>
+                            <div className="tmf-stat-lbl">To Open Your Own Cafe</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ====================================================================
+          4. THE MARKET OPPORTUNITY (Editorial 2-Column)
+          ==================================================================== */}
+            <section className="tmf-market-section">
+                <div className="tmf-container">
+                    <div className="tmf-market-grid">
+                        <div>
+                            <span className="tmf-section-tag">
+                                TEAMAX • {stateName.toUpperCase()}
+                            </span>
+                            <h2 className="tmf-serif-heading">The market opportunity.</h2>
+                        </div>
+
+                        <div>
+                            <p className="tmf-editorial-lead">
+                                The tea and café culture is booming, backed by a youthful
+                                population looking for cozy spaces and great beverages. With
+                                rising disposable incomes and strong consumer affinity for
+                                hygienic café settings, {stateName} offers tremendous potential
+                                for modern quick-service tea cafés with high repeat footfalls and
+                                attractive unit economics.
+                            </p>
+                            <p className="tmf-editorial-body">
+                                From morning commuters grabbing freshly brewed masala chai to
+                                evening gatherings over burgers, shakes, and kulhad tea, TeaMax
+                                creates an energetic community hub with robust margins
+                                (55%–65%) and predictable day-to-day cash flows.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ====================================================================
+          5. WHERE TO OPEN IN {STATE} (Numbered Grid)
+          ==================================================================== */}
+            <section className="tmf-locations-section">
+                <div className="tmf-container">
+                    <div className="tmf-locations-grid">
+                        <div>
+                            <span className="tmf-section-tag">PRIME LOCATIONS</span>
+                            <h2 className="tmf-serif-heading">
+                                Where to open in {stateName}.
                             </h2>
-                            <p className="lead">
-                                TeaMax brings together a standardized food and beverage menu,
-                                practical operating procedures and franchise support to help
-                                entrepreneurs start and manage their own branded café.
-                            </p>
-
-                            <div className="tm-fc-features-grid">
-                                <div className="tm-fc-feature-card">
-                                    <div className="tm-fc-feature-icon">
-                                        <Percent size={20} strokeWidth={2.4} />
-                                    </div>
-                                    <div className="tm-fc-feature-text">
-                                        <strong>No Royalty</strong>
-                                        <span>on your sales</span>
-                                    </div>
-                                </div>
-
-                                <div className="tm-fc-feature-card">
-                                    <div className="tm-fc-feature-icon">
-                                        <ChefHat size={21} strokeWidth={2.2} />
-                                    </div>
-                                    <div className="tm-fc-feature-text">
-                                        <strong>Chef-less</strong>
-                                        <span>operations</span>
-                                    </div>
-                                </div>
-
-                                <div className="tm-fc-feature-card">
-                                    <div className="tm-fc-feature-icon">
-                                        <Coins size={20} strokeWidth={2.2} />
-                                    </div>
-                                    <div className="tm-fc-feature-text">
-                                        <strong>Low Investment</strong>
-                                        <span>₹3.69 Lakh + taxes</span>
-                                    </div>
-                                </div>
-
-                                <div className="tm-fc-feature-card">
-                                    <div className="tm-fc-feature-icon">
-                                        <Laptop size={20} strokeWidth={2.2} />
-                                    </div>
-                                    <div className="tm-fc-feature-text">
-                                        <strong>Training &</strong>
-                                        <span>POS support</span>
-                                    </div>
-                                </div>
-
-                                <div className="tm-fc-feature-card">
-                                    <div className="tm-fc-feature-icon">
-                                        <Megaphone size={20} strokeWidth={2.2} />
-                                    </div>
-                                    <div className="tm-fc-feature-text">
-                                        <strong>Marketing</strong>
-                                        <span>guidance</span>
-                                    </div>
-                                </div>
-
-                                <div className="tm-fc-feature-card">
-                                    <div className="tm-fc-feature-icon">
-                                        <Headphones size={20} strokeWidth={2.2} />
-                                    </div>
-                                    <div className="tm-fc-feature-text">
-                                        <strong>Ongoing</strong>
-                                        <span>franchise support</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section >
-
-            {/* ====================================================================
-          5. FRANCHISE INVESTMENT SECTION - Lucide Icons
-          ==================================================================== */}
-            < section className="tm-fc-investment-section" >
-                <div className="tm-fc-container">
-                    <div className="tm-fc-section-header left-aligned">
-                        <h2 className="tm-fc-section-title">Franchise Investment</h2>
-                        <p className="tm-fc-section-desc" style={{ margin: 0 }}>
-                            A clear investment structure to help you plan confidently.
-                        </p>
-                    </div>
-
-                    <div className="tm-fc-invest-grid">
-                        {/* Card 1: Dark Forest Green */}
-                        <div className="tm-fc-invest-card-dark">
-                            <div>
-                                <span className="card-tag">Franchise Package</span>
-                                <div className="card-price">₹3,69,999</div>
-                                <div className="card-tax">+ Applicable Taxes</div>
-
-                                <ul className="tm-fc-dark-list">
-                                    <li>
-                                        <span>Franchise License</span>
-                                        <strong>5 Years</strong>
-                                    </li>
-                                    <li>
-                                        <span>Royalty</span>
-                                        <strong>0%</strong>
-                                    </li>
-                                    <li>
-                                        <span>Booking Amount</span>
-                                        <strong>₹10,000</strong>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <p className="card-foot">
-                                *Booking amount adjusted against final franchise fee.
-                            </p>
                         </div>
 
-                        {/* Card 2: White Table Card */}
-                        <div className="tm-fc-invest-card-table">
-                            <div>
-                                <h3>Additional Setup Investment (Estimated)</h3>
-                                <div className="tm-fc-table-rows">
-                                    <div className="tm-fc-table-row">
-                                        <span>Interior & Exterior Setup (100 sq. ft.)</span>
-                                        <strong>₹60,000 – ₹70,000</strong>
-                                    </div>
-                                    <div className="tm-fc-table-row">
-                                        <span>Initial Raw Materials</span>
-                                        <strong>Additional</strong>
-                                    </div>
-                                    <div className="tm-fc-table-row">
-                                        <span>Transportation</span>
-                                        <strong>Additional</strong>
-                                    </div>
-                                    <div className="tm-fc-table-row">
-                                        <span>Shop Rent, Deposit & Utilities</span>
-                                        <strong>As applicable</strong>
-                                    </div>
-                                </div>
-
-                                <div className="tm-fc-table-highlight">
-                                    <span>Illustrative Total (Excl. Taxes)</span>
-                                    <strong>₹4,39,999</strong>
-                                </div>
-                            </div>
-
-                            <p className="note">
-                                *Interior estimate is based on planning figure. Actual cost
-                                depends on location, size, layout and materials.
-                            </p>
-                        </div>
-
-                        {/* Card 3: Yellow Download Card with Calculator icon */}
-                        <div className="tm-fc-invest-card-yellow">
-                            <div className="tm-fc-calc-icon">
-                                <Calculator size={26} strokeWidth={2.2} />
-                            </div>
-
-                            <h3>Get Detailed Investment Breakup</h3>
-
-                            <button onClick={scrollToForm} className="tm-fc-btn-dark">
-                                <span>Download Now</span>
-                                <Download size={16} strokeWidth={2.3} />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section >
-
-            {/* ====================================================================
-          6. WHAT'S INCLUDED IN THE FRANCHISE PACKAGE
-          ==================================================================== */}
-            < section className="tm-fc-package-section" >
-                <div className="tm-fc-container">
-                    <div className="tm-fc-section-header left-aligned">
-                        <h2 className="tm-fc-section-title">
-                            What&apos;s Included in the Franchise Package
-                        </h2>
-                        <p className="tm-fc-section-desc" style={{ margin: 0 }}>
-                            Everything you need to get started.
-                        </p>
-                    </div>
-
-                    <div className="tm-fc-package-grid">
-                        {/* Card 1: Kitchen Equipment */}
-                        <div className="tm-fc-package-card">
-                            <div className="tm-fc-package-thumb">
-                                <img
-                                    src="/images/franchise-kitchen-equipment.jpg"
-                                    alt="Kitchen Equipment Set"
-                                    width="300"
-                                    height="200"
-                                />
-                            </div>
-                            <div className="tm-fc-package-body">
-                                <h3 className="tm-fc-package-title">Kitchen Equipment</h3>
-                                <ul className="tm-fc-package-list">
-                                    <li>Tea & Coffee Machine</li>
-                                    <li>Deep Freezer</li>
-                                    <li>Refrigerator</li>
-                                    <li>Griller, Fryer, Blender</li>
-                                    <li>Chopper, Induction Stove</li>
-                                    <li>Beverage Flask</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        {/* Card 2: Café Setup & Branding */}
-                        <div className="tm-fc-package-card">
-                            <div className="tm-fc-package-thumb">
-                                <img
-                                    src="/images/franchise-setup-branding.jpg"
-                                    alt="Café Setup and Branding"
-                                    width="300"
-                                    height="200"
-                                />
-                            </div>
-                            <div className="tm-fc-package-body">
-                                <h3 className="tm-fc-package-title">Café Setup & Branding</h3>
-                                <ul className="tm-fc-package-list">
-                                    <li>Café Layout & Design Guidelines</li>
-                                    <li>3D Design Assistance</li>
-                                    <li>Branding Guidelines</li>
-                                    <li>Menu Designs</li>
-                                    <li>Startup Kit & Packaging Essentials</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        {/* Card 3: Training & Technology */}
-                        <div className="tm-fc-package-card">
-                            <div className="tm-fc-package-thumb">
-                                <img
-                                    src="/images/franchise-training-tech.jpg"
-                                    alt="Training and POS Technology"
-                                    width="300"
-                                    height="200"
-                                />
-                            </div>
-                            <div className="tm-fc-package-body">
-                                <h3 className="tm-fc-package-title">Training & Technology</h3>
-                                <ul className="tm-fc-package-list">
-                                    <li>Owner & Staff Training</li>
-                                    <li>Standard Recipes & SOPs</li>
-                                    <li>POS Billing Software</li>
-                                    <li>Inventory Management</li>
-                                    <li>Sales Reporting Tools</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        {/* Card 4: Business Support */}
-                        <div className="tm-fc-package-card">
-                            <div className="tm-fc-package-thumb">
-                                <img
-                                    src="/images/franchise-business-support.jpg"
-                                    alt="Business Support and Partnership"
-                                    width="300"
-                                    height="200"
-                                />
-                            </div>
-                            <div className="tm-fc-package-body">
-                                <h3 className="tm-fc-package-title">Business Support</h3>
-                                <ul className="tm-fc-package-list">
-                                    <li>FSSAI Registration Assistance</li>
-                                    <li>Swiggy & Zomato Onboarding</li>
-                                    <li>Marketing Guidelines</li>
-                                    <li>Franchise Helpline</li>
-                                    <li>Operational Assistance</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section >
-
-            {/* ====================================================================
-          7. SMALL SPACE. BIG BUSINESS POSSIBILITIES. - Lucide Icons
-          ==================================================================== */}
-            < section className="tm-fc-space-section" >
-                <div className="tm-fc-container">
-                    <div className="tm-fc-space-grid">
-                        <div className="tm-fc-space-content">
-                            <h2>
-                                Small Space.
-                                <br />
-                                Big Business Possibilities.
-                            </h2>
-                            <p className="lead">
-                                TeaMax is designed to operate in compact spaces, making it
-                                suitable for high-footfall areas.
-                            </p>
-
-                            <div className="tm-fc-space-stats">
-                                <div className="tm-fc-space-stat-pill">
-                                    <div className="tm-fc-space-stat-icon">
-                                        <Maximize2 size={18} strokeWidth={2.3} />
-                                    </div>
-                                    <strong>80-100 sq. ft.</strong>
-                                    <span>Min. Space</span>
-                                </div>
-
-                                <div className="tm-fc-space-stat-pill">
-                                    <div className="tm-fc-space-stat-icon">
-                                        <Store size={18} strokeWidth={2.3} />
-                                    </div>
-                                    <strong>150-200 sq. ft.</strong>
-                                    <span>Recommended</span>
-                                </div>
-
-                                <div className="tm-fc-space-stat-pill">
-                                    <div className="tm-fc-space-stat-icon">
-                                        <Building2 size={18} strokeWidth={2.3} />
-                                    </div>
-                                    <strong>Ground Floor</strong>
-                                    <span>Preferred</span>
-                                </div>
-                            </div>
-
-                            <button onClick={scrollToForm} className="tm-fc-btn-primary">
-                                <span>Check My Location Eligibility</span>
-                                <ArrowRight size={17} strokeWidth={2.3} />
-                            </button>
-                        </div>
-
-                        {/* Split Dark Card with Lucide MapPin */}
-                        <div className="tm-fc-space-card-split">
-                            <div className="tm-fc-space-locations">
-                                <h3>Ideal Café Locations</h3>
-                                <ul className="tm-fc-location-list">
-                                    <li>
-                                        <MapPin size={16} strokeWidth={2.4} className="tm-fc-loc-icon" />
-                                        Colleges & Educational Areas
-                                    </li>
-                                    <li>
-                                        <MapPin size={16} strokeWidth={2.4} className="tm-fc-loc-icon" />
-                                        Residential Neighbourhoods
-                                    </li>
-                                    <li>
-                                        <MapPin size={16} strokeWidth={2.4} className="tm-fc-loc-icon" />
-                                        Commercial Markets
-                                    </li>
-                                    <li>
-                                        <MapPin size={16} strokeWidth={2.4} className="tm-fc-loc-icon" />
-                                        Office & Business Districts
-                                    </li>
-                                    <li>
-                                        <MapPin size={16} strokeWidth={2.4} className="tm-fc-loc-icon" />
-                                        Main Roads & Shopping Streets
-                                    </li>
-                                    <li>
-                                        <MapPin size={16} strokeWidth={2.4} className="tm-fc-loc-icon" />
-                                        High-Footfall Transit Areas
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div className="tm-fc-space-img-wrap">
-                                <img
-                                    src="/images/franchise-storefront.jpg"
-                                    alt="Compact TeaMax Kiosk Storefront"
-                                    className="tm-fc-space-img"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section >
-
-            {/* ====================================================================
-          8. ONE CAFÉ. MULTIPLE FOOD & BEVERAGE CATEGORIES. (ACTIVE SLIDER)
-          ==================================================================== */}
-            < section className="tm-fc-categories-section" >
-                <div className="tm-fc-container">
-                    <div className="tm-fc-section-header">
-                        <h2 className="tm-fc-section-title">
-                            One Café. Multiple Food & Beverage Categories.
-                        </h2>
-                        <p className="tm-fc-section-desc">
-                            A flexible menu designed around convenience, standardized
-                            preparation and customer preferences.
-                        </p>
-                    </div>
-
-                    <div
-                        className="tm-fc-slider-wrapper"
-                        onTouchStart={handleCatTouchStart}
-                        onTouchEnd={handleCatTouchEnd}
-                    >
-                        <button
-                            className="tm-fc-slider-arrow prev"
-                            onClick={handleCatPrev}
-                            aria-label="Previous category slide"
-                        >
-                            <ChevronLeft size={22} strokeWidth={2.5} />
-                        </button>
-
-                        <div className="tm-fc-slider-track-container">
-                            <div
-                                className="tm-fc-slider-track"
-                                style={{
-                                    transform: `translateX(-${(catIndex * 100) / itemsPerViewCat}%)`,
-                                }}
-                            >
-                                {categories.map((cat) => (
-                                    <div
-                                        key={cat.name}
-                                        className="tm-fc-slide-item"
-                                        style={{
-                                            flex: `0 0 ${100 / itemsPerViewCat}%`,
-                                            maxWidth: `${100 / itemsPerViewCat}%`,
-                                        }}
-                                    >
-                                        <div className="tm-fc-cat-card">
-                                            <div className="tm-fc-cat-thumb">
-                                                <img
-                                                    src={cat.image}
-                                                    alt={cat.name}
-                                                    width="240"
-                                                    height="180"
-                                                    loading="lazy"
-                                                />
-                                            </div>
-                                            <h3 className="tm-fc-cat-name">{cat.name}</h3>
+                        <div>
+                            <div className="tmf-location-cards-stack">
+                                {locations.map((loc, idx) => (
+                                    <div key={loc.name} className="tmf-loc-card">
+                                        <span className="tmf-loc-num">
+                                            {String(idx + 1).padStart(2, "0")}
+                                        </span>
+                                        <div className="tmf-loc-info">
+                                            <strong>{loc.name}</strong>
+                                            <span>{loc.desc}</span>
                                         </div>
                                     </div>
                                 ))}
                             </div>
-                        </div>
 
-                        <button
-                            className="tm-fc-slider-arrow next"
-                            onClick={handleCatNext}
-                            aria-label="Next category slide"
-                        >
-                            <ChevronRight size={22} strokeWidth={2.5} />
-                        </button>
-                    </div>
-
-                    {/* Dots Indicator */}
-                    <div className="tm-fc-slider-dots">
-                        {Array.from({ length: maxCatIndex + 1 }).map((_, idx) => (
-                            <button
-                                key={idx}
-                                className={`tm-fc-dot ${catIndex === idx ? "active" : ""}`}
-                                onClick={() => setCatIndex(idx)}
-                                aria-label={`Go to slide ${idx + 1}`}
-                            />
-                        ))}
-                    </div>
-                </div>
-            </section >
-
-            {/* ====================================================================
-          9. FROM APPLICATION TO CAFÉ LAUNCH (TIMELINE)
-          ==================================================================== */}
-            < section className="tm-fc-timeline-section" >
-                <div className="tm-fc-container">
-                    <div className="tm-fc-timeline-header-wrap">
-                        <h2 className="tm-fc-section-title">
-                            From Application to Café Launch
-                        </h2>
-                        <div className="tm-fc-timeline-badge">
-                            Estimated Setup Timeline: 25–30 Days
-                        </div>
-                    </div>
-
-                    <div className="tm-fc-timeline-grid">
-                        <div className="tm-fc-step-item">
-                            <div className="tm-fc-step-circle">
-                                <FileText size={22} strokeWidth={2.2} />
-                            </div>
-                            <h3 className="tm-fc-step-title">Apply for Franchise</h3>
-                            <p className="tm-fc-step-desc">
-                                Submit your enquiry and receive the proposal.
-                            </p>
-                        </div>
-
-                        <div className="tm-fc-step-item">
-                            <div className="tm-fc-step-circle">
-                                <Handshake size={22} strokeWidth={2.2} />
-                            </div>
-                            <h3 className="tm-fc-step-title">Registration & Agreement</h3>
-                            <p className="tm-fc-step-desc">
-                                Complete registration and review terms.
-                            </p>
-                        </div>
-
-                        <div className="tm-fc-step-item">
-                            <div className="tm-fc-step-circle">
-                                <MapPin size={22} strokeWidth={2.2} />
-                            </div>
-                            <h3 className="tm-fc-step-title">Location Assessment</h3>
-                            <p className="tm-fc-step-desc">
-                                Share your proposed premises for evaluation.
-                            </p>
-                        </div>
-
-                        <div className="tm-fc-step-item">
-                            <div className="tm-fc-step-circle">
-                                <LayoutGrid size={22} strokeWidth={2.2} />
-                            </div>
-                            <h3 className="tm-fc-step-title">Café Design & Equipment</h3>
-                            <p className="tm-fc-step-desc">
-                                Get design guidance and material processing.
-                            </p>
-                        </div>
-
-                        <div className="tm-fc-step-item">
-                            <div className="tm-fc-step-circle">
-                                <Wrench size={22} strokeWidth={2.2} />
-                            </div>
-                            <h3 className="tm-fc-step-title">Setup & Training</h3>
-                            <p className="tm-fc-step-desc">
-                                Complete café setup and training.
-                            </p>
-                        </div>
-
-                        <div className="tm-fc-step-item">
-                            <div className="tm-fc-step-circle">
-                                <Rocket size={22} strokeWidth={2.2} />
-                            </div>
-                            <h3 className="tm-fc-step-title">Launch Your TeaMax</h3>
-                            <p className="tm-fc-step-desc">
-                                Start operations with launch guidance.
+                            <p className="tmf-loc-note">
+                                Have another location in mind? We provide location feasibility
+                                checks and territory analysis.
                             </p>
                         </div>
                     </div>
                 </div>
-            </section >
-
-
-
-
+            </section>
 
             {/* ====================================================================
-          12. FREQUENTLY ASKED QUESTIONS
+          6. PLAN YOUR OUTLET (Clean Info Card)
           ==================================================================== */}
-            < section className="tm-fc-faq-section" >
-                <div className="tm-fc-container">
-                    <div className="tm-fc-faq-top">
-                        <h2 className="tm-fc-section-title">Frequently Asked Questions</h2>
+            <section className="tmf-plan-section">
+                <div className="tmf-container">
+                    <div className="tmf-plan-card">
+                        <h2>Plan your TeaMax outlet in {stateName}</h2>
+                        <p>
+                            Planning a tea franchise requires evaluating local demographics,
+                            footfalls, rent structures, and competitor landscape. Our team
+                            guides you every step of the way—from site selection and space
+                            planning to turnkey interior execution and store opening.
+                        </p>
+                    </div>
+                </div>
+            </section>
 
+            {/* ====================================================================
+          7. FAQ SECTION (Accordion)
+          ==================================================================== */}
+            <section className="tmf-faq-section">
+                <div className="tmf-container tmf-faq-container">
+                    <div className="tmf-faq-header">
+                        <h2>Planning your franchise in {stateName}</h2>
                     </div>
 
-                    <div className="tm-fc-faq-grid">
-                        {faqs.map((faq, idx) => (
-                            <div
-                                key={faq.q}
-                                className={`tm-fc-faq-item ${openFaq === idx ? "open" : ""}`}
-                                onClick={() => toggleFaq(idx)}
-                            >
-                                <div className="tm-fc-faq-question">
-                                    <div
-                                        style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            gap: "10px",
-                                        }}
+                    <div className="tmf-faq-list">
+                        {faqs.map((faq, idx) => {
+                            const isOpen = openFaq === idx;
+                            return (
+                                <div
+                                    key={faq.q}
+                                    className={`tmf-faq-item ${isOpen ? "open" : ""}`}
+                                >
+                                    <button
+                                        type="button"
+                                        className="tmf-faq-question"
+                                        onClick={() => setOpenFaq(isOpen ? null : idx)}
+                                        aria-expanded={isOpen}
                                     >
-                                        <HelpCircle size={17} className="tm-fc-faq-icon-user" />
                                         <span>{faq.q}</span>
-                                    </div>
-                                    <ChevronDown
-                                        size={18}
-                                        className="tm-fc-faq-chevron"
-                                        style={{
-                                            transform: openFaq === idx ? "rotate(180deg)" : "rotate(0deg)",
-                                            transition: "transform 0.25s ease",
-                                        }}
-                                    />
+                                        <ChevronDown
+                                            size={18}
+                                            style={{
+                                                transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                                                transition: "transform 0.22s ease",
+                                            }}
+                                        />
+                                    </button>
+                                    {isOpen && <div className="tmf-faq-answer">{faq.a}</div>}
                                 </div>
-                                {openFaq === idx && (
-                                    <div className="tm-fc-faq-answer">{faq.a}</div>
-                                )}
-                            </div>
+                            );
+                        })}
+                    </div>
+
+                    <div className="tmf-faq-footer">
+                        <Link href="/franchise" className="tmf-link-arrow">
+                            <span>Compare franchise models & requirements</span>
+                            <ArrowRight size={15} strokeWidth={2.4} />
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* ====================================================================
+          8. LEAD CAPTURE FORM SECTION (Dark Forest Green)
+          ==================================================================== */}
+            <section className="" id="apply-form">
+                <FranchiseFormSection />
+            </section>
+
+            {/* ====================================================================
+          9. OTHER CITIES PILLS CLOUD
+          ==================================================================== */}
+            <section className="tmf-other-cities-section">
+                <div className="tmf-container">
+                    <div className="tmf-cities-header">
+                        <span className="tmf-section-tag">EXPLORE OTHER TERRITORIES</span>
+                        <h3>Franchise opportunities in other cities</h3>
+                    </div>
+
+                    <div className="tmf-cities-cloud">
+                        {otherCitiesList.map((item) => (
+                            <Link
+                                key={item}
+                                href="/franchise-opportunities"
+                                className="tmf-city-pill"
+                            >
+                                {item}
+                            </Link>
                         ))}
                     </div>
                 </div>
-            </section >
-
-            {/* ====================================================================
-          13. BOTTOM LEAD CAPTURE FORM (From franchise-form.tsx)
-          ==================================================================== */}
-            < div id="#apply" >
-                <FranchiseFormSection />
-            </div >
-        </div >
+            </section>
+        </div>
     );
 }

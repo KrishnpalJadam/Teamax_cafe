@@ -1,4 +1,689 @@
 /* ==========================================================================
+   TEAMAX - FRANCHISE OPPORTUNITY DETAIL PAGE
+   Uses exact brand typography from Home, About Us, and Franchise pages:
+   - Display/Headings: var(--font-display, "Outfit", sans-serif)
+   - Body/Text: var(--font-body, "DM Sans", sans-serif)
+   - Script Accents: var(--font-script, "Kalam", cursive)
+   ========================================================================== */
+
+:root {
+    --tmf-forest-deep: #072a27;
+    --tmf-forest: #0d3830;
+    --tmf-forest-light: #16463d;
+    --tmf-cream-bg: #fff8ee;
+    --tmf-cream-surface: #f7f0e4;
+    --tmf-cream-card: #ffffff;
+    --tmf-yellow: #ffed82;
+    --tmf-gold: #ffd028;
+    --tmf-gold-hover: #ffda4e;
+    --tmf-text-dark: #17292a;
+    --tmf-text-muted: #5e6b68;
+    --tmf-border-light: rgba(38, 60, 61, 0.13);
+    --tmf-border-forest: rgba(255, 255, 255, 0.12);
+    --tmf-font-display: var(--font-display, "Outfit", -apple-system, BlinkMacSystemFont, sans-serif);
+    --tmf-font-body: var(--font-body, "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif);
+    --tmf-font-script: var(--font-script, "Kalam", cursive);
+}
+
+.tmf-detail-page {
+    background: var(--tmf-cream-bg);
+    color: var(--tmf-text-dark);
+    font-family: var(--tmf-font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    margin-top: 20px;
+}
+
+.tmf-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ==========================================================================
+   1. HERO SECTION (Dark Forest Green with Arch Visual)
+   ========================================================================== */
+.tmf-hero {
+    background: radial-gradient(ellipse at 75% 35%, #0f3934 0%, #062320 65%, #041a17 100%);
+    color: #ffffff;
+    padding: 64px 0 72px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tmf-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(255, 237, 130, 0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.tmf-hero-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.95fr;
+    align-items: center;
+    gap: 56px;
+    position: relative;
+    z-index: 2;
+}
+
+.tmf-eyebrow-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--tmf-font-display);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2.8px;
+    text-transform: uppercase;
+    color: #a3c9be;
+    margin-bottom: 8px;
+}
+
+.tmf-eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--tmf-yellow);
+}
+
+.tmf-hero-subtitle-tag {
+    display: block;
+    font-family: var(--tmf-font-display);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--tmf-yellow);
+    margin-bottom: 16px;
+}
+
+.tmf-hero-title {
+    font-family: var(--tmf-font-display);
+    font-size: clamp(34px, 4.8vw, 54px);
+    font-weight: 900;
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    color: #ffffff;
+    margin: 0 0 20px 0;
+}
+
+.tmf-hero-desc {
+    font-family: var(--tmf-font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    color: #e5f0ec;
+    margin: 0 0 14px 0;
+    max-width: 530px;
+}
+
+.tmf-hero-note {
+    font-family: var(--tmf-font-body);
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: #b0c9c2;
+    margin: 0 0 28px 0;
+    max-width: 510px;
+}
+
+.tmf-btn-gold {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--tmf-yellow);
+    color: #0c2925;
+    font-family: var(--tmf-font-display);
+    font-size: 14.5px;
+    font-weight: 800;
+    padding: 13px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.22s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.tmf-btn-gold:hover {
+    background: var(--tmf-gold-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* Arch Visual Right Column */
+.tmf-hero-visual-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tmf-arch-frame {
+    width: 100%;
+    max-width: 440px;
+    height: 480px;
+    border-radius: 220px 220px 20px 20px;
+    overflow: hidden;
+    position: relative;
+    border: 4px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    background: #092f2a;
+}
+
+.tmf-arch-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.tmf-arch-badge {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 36px);
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--tmf-forest-deep);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+}
+
+.tmf-badge-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #e1efe9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #127252;
+    flex-shrink: 0;
+}
+
+.tmf-badge-text strong {
+    display: block;
+    font-family: var(--tmf-font-display);
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.tmf-badge-text span {
+    display: block;
+    font-family: var(--tmf-font-body);
+    font-size: 11px;
+    color: #637774;
+}
+
+/* ==========================================================================
+   2. FEATURE PILLS BAR (Cream Strip below Hero)
+   ========================================================================== */
+.tmf-feature-bar {
+    background: #ffffff;
+    border-bottom: 1px solid var(--tmf-border-light);
+    padding: 18px 0;
+}
+
+.tmf-feature-pills-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.tmf-feature-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #fbf7ee;
+    border: 1px solid rgba(38, 60, 61, 0.12);
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-family: var(--tmf-font-display);
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--tmf-forest-deep);
+}
+
+.tmf-pill-icon {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9c6c19;
+}
+
+/* ==========================================================================
+   3. STATS STRIP (Dark Forest Background)
+   ========================================================================== */
+.tmf-stats-strip {
+    background: #092c27;
+    color: #ffffff;
+    padding: 32px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.tmf-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+}
+
+.tmf-stat-col {
+    text-align: center;
+    padding: 8px 24px;
+    position: relative;
+}
+
+.tmf-stat-col:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 15%;
+    right: 0;
+    height: 70%;
+    width: 1px;
+    background: rgba(255, 255, 255, 0.14);
+}
+
+.tmf-stat-num {
+    font-family: var(--tmf-font-display);
+    font-size: clamp(26px, 3.4vw, 38px);
+    font-weight: 900;
+    color: #ffffff;
+    line-height: 1.1;
+    margin-bottom: 5px;
+}
+
+.tmf-stat-lbl {
+    font-family: var(--tmf-font-display);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #a4c2ba;
+}
+
+/* ==========================================================================
+   4. THE MARKET OPPORTUNITY (Editorial 2-Column)
+   ========================================================================== */
+.tmf-market-section {
+    padding: 72px 0 64px;
+    background: #ffffff;
+    border-bottom: 1px solid var(--tmf-border-light);
+}
+
+.tmf-market-grid {
+    display: grid;
+    grid-template-columns: 0.95fr 1.25fr;
+    gap: 48px;
+    align-items: flex-start;
+}
+
+.tmf-section-tag {
+    display: inline-block;
+    font-family: var(--tmf-font-display);
+    font-size: 11.5px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #927529;
+    margin-bottom: 10px;
+}
+
+.tmf-serif-heading {
+    font-family: var(--tmf-font-display);
+    font-size: clamp(28px, 3.8vw, 42px);
+    font-weight: 900;
+    line-height: 1.15;
+    color: var(--tmf-forest-deep);
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+.tmf-editorial-lead {
+    font-family: var(--tmf-font-body);
+    font-size: 16.5px;
+    line-height: 1.75;
+    color: #3b504c;
+    margin: 0 0 16px 0;
+}
+
+.tmf-editorial-body {
+    font-family: var(--tmf-font-body);
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: #556c68;
+    margin: 0;
+}
+
+/* ==========================================================================
+   5. WHERE TO OPEN IN {STATE} (Numbered Grid)
+   ========================================================================== */
+.tmf-locations-section {
+    padding: 72px 0 68px;
+    background: var(--tmf-cream-surface);
+    border-bottom: 1px solid var(--tmf-border-light);
+}
+
+.tmf-locations-grid {
+    display: grid;
+    grid-template-columns: 0.95fr 1.35fr;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+.tmf-location-cards-stack {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.tmf-loc-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid rgba(38, 60, 61, 0.12);
+    padding: 16px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+}
+
+.tmf-loc-card:hover {
+    transform: translateY(-2px);
+    border-color: #d1be9e;
+    box-shadow: 0 6px 18px rgba(7, 46, 41, 0.08);
+}
+
+.tmf-loc-num {
+    font-family: var(--tmf-font-display);
+    font-size: 18px;
+    font-weight: 900;
+    color: #927529;
+    line-height: 1;
+    padding-top: 2px;
+}
+
+.tmf-loc-info {
+    min-width: 0;
+}
+
+.tmf-loc-info strong {
+    display: block;
+    font-family: var(--tmf-font-display);
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--tmf-forest-deep);
+    line-height: 1.25;
+    margin-bottom: 2px;
+}
+
+.tmf-loc-info span {
+    display: block;
+    font-family: var(--tmf-font-body);
+    font-size: 12px;
+    color: #6a7f7b;
+    line-height: 1.35;
+}
+
+.tmf-loc-note {
+    font-family: var(--tmf-font-body);
+    font-size: 13px;
+    color: #6a7f7b;
+    margin-top: 20px;
+    line-height: 1.5;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   6. PLAN YOUR OUTLET (Clean Info Card)
+   ========================================================================== */
+.tmf-plan-section {
+    padding: 68px 0;
+    background: #ffffff;
+    border-bottom: 1px solid var(--tmf-border-light);
+}
+
+.tmf-plan-card {
+    background: var(--tmf-cream-bg);
+    border-radius: 16px;
+    border: 1px solid var(--tmf-border-light);
+    padding: 40px 44px;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.tmf-plan-card h2 {
+    font-family: var(--tmf-font-display);
+    font-size: clamp(25px, 3.2vw, 34px);
+    color: var(--tmf-forest-deep);
+    font-weight: 900;
+    letter-spacing: -0.015em;
+    margin: 0 0 16px 0;
+}
+
+.tmf-plan-card p {
+    font-family: var(--tmf-font-body);
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: #485f5a;
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   7. FAQ SECTION (Accordion)
+   ========================================================================== */
+.tmf-faq-section {
+    padding: 72px 0 68px;
+    background: var(--tmf-cream-bg);
+    border-bottom: 1px solid var(--tmf-border-light);
+}
+
+.tmf-faq-container {
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+.tmf-faq-header {
+    text-align: center;
+    margin-bottom: 38px;
+}
+
+.tmf-faq-header h2 {
+    font-family: var(--tmf-font-display);
+    font-size: clamp(26px, 3.4vw, 36px);
+    color: var(--tmf-forest-deep);
+    font-weight: 900;
+    letter-spacing: -0.015em;
+    margin: 0 0 8px 0;
+}
+
+.tmf-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tmf-faq-item {
+    background: #ffffff;
+    border: 1px solid var(--tmf-border-light);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.tmf-faq-item.open {
+    border-color: #d1be9e;
+    box-shadow: 0 6px 18px rgba(7, 46, 41, 0.05);
+}
+
+.tmf-faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 22px;
+    background: transparent;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--tmf-font-display);
+    font-size: 15.5px;
+    font-weight: 800;
+    color: var(--tmf-forest-deep);
+}
+
+.tmf-faq-answer {
+    padding: 0 22px 20px;
+    font-family: var(--tmf-font-body);
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: #4b625d;
+}
+
+.tmf-faq-footer {
+    text-align: center;
+    margin-top: 28px;
+}
+
+.tmf-link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--tmf-font-display);
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--tmf-forest);
+    text-decoration: underline;
+    transition: color 0.18s ease;
+}
+
+.tmf-link-arrow:hover {
+    color: #072a25;
+}
+
+/* ==========================================================================
+   8. OTHER CITIES PILLS CLOUD
+   ========================================================================== */
+.tmf-other-cities-section {
+    padding: 64px 0 72px;
+    background: var(--tmf-cream-surface);
+    border-top: 1px solid var(--tmf-border-light);
+}
+
+.tmf-cities-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.tmf-cities-header h3 {
+    font-family: var(--tmf-font-display);
+    font-size: clamp(22px, 2.8vw, 28px);
+    color: var(--tmf-forest-deep);
+    font-weight: 900;
+    letter-spacing: -0.015em;
+    margin: 0;
+}
+
+.tmf-cities-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    max-width: 1060px;
+    margin: 0 auto;
+}
+
+.tmf-city-pill {
+    display: inline-block;
+    background: #ffffff;
+    border: 1px solid rgba(38, 60, 61, 0.15);
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-family: var(--tmf-font-display);
+    font-size: 13px;
+    font-weight: 700;
+    color: #384f4a;
+    text-decoration: none;
+    transition: all 0.18s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.tmf-city-pill:hover {
+    background: var(--tmf-forest-deep);
+    color: #ffffff;
+    border-color: var(--tmf-forest-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(7, 46, 41, 0.15);
+}
+
+/* ==========================================================================
+   RESPONSIVE MEDIA QUERIES
+   ========================================================================== */
+@media (max-width: 992px) {
+
+    .tmf-hero-grid,
+    .tmf-market-grid,
+    .tmf-locations-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .tmf-hero-visual-wrap {
+        order: -1;
+    }
+
+    .tmf-arch-frame {
+        max-width: 360px;
+        height: 380px;
+    }
+
+    .tmf-location-cards-stack {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .tmf-hero {
+        padding: 44px 0 54px;
+    }
+
+    .tmf-stats-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .tmf-stat-col:not(:last-child)::after {
+        display: none;
+    }
+
+    .tmf-stat-col {
+        padding: 10px 0;
+    }
+
+    .tmf-plan-card {
+        padding: 28px 20px;
+    }
+}
+
+/* ==========================================================================
    TEAMAX FRANCHISE PAGE STYLES - FULLY RESPONSIVE & PIXEL-PERFECT
    ========================================================================== */
 
@@ -1718,6 +2403,9 @@
         width: 100%;
     }
 
+    .tm-fc-features-grid {
+        /* grid-template-columns: 1fr; */
+    }
 
     .tm-fc-package-grid {
         grid-template-columns: 1fr;
@@ -1802,93 +2490,5 @@
 
     .tm-fc-timeline-grid {
         grid-template-columns: 1fr;
-    }
-}
-
-/* About Franchise Section */
-.tm-fc-about-section {
-    width: 100%;
-    padding: 40px 0 45px;
-    background: #fff8ee;
-}
-
-.tm-fc-about-label {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    margin-bottom: 20px;
-}
-
-.tm-fc-about-label span {
-    display: block;
-    width: 38px;
-    height: 4px;
-    background: #ffcf35;
-}
-
-.tm-fc-about-label strong {
-    font-size: 15px;
-    font-weight: 700;
-    color: #102d29;
-}
-
-.tm-fc-about-title {
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1.4;
-    color: #102d29;
-    margin: 0 0 22px;
-}
-
-.tm-fc-about-description {
-    width: 100%;
-    padding: 20px 22px;
-    background: #ffffff;
-    border-radius: 13px;
-    color: #202020;
-    font-size: 18px;
-    line-height: 1.7;
-}
-
-.tm-fc-about-description p {
-    margin: 0 0 12px;
-}
-
-.tm-fc-about-description p:last-child {
-    margin-bottom: 0;
-}
-
-.tm-fc-about-description ul,
-.tm-fc-about-description ol {
-    padding-left: 22px;
-    margin: 12px 0;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .tm-fc-about-section {
-        padding: 30px 0;
-    }
-
-    .tm-fc-about-title {
-        font-size: 23px;
-        line-height: 1.4;
-    }
-
-    .tm-fc-about-description {
-        padding: 17px;
-        font-size: 16px;
-        line-height: 1.6;
-    }
-}
-
-@media (max-width: 480px) {
-    .tm-fc-about-title {
-        font-size: 20px;
-    }
-
-    .tm-fc-about-description {
-        font-size: 15px;
-        border-radius: 10px;
     }
 }
