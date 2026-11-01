@@ -112,9 +112,19 @@ const getWhatsAppUrl = (formData: FormData) => {
 };
 
 
-export default function FranchiseFormSection() {
+type FranchiseFormSectionProps = {
+  initialCity?: string;
+  initialState?: string;
+};
+
+export default function FranchiseFormSection({
+  initialCity = "",
+  initialState = "",
+}: FranchiseFormSectionProps = {}) {
   const [formData, setFormData] = useState<FormData>({
     ...initialFormData,
+    city: initialCity,
+    state: initialState,
   });
 
   const [formSubmitted, setFormSubmitted] = useState(false);

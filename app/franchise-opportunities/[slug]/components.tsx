@@ -30,30 +30,47 @@ type Props = {
     opportunity: FranchiseOpportunity;
 };
 
-// Target prime locations grouped by state
-const stateLocationsData: Record<string, Array<{ name: string; desc: string }>> = {
-    Telangana: [
-        { name: "Hyderabad", desc: "Central & IT Hub (Gachibowli, Hitech City, Kompally)" },
-        { name: "Warangal", desc: "Commercial & University Corridor" },
-        { name: "Karimnagar", desc: "Prime High Street Market" },
-        { name: "Nizamabad", desc: "Transit Hub & College Zone" },
-        { name: "Khammam", desc: "High Density Retail Corridor" },
-        { name: "Nalgonda", desc: "Prime High Street & Town Center" },
-        { name: "Mahbubnagar", desc: "Developing Transit & Market Area" },
+// Target prime locations grouped by city
+const cityLocationsData: Record<string, Array<{ name: string; desc: string }>> = {
+    Hyderabad: [
+        { name: "Kompally", desc: "Rapidly expanding residential, highway connectivity & college corridor" },
+        { name: "Gachibowli", desc: "Financial district, high-income techies & premium retail high street" },
+        { name: "Hitech City & Madhapur", desc: "Corporate campuses, Cyber Towers & high evening youth footfall" },
+        { name: "Kukatpally & KPHB", desc: "Dense residential zone, student hub & buzzing metro station" },
+        { name: "Banjara Hills & Jubilee Hills", desc: "Upscale lifestyle retail, youth hangout spots & cafe culture" },
+        { name: "Kondapur & Miyapur", desc: "Dense residential communities, IT corridors & transit points" },
+        { name: "Secunderabad & AS Rao Nagar", desc: "Established commercial markets, transit hubs & shopping belts" },
     ],
-    "Madhya Pradesh": [
-        { name: "Indore", desc: "Vijay Nagar, Palasia & Bhawar Kuan Youth Belts" },
-        { name: "Bhopal", desc: "MP Nagar Business Zone & Arera Colony" },
-        { name: "Ujjain", desc: "Freeganj Commercial Area & Mahakal Corridor" },
-        { name: "Gwalior", desc: "Lashkar & City Centre High Street" },
-        { name: "Jabalpur", desc: "Wright Town & Civil Lines Retail Hub" },
-        { name: "Sagar", desc: "Civil Lines & Katra Commercial Market" },
-        { name: "Ratlam", desc: "Station Road & Do Batti Prime Market" },
+    Indore: [
+        { name: "Vijay Nagar", desc: "Premier commercial hub, corporate offices & vibrant youth crowd" },
+        { name: "Palasia & New Palasia", desc: "Central business district, premium cafes & shopping hubs" },
+        { name: "Bhawar Kuan", desc: "Massive student and coaching hub with non-stop daily footfall" },
+        { name: "Chappan Dukan & MG Road", desc: "Iconic high-street food culture & heavy shopping footfalls" },
+        { name: "Super Corridor & Rau", desc: "Fast-developing IT corridor, university zone & tech parks" },
+        { name: "Annapurna & Rajendra Nagar", desc: "Dense family residential belt with strong retail markets" },
+        { name: "Geeta Bhawan & AB Road", desc: "High-density retail, medical corridor & transit junction" },
+    ],
+    Bhopal: [
+        { name: "MP Nagar (Zones 1 & 2)", desc: "City's foremost commercial & business center with office crowd" },
+        { name: "Arera Colony", desc: "Upscale residential neighborhood with trendy youth & family crowd" },
+        { name: "Kolar Road", desc: "Fastest growing residential and retail corridor with high demand" },
+        { name: "TT Nagar & New Market", desc: "Bustling central retail market & vibrant street commerce" },
+        { name: "Hoshangabad Road", desc: "Prime shopping malls, luxury automobile hubs & food courts" },
+        { name: "Indrapuri & BHEL", desc: "Dense township, college clusters and regular commuter traffic" },
+        { name: "Bittan Market", desc: "Popular evening social hotspot, exhibitions & family shopping" },
     ],
 };
 
+const defaultCityLocations = (cityName: string) => [
+    { name: "Central Commercial District", desc: `High street retail, business centers & peak daytime footfalls in ${cityName}` },
+    { name: "University & College Belt", desc: `Student hubs, coaching institutes & youthful evening hangout zones in ${cityName}` },
+    { name: "IT & Corporate Parks", desc: `Office complexes, tech companies & regular daily beverage consumers in ${cityName}` },
+    { name: "Prime Residential Corridors", desc: `Dense family neighborhoods, residential townships & evening walk-ins in ${cityName}` },
+    { name: "Transit & Metro Hubs", desc: `Commuter junctions, bus terminals & continuous grab-and-go customer flow in ${cityName}` },
+    { name: "Shopping Malls & Entertainment Strips", desc: `Weekend crowd magnets, retail centers & vibrant food courts in ${cityName}` },
+];
+
 const otherCitiesList = [
-    "Franchise Telangana",
     "Franchise Hyderabad",
     "Franchise Indore",
     "Franchise Bhopal",
@@ -80,110 +97,34 @@ const otherCitiesList = [
 ];
 
 export function FranchiseOpportunityDetails({ opportunity }: Props) {
-    const stateName = opportunity.state || "Telangana";
     const cityName = opportunity.city || "Hyderabad";
+    const stateName = opportunity.state || "Telangana";
 
-    // Pick locations for this state or default
+    // Pick locations for this city or intelligent default
     const locations =
-        stateLocationsData[stateName] ||
-        stateLocationsData["Telangana"];
+        cityLocationsData[cityName] || defaultCityLocations(cityName);
 
     // FAQ state
     const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-    // Form State
-    const [formData, setFormData] = useState({
-        fullName: "",
-        phone: "",
-        email: "",
-        city: cityName,
-        state: stateName,
-        preferredLocation: "",
-        model: "Regular Franchise",
-        message: "",
-        agree: true,
-    });
-
-    const [formSubmitted, setFormSubmitted] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
-
     const faqs = [
         {
-            q: `What is the TeaMax franchise investment in ${stateName}?`,
-            a: `The core TeaMax franchise package starts at ₹3,69,999 (+ applicable taxes). Modular shop interior setup (approx ₹60,000–₹70,000 for 100 sq.ft) and initial inventory give an illustrative setup budget of approximately ₹4.39 Lakhs.`,
+            q: `What is the TeaMax franchise investment in ${cityName}?`,
+            a: `The core TeaMax franchise package in ${cityName} starts at ₹3,69,999 (+ applicable taxes). Modular shop interior setup (approx ₹60,000–₹70,000 for 100 sq.ft) and initial inventory give an illustrative setup budget of approximately ₹4.39 Lakhs.`,
         },
         {
             q: "Is there any ongoing royalty or monthly commission?",
-            a: "No! TeaMax operates on a 100% Zero Royalty model. All revenues and daily profits from beverage and snack sales belong entirely to you.",
+            a: `No! TeaMax operates on a 100% Zero Royalty model. All revenues and daily profits from beverage and snack sales in ${cityName} belong entirely to you.`,
         },
         {
             q: "Do I need prior food or restaurant experience?",
             a: "No prior experience is necessary. Our chef-less operating model, standardized recipes, automated machinery, and comprehensive on-site training ensure seamless daily operations.",
         },
         {
-            q: `How do I check location availability in ${stateName}?`,
-            a: `Fill out the consultation form below. Our expansion team analyzes your proposed location, verifies territorial exclusivity, and connects with you within 24 hours.`,
+            q: `How do I check location availability in ${cityName}?`,
+            a: `Fill out the consultation form below. Our expansion team analyzes your proposed location in ${cityName}, verifies territorial exclusivity, and connects with you within 24 hours.`,
         },
     ];
-
-    const handleInputChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
-    ) => {
-        const { name, value } = e.target;
-        if (name === "phone") {
-            setFormData((prev) => ({
-                ...prev,
-                phone: value.replace(/\D/g, "").slice(0, 10),
-            }));
-        } else {
-            setFormData((prev) => ({
-                ...prev,
-                [name]: value,
-            }));
-        }
-        setErrorMessage("");
-    };
-
-    const handleFormSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!formData.fullName.trim()) {
-            setErrorMessage("Please enter your full name.");
-            return;
-        }
-        if (!formData.phone.trim() || formData.phone.length < 10) {
-            setErrorMessage("Please enter a valid 10-digit mobile number.");
-            return;
-        }
-        if (!formData.email.trim() || !formData.email.includes("@")) {
-            setErrorMessage("Please enter a valid email address.");
-            return;
-        }
-
-        setIsSubmitting(true);
-
-        const waMessage = [
-            `*New Franchise Enquiry - ${stateName}*`,
-            `• Name: ${formData.fullName}`,
-            `• Phone: +91 ${formData.phone}`,
-            `• Email: ${formData.email}`,
-            `• City: ${formData.city}`,
-            `• State: ${formData.state}`,
-            `• Preferred Location: ${formData.preferredLocation || "Not specified"}`,
-            `• Model: ${formData.model}`,
-            `• Note: ${formData.message || "Looking for franchise details"}`,
-        ].join("\n");
-
-        setTimeout(() => {
-            setIsSubmitting(false);
-            setFormSubmitted(true);
-            window.open(
-                `https://go.teamaxcafe.in/whatsapp?text=${encodeURIComponent(waMessage)}`,
-                "_blank"
-            );
-        }, 600);
-    };
-
     const scrollToApply = (e: React.MouseEvent) => {
         e.preventDefault();
         const el = document.getElementById("apply-form");
@@ -204,7 +145,7 @@ export function FranchiseOpportunityDetails({ opportunity }: Props) {
                         <div className="tmf-hero-left">
                             <div className="tmf-eyebrow-tag">
                                 <span className="tmf-eyebrow-dot" />
-                                <span>TEAMAX • {stateName.toUpperCase()}</span>
+                                <span>TEAMAX • {cityName.toUpperCase()}</span>
                             </div>
 
                             <span className="tmf-hero-subtitle-tag">
@@ -216,7 +157,7 @@ export function FranchiseOpportunityDetails({ opportunity }: Props) {
                                 <br />
                                 Opportunity in
                                 <br />
-                                {stateName}
+                                {cityName}
                             </h1>
 
                             <p className="tmf-hero-desc">
@@ -226,7 +167,7 @@ export function FranchiseOpportunityDetails({ opportunity }: Props) {
                             </p>
 
                             <p className="tmf-hero-note">
-                                Join growing network of tea cafés across {stateName} with 1,200+
+                                Join our growing network of tea cafés in {cityName} with 1,200+
                                 partner signups. Proven business model, complete training, and
                                 end-to-end launch support.
                             </p>
@@ -251,8 +192,6 @@ export function FranchiseOpportunityDetails({ opportunity }: Props) {
                                     alt={`TeaMax Café in ${cityName}, ${stateName}`}
                                     className="tmf-arch-img"
                                 />
-
-
                             </div>
                         </div>
                     </div>
@@ -321,24 +260,24 @@ export function FranchiseOpportunityDetails({ opportunity }: Props) {
                     <div className="tmf-market-grid">
                         <div>
                             <span className="tmf-section-tag">
-                                TEAMAX • {stateName.toUpperCase()}
+                                TEAMAX • {cityName.toUpperCase()}
                             </span>
-                            <h2 className="tmf-serif-heading">The market opportunity.</h2>
+                            <h2 className="tmf-serif-heading">The market opportunity in {cityName}.</h2>
                         </div>
 
                         <div>
                             <p className="tmf-editorial-lead">
-                                The tea and café culture is booming, backed by a youthful
+                                The tea and café culture in {cityName} is booming, backed by a youthful
                                 population looking for cozy spaces and great beverages. With
                                 rising disposable incomes and strong consumer affinity for
-                                hygienic café settings, {stateName} offers tremendous potential
+                                hygienic café settings, {cityName} offers tremendous potential
                                 for modern quick-service tea cafés with high repeat footfalls and
                                 attractive unit economics.
                             </p>
                             <p className="tmf-editorial-body">
                                 From morning commuters grabbing freshly brewed masala chai to
                                 evening gatherings over burgers, shakes, and kulhad tea, TeaMax
-                                creates an energetic community hub with robust margins
+                                creates an energetic community hub in {cityName} with robust margins
                                 (55%–65%) and predictable day-to-day cash flows.
                             </p>
                         </div>
@@ -347,15 +286,15 @@ export function FranchiseOpportunityDetails({ opportunity }: Props) {
             </section>
 
             {/* ====================================================================
-          5. WHERE TO OPEN IN {STATE} (Numbered Grid)
+          5. WHERE TO OPEN IN {CITY} (Numbered Grid)
           ==================================================================== */}
             <section className="tmf-locations-section">
                 <div className="tmf-container">
                     <div className="tmf-locations-grid">
                         <div>
-                            <span className="tmf-section-tag">PRIME LOCATIONS</span>
+                            <span className="tmf-section-tag">PRIME {cityName.toUpperCase()} LOCATIONS</span>
                             <h2 className="tmf-serif-heading">
-                                Where to open in {stateName}.
+                                Where to open in {cityName}.
                             </h2>
                         </div>
 
@@ -375,8 +314,8 @@ export function FranchiseOpportunityDetails({ opportunity }: Props) {
                             </div>
 
                             <p className="tmf-loc-note">
-                                Have another location in mind? We provide location feasibility
-                                checks and territory analysis.
+                                Have another prime location in mind in {cityName}? We provide location feasibility
+                                checks and territory exclusivity analysis.
                             </p>
                         </div>
                     </div>
@@ -389,12 +328,12 @@ export function FranchiseOpportunityDetails({ opportunity }: Props) {
             <section className="tmf-plan-section">
                 <div className="tmf-container">
                     <div className="tmf-plan-card">
-                        <h2>Plan your TeaMax outlet in {stateName}</h2>
+                        <h2>Plan your TeaMax outlet in {cityName}</h2>
                         <p>
-                            Planning a tea franchise requires evaluating local demographics,
-                            footfalls, rent structures, and competitor landscape. Our team
+                            Planning a tea franchise in {cityName} requires evaluating local demographics,
+                            footfalls, rent structures, and competitor landscape. Our expansion team
                             guides you every step of the way—from site selection and space
-                            planning to turnkey interior execution and store opening.
+                            planning to turnkey interior execution and store opening in {cityName}.
                         </p>
                     </div>
                 </div>
@@ -406,7 +345,7 @@ export function FranchiseOpportunityDetails({ opportunity }: Props) {
             <section className="tmf-faq-section">
                 <div className="tmf-container tmf-faq-container">
                     <div className="tmf-faq-header">
-                        <h2>Planning your franchise in {stateName}</h2>
+                        <h2>Planning your franchise in {cityName}</h2>
                     </div>
 
                     <div className="tmf-faq-list">
@@ -451,7 +390,7 @@ export function FranchiseOpportunityDetails({ opportunity }: Props) {
           8. LEAD CAPTURE FORM SECTION (Dark Forest Green)
           ==================================================================== */}
             <section className="" id="apply-form">
-                <FranchiseFormSection />
+                <FranchiseFormSection initialCity={cityName} initialState={stateName} />
             </section>
 
             {/* ====================================================================
