@@ -1,7 +1,6 @@
 import { Header, Footer } from "../components";
 import OurFranchiseOpportunitiesContent from "./components";
 
-
 export default function FranchiseOpportunitiesPage() {
     return (
         <>
@@ -10,5 +9,4 @@ export default function FranchiseOpportunitiesPage() {
             <Footer />
         </>
     );
-
 }

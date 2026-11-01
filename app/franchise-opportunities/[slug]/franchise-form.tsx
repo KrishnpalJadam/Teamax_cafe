@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 import { BadgeCheck } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import { submitFranchiseOpportunityInquiry } from "../../lib/api";
 
 type StateOption = {
   value: string;
@@ -115,11 +116,13 @@ const getWhatsAppUrl = (formData: FormData) => {
 type FranchiseFormSectionProps = {
   initialCity?: string;
   initialState?: string;
+  slug?: string;
 };
 
 export default function FranchiseFormSection({
   initialCity = "",
   initialState = "",
+  slug = "",
 }: FranchiseFormSectionProps = {}) {
   const [formData, setFormData] = useState<FormData>({
     ...initialFormData,
@@ -201,6 +204,20 @@ export default function FranchiseFormSection({
     setIsSubmitting(true);
 
     try {
+      if (slug) {
+        submitFranchiseOpportunityInquiry(slug, {
+          name: formData.fullName.trim(),
+          phone: formData.phone,
+          email: formData.email.trim(),
+          city: formData.city.trim(),
+          state: formData.state,
+          budget: "₹3.69 Lakhs*",
+          preferredLocality: formData.city.trim(),
+          experience: formData.haveShop,
+          notes: `When to start: ${getFormattedStartMonth(formData.whenToStart)}, Shop availability: ${formData.haveShop}`,
+        }).catch((e) => console.warn("Background inquiry sync error:", e));
+      }
+
       const whatsappUrl = getWhatsAppUrl(formData);
 
       // Open WhatsApp only once

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import "./components.css";
 import {
@@ -13,9 +13,10 @@ import {
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import FranchiseFormSection from "./franchise-form";
+import { getFranchiseOpportunityBySlug } from "../../lib/api";
 
 export type FranchiseOpportunity = {
-    id: number;
+    id: number | string;
     franchiseName: string;
     slug: string;
     country: string;
@@ -24,10 +25,24 @@ export type FranchiseOpportunity = {
     shortDescription: string;
     description: string;
     primaryImage: string;
+    status?: string;
+    isFeatured?: boolean;
+    minBudget?: string;
+    spaceRequired?: string;
+    timelineDays?: string;
+    royalty?: string;
+    margins?: string;
+    editorialLead?: string;
+    editorialBody?: string;
+    primeLocations?: Array<{ name: string; desc: string }>;
+    faqs?: Array<{ q: string; a: string }>;
+    seoTitle?: string;
+    metaDescription?: string;
 };
 
 type Props = {
     opportunity: FranchiseOpportunity;
+    slug?: string;
 };
 
 // Target prime locations grouped by city
@@ -96,18 +111,33 @@ const otherCitiesList = [
     "Franchise Dehradun",
 ];
 
-export function FranchiseOpportunityDetails({ opportunity }: Props) {
+export function FranchiseOpportunityDetails({ opportunity: initialOpportunity, slug }: Props) {
+    const [opportunity, setOpportunity] = useState<FranchiseOpportunity>(initialOpportunity);
+
+    useEffect(() => {
+        const targetSlug = slug || initialOpportunity?.slug;
+        if (targetSlug) {
+            getFranchiseOpportunityBySlug(targetSlug).then((data) => {
+                if (data && data.slug) {
+                    setOpportunity(data);
+                }
+            });
+        }
+    }, [slug, initialOpportunity?.slug]);
+
     const cityName = opportunity.city || "Hyderabad";
     const stateName = opportunity.state || "Telangana";
 
     // Pick locations for this city or intelligent default
     const locations =
-        cityLocationsData[cityName] || defaultCityLocations(cityName);
+        (opportunity.primeLocations && opportunity.primeLocations.length > 0)
+            ? opportunity.primeLocations
+            : (cityLocationsData[cityName] || defaultCityLocations(cityName));
 
     // FAQ state
     const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-    const faqs = [
+    const defaultFaqs = [
         {
             q: `What is the TeaMax franchise investment in ${cityName}?`,
             a: `The core TeaMax franchise package in ${cityName} starts at ₹3,69,999 (+ applicable taxes). Modular shop interior setup (approx ₹60,000–₹70,000 for 100 sq.ft) and initial inventory give an illustrative setup budget of approximately ₹4.39 Lakhs.`,
@@ -125,6 +155,8 @@ export function FranchiseOpportunityDetails({ opportunity }: Props) {
             a: `Fill out the consultation form below. Our expansion team analyzes your proposed location in ${cityName}, verifies territorial exclusivity, and connects with you within 24 hours.`,
         },
     ];
+
+    const faqs = (opportunity.faqs && opportunity.faqs.length > 0) ? opportunity.faqs : defaultFaqs;
     const scrollToApply = (e: React.MouseEvent) => {
         e.preventDefault();
         const el = document.getElementById("apply-form");
@@ -222,7 +254,7 @@ export function FranchiseOpportunityDetails({ opportunity }: Props) {
                             <span className="tmf-pill-icon">
                                 <Percent size={18} strokeWidth={2.4} />
                             </span>
-                            <span>Zero Royalty & Low Investment</span>
+                            <span>{opportunity.royalty || "Zero Royalty & Low Investment"}</span>
                         </div>
                     </div>
                 </div>
@@ -235,17 +267,17 @@ export function FranchiseOpportunityDetails({ opportunity }: Props) {
                 <div className="tmf-container">
                     <div className="tmf-stats-grid">
                         <div className="tmf-stat-col">
-                            <div className="tmf-stat-num">₹3.69 Lakhs*</div>
+                            <div className="tmf-stat-num">{opportunity.minBudget || "₹3.69 Lakhs*"}</div>
                             <div className="tmf-stat-lbl">Minimum Setup Budget</div>
                         </div>
 
                         <div className="tmf-stat-col">
-                            <div className="tmf-stat-num">100 – 200 sq.ft</div>
+                            <div className="tmf-stat-num">{opportunity.spaceRequired || "100 – 200 sq.ft"}</div>
                             <div className="tmf-stat-lbl">Space Required</div>
                         </div>
 
                         <div className="tmf-stat-col">
-                            <div className="tmf-stat-num">25 – 30 Days</div>
+                            <div className="tmf-stat-num">{opportunity.timelineDays || "25 – 30 Days"}</div>
                             <div className="tmf-stat-lbl">To Open Your Own Cafe</div>
                         </div>
                     </div>
@@ -267,18 +299,10 @@ export function FranchiseOpportunityDetails({ opportunity }: Props) {
 
                         <div>
                             <p className="tmf-editorial-lead">
-                                The tea and café culture in {cityName} is booming, backed by a youthful
-                                population looking for cozy spaces and great beverages. With
-                                rising disposable incomes and strong consumer affinity for
-                                hygienic café settings, {cityName} offers tremendous potential
-                                for modern quick-service tea cafés with high repeat footfalls and
-                                attractive unit economics.
+                                {opportunity.editorialLead || `The tea and café culture in ${cityName} is booming, backed by a youthful population looking for cozy spaces and great beverages. With rising disposable incomes and strong consumer affinity for hygienic café settings, ${cityName} offers tremendous potential for modern quick-service tea cafés with high repeat footfalls and attractive unit economics.`}
                             </p>
                             <p className="tmf-editorial-body">
-                                From morning commuters grabbing freshly brewed masala chai to
-                                evening gatherings over burgers, shakes, and kulhad tea, TeaMax
-                                creates an energetic community hub in {cityName} with robust margins
-                                (55%–65%) and predictable day-to-day cash flows.
+                                {opportunity.editorialBody || `From morning commuters grabbing freshly brewed masala chai to evening gatherings over burgers, shakes, and kulhad tea, TeaMax creates an energetic community hub in ${cityName} with robust margins (55%–65%) and predictable day-to-day cash flows.`}
                             </p>
                         </div>
                     </div>
@@ -390,7 +414,7 @@ export function FranchiseOpportunityDetails({ opportunity }: Props) {
           8. LEAD CAPTURE FORM SECTION (Dark Forest Green)
           ==================================================================== */}
             <section className="" id="apply-form">
-                <FranchiseFormSection initialCity={cityName} initialState={stateName} />
+                <FranchiseFormSection initialCity={cityName} initialState={stateName} slug={opportunity.slug} />
             </section>
 
             {/* ====================================================================

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
     ArrowRight,
     Building2,
@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import "./coponents.css";
+import { getFranchiseOpportunities, type DynamicFranchiseOpportunity } from "../lib/api";
 
 const HERO_IMAGE =
     "https://responsive-cafe-showcase.lovable.app/assets/tea-hero-DMrQZeuN.jpg";
@@ -15,10 +16,9 @@ const HERO_IMAGE =
 const CAFE_IMAGE =
     "https://responsive-cafe-showcase.lovable.app/assets/cafe-1-2S3WQYFE.jpg";
 
-// Static demo data only. No API calls or backend integration.
-const franchiseOpportunities = [
+const defaultFranchiseOpportunities: DynamicFranchiseOpportunity[] = [
     {
-        id: 1,
+        id: "1",
         franchiseName: "TeaMax Cafe – Kompally",
         slug: "teamax-kompally",
         country: "India",
@@ -30,7 +30,7 @@ const franchiseOpportunities = [
         primaryImage: CAFE_IMAGE,
     },
     {
-        id: 2,
+        id: "2",
         franchiseName: "TeaMax Cafe – Gachibowli",
         slug: "teamax-gachibowli",
         country: "India",
@@ -43,7 +43,7 @@ const franchiseOpportunities = [
             "https://responsive-cafe-showcase.lovable.app/assets/cafe-1-2S3WQYFE.jpg",
     },
     {
-        id: 3,
+        id: "3",
         franchiseName: "TeaMax Cafe – Indore",
         slug: "teamax-indore",
         country: "India",
@@ -56,7 +56,7 @@ const franchiseOpportunities = [
             "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=1000&auto=format&fit=crop&q=80",
     },
     {
-        id: 4,
+        id: "4",
         franchiseName: "TeaMax Cafe – Bhopal",
         slug: "teamax-bhopal",
         country: "India",
@@ -70,7 +70,25 @@ const franchiseOpportunities = [
     },
 ];
 
-export default function OurFranchiseOpportunitiesContent() {
+type Props = {
+    initialOpportunities?: DynamicFranchiseOpportunity[];
+};
+
+export default function OurFranchiseOpportunitiesContent({ initialOpportunities }: Props = {}) {
+    const [opportunities, setOpportunities] = useState<DynamicFranchiseOpportunity[]>(
+        initialOpportunities && initialOpportunities.length > 0
+            ? initialOpportunities
+            : defaultFranchiseOpportunities
+    );
+
+    useEffect(() => {
+        getFranchiseOpportunities('active').then((data) => {
+            if (data && data.length > 0) {
+                setOpportunities(data);
+            }
+        });
+    }, []);
+
     const [country, setCountry] = useState("India");
     const [state, setState] = useState("Telangana");
     const [city, setCity] = useState("Hyderabad");
@@ -81,31 +99,33 @@ export default function OurFranchiseOpportunitiesContent() {
     });
 
     const availableCountries = useMemo(
-        () => [...new Set(franchiseOpportunities.map((item) => item.country))],
-        []
+        () => [...new Set(opportunities.map((item) => item.country).filter(Boolean))],
+        [opportunities]
     );
 
     const availableStates = useMemo(() => {
-        const states = franchiseOpportunities
+        const states = opportunities
             .filter((item) => !country || item.country === country)
-            .map((item) => item.state);
+            .map((item) => item.state)
+            .filter(Boolean);
         return [...new Set(states)];
-    }, [country]);
+    }, [opportunities, country]);
 
     const availableCities = useMemo(() => {
-        const cities = franchiseOpportunities
+        const cities = opportunities
             .filter(
                 (item) =>
                     (!country || item.country === country) &&
                     (!state || item.state === state)
             )
-            .map((item) => item.city);
+            .map((item) => item.city)
+            .filter(Boolean);
         return [...new Set(cities)];
-    }, [country, state]);
+    }, [opportunities, country, state]);
 
     const visibleOpportunities = useMemo(
         () =>
-            franchiseOpportunities.filter(
+            opportunities.filter(
                 (item) =>
                     (!appliedFilters.country ||
                         item.country === appliedFilters.country) &&
@@ -114,7 +134,7 @@ export default function OurFranchiseOpportunitiesContent() {
                     (!appliedFilters.city ||
                         item.city === appliedFilters.city)
             ),
-        [appliedFilters]
+        [opportunities, appliedFilters]
     );
 
     function handleSearch(event: React.FormEvent<HTMLFormElement>) {
@@ -123,14 +143,14 @@ export default function OurFranchiseOpportunitiesContent() {
     }
 
     function resetFilters() {
-        const first = franchiseOpportunities[0];
-        setCountry(first.country);
-        setState(first.state);
-        setCity(first.city);
+        const first = opportunities[0] || defaultFranchiseOpportunities[0];
+        setCountry(first.country || "India");
+        setState(first.state || "Telangana");
+        setCity(first.city || "Hyderabad");
         setAppliedFilters({
-            country: first.country,
-            state: first.state,
-            city: first.city,
+            country: first.country || "India",
+            state: first.state || "Telangana",
+            city: first.city || "Hyderabad",
         });
     }
 
@@ -181,7 +201,7 @@ export default function OurFranchiseOpportunitiesContent() {
                                 onChange={(event) => {
                                     const nextState = event.target.value;
                                     const nextCity =
-                                        franchiseOpportunities.find(
+                                        opportunities.find(
                                             (item) =>
                                                 item.country === country &&
                                                 item.state === nextState
