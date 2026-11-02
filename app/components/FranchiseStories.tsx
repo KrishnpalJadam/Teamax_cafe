@@ -96,29 +96,36 @@ export default function FranchiseStories() {
       .then((data) => {
         if (!mounted || !Array.isArray(data) || data.length === 0) return;
 
-        // Filter reviews designated for homepage or franchise stories, or use top reviews
-        const filtered = data.filter(
+        // Filter for franchise partner reviews
+        const franchiseReviews = data.filter(
           (r: any) =>
-            !r.displayOn ||
-            r.displayOn.length === 0 ||
-            r.displayOn.includes("homepage") ||
-            r.displayOn.includes("franchise_page")
+            r.reviewType === "franchise" ||
+            r.categoryId === "franchise" ||
+            r.categoryId === "cat-franchise"
         );
 
-        const listToUse = filtered.length > 0 ? filtered : data;
+        // Sort: featured reviews on top, then displayOrder / newest
+        const listToUse = franchiseReviews.length > 0 ? franchiseReviews : data;
+        listToUse.sort((a: any, b: any) => {
+          const featA = a.isFeatured ? 1 : 0;
+          const featB = b.isFeatured ? 1 : 0;
+          if (featA !== featB) return featB - featA;
+          return (a.displayOrder || 0) - (b.displayOrder || 0);
+        });
 
-        const formatted = listToUse.slice(0, 3).map((r: any, idx: number) => ({
+        const formatted = listToUse.map((r: any, idx: number) => ({
           id: r.id || `live-${idx}`,
           name: r.reviewerName || "Verified Guest",
           location:
-            r.relatedCentreName ||
             r.reviewerRole ||
-            (r.relatedCentre ? `${r.relatedCentre.name}, ${r.relatedCentre.city}` : "TeaMax Café"),
+            r.relatedCentreName ||
+            (r.relatedCentre ? `${r.relatedCentre.name}, ${r.relatedCentre.city}` : "TeaMax Franchise Partner"),
           image:
             r.reviewerAvatar ||
+            defaultFranchiseStories[idx % defaultFranchiseStories.length]?.image ||
             "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=420&auto=format&fit=crop&q=80",
           review: r.reviewText,
-          link: "https://www.instagram.com/teamaxcafe/",
+          link: r.viewMoreLink || "https://www.instagram.com/teamaxcafe/",
           stars: r.starRating || 5,
         }));
 

@@ -13,6 +13,7 @@ function mapDbReviewToReviewItem(rev: any): ReviewItem {
         review: rev.reviewText,
         link: rev.viewMoreLink || undefined,
         stars: Number(rev.starRating || 5),
+        isFeatured: Boolean(rev.isFeatured),
     };
 }
 

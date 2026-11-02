@@ -32,6 +32,7 @@ export type ReviewItem = {
     review: string;
     link?: string;
     stars: number;
+    isFeatured?: boolean;
 };
 
 interface ReviewClientProps {
@@ -76,6 +77,7 @@ export function ReviewClient({ categories: initialCategories, items: initialItem
                         review: rev.reviewText,
                         link: rev.viewMoreLink || undefined,
                         stars: Number(rev.starRating || 5),
+                        isFeatured: Boolean(rev.isFeatured),
                     }))
                 );
             }
@@ -113,13 +115,21 @@ export function ReviewClient({ categories: initialCategories, items: initialItem
             return categoryMatch && searchMatch;
         });
 
-        if (sortBy === "popular") {
-            result = [...result].sort((a, b) => b.stars - a.stars);
-        } else if (sortBy === "name") {
-            result = [...result].sort((a, b) => a.name.localeCompare(b.name));
-        } else if (sortBy === "rating-low") {
-            result = [...result].sort((a, b) => a.stars - b.stars);
-        }
+        result = [...result].sort((a, b) => {
+            const featA = a.isFeatured ? 1 : 0;
+            const featB = b.isFeatured ? 1 : 0;
+            if (featA !== featB) {
+                return featB - featA; // Featured on top!
+            }
+            if (sortBy === "popular") {
+                return b.stars - a.stars;
+            } else if (sortBy === "name") {
+                return a.name.localeCompare(b.name);
+            } else if (sortBy === "rating-low") {
+                return a.stars - b.stars;
+            }
+            return 0;
+        });
 
         return result;
     }, [items, selectedCategory, searchQuery, sortBy]);

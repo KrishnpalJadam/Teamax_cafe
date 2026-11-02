@@ -8,7 +8,7 @@ import {
     X, Plus, Navigation, Percent
 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { getFeaturedProducts, getPrimaryOffer, getCommonMenu, getCentreBySlugOrId } from "../../lib/api";
+import { getFeaturedProducts, getPrimaryOffer, getCommonMenu, getCentreBySlugOrId, getReviews } from "../../lib/api";
 
 const defaultPhotos = [
     { src: `https://teamaax-remake-showcase.lovable.app/assets/cafe-exterior-CdvnH_rb.jpg`, alt: "TeaMax cafe exterior" },
@@ -146,18 +146,45 @@ export function StoreDataProvider({ children }: { children: ReactNode }) {
 
         async function loadStorePageData() {
             try {
-                const [centreData, featuredData, menuData, primaryOfferData] = await Promise.allSettled([
+                const [centreData, featuredData, menuData, primaryOfferData, reviewsData] = await Promise.allSettled([
                     getCentreBySlugOrId(slugOrId),
                     getFeaturedProducts(6),
                     getCommonMenu(),
                     getPrimaryOffer(),
+                    getReviews({ status: "published" }),
                 ]);
 
                 if (!isMounted) return;
 
-                // 1. Set Centre data
+                // 1. Set Centre data & merge featured customer reviews
                 if (centreData.status === "fulfilled" && centreData.value) {
-                    setCentre(centreData.value);
+                    let targetCentre = centreData.value;
+                    if (reviewsData.status === "fulfilled" && Array.isArray(reviewsData.value)) {
+                        const liveReviews = reviewsData.value;
+                        const relevantReviews = liveReviews.filter((r: any) => {
+                            const isCust = r.reviewType === "customer" || r.categoryId === "customer";
+                            const isThisCentre = r.relatedCentreId === targetCentre.id || (targetCentre.slug && r.relatedCentre?.slug === targetCentre.slug);
+                            return (isCust && Boolean(r.isFeatured)) || isThisCentre;
+                        });
+
+                        const existing = targetCentre.reviews || [];
+                        const combined = [...existing];
+                        for (const rev of relevantReviews) {
+                            if (!combined.some((c: any) => c.id === rev.id)) {
+                                combined.push(rev);
+                            }
+                        }
+
+                        combined.sort((a: any, b: any) => {
+                            const featA = a.isFeatured ? 1 : 0;
+                            const featB = b.isFeatured ? 1 : 0;
+                            if (featA !== featB) return featB - featA;
+                            return (a.displayOrder || 0) - (b.displayOrder || 0);
+                        });
+
+                        targetCentre = { ...targetCentre, reviews: combined };
+                    }
+                    setCentre(targetCentre);
                 }
 
                 // 2. Set Featured Products (strictly maximum 6, exactly 6 if 6+ available, or available count if < 6)
