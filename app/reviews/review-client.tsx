@@ -2,7 +2,7 @@
 
 import "./reviews-cards.css";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
     Search,
     Grid2X2,
@@ -15,6 +15,7 @@ import {
     Quote,
     ExternalLink,
 } from "lucide-react";
+import { getReviews, getReviewCategories } from "../lib/api";
 
 export type ReviewCategory = {
     id: string;
@@ -52,10 +53,41 @@ const categoryDescriptions: Record<string, string> = {
     customer: "What our customers say about their TeaMax experience.",
 };
 
-export function ReviewClient({ categories, items }: ReviewClientProps) {
+export function ReviewClient({ categories: initialCategories, items: initialItems }: ReviewClientProps) {
     const [selectedCategory, setSelectedCategory] = useState("all");
     const [searchQuery, setSearchQuery] = useState("");
     const [sortBy, setSortBy] = useState("popular");
+    const [items, setItems] = useState<ReviewItem[]>(initialItems);
+    const [categories, setCategories] = useState<ReviewCategory[]>(initialCategories);
+
+    useEffect(() => {
+        Promise.all([
+            getReviews({ status: "published" }),
+            getReviewCategories(),
+        ]).then(([dbReviews, dbCategories]) => {
+            if (Array.isArray(dbReviews) && dbReviews.length > 0) {
+                setItems(
+                    dbReviews.map((rev) => ({
+                        id: rev.id,
+                        type: (rev.categoryId || rev.reviewType || "customer") as "franchise" | "staff" | "customer",
+                        name: rev.reviewerName,
+                        location: rev.reviewerRole || (rev.relatedCentreName ? `TeaMax Cafe, ${rev.relatedCentreName}` : "TeaMax Café"),
+                        image: rev.reviewerAvatar || "/images/cafe-interior.jpg",
+                        review: rev.reviewText,
+                        link: rev.viewMoreLink || undefined,
+                        stars: Number(rev.starRating || 5),
+                    }))
+                );
+            }
+            if (Array.isArray(dbCategories) && dbCategories.length > 0) {
+                setCategories(
+                    dbCategories[0]?.id === "all"
+                        ? dbCategories
+                        : [{ id: "all", name: "All Reviews", icon: "all" }, ...dbCategories]
+                );
+            }
+        }).catch(() => {});
+    }, []);
 
     const displayCategories = useMemo(
         () => categories?.length ? categories : [

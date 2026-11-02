@@ -129,6 +129,7 @@ export async function getBlogBySlug(idOrSlug: string) {
 export async function getReviews(params: {
   displayOn?: string;
   reviewType?: string;
+  categoryId?: string;
   relatedCentreId?: string;
   isFeatured?: boolean;
   status?: string;
@@ -141,6 +142,18 @@ export async function getReviews(params: {
   ).toString();
   const data = await fetchFromApi<any[]>(`/reviews${query ? `?${query}` : ''}`);
   return Array.isArray(data) ? data : [];
+}
+
+export async function getReviewCategories(): Promise<any[]> {
+  const data = await fetchFromApi<any>('/settings/review_categories');
+  const list = Array.isArray(data?.value) ? data.value : (Array.isArray(data) ? data : []);
+  if (list.length > 0) return list;
+  return [
+    { id: "all", name: "All Reviews", icon: "all" },
+    { id: "franchise", name: "Franchise Partner Reviews", icon: "franchise" },
+    { id: "staff", name: "Staff Reviews", icon: "staff" },
+    { id: "customer", name: "Customer Reviews", icon: "customer" },
+  ];
 }
 
 // 9. Moments (A Little Look Inside)

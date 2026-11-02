@@ -1,6 +1,20 @@
 import type { Metadata } from "next";
 import { Header, Footer, JsonLd } from "../components";
 import { ReviewClient, type ReviewCategory, type ReviewItem } from "./review-client";
+import { getReviews, getReviewCategories } from "../lib/api";
+
+function mapDbReviewToReviewItem(rev: any): ReviewItem {
+    return {
+        id: rev.id,
+        type: (rev.categoryId || rev.reviewType || "customer") as "franchise" | "staff" | "customer",
+        name: rev.reviewerName,
+        location: rev.reviewerRole || (rev.relatedCentreName ? `TeaMax Cafe, ${rev.relatedCentreName}` : "TeaMax Café"),
+        image: rev.reviewerAvatar || "/images/cafe-interior.jpg",
+        review: rev.reviewText,
+        link: rev.viewMoreLink || undefined,
+        stars: Number(rev.starRating || 5),
+    };
+}
 
 export const dynamic = "force-static";
 
@@ -176,7 +190,27 @@ const reviewsSchema = {
     ],
 };
 
-export default function ReviewPage() {
+export default async function ReviewPage() {
+    let items = reviews;
+    let categories = reviewCategories;
+
+    try {
+        const [dbReviews, dbCategories] = await Promise.all([
+            getReviews({ status: "published" }),
+            getReviewCategories(),
+        ]);
+        if (Array.isArray(dbReviews) && dbReviews.length > 0) {
+            items = dbReviews.map(mapDbReviewToReviewItem);
+        }
+        if (Array.isArray(dbCategories) && dbCategories.length > 0) {
+            categories = dbCategories[0]?.id === "all"
+                ? dbCategories
+                : [{ id: "all", name: "All Reviews", icon: "all" }, ...dbCategories];
+        }
+    } catch (e) {
+        // Fallback to static reviews if backend is loading
+    }
+
     return (
         <>
             <Header active="/reviews" />
@@ -207,7 +241,7 @@ export default function ReviewPage() {
                     </div>
                 </section>
 
-                <ReviewClient categories={reviewCategories} items={reviews} />
+                <ReviewClient categories={categories} items={items} />
             </main>
             <Footer />
             <JsonLd data={reviewsSchema} />
