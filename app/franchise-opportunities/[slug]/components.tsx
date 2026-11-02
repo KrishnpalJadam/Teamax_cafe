@@ -429,14 +429,15 @@ export function FranchiseOpportunityDetails({ opportunity: initialOpportunity, s
 
                     <div className="tmf-cities-cloud">
                         {otherCitiesList.map((item) => (
-                            <Link
+                            <div
                                 key={item}
-                                href="/franchise-opportunities"
+                                // href="/franchise-opportunities"
                                 className="tmf-city-pill"
                             >
                                 {item}
-                            </Link>
+                            </div>
                         ))}
+                        <Link href="/franchise#apply" className="cafe-action">View all <ArrowRight size={17} /></Link>
                     </div>
                 </div>
             </section>

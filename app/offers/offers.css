@@ -203,7 +203,7 @@
     position: absolute;
     top: 12px;
     right: 12px;
-    width: 76px;
+    width: 82px;
     height: 82px;
     display: flex;
     justify-content: center;
@@ -214,7 +214,7 @@
     border-radius: 42% 48% 44% 48%;
     background: var(--offers-yellow);
     color: #102b35;
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.15;
     font-weight: 1000;
     transform: rotate(4deg);

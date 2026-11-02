@@ -114,7 +114,7 @@ export default function Home() {
 
       <section id="franchise" className="franchise-section">
         <div className="franchise-photo">
-          <Image src={`${A}/shop-cafe-BAkc0VxX.jpg`} alt="TeaMax café store interior" width={1024} height={1024} unoptimized loading="lazy" />
+          <Image src={`./images/TeaMax cafe store design.webp`} alt="TeaMax café store interior" width={1024} height={1024} unoptimized loading="lazy" />
         </div>
         <div className="franchise-content">
           <p className="eyebrow">FRANCHISE OPPORTUNITY</p>
