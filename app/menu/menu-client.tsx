@@ -14,6 +14,7 @@ import {
   Popcorn,
   Soup,
   ArrowRight,
+  ArrowLeft,
 } from "lucide-react";
 import Link from "next/link";
 import { getCommonCategories, getCommonMenu } from "../lib/api";
@@ -275,7 +276,7 @@ export function MenuClient({
       try {
         const [apiCategories, apiItems] = await Promise.all([
           getCommonCategories(),
-          getCommonMenu(),
+          getCommonMenu(undefined, 200),
         ]);
 
         if (mounted && Array.isArray(apiCategories) && apiCategories.length > 0) {
@@ -388,6 +389,49 @@ export function MenuClient({
     sortBy,
   ]);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, searchQuery, sortBy]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredItems.length / itemsPerPage));
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(1);
+    }
+  }, [currentPage, totalPages]);
+
+  const paginatedItems = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return filteredItems.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredItems, currentPage, itemsPerPage]);
+
+  const getPageNumbers = (current: number, total: number): (number | string)[] => {
+    if (total <= 7) {
+      return Array.from({ length: total }, (_, i) => i + 1);
+    }
+    if (current <= 4) {
+      return [1, 2, 3, 4, 5, "...", total];
+    }
+    if (current >= total - 3) {
+      return [1, "...", total - 4, total - 3, total - 2, total - 1, total];
+    }
+    return [1, "...", current - 1, current, current + 1, "...", total];
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    if (typeof window !== "undefined") {
+      const el = document.getElementById("tx-menu-content-top");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  };
+
   const activeCategory =
     displayCategories.find(
       (item) => item.id === selectedCategory
@@ -489,7 +533,7 @@ export function MenuClient({
         </aside>
 
         {/* PRODUCTS */}
-        <div className="tx-menu-content">
+        <div className="tx-menu-content" id="tx-menu-content-top">
 
           <div className="tx-menu-heading-row">
 
@@ -564,66 +608,120 @@ export function MenuClient({
               </button>
             </div>
           ) : (
-            <div className="tx-menu-product-grid">
+            <>
+              <div className="tx-menu-product-grid">
 
-              {filteredItems.map((item) => {
-                const image =
-                  item.image ||
-                  categoryImages[
-                  item.categoryId
-                  ] ||
-                  "/images/chai.webp";
+                {paginatedItems.map((item) => {
+                  const image =
+                    item.image ||
+                    categoryImages[
+                    item.categoryId
+                    ] ||
+                    "/images/chai.webp";
 
-                return (
-                  <article
-                    className="tx-menu-product-card"
-                    key={item.id}
-                  >
-                    <div className="tx-menu-photo-wrap">
+                  return (
+                    <article
+                      className="tx-menu-product-card"
+                      key={item.id}
+                    >
+                      <div className="tx-menu-photo-wrap">
 
-                      <img
-                        className="tx-menu-product-photo"
-                        src={image}
-                        alt={`${item.name} at TeaMax Café`}
-                        loading="lazy"
-                      />
+                        <img
+                          className="tx-menu-product-photo"
+                          src={image}
+                          alt={`${item.name} at TeaMax Café`}
+                          loading="lazy"
+                        />
 
-                      {item.isPopular && (
-                        <span className="tx-menu-popular-badge">
-                          <span>★</span>
-                          Popular
-                        </span>
-                      )}
+                        {item.isPopular && (
+                          <span className="tx-menu-popular-badge">
+                            <span>★</span>
+                            Popular
+                          </span>
+                        )}
 
-                    </div>
+                      </div>
 
-                    <div className="tx-menu-product-details">
+                      <div className="tx-menu-product-details">
 
-                      <div>
-                        <div className="pricename">
-                          <h3 className="tx-menu-product-name">
-                            {item.name}
-                          </h3>
+                        <div>
+                          <div className="pricename">
+                            <h3 className="tx-menu-product-name">
+                              {item.name}
+                            </h3>
 
 
+                          </div>
+
+
+                          <p className="tx-menu-product-description">
+                            {item.description}
+                          </p>
                         </div>
 
 
-                        <p className="tx-menu-product-description">
-                          {item.description}
+                        <p className="tx-menu-product-price">
+                          ₹{item.price ?? "—"}
                         </p>
                       </div>
+                    </article>
+                  );
+                })}
 
+              </div>
 
-                      <p className="tx-menu-product-price">
-                        ₹{item.price ?? "—"}
-                      </p>
-                    </div>
-                  </article>
-                );
-              })}
+              {totalPages > 1 && (
+                <div className="tx-menu-pagination-wrapper">
+                  <p className="tx-menu-pagination-summary">
+                    Showing {(currentPage - 1) * itemsPerPage + 1}–
+                    {Math.min(currentPage * itemsPerPage, filteredItems.length)} of{" "}
+                    {filteredItems.length} items
+                  </p>
 
-            </div>
+                  <nav className="tx-menu-pagination" aria-label="Menu pagination">
+                    <button
+                      type="button"
+                      className="tx-menu-page-btn tx-menu-prev-btn"
+                      aria-label="Previous page"
+                      disabled={currentPage === 1}
+                      onClick={() => handlePageChange(currentPage - 1)}
+                    >
+                      <ArrowLeft size={16} />
+                    </button>
+
+                    {getPageNumbers(currentPage, totalPages).map((p, idx) =>
+                      p === "..." ? (
+                        <span key={`dots-${idx}`} className="tx-menu-page-dots">
+                          ...
+                        </span>
+                      ) : (
+                        <button
+                          key={`page-${p}`}
+                          type="button"
+                          className={`tx-menu-page-btn ${
+                            currentPage === p ? "is-active" : ""
+                          }`}
+                          aria-current={currentPage === p ? "page" : undefined}
+                          onClick={() => handlePageChange(Number(p))}
+                        >
+                          {p}
+                        </button>
+                      )
+                    )}
+
+                    <button
+                      type="button"
+                      className="tx-menu-page-btn tx-menu-next-btn"
+                      aria-label="Next page"
+                      disabled={currentPage === totalPages}
+                      onClick={() => handlePageChange(currentPage + 1)}
+                    >
+                      <ArrowRight size={16} />
+                    </button>
+                  </nav>
+                </div>
+              )}
+            </>
           )}
 
         </div>

@@ -3749,6 +3749,82 @@ body {
 
 
 /* =========================================================
+   PAGINATION
+========================================================= */
+
+.tx-menu-pagination-wrapper {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.tx-menu-pagination-summary {
+  font-size: 13.5px;
+  color: var(--tm-teal-muted, #5f7470);
+  font-weight: 500;
+  margin: 0;
+}
+
+.tx-menu-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tx-menu-page-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(38, 60, 61, 0.15);
+  background: #ffffff;
+  color: var(--tm-teal, #263C3D);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.tx-menu-page-btn:hover:not(:disabled) {
+  border-color: var(--tm-teal, #263C3D);
+  background: #fbf7f0;
+  transform: translateY(-1px);
+}
+
+.tx-menu-page-btn.is-active {
+  background: var(--tm-teal, #263C3D);
+  color: #ffffff;
+  border-color: var(--tm-teal, #263C3D);
+  box-shadow: 0 4px 12px rgba(38, 60, 61, 0.2);
+}
+
+.tx-menu-page-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.tx-menu-page-dots {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 40px;
+  color: var(--tm-teal-muted, #5f7470);
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+
+/* =========================================================
    EMPTY STATE
 ========================================================= */
 

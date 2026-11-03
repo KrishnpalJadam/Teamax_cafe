@@ -55,8 +55,12 @@ export async function getFeaturedProducts(limit = 6) {
 
 // 2. Common Menu logic:
 // Common menu items & categories shared across all franchises
-export async function getCommonMenu(categoryId?: string) {
-  const query = categoryId ? `?categoryId=${encodeURIComponent(categoryId)}` : '';
+export async function getCommonMenu(categoryId?: string, limit: number = 200, page?: number) {
+  const params = new URLSearchParams();
+  if (categoryId) params.append('categoryId', categoryId);
+  if (limit) params.append('limit', String(limit));
+  if (page) params.append('page', String(page));
+  const query = params.toString() ? `?${params.toString()}` : '';
   const data = await fetchFromApi<any[]>(`/menu-items${query}`);
   return Array.isArray(data) ? data : [];
 }
