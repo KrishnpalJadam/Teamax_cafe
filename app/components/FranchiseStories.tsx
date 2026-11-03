@@ -240,6 +240,11 @@ export default function FranchiseStories() {
                       <div className="tmx-franchise-story-divider" />
 
                       <p>“{story.review}”</p>
+                      {story.link && (
+                        <span className="tmx-story-view-more">
+                          {story.linkName || "Read More"} →
+                        </span>
+                      )}
                     </a>
                   </div>
                 ))}

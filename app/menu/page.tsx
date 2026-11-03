@@ -151,7 +151,7 @@ const menuItems: MenuItem[] = [
     isPopular: true,
     badge: "Popular",
     price: 20,
-    image: "/images/chai.webp",
+    // image: "/images/chai.webp",
   },
 
   {
@@ -163,7 +163,7 @@ const menuItems: MenuItem[] = [
     categoryId: "coffee",
     isVeg: true,
     price: 49,
-    image: "/images/coffee.webp",
+    // image: "/images/coffee.webp",
   },
 
   {
@@ -175,7 +175,7 @@ const menuItems: MenuItem[] = [
     categoryId: "burgers",
     isVeg: true,
     price: 149,
-    image: "/images/coffee.webp",
+    // image: "/images/coffee.webp",
   },
 
   {
@@ -187,7 +187,7 @@ const menuItems: MenuItem[] = [
     categoryId: "snacks",
     isVeg: true,
     price: 59,
-    image: "/images/cafe-interior.jpg",
+    // image: "/images/cafe-interior.jpg",
   },
 
   {
@@ -199,7 +199,7 @@ const menuItems: MenuItem[] = [
     categoryId: "coffee",
     isVeg: true,
     price: 99,
-    image: "/images/milkshake.webp",
+    // image: "/images/milkshake.webp",
   },
 
   {
@@ -211,7 +211,7 @@ const menuItems: MenuItem[] = [
     categoryId: "burgers",
     isVeg: true,
     price: 129,
-    image: "/images/coffee.webp",
+    // image: "/images/coffee.webp",
   },
 
   {
@@ -223,7 +223,7 @@ const menuItems: MenuItem[] = [
     categoryId: "sandwiches",
     isVeg: true,
     price: 89,
-    image: "/images/cafe-interior.jpg",
+    // image: "/images/cafe-interior.jpg",
   },
 
   {
@@ -235,7 +235,7 @@ const menuItems: MenuItem[] = [
     categoryId: "thickshakes",
     isVeg: true,
     price: 99,
-    image: "/images/milkshake.webp",
+    // image: "/images/milkshake.webp",
   },
 
   {
@@ -247,7 +247,7 @@ const menuItems: MenuItem[] = [
     categoryId: "thickshakes",
     isVeg: true,
     price: 99,
-    image: "/images/milkshake.webp",
+    // image: "/images/milkshake.webp",
   },
 ];
 

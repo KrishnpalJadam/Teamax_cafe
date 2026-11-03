@@ -88,7 +88,7 @@ export function ReviewClient({ categories: initialCategories, items: initialItem
                         : [{ id: "all", name: "All Reviews", icon: "all" }, ...dbCategories]
                 );
             }
-        }).catch(() => {});
+        }).catch(() => { });
     }, []);
 
     const displayCategories = useMemo(
@@ -276,10 +276,12 @@ export function ReviewClient({ categories: initialCategories, items: initialItem
                                             href={item.link}
                                             target="_blank"
                                             rel="noopener noreferrer"
+
                                         >
-                                            Watch their story <ExternalLink size={15} aria-hidden="true" />
+                                            Read More <ExternalLink size={15} aria-hidden="true" />
                                         </a>
                                     )}
+
                                     <div className="tm-review-divider" />
 
                                     <div className="tm-review-author">
