@@ -166,7 +166,7 @@ export function FranchiseOpportunityDetails({ opportunity: initialOpportunity, s
     };
 
     return (
-        <div className="tmf-detail-page mt-5">
+        <div className="tmf-detail-page">
             {/* ====================================================================
           1. HERO SECTION (Dark Forest Green with Arch Visual)
           ==================================================================== */}
@@ -402,7 +402,7 @@ export function FranchiseOpportunityDetails({ opportunity: initialOpportunity, s
                     </div>
 
                     <div className="tmf-faq-footer">
-                        <Link href="/franchise" className="tmf-link-arrow">
+                        <Link href="/cafe-franchise-india" className="tmf-link-arrow">
                             <span>Compare franchise models & requirements</span>
                             <ArrowRight size={15} strokeWidth={2.4} />
                         </Link>
@@ -437,7 +437,7 @@ export function FranchiseOpportunityDetails({ opportunity: initialOpportunity, s
                                 {item}
                             </div>
                         ))}
-                        <Link href="/franchise#apply" className="cafe-action">View all <ArrowRight size={17} /></Link>
+                        <Link href="/cafe-franchise-india#apply" className="cafe-action">View all <ArrowRight size={17} /></Link>
                     </div>
                 </div>
             </section>

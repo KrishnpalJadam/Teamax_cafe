@@ -83,7 +83,7 @@ export default function Home() {
               <br /> Affordable <br /><span className="marker"> Franchise</span></h1>
             <p className="hero-description">Build your café with TeaMax  – a structured franchise model with no royalty and support across setup, training, technology and marketing. </p>
             <div className="hero-actions">
-              <Link href="/franchise#apply" className="cafe-action">Get Franchise Details <ArrowRight size={17} /></Link>
+              <Link href="/cafe-franchise-india#apply" className="cafe-action">Get Franchise Details <ArrowRight size={17} /></Link>
               {/* <Link href="/about-us" className="play-button" aria-label="Watch TeaMax stories"><Play size={15} fill="currentColor" /></Link>
               <span className="watch-label">Read More</span> */}
             </div>
@@ -104,7 +104,7 @@ export default function Home() {
         </div>
       </section>
       <div className="hero-mobile-cta">
-        <Link href="/franchise#apply" className="cafe-action">
+        <Link href="/cafe-franchise-india#apply" className="cafe-action">
           Get Franchise Details
           <ArrowRight size={17} />
         </Link>
@@ -131,7 +131,7 @@ export default function Home() {
               <div key={a}><span className="round-icon"><Icon size={30} strokeWidth={1.5} /></span><strong className="fs44">{a}<br />{b}</strong></div>
             ))}
           </div>
-          <Link href="/franchise#apply" className="cafe-action">Apply for Franchise <ArrowRight size={17} /></Link>
+          <Link href="/cafe-franchise-india#apply" className="cafe-action">Apply for Franchise <ArrowRight size={17} /></Link>
         </div>
       </section>
 
@@ -211,7 +211,7 @@ export default function Home() {
           <div className="contact-shape">
             <h2>Let&apos;s Brew<br />Your Success Story</h2>
             <p>Own a TeaMax Café and be part of a growing community of successful franchise partners.</p>
-            <Link href="/franchise#apply" className="cafe-action">Get Franchise Details <ArrowRight size={17} /></Link>
+            <Link href="/cafe-franchise-india#apply" className="cafe-action">Get Franchise Details <ArrowRight size={17} /></Link>
           </div>
           <div className="contact-script">Chai<br /><span>People</span><br />Good<br /><span>Stories</span></div>
         </div>

@@ -224,6 +224,7 @@ export default function FranchiseFormSection() {
               whenToStart: getFormattedStartMonth(formData.whenToStart),
               haveShop: formData.haveShop,
               source: "Franchise Page Form",
+              page: "/cafe-franchise-india",
               submittedAt: new Date().toISOString(),
             }),
           });

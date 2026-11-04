@@ -22,7 +22,7 @@ export async function generateStaticParams() {
         .map((b) => ({ slug: b.slug }));
       return [...posts.map((p) => ({ slug: p.slug })), ...extra];
     }
-  } catch (_) {}
+  } catch (_) { }
   return posts.map((post) => ({
     slug: post.slug,
   }));
@@ -45,7 +45,7 @@ export async function generateMetadata({
           description: apiBlog.metaDescription || apiBlog.excerpt,
         };
       }
-    } catch (_) {}
+    } catch (_) { }
     return {
       title: "Story Not Found | TeaMax Café",
       description: "The requested article could not be found.",
@@ -102,9 +102,9 @@ export default async function BlogPostPage({
         const rawDate = apiBlog.publishDate || apiBlog.createdAt;
         const dateStr = rawDate
           ? new Date(rawDate).toLocaleDateString("en-IN", {
-              month: "long",
-              year: "numeric",
-            })
+            month: "long",
+            year: "numeric",
+          })
           : "Recent";
 
         post = {
@@ -139,7 +139,7 @@ export default async function BlogPostPage({
           },
         };
       }
-    } catch (_) {}
+    } catch (_) { }
   }
 
   if (!post) {
@@ -384,7 +384,7 @@ export default async function BlogPostPage({
                   </p>
                 </div>
                 <Link
-                  href="/franchise#apply"
+                  href="/cafe-franchise-india#apply"
                   className="tm-btn tm-btn-yellow"
                   style={{ flexShrink: 0 }}
                 >
@@ -502,7 +502,7 @@ export default async function BlogPostPage({
                 Low capex starting ₹3.5L. Transparent pricing, zero hidden fees, and end-to-end launch support.
               </p>
               <Link
-                href="/franchise#apply"
+                href="/cafe-franchise-india#apply"
                 className="tm-btn tm-btn-yellow tm-btn-sm"
                 style={{ width: "100%" }}
               >

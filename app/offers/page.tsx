@@ -52,7 +52,7 @@ const defaultOffers: Offer[] = [
     },
 ];
 
-const franchiseHref = "/franchise";
+const franchiseHref = "/cafe-franchise-india";
 
 export default function OffersPage() {
     const [offerList, setOfferList] = useState<Offer[]>(defaultOffers);

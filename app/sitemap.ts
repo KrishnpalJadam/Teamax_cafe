@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
   const pages = [
     ["/", 1.0, "weekly"],
-    ["/franchise", 0.95, "weekly"],
+    ["/cafe-franchise-india", 0.95, "weekly"],
     ["/menu", 0.9, "weekly"],
     ["/about-us", 0.85, "monthly"],
     ["/stores", 0.8, "weekly"],

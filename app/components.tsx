@@ -21,7 +21,7 @@ export function Header({ active }: { active?: string }) {
     ["/about-us", "Our Story"],
     ["/menu", "Menu"],
     // ["/ourcentres", "Our Centres"],
-    ["/franchise", "Franchise"],
+    ["/cafe-franchise-india", "Franchise"],
     ["/reviews", "Reviews"],
     ["/blog", "Blog"],
     ["/offers", "Offers"],
@@ -45,14 +45,14 @@ export function Header({ active }: { active?: string }) {
         </nav>
 
         <div className="header-action">
-          <Link href="/franchise#apply" className="cafe-action">Apply for Franchise <ArrowRight size={17} /></Link>
+          <Link href="/cafe-franchise-india#apply" className="cafe-action">Apply for Franchise <ArrowRight size={17} /></Link>
         </div>
 
         <details className="mobile-menu">
           <summary aria-label="Open menu"><Menu size={22} /></summary>
           <nav aria-label="Mobile navigation">
             {nav.map(([href, label]) => <Link key={href} href={href}>{label}</Link>)}
-            <Link href="/franchise#apply" className="cafe-action">Apply for Franchise <ArrowRight size={17} /></Link>
+            <Link href="/cafe-franchise-india#apply" className="cafe-action">Apply for Franchise <ArrowRight size={17} /></Link>
           </nav>
         </details>
       </div>
@@ -114,7 +114,7 @@ export function Footer() {
             <Link href="/about-us">Our Story</Link>
             <Link href="/menu">Menu</Link>
             <Link href="/ourcentres">Cafes</Link>
-            <Link href="/franchise#apply">Franchise</Link>
+            <Link href="/cafe-franchise-india#apply">Franchise</Link>
 
             <Link href="/blog">Blog</Link>
           </div>

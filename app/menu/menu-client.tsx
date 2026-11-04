@@ -736,7 +736,7 @@ export function MenuClient({
 
             <p>  A perfect blend of spices, served with
               love to make your day better.</p>
-            <Link href="/franchise#apply" className="cafe-action">Get Franchise Details <ArrowRight size={17} /></Link>
+            <Link href="/cafe-franchise-india#apply" className="cafe-action">Get Franchise Details <ArrowRight size={17} /></Link>
           </div>
           <div className="contact-script">Chai<br /><span>People</span><br />Good<br /><span>Stories</span></div>
         </div>

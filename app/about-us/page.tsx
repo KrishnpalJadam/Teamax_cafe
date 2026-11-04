@@ -540,7 +540,7 @@ export default function OurStoryPage() {
             <div className="contact-shape">
               <h2>Let&apos;s Brew<br />Your Success Story</h2>
               <p>Own a TeaMax Café and be part of a growing community of successful franchise partners.</p>
-              <Link href="/franchise#apply" className="cafe-action">Get Franchise Details <ArrowRight size={17} /></Link>
+              <Link href="/cafe-franchise-india#apply" className="cafe-action">Get Franchise Details <ArrowRight size={17} /></Link>
             </div>
             <div className="contact-script">Chai<br /><span>People</span><br />Good<br /><span>Stories</span></div>
           </div>

@@ -150,7 +150,7 @@ export default async function BlogIndexPage() {
               </p>
 
               <div className="tm-hero-actions-wrap">
-                <Link href="/franchise" className="tm-btn tm-btn-yellow">
+                <Link href="/cafe-franchise-india" className="tm-btn tm-btn-yellow">
                   Enquire for Franchise
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M5 12h14"></path>

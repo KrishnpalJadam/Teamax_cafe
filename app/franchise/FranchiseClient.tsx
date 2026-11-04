@@ -1523,7 +1523,7 @@ export function FranchiseClient() {
       {/* ====================================================================
           13. BOTTOM LEAD CAPTURE FORM (From franchise-form.tsx)
           ==================================================================== */}
-      <div id="#apply">
+      <div id="apply">
         <FranchiseFormSection />
       </div>
     </div>

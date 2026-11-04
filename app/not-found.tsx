@@ -1,7 +1,11 @@
 import Link from "next/link";
+import { Header } from "./components";
 
 export default function NotFound() {
-    return (
+    return (<>
+
+        <Header />
+
         <main className="not-found-page">
             <Link href="/" className="not-found-link">
                 <picture>
@@ -18,5 +22,6 @@ export default function NotFound() {
                 </picture>
             </Link>
         </main>
+    </>
     );
 }
