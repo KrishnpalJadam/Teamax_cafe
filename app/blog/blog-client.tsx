@@ -35,6 +35,7 @@ export function BlogClient({ initialPosts }: { initialPosts: BlogPost[] }) {
               readTime: b.readingTime || "5 min read",
               date: dateStr,
               isoDate: b.publishDate || b.createdAt || new Date().toISOString(),
+              isFeatured: Boolean(b.isFeatured),
               author: {
                 name: b.author || "TeaMax Editorial Team",
                 role: b.authorDesignation || "TeaMax Culinary Research",
@@ -58,11 +59,17 @@ export function BlogClient({ initialPosts }: { initialPosts: BlogPost[] }) {
           });
 
         const existingSlugs = new Set(mapped.map((p) => p.slug));
-        const merged = [
+        const combined = [
           ...mapped,
           ...initialPosts.filter((p) => !existingSlugs.has(p.slug)),
         ];
-        setPosts(merged);
+        const sorted = combined.sort((a, b) => {
+          const featA = a.isFeatured ? 1 : 0;
+          const featB = b.isFeatured ? 1 : 0;
+          if (featA !== featB) return featB - featA;
+          return new Date(b.isoDate || 0).getTime() - new Date(a.isoDate || 0).getTime();
+        });
+        setPosts(sorted);
       }
     });
     return () => {
@@ -76,17 +83,24 @@ export function BlogClient({ initialPosts }: { initialPosts: BlogPost[] }) {
   }, [posts]);
 
   const filteredPosts = useMemo(() => {
-    return posts.filter((post) => {
-      const matchesCategory =
-        selectedCategory === "All" || post.category === selectedCategory;
-      const matchesSearch =
-        searchQuery.trim() === "" ||
-        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
+    return posts
+      .filter((post) => {
+        const matchesCategory =
+          selectedCategory === "All" || post.category === selectedCategory;
+        const matchesSearch =
+          searchQuery.trim() === "" ||
+          post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          post.tags.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase()));
 
-      return matchesCategory && matchesSearch;
-    });
+        return matchesCategory && matchesSearch;
+      })
+      .sort((a, b) => {
+        const featA = a.isFeatured ? 1 : 0;
+        const featB = b.isFeatured ? 1 : 0;
+        if (featA !== featB) return featB - featA;
+        return new Date(b.isoDate || 0).getTime() - new Date(a.isoDate || 0).getTime();
+      });
   }, [posts, selectedCategory, searchQuery]);
 
   return (
@@ -149,12 +163,22 @@ export function BlogClient({ initialPosts }: { initialPosts: BlogPost[] }) {
             <Link
               key={post.id}
               href={`/blog/${post.slug}`}
-              className="tm-blog-card group"
+              className={`tm-blog-card group ${post.isFeatured ? "is-featured" : ""}`}
               aria-label={`Read story: ${post.title}`}
             >
               <div>
                 <div className="tm-blog-card-top">
-                  <span className="tm-blog-card-cat">{post.category}</span>
+                  <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
+                    <span className="tm-blog-card-cat">{post.category}</span>
+                    {post.isFeatured && (
+                      <span className="tm-blog-featured-badge">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+                          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg>
+                        Featured
+                      </span>
+                    )}
+                  </div>
                   <span className="tm-blog-card-time">{post.readTime}</span>
                 </div>
 
