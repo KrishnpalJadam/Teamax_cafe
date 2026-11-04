@@ -20,10 +20,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
     const title = item.seoTitle || `${item.franchiseName} | TeaMax Franchise Opportunity`;
     const description = item.metaDescription || item.shortDescription;
+    const keywords = item.seoKeywords
+        ? item.seoKeywords.split(',').map((k: string) => k.trim()).filter(Boolean)
+        : undefined;
 
     return {
         title,
         description,
+        keywords,
         openGraph: {
             title,
             description,
