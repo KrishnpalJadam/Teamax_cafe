@@ -5,36 +5,32 @@ import "./AwardsRecognitions.css";
 
 const awards = [
   {
-    year: "2022",
-    title: "Restaurant of the Year 2022",
-    text: "@ 11th Annual Restaurant Awards",
+    title: "Restaurant of the Year",
+    text: "Awarded by Harpal Singh Sokhi at 11th Annual Restaurant Award.",
     image:
       "https://static.wixstatic.com/media/ac5a6b_9d24531761e04c1aac7007f18c9c71ea~mv2.webp/v1/fill/w_400,h_304,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Icons%20for%20TeaMax%20Website%202023.webp",
-    alt: "Restaurant of the Year 2022",
+    alt: "Restaurant of the Year award",
   },
   {
-    year: "2024",
     title: "Top Performing Franchise",
-    text: "@ Bharat Business Awards 2024",
+    text: "Bharat Business Awards",
     image:
       "https://static.wixstatic.com/media/ac5a6b_666cfcb6b8a14854898cb9a2f0e09de1~mv2.webp/v1/fill/w_400,h_304,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Bharat%20Business%20Awards%20TeaMax%20Cafe%20India.webp",
-    alt: "Top Performing Franchise Bharat Business Awards 2024",
+    alt: "Top Performing Franchise award",
   },
   {
-    year: "2024",
     title: "Brand Innovation of the Year",
-    text: "@ 2nd IRIE Annual Awards 2024",
+    text: "2nd IRIE Annual Awards",
     image:
       "https://static.wixstatic.com/media/ac5a6b_bcc45811a2094ae0a53990faf9b0f0b8~mv2.webp/v1/fill/w_400,h_304,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IRIE%20Awards.webp",
-    alt: "Brand Innovation of the Year 2024",
+    alt: "Brand Innovation of the Year award",
   },
   {
-    year: "2023",
-    title: "Franchise of the Year 2023",
-    text: "@ GBEA Business Awards 2023",
+    title: "Franchise of the Year",
+    text: "GBEA Business Awards",
     image:
       "https://static.wixstatic.com/media/ac5a6b_f0e8410376ac4d94ba02c9a202b63d4e~mv2.jpg/v1/crop/x_0,y_0,w_500,h_382/fill/w_400,h_304,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/GBEA%20Awards_edited.jpg",
-    alt: "Franchise of the Year 2023",
+    alt: "Franchise of the Year award",
   },
 ];
 
@@ -42,8 +38,8 @@ function TrophyIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
-      width="27"
-      height="27"
+      width="23"
+      height="23"
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"
@@ -69,6 +65,8 @@ export default function AwardsRecognitions() {
       aria-labelledby="awards-title"
     >
       <div className="tmx-awards-container">
+
+        {/* Section Heading */}
         <div className="section-heading steps-heading tmx-awards-heading-row">
           <div>
             <h2 id="awards-title">Awards &amp; Recognitions</h2>
@@ -81,12 +79,14 @@ export default function AwardsRecognitions() {
           </p>
         </div>
 
+        {/* Awards Grid */}
         <div className="tmx-awards-grid">
           {awards.map((award, index) => (
             <article
               className="tmx-award-card"
-              key={`${award.year}-${award.title}`}
+              key={award.title}
             >
+              {/* Award Image */}
               <div className="tmx-award-image-box">
                 <img
                   src={award.image}
@@ -96,26 +96,31 @@ export default function AwardsRecognitions() {
                 />
               </div>
 
-              <div className="tmx-award-meta">
-                <span className="tmx-award-trophy">
-                  <TrophyIcon />
-                </span>
-
-                <span className="tmx-award-divider" />
-
-                <span className="tmx-award-number">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-              </div>
-
+              {/* Award Details */}
               <div className="tmx-award-content">
-                <h3 className="tmx-award-title">{award.title}</h3>
-                <p className="tmx-award-text">{award.text}</p>
+
+                {/* Title and Trophy */}
+                <div className="tmx-award-heading">
+                  <h3 className="tmx-award-title">
+                    {award.title}
+                  </h3>
+
+                  <span className="tmx-award-trophy">
+                    <TrophyIcon />
+                  </span>
+                </div>
+
+                {/* Description */}
+                <p className="tmx-award-text">
+                  {award.text}
+                </p>
+
               </div>
             </article>
           ))}
         </div>
 
+        {/* Bottom Note */}
         <div className="tmx-awards-note">
           <span />
           <p>
@@ -124,6 +129,7 @@ export default function AwardsRecognitions() {
           </p>
           <span />
         </div>
+
       </div>
     </section>
   );

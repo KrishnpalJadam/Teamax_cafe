@@ -9,7 +9,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.teamaxcafe.in";
 export const metadata: Metadata = {
   title: "Start Your Own TeaMax Café Franchise at ₹3.69 Lakh* | Zero Royalty",
   description:
-    "Start your own TeaMax Café Franchise with zero royalty, chef-less operations and complete franchise support. 1,200+ partner signups across 27+ states. Turnkey setup in 25-30 days.",
+    "Start your own TeaMax Café Franchise with zero royalty, chef-less operations and complete franchise support. 1,309+ partner signups across 27+ states. Turnkey setup in 25-30 days.",
   keywords: [
     "TeaMax franchise",
     "tea cafe franchise India",

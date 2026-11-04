@@ -289,7 +289,7 @@ export function FranchiseClient() {
   const faqs = [
     {
       q: "How much does a TeaMax franchise cost?",
-      a: "The core TeaMax franchise package starts at ₹3,69,999 (+ applicable taxes). Depending on your chosen location, initial raw materials, transport and shop interior setup (approx ₹60,000–₹70,000 for 100 sq.ft), the total estimated setup budget is approximately ₹4.39 Lakhs.",
+      a: "The core TeaMax franchise package starts at ₹3,69,999 (+ 18% GST ₹66,599). Depending on your chosen location, initial raw materials, transport and shop interior setup (approx ₹60,000 per 100 sq.ft, ₹1,20,000 for 200 sq.ft setup), the total estimated setup budget is approximately ₹4.89 Lakhs.",
     },
     {
       q: "What is the franchise license period?",
@@ -309,7 +309,7 @@ export function FranchiseClient() {
     },
     {
       q: "Does TeaMax guarantee profits?",
-      a: "While no business can guarantee absolute profits, TeaMax provides high gross margins (55%–65%), proven operating SOPs, national marketing visibility, and aggregator onboarding (Swiggy/Zomato) to maximize your success.",
+      a: "While no business can guarantee absolute profits, TeaMax provides high gross margins (55%–65%), proven operating SOPs, national marketing visibility, and aggregator assistance (Swiggy/Zomato) to maximize your success.",
     },
   ];
 
@@ -423,7 +423,9 @@ export function FranchiseClient() {
                 Start Your Own
                 <br />
                 TeaMax Café Franchise
-                <span className="highlight-yellow">at ₹3.69 Lakh*</span>
+                <span className="highlight-yellow">
+                  at ₹3.69 Lakh<span className="tm-fc-hero-star">*</span>
+                </span>
               </h1>
 
               <p className="tm-fc-hero-sub">
@@ -439,7 +441,7 @@ export function FranchiseClient() {
                     <Users size={18} strokeWidth={2.2} />
                   </div>
                   <div className="tm-fc-hero-stat-info">
-                    <strong>1,200+</strong>
+                    <strong>1,309+</strong>
                     <span>Partner Signups</span>
                   </div>
                 </div>
@@ -666,7 +668,7 @@ export function FranchiseClient() {
               <div>
                 <span className="card-tag">Franchise Package</span>
                 <div className="card-price">₹3,69,999</div>
-                <div className="card-tax">+ Applicable Taxes</div>
+                <div className="card-tax">+ 18% GST (₹66,599)</div>
 
                 <ul className="tm-fc-dark-list">
                   <li>
@@ -695,8 +697,19 @@ export function FranchiseClient() {
                 <h3>Additional Setup Investment (Estimated)</h3>
                 <div className="tm-fc-table-rows">
                   <div className="tm-fc-table-row">
-                    <span>Interior & Exterior Setup (100 sq. ft.)</span>
-                    <strong>₹60,000 – ₹70,000</strong>
+                    <div>
+                      <span>Interior & Exterior Setup (200 sq. ft.)</span>
+                      <div className="tm-fc-row-sub">₹60K per 100 sq. ft.</div>
+                    </div>
+                    <strong>₹1,20,000</strong>
+                  </div>
+                  <div className="tm-fc-table-row">
+                    <span>Cafe equipment, cafe software, owner and staff training and more</span>
+                    <span className="tm-fc-included-badge">Included</span>
+                  </div>
+                  <div className="tm-fc-table-row">
+                    <span>Taxes (GST at 18%)</span>
+                    <strong>₹66,599</strong>
                   </div>
                   <div className="tm-fc-table-row">
                     <span>Initial Raw Materials</span>
@@ -706,20 +719,16 @@ export function FranchiseClient() {
                     <span>Transportation</span>
                     <strong>Additional</strong>
                   </div>
-                  <div className="tm-fc-table-row">
-                    <span>Shop Rent, Deposit & Utilities</span>
-                    <strong>As applicable</strong>
-                  </div>
                 </div>
 
                 <div className="tm-fc-table-highlight">
                   <span>Illustrative Total (Excl. Taxes)</span>
-                  <strong>₹4,39,999</strong>
+                  <strong>₹4,89,999</strong>
                 </div>
               </div>
 
               <p className="note">
-                *Interior estimate is based on planning figure. Actual cost
+                *Interior estimate is ₹60,000 per 100 sq. ft. (Total ₹1,20,000 for 200 sq. ft.). Actual cost
                 depends on location, size, layout and materials.
               </p>
             </div>
@@ -792,6 +801,7 @@ export function FranchiseClient() {
               <div className="tm-fc-package-body">
                 <h3 className="tm-fc-package-title">Café Setup & Branding</h3>
                 <ul className="tm-fc-package-list">
+                  <li>Location Analysis Report</li>
                   <li>Café Layout & Design Guidelines</li>
                   <li>3D Design Assistance</li>
                   <li>Branding Guidelines</li>
@@ -815,6 +825,7 @@ export function FranchiseClient() {
                 <h3 className="tm-fc-package-title">Training & Technology</h3>
                 <ul className="tm-fc-package-list">
                   <li>Owner & Staff Training</li>
+                  <li>Staff Hiring Guidelines</li>
                   <li>Standard Recipes & SOPs</li>
                   <li>POS Billing Software</li>
                   <li>Inventory Management</li>
@@ -837,10 +848,11 @@ export function FranchiseClient() {
                 <h3 className="tm-fc-package-title">Business Support</h3>
                 <ul className="tm-fc-package-list">
                   <li>FSSAI Registration Assistance</li>
-                  <li>Swiggy & Zomato Onboarding</li>
-                  <li>Marketing Guidelines</li>
-                  <li>Franchise Helpline</li>
+                  <li>Swiggy & Zomato Assistance</li>
+                  <li>Brand Marketing Pan India</li>
+                  <li>Dedicated Support Helpline</li>
                   <li>Operational Assistance</li>
+                  <li>Affordable Sourcing Module</li>
                 </ul>
               </div>
             </div>
@@ -870,7 +882,7 @@ export function FranchiseClient() {
                   <div className="tm-fc-space-stat-icon">
                     <Maximize2 size={18} strokeWidth={2.3} />
                   </div>
-                  <strong>80-100 sq. ft.</strong>
+                  <strong>150 sq. ft.</strong>
                   <span>Min. Space</span>
                 </div>
 
@@ -878,7 +890,7 @@ export function FranchiseClient() {
                   <div className="tm-fc-space-stat-icon">
                     <Store size={18} strokeWidth={2.3} />
                   </div>
-                  <strong>150-200 sq. ft.</strong>
+                  <strong>200+ sq. ft.</strong>
                   <span>Recommended</span>
                 </div>
 
@@ -1150,7 +1162,7 @@ export function FranchiseClient() {
                   <span className="tm-fc-check-icon">
                     <Check size={13} strokeWidth={3} />
                   </span>
-                  Swiggy & Zomato onboarding support
+                  Swiggy & Zomato assistance
                 </li>
                 <li>
                   <span className="tm-fc-check-icon">
@@ -1171,7 +1183,7 @@ export function FranchiseClient() {
                       <Users size={18} strokeWidth={2.3} />
                     </div>
                     <div className="tm-fc-net-stat-info">
-                      <strong>1,298+</strong>
+                      <strong>1,309+</strong>
                       <span>Franchise Partner Signups</span>
                     </div>
                   </div>

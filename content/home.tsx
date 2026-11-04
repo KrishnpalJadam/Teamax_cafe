@@ -26,7 +26,7 @@ import HomeMenuCategories from "../app/components/HomeMenuCategories";
 const A = "https://cafe-blueprint-magic.lovable.app/assets";
 
 const benefits = [
-  { icon: IndianRupee, label: <>1242 +<br /></>, des: <>Franchise Partners</> },
+  { icon: IndianRupee, label: <>1309 +<br /></>, des: <>Franchise Partners</> },
   { icon: BarChart3, label: <>27 +<br /></>, des: <>States</> },
   // { icon: ChefHat, label: <>51 +<br /></>, des: <>Months</> },
   // { icon: Target, label: <>Complete<br /></>,des:<>Franchise Partners</> },
@@ -69,7 +69,7 @@ export default function Home() {
       <section className="hero-section martop" aria-labelledby="hero-title">
         <Image
           className="hero-image"
-          src="/images/Teamax-Coffee_-Burger-and-Fries.webp"
+          src="/images/Teamax website Banner.webp"
           width={1536}
           height={1024}
           priority
@@ -78,8 +78,9 @@ export default function Home() {
         />
         <div className="container-xl hero-inner">
           <div className="hero-copy">
-            <p className="eyebrow">CHAI <span>|</span> CAFÉ <span>|</span> EXPRESS <span>|</span> LOUNGE</p>
-            <h1 id="hero-title">A Café<br />Business<br /><span className="marker">Built for You</span></h1>
+            <p className="eyebrow"> EXPRESS <span>|</span> CAFÉ <span>|</span> LOUNGE</p>
+            <h1 id="hero-title">India's Most
+              <br /> Affordable <br /><span className="marker"> Franchise</span></h1>
             <p className="hero-description">Build your café with TeaMax  – a structured franchise model with no royalty and support across setup, training, technology and marketing. </p>
             <div className="hero-actions">
               <Link href="/franchise#apply" className="cafe-action">Get Franchise Details <ArrowRight size={17} /></Link>
@@ -137,7 +138,7 @@ export default function Home() {
       {/* <section className="stats-band " aria-label="TeaMax by the numbers">
         <div className="container-xl stats-inner">
           <div className="stats-map" aria-hidden="true"><MapPinned size={76} strokeWidth={0.7} /></div>
-          <div className="stat"><strong>1242+</strong><span>Franchise Partners</span></div>
+          <div className="stat"><strong>1309+</strong><span>Franchise Partners</span></div>
           <div className="stat"><strong>27+</strong><span>States</span></div>
           <div className="stat"><strong>51</strong><span>Months</span></div>
           <p className="stats-script">Brewing<br />Success<br /><span>Together ♥</span></p>

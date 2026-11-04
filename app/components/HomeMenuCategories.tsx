@@ -122,8 +122,7 @@ export default function HomeMenuCategories() {
             (a: any, b: any) =>
               (a.displayOrder ?? 99) - (b.displayOrder ?? 99)
           )
-          .slice(0, 5);
-
+          .slice(0, 6);
         if (activeCategories.length > 0) {
           const dynamicCards: CategoryCardItem[] = activeCategories.map((c: any) => ({
             id: c.id,
@@ -158,7 +157,12 @@ export default function HomeMenuCategories() {
         </div>
         <div className="menu-intro">
           <p>From classic teas and coffees to shakes, snacks and quick bites, TeaMax offers a menu designed for everyday café moments.</p>
-          <Link href="/menu" className="cafe-action cafe-outline">Explore Full Menu <ArrowRight size={17} /></Link>
+          <Link
+            href="/menu"
+            className="cafe-action cafe-outline menu-desktop-action"
+          >
+            Explore Full Menu <ArrowRight size={17} />
+          </Link>
         </div>
       </div>
       <div id="menu-cards" className="menu-grid">
@@ -182,6 +186,11 @@ export default function HomeMenuCategories() {
             </div>
           </Link>
         ))}
+      </div>
+      <div className="menu-mobile-action">
+        <Link href="/menu" className="cafe-action cafe-outline">
+          Explore Full Menu <ArrowRight size={17} />
+        </Link>
       </div>
     </section>
   );

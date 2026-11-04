@@ -62,7 +62,7 @@ const teamFeatures = [
         icon: "↗",
         title: "Our Journey and Milestones",
         description:
-            "Since its launch, TeaMax Café has experienced significant growth, building a strong and expanding franchise network across India. As of August 2026, TeaMax Café has recorded 1,286+ franchisee signups, reflecting growing interest in its tea café franchise model. Its presence across multiple states and cities highlights the brand's business model, operational support and franchise partner network.",
+            "Since its launch, TeaMax Café has experienced significant growth, building a strong and expanding franchise network across India. As of August 2026, TeaMax Café has recorded 1,309+ franchisee signups, reflecting growing interest in its tea café franchise model. Its presence across multiple states and cities highlights the brand's business model, operational support and franchise partner network.",
     },
     {
         icon: "★",

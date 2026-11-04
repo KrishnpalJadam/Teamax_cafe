@@ -145,6 +145,14 @@
   display: block;
 }
 
+.tm-fc-hero-star {
+  font-size: 0.5em;
+  vertical-align: super;
+  display: inline-block;
+  margin-left: 2px;
+  line-height: 1;
+}
+
 .tm-fc-hero-sub {
   font-size: clamp(15px, 2vw, 18px);
   font-weight: 500;
@@ -564,6 +572,26 @@
 
 .tm-fc-table-row span {
   color: var(--tm-text-muted);
+}
+
+.tm-fc-row-sub {
+  font-size: 11px;
+  color: #6b7280;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.tm-fc-included-badge {
+  background-color: #16a34a;
+  color: #ffffff;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: capitalize;
+  letter-spacing: 0.3px;
+  flex-shrink: 0;
+  display: inline-block;
 }
 
 .tm-fc-table-row strong {
@@ -1108,9 +1136,9 @@
 
 .tm-fc-network-grid {
   display: grid;
-  grid-template-columns: 1.05fr 1.25fr;
+  grid-template-columns: 1fr 1.35fr;
   gap: 40px;
-  align-items: center;
+  align-items: stretch;
 }
 
 .tm-fc-support-col h2 {
@@ -1161,14 +1189,15 @@
 .tm-fc-network-card {
   background: #263c3d;
   border-radius: var(--tm-radius-xl);
-  padding: 28px;
+  padding: 0;
   color: #ffffff;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 22px;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   box-shadow: var(--tm-shadow-lg);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  min-height: 520px;
+  height: 100%;
 }
 
 .tm-fc-network-stats-col h3 {

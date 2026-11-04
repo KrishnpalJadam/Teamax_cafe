@@ -166,7 +166,7 @@ export function FranchiseOpportunityDetails({ opportunity: initialOpportunity, s
     };
 
     return (
-        <div className="tmf-detail-page">
+        <div className="tmf-detail-page mt-5">
             {/* ====================================================================
           1. HERO SECTION (Dark Forest Green with Arch Visual)
           ==================================================================== */}
@@ -199,7 +199,7 @@ export function FranchiseOpportunityDetails({ opportunity: initialOpportunity, s
                             </p>
 
                             <p className="tmf-hero-note">
-                                Join our growing network of tea cafés in {cityName} with 1,200+
+                                Join our growing network of tea cafés in {cityName} with 1,309+
                                 partner signups. Proven business model, complete training, and
                                 end-to-end launch support.
                             </p>

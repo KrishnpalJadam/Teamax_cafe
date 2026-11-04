@@ -20,7 +20,7 @@ export function Header({ active }: { active?: string }) {
     ["/", "Home"],
     ["/about-us", "Our Story"],
     ["/menu", "Menu"],
-    ["/ourcentres", "Our Centres"],
+    // ["/ourcentres", "Our Centres"],
     ["/franchise", "Franchise"],
     ["/reviews", "Reviews"],
     ["/blog", "Blog"],
@@ -113,7 +113,9 @@ export function Footer() {
             <Link href="/">Home</Link>
             <Link href="/about-us">Our Story</Link>
             <Link href="/menu">Menu</Link>
+            <Link href="/ourcentres">Cafes</Link>
             <Link href="/franchise#apply">Franchise</Link>
+
             <Link href="/blog">Blog</Link>
           </div>
 
@@ -128,12 +130,13 @@ export function Footer() {
 
           <h4>Important Links</h4>
           <div className="tm-footer-links">
+            <Link href="/franchise-opportunities">Franchise Opportunities</Link>
+
             <Link href="/">Franchise Proposal</Link>
             <Link href="/about-us">Franchise Explainer</Link>
             <Link href="/menu">Franchise Booking</Link>
-            <Link href="/franchise#apply">Franchise List</Link>
+
             <Link href="/blog">Team Login</Link>
-            <Link href="/franchise-opportunities">Franchise Opportunities</Link>
           </div>
 
         </div>
@@ -205,15 +208,7 @@ export function Footer() {
               <FaFacebookF />
             </a>
 
-            <a
-              href="https://www.linkedin.com/company/ashoka-group-since-1969/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Ashoka Group LinkedIn"
-              title="LinkedIn"
-            >
-              <FaLinkedinIn />
-            </a>
+
 
             <a
               href="https://www.instagram.com/teamaxcafe"

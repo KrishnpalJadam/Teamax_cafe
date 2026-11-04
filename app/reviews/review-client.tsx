@@ -31,6 +31,7 @@ export type ReviewItem = {
     image: string;
     review: string;
     link?: string;
+    linkName?: string;
     stars: number;
     isFeatured?: boolean;
 };
@@ -76,6 +77,7 @@ export function ReviewClient({ categories: initialCategories, items: initialItem
                         image: rev.reviewerAvatar || "/images/cafe-interior.jpg",
                         review: rev.reviewText,
                         link: rev.viewMoreLink || undefined,
+                        linkName: rev.viewMoreLinkName || "Read More",
                         stars: Number(rev.starRating || 5),
                         isFeatured: Boolean(rev.isFeatured),
                     }))
@@ -276,9 +278,9 @@ export function ReviewClient({ categories: initialCategories, items: initialItem
                                             href={item.link}
                                             target="_blank"
                                             rel="noopener noreferrer"
-
                                         >
-                                            Read More <ExternalLink size={15} aria-hidden="true" />
+                                            {item.linkName || "Read More"}
+                                            <ExternalLink size={15} aria-hidden="true" />
                                         </a>
                                     )}
 

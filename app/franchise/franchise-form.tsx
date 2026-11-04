@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 import { BadgeCheck } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import { submitFranchiseEnquiry } from "../lib/api";
 
 type StateOption = {
   value: string;
@@ -142,7 +143,7 @@ export default function FranchiseFormSection() {
   };
 
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage("");
 
@@ -191,6 +192,46 @@ export default function FranchiseFormSection() {
     setIsSubmitting(true);
 
     try {
+      // 1. Submit to Railway backend API
+      try {
+        await submitFranchiseEnquiry({
+          fullName: formData.fullName.trim(),
+          phone: formData.phone,
+          email: formData.email.trim(),
+          city: formData.city.trim(),
+          state: formData.state,
+          budget: "₹3.69 Lakh",
+          space: formData.haveShop,
+          notes: `When to start: ${getFormattedStartMonth(formData.whenToStart)}`,
+        });
+      } catch (backendErr) {
+        console.warn("Backend franchise enquiry warning:", backendErr);
+      }
+
+      // 2. Submit to external Webhook URL if configured
+      const webhookUrl = process.env.NEXT_PUBLIC_FRANCHISE_WEBHOOK_URL;
+      if (webhookUrl) {
+        try {
+          await fetch(webhookUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              fullName: formData.fullName.trim(),
+              email: formData.email.trim(),
+              phone: formData.phone,
+              city: formData.city.trim(),
+              state: formData.state,
+              whenToStart: getFormattedStartMonth(formData.whenToStart),
+              haveShop: formData.haveShop,
+              source: "Franchise Page Form",
+              submittedAt: new Date().toISOString(),
+            }),
+          });
+        } catch (webhookErr) {
+          console.warn("External webhook warning:", webhookErr);
+        }
+      }
+
       const whatsappUrl = getWhatsAppUrl(formData);
 
       // Open WhatsApp only once

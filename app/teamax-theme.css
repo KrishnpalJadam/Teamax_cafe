@@ -2494,3 +2494,107 @@ main {
 .site-nav a:not([aria-current="page"]):hover {
   color: #d99b00;
 }
+
+/* Desktop - Show only 5 categories */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 20px;
+}
+
+/* Hide 6th and remaining categories on desktop */
+.menu-grid>.menu-card:nth-child(n + 6) {
+  display: none;
+}
+
+/* Mobile and Tablet - Show 6 categories */
+@media (max-width: 768px) {
+  .menu-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .menu-grid>.menu-card:nth-child(n + 6) {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-grid>.menu-card:nth-child(n + 6) {
+    display: block;
+  }
+
+  .menu-card-copy {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+/* Desktop */
+.menu-mobile-action {
+  display: none;
+}
+
+.menu-desktop-action {
+  display: inline-flex;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .menu-desktop-action {
+    display: none !important;
+  }
+
+  .menu-mobile-action {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 22px;
+  }
+
+  .menu-mobile-action .cafe-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-heading-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .menu-heading-grid .menu-intro {
+    display: contents;
+  }
+
+  .menu-heading-grid .menu-explore-btn {
+    order: 3;
+    margin-top: 20px;
+  }
+}
+
+/* Desktop - Mobile button hidden */
+.menu-mobile-action {
+  display: none;
+}
+
+/* Mobile only */
+@media (max-width: 768px) {
+
+  /* Hide heading wala button */
+  .menu-desktop-action {
+    display: none !important;
+  }
+
+  /* Show button below category cards */
+  .menu-mobile-action {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+  }
+}

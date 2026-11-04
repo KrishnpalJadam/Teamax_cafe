@@ -92,7 +92,7 @@ export default function FranchiseIndiaMap() {
         if (locations.length === 0) return INDIA_ZOOM;
         if (locations.length === 1) return 11;
 
-        return 6;
+        return 5;
     }, [locations]);
 
     if (error) {
@@ -137,15 +137,6 @@ export default function FranchiseIndiaMap() {
                     </Marker>
                 ))}
             </MapContainer>
-
-            <div className="tm-fc-map-legend">
-                <span className="tm-fc-legend-dot" />
-
-                <span>
-                    {locations.length} Franchise Location
-                    {locations.length === 1 ? "" : "s"}
-                </span>
-            </div>
         </div>
     );
 }

@@ -445,10 +445,10 @@ export default function OurCentresContent() {
                                     <div className="tm-cafe-body">
                                         <div className="tm-cafe-title-row">
                                             <h3>{cafe.name}</h3>
-                                            <span className="tm-distance">
+                                            {/* <span className="tm-distance">
                                                 <MapPin size={15} />
                                                 {cafe.distance} km
-                                            </span>
+                                            </span> */}
                                         </div>
 
                                         <p className="tm-cafe-address">

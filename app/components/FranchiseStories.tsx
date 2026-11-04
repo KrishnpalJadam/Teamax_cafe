@@ -5,7 +5,16 @@ import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { getReviews } from "../lib/api";
 import "./FranchiseStories.css";
-
+type FranchiseStory = {
+  id: string;
+  name: string;
+  location: string;
+  image: string;
+  review: string;
+  link?: string;
+  linkName?: string;
+  stars: number;
+};
 const defaultFranchiseStories = [
   {
     id: "default-1",
@@ -43,7 +52,9 @@ const defaultFranchiseStories = [
 ];
 
 export default function FranchiseStories() {
-  const [stories, setStories] = useState(defaultFranchiseStories);
+  const [stories, setStories] = useState<FranchiseStory[]>(
+    defaultFranchiseStories
+  );
   const [activeSlide, setActiveSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const touchStartX = useRef<number | null>(null);
@@ -125,7 +136,8 @@ export default function FranchiseStories() {
             defaultFranchiseStories[idx % defaultFranchiseStories.length]?.image ||
             "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=420&auto=format&fit=crop&q=80",
           review: r.reviewText,
-          link: r.viewMoreLink || "https://www.instagram.com/teamaxcafe/",
+          link: r.viewMoreLink || "",
+          linkName: r.viewMoreLinkName || "Read More",
           stars: r.starRating || 5,
         }));
 
@@ -208,12 +220,8 @@ export default function FranchiseStories() {
                     key={story.id || story.name}
                     className="tmx-stories-slide-wrapper"
                   >
-                    <a
-                      href={story.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <div
                       className={`tmx-franchise-story-card tmx-franchise-story-card-${(index % 3) + 1}`}
-                      aria-label={`View ${story.name}'s TeaMax story`}
                     >
                       <div className="tmx-franchise-story-avatar">
                         <img
@@ -240,12 +248,18 @@ export default function FranchiseStories() {
                       <div className="tmx-franchise-story-divider" />
 
                       <p>“{story.review}”</p>
+
                       {story.link && (
-                        <span className="tmx-story-view-more">
+                        <a
+                          href={story.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="tmx-story-view-more"
+                        >
                           {story.linkName || "Read More"} →
-                        </span>
+                        </a>
                       )}
-                    </a>
+                    </div>
                   </div>
                 ))}
               </div>

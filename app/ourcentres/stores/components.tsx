@@ -2,13 +2,13 @@
 
 import { useState, useEffect, createContext, useContext, useMemo, ReactNode } from "react";
 import {
-    ArrowRight, Bike, Car, Check, ChevronDown, ChevronLeft,
+    ArrowRight, Bike, Car, ChevronDown, ChevronLeft,
     ChevronRight, Clock3, MapPin, MessageCircle,
     Phone, ShoppingBag, Star, Utensils, Users, Wheat, Accessibility,
     X, Plus, Navigation, Percent
 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { getFeaturedProducts, getPrimaryOffer, getCommonMenu, getCentreBySlugOrId, getReviews } from "../../lib/api";
+import { getFeaturedProducts, getPrimaryOffer, getCommonMenu, getCommonCategories, getCentreBySlugOrId, getReviews } from "../../lib/api";
 
 const defaultPhotos = [
     { src: `https://teamaax-remake-showcase.lovable.app/assets/cafe-exterior-CdvnH_rb.jpg`, alt: "TeaMax cafe exterior" },
@@ -511,23 +511,130 @@ function MomentsSection() {
     );
 }
 
+// Resolve category images using the same category image rules as HomeMenuCategories.
+function resolveStoreCategoryImage(cat: any): string {
+    const img = cat?.image;
+
+    if (
+        typeof img === "string" &&
+        !img.startsWith("blob:") &&
+        (img.startsWith("http://") ||
+            img.startsWith("https://") ||
+            img.startsWith("/"))
+    ) {
+        return img;
+    }
+
+    const name = (cat?.name || "").toLowerCase();
+    const slug = (cat?.slug || "").toLowerCase();
+
+    if (
+        name.includes("classic") ||
+        name.includes("kadak") ||
+        name.includes("chai") ||
+        slug.includes("chai") ||
+        name.includes("tea") ||
+        slug.includes("tea")
+    ) {
+        return "https://cafe-blueprint-magic.lovable.app/assets/menu-tea-GDCVsE9V.jpg";
+    }
+
+    if (name.includes("coffee") || slug.includes("coffee")) {
+        return "https://cafe-blueprint-magic.lovable.app/assets/menu-coffee-DRjZy5Da.jpg";
+    }
+
+    if (name.includes("burger") || slug.includes("burger")) {
+        return "https://cafe-blueprint-magic.lovable.app/assets/hero-cafe-zlWPzgb-.jpg";
+    }
+
+    if (
+        name.includes("snack") ||
+        name.includes("samosa") ||
+        name.includes("fries") ||
+        name.includes("bite") ||
+        slug.includes("snack")
+    ) {
+        return "https://cafe-blueprint-magic.lovable.app/assets/menu-fries-CAp5uNC2.jpg";
+    }
+
+    if (
+        name.includes("shake") ||
+        name.includes("brew") ||
+        name.includes("ice") ||
+        slug.includes("shake")
+    ) {
+        return "https://cafe-blueprint-magic.lovable.app/assets/menu-shake-DCrFsPuS.jpg";
+    }
+
+    if (name.includes("sandwich") || slug.includes("sandwich")) {
+        return "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=600&auto=format&fit=crop&q=80";
+    }
+
+    if (name.includes("kulhad") || slug.includes("kulhad")) {
+        return "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=600&auto=format&fit=crop&q=80";
+    }
+
+    if (name.includes("artisan") || slug.includes("artisan")) {
+        return "https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=600&auto=format&fit=crop&q=80";
+    }
+
+    return "https://cafe-blueprint-magic.lovable.app/assets/hero-cafe-zlWPzgb-.jpg";
+}
+
 export function StoreSections() {
-    const { featuredProducts, commonMenu, offer, centre } = useStoreData();
-    const [category, setCategory] = useState("All");
-    const [added, setAdded] = useState("");
+    const { offer, centre } = useStoreData();
+    const [categories, setCategories] = useState<any[]>([]);
     const [openFaq, setOpenFaq] = useState(0);
 
-    // Featured products logic:
-    // Display maximum 6 featured products (exactly 6 when at least 6 are available, or available count if < 6)
-    const activeProducts = useMemo(() => {
-        if (category === "All") {
-            return featuredProducts.slice(0, 6);
+    // Load active categories dynamically from the same API used on the home page.
+    useEffect(() => {
+        let isMounted = true;
+
+        async function loadCategories() {
+            try {
+                const apiCategories = await getCommonCategories();
+
+                if (!isMounted) return;
+
+                if (!Array.isArray(apiCategories)) {
+                    setCategories([]);
+                    return;
+                }
+
+                const activeCategories = apiCategories
+                    .filter((item: any) => item.status === "active")
+                    .sort(
+                        (a: any, b: any) =>
+                            (a.displayOrder ?? 99) - (b.displayOrder ?? 99)
+                    )
+                    .slice(0, 6);
+
+                setCategories(
+                    activeCategories.map((item: any) => ({
+                        id: item.id,
+                        name: item.name,
+                        slug: item.slug,
+                        image: resolveStoreCategoryImage(item),
+                    }))
+                );
+            } catch (error) {
+                console.warn(
+                    "[StoreSections] Failed to load dynamic categories:",
+                    error
+                );
+
+                if (isMounted) {
+                    setCategories([]);
+                }
+            }
         }
-        const filteredFromMenu = commonMenu.filter(
-            (item) => item.category?.toLowerCase() === category.toLowerCase()
-        );
-        return (filteredFromMenu.length > 0 ? filteredFromMenu : featuredProducts).slice(0, 6);
-    }, [category, featuredProducts, commonMenu]);
+
+        loadCategories();
+
+        return () => {
+            isMounted = false;
+        };
+    }, []);
 
     const activeOffer = offer || defaultOffer;
     const locality = centre?.locality || centre?.city || "Kompally";
@@ -543,49 +650,45 @@ export function StoreSections() {
 
     return (
         <>
-            {/* Common Menu & Featured Products Section */}
+            {/* Dynamic Categories Section */}
             <section className="detailscentres-section" id="menu">
                 <div className="detailscentres-section-heading">
                     <div>
                         <span className="detailscentres-eyebrow">FRESHLY MADE</span>
                         <h2>Popular at TeaMax</h2>
                     </div>
+
                     <a className="detailscentres-section-link" href="/menu">
                         View Full Menu <ArrowRight size={16} />
                     </a>
                 </div>
 
-                <div className="detailscentres-menu-tabs">
-                    {["All", "Chai", "Coffee", "Snacks"].map((tab) => (
-                        <button
-                            key={tab}
-                            className={category === tab ? "detailscentres-chosen" : ""}
-                            onClick={() => setCategory(tab)}
+                <div className="detailscentres-category-grid">
+                    {categories.map((item) => (
+                        <a
+                            href={
+                                item.slug
+                                    ? `/menu?category=${encodeURIComponent(item.slug)}`
+                                    : "/menu"
+                            }
+                            className="detailscentres-category-card"
+                            key={item.id || item.slug || item.name}
                         >
-                            {tab}
-                        </button>
-                    ))}
-                </div>
+                            <img
+                                src={item.image}
+                                alt={`${item.name} at TeaMax`}
+                                loading="lazy"
+                            />
 
-                <div className="detailscentres-menu-grid">
-                    {activeProducts.map((item) => (
-                        <article className="detailscentres-menu-card" key={item.id || item.name}>
-                            <img src={item.image} alt={item.name} />
-                            <div className="detailscentres-menu-card-body">
-                                <div>
-                                    <h3>{item.name}</h3>
-                                    <p>{item.price}</p>
-                                </div>
+                            <div className="detailscentres-category-overlay">
+                                <h3>{item.name}</h3>
+                                <span>
+                                    Explore Category <ArrowRight size={15} />
+                                </span>
                             </div>
-                        </article>
+                        </a>
                     ))}
                 </div>
-
-                {added && (
-                    <p className="detailscentres-cart-notice">
-                        <Check size={17} /> {added} selected. Online ordering can be connected to your ordering system.
-                    </p>
-                )}
             </section>
 
             {/* Reviews Section */}

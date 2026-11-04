@@ -12,7 +12,7 @@
   position: relative;
   isolation: isolate;
   width: 100%;
-  padding: 80px 0 65px;
+  padding: 75px 0 55px;
   overflow: hidden;
   background: var(--aw-bg);
   color: var(--aw-card);
@@ -20,8 +20,7 @@
 }
 
 /* =========================================
-   ORIGINAL LEAF IMAGE
-   File: public/images/Minimal Golden Leaf Sprig Icon (1).png
+   DECORATIVE LEAVES
 ========================================= */
 
 .tmx-awards-section::before,
@@ -29,7 +28,6 @@
   content: "";
   position: absolute;
   z-index: -1;
-
   width: 145px;
   height: 180px;
 
@@ -39,17 +37,15 @@
   background-size: contain;
 
   pointer-events: none;
-  opacity: 0.9;
+  opacity: 0.85;
 }
 
-/* Top-left leaf */
 .tmx-awards-section::before {
   top: 15px;
   left: -15px;
   transform: rotate(-10deg);
 }
 
-/* Bottom-right leaf */
 .tmx-awards-section::after {
   right: -10px;
   bottom: 0;
@@ -57,8 +53,7 @@
 }
 
 /* =========================================
-   XL CONTAINER
-   Background full width, content centered
+   CONTAINER
 ========================================= */
 
 .tmx-awards-container {
@@ -70,22 +65,21 @@
 }
 
 /* =========================================
-   HEADING + RIGHT PARAGRAPH
+   SECTION HEADING
 ========================================= */
 
 .tmx-awards-section .tmx-awards-heading-row {
   position: relative;
-  top: auto;
   z-index: 1;
 
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 40px;
+  gap: 35px;
 
   width: 100%;
   max-width: none;
-  margin: 0 0 42px;
+  margin: 0 0 32px;
   padding: 0;
 
   background: transparent;
@@ -93,7 +87,6 @@
   box-sizing: border-box;
 }
 
-/* Heading keeps the existing font and size */
 .tmx-awards-section .tmx-awards-heading-row>div {
   flex: 1 1 55%;
   min-width: 0;
@@ -104,17 +97,15 @@
   color: #fff8ee;
 }
 
-/* Existing yellow underline */
 .tmx-awards-section .tmx-awards-heading-row .short-line {
   display: block;
   width: 76px;
   height: 3px;
-  margin-top: 16px;
+  margin-top: 13px;
   border-radius: 10px;
   background: var(--aw-yellow);
 }
 
-/* Paragraph remains on the right */
 .tmx-awards-section .tmx-awards-heading-row>p {
   flex: 0 1 42%;
   max-width: 520px;
@@ -122,15 +113,15 @@
   color: #fff8ee;
   opacity: 0.92;
   text-align: left;
+  line-height: 1.6;
 }
 
-/* Disable previous sticky-heading decoration */
 .tmx-awards-section .tmx-awards-heading-row::before {
   display: none;
 }
 
 /* =========================================
-   AWARD CARDS GRID
+   AWARDS GRID
 ========================================= */
 
 .tmx-awards-grid {
@@ -142,37 +133,45 @@
   margin: 0;
 }
 
+/* =========================================
+   AWARD CARD
+========================================= */
+
 .tmx-award-card {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding: 15px 15px 18px;
-
+  padding: 12px;
   background: var(--aw-card);
   color: var(--aw-teal);
+
   border: 1px solid rgba(255, 237, 130, 0.3);
-  border-radius: 17px;
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.10);
+
   overflow: hidden;
+  box-sizing: border-box;
 
   transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-  box-sizing: border-box;
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
 .tmx-award-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.17);
 }
 
-/* Award image */
+/* =========================================
+   AWARD IMAGE
+========================================= */
+
 .tmx-award-image-box {
   position: relative;
   width: 100%;
-  aspect-ratio: 1.22 / 1;
+  aspect-ratio: 1.4 / 1;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 11px;
   background: #e9e4d8;
 }
 
@@ -182,75 +181,111 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.45s ease;
+
+  transition: transform 0.4s ease;
 }
 
 .tmx-award-card:hover .tmx-award-image {
-  transform: scale(1.04);
+  transform: scale(1.035);
 }
 
-/* Trophy, line and number */
-.tmx-award-meta {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  width: 100%;
-  margin: 15px 0 13px;
-}
+/* =========================================
+   AWARD CONTENT
+========================================= */
 
-.tmx-award-trophy {
-  display: flex;
-  flex: 0 0 50px;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: var(--aw-yellow);
-  color: var(--aw-teal);
-}
-
-.tmx-award-divider {
-  flex: 1;
-  min-width: 10px;
-  height: 1px;
-  background: #e4d184;
-}
-
-.tmx-award-number {
-  flex: 0 0 auto;
-  color: #c6ad60;
-  font-size: 19px;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-}
-
-/* Award content */
 .tmx-award-content {
   display: flex;
   flex: 1;
   flex-direction: column;
+  align-items: stretch;
+
+  min-width: 0;
+  padding: 15px 7px 9px;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   TITLE + TROPHY ROW
+========================================= */
+
+.tmx-award-heading {
+  display: flex;
   align-items: flex-start;
+  justify-content: space-between;
+  gap: 9px;
+  width: 100%;
+  min-width: 0;
 }
 
 .tmx-award-title {
+  flex: 1;
+  min-width: 0;
+
   margin: 0;
   color: var(--aw-teal);
+
   font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(19px, 1.55vw, 27px);
+  font-size: clamp(18px, 1.45vw, 23px);
   font-weight: 700;
-  line-height: 1.24;
+  line-height: 1.28;
   letter-spacing: -0.45px;
-  overflow-wrap: anywhere;
+
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
+/* =========================================
+   TROPHY ICON
+========================================= */
+
+.tmx-award-trophy {
+  display: flex;
+  flex: 0 0 38px;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  margin-top: -1px;
+  border-radius: 50%;
+
+  background: var(--aw-yellow);
+  color: var(--aw-teal);
+}
+
+.tmx-award-trophy svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+}
+
+/* =========================================
+   AWARD DESCRIPTION
+========================================= */
+
 .tmx-award-text {
-  margin: 13px 0 0;
+  width: 100%;
+  margin: 8px 0 0;
+  padding: 0;
+
   color: var(--aw-muted);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 1.6;
-  overflow-wrap: anywhere;
+  line-height: 1.55;
+
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+/* =========================================
+   REMOVE OLD NUMBERING
+========================================= */
+
+.tmx-award-meta,
+.tmx-award-divider,
+.tmx-award-number {
+  display: none !important;
 }
 
 /* =========================================
@@ -262,8 +297,9 @@
   align-items: center;
   justify-content: center;
   gap: 18px;
+
   width: 100%;
-  margin: 55px auto 0;
+  margin: 38px auto 0;
 }
 
 .tmx-awards-note>span {
@@ -276,7 +312,7 @@
   margin: 0;
   color: var(--aw-card);
   font-size: 13px;
-  line-height: 1.7;
+  line-height: 1.6;
   text-align: center;
 }
 
@@ -286,29 +322,38 @@
 
 @media (max-width: 1200px) {
   .tmx-awards-container {
-    width: calc(100% - 48px);
+    width: calc(100% - 40px);
   }
 
   .tmx-awards-grid {
-    gap: 16px;
+    gap: 15px;
   }
 
   .tmx-award-card {
-    padding: 14px 14px 19px;
+    padding: 10px;
   }
 
-  .tmx-award-trophy {
-    flex-basis: 43px;
-    width: 43px;
-    height: 43px;
+  .tmx-award-content {
+    padding: 13px 5px 8px;
   }
 
   .tmx-award-title {
-    font-size: 21px;
+    font-size: 19px;
   }
 
   .tmx-award-text {
-    font-size: 14px;
+    font-size: 13px;
+  }
+
+  .tmx-award-trophy {
+    flex-basis: 34px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .tmx-award-trophy svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -318,41 +363,41 @@
 
 @media (max-width: 900px) {
   .tmx-awards-section {
-    padding: 70px 0 50px;
-  }
-
-  .tmx-awards-container {
-    width: calc(100% - 40px);
+    padding: 60px 0 45px;
   }
 
   .tmx-awards-section .tmx-awards-heading-row {
-    gap: 26px;
-    margin-bottom: 34px;
+    gap: 25px;
+    margin-bottom: 28px;
   }
 
   .tmx-awards-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
+    gap: 18px;
   }
 
   .tmx-award-card {
-    padding: 16px;
+    padding: 12px;
   }
 
   .tmx-award-image-box {
-    aspect-ratio: 1.4 / 1;
+    aspect-ratio: 1.5 / 1;
+  }
+
+  .tmx-award-content {
+    padding: 14px 6px 8px;
   }
 
   .tmx-award-title {
-    font-size: clamp(22px, 3vw, 27px);
+    font-size: 22px;
   }
 
   .tmx-award-text {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .tmx-awards-note {
-    margin-top: 40px;
+    margin-top: 32px;
   }
 }
 
@@ -362,7 +407,7 @@
 
 @media (max-width: 600px) {
   .tmx-awards-section {
-    padding: 55px 0 40px;
+    padding: 50px 0 38px;
   }
 
   .tmx-awards-container {
@@ -383,14 +428,13 @@
 
   .tmx-awards-section::after {
     right: -15px;
-    bottom: 0;
   }
 
   .tmx-awards-section .tmx-awards-heading-row {
     flex-direction: column;
     align-items: flex-start;
-    gap: 14px;
-    margin-bottom: 28px;
+    gap: 12px;
+    margin-bottom: 25px;
   }
 
   .tmx-awards-section .tmx-awards-heading-row>div,
@@ -400,67 +444,86 @@
     max-width: 100%;
   }
 
-  .tmx-awards-section .tmx-awards-heading-row .short-line {
-    margin-top: 12px;
-  }
-
   .tmx-awards-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
   }
 
   .tmx-award-card {
-    padding: 15px 15px 22px;
-    border-radius: 16px;
+    padding: 8px;
+    border-radius: 12px;
   }
 
   .tmx-award-image-box {
-    aspect-ratio: 1.45 / 1;
+    aspect-ratio: 1.2 / 1;
+    border-radius: 8px;
   }
 
-  .tmx-award-meta {
-    gap: 12px;
-    margin: 13px 0 12px;
+  .tmx-award-content {
+    padding: 11px 3px 7px;
   }
 
-  .tmx-award-trophy {
-    flex-basis: 44px;
-    width: 44px;
-    height: 44px;
-  }
-
-  .tmx-award-trophy svg {
-    width: 24px;
-    height: 24px;
-  }
-
-  .tmx-award-number {
-    font-size: 17px;
+  .tmx-award-heading {
+    gap: 5px;
   }
 
   .tmx-award-title {
-    font-size: 24px;
-    line-height: 1.25;
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  .tmx-award-trophy {
+    flex-basis: 29px;
+    width: 29px;
+    height: 29px;
+  }
+
+  .tmx-award-trophy svg {
+    width: 17px;
+    height: 17px;
   }
 
   .tmx-award-text {
-    margin-top: 9px;
-    font-size: 15px;
-    line-height: 1.6;
+    margin-top: 7px;
+    font-size: 12px;
+    line-height: 1.5;
   }
 
   .tmx-awards-note {
-    gap: 10px;
-    margin-top: 32px;
+    gap: 8px;
+    margin-top: 28px;
   }
 
   .tmx-awards-note>span {
-    flex-basis: 24px;
+    flex-basis: 20px;
   }
 
   .tmx-awards-note p {
     max-width: 280px;
-    font-size: 11px;
+    font-size: 10px;
+  }
+}
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 360px) {
+  .tmx-awards-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .tmx-award-image-box {
+    aspect-ratio: 1.5 / 1;
+  }
+
+  .tmx-award-title {
+    font-size: 19px;
+  }
+
+  .tmx-award-text {
+    font-size: 13px;
   }
 }
 
