@@ -8,6 +8,7 @@ export interface BlogPost {
   readTime: string;
   date: string;
   isoDate: string;
+  isFeatured?: boolean;
   author: {
     name: string;
     role: string;

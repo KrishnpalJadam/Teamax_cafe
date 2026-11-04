@@ -65,6 +65,7 @@ export default async function BlogIndexPage() {
           readTime: b.readingTime || "5 min read",
           date: dateStr,
           isoDate: b.publishDate || b.createdAt || new Date().toISOString(),
+          isFeatured: Boolean(b.isFeatured),
           author: {
             name: b.author || "TeaMax Editorial Team",
             role: b.authorDesignation || "TeaMax Culinary Research",
@@ -89,7 +90,13 @@ export default async function BlogIndexPage() {
       });
 
       const existingSlugs = new Set(mappedApiBlogs.map((b) => b.slug));
-      posts = [...mappedApiBlogs, ...posts.filter((p) => !existingSlugs.has(p.slug))];
+      const combined = [...mappedApiBlogs, ...posts.filter((p) => !existingSlugs.has(p.slug))];
+      posts = combined.sort((a, b) => {
+        const featA = a.isFeatured ? 1 : 0;
+        const featB = b.isFeatured ? 1 : 0;
+        if (featA !== featB) return featB - featA;
+        return new Date(b.isoDate || 0).getTime() - new Date(a.isoDate || 0).getTime();
+      });
     }
   } catch (_) { }
 
