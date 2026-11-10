@@ -13801,7 +13801,7 @@ body {
 
   gap: 55px;
 
-  padding-bottom: 65px;
+  /* padding-bottom: 65px; */
 }
 
 /* =========================================
@@ -14294,7 +14294,7 @@ body {
 
     gap: 50px 45px;
 
-    padding-bottom: 55px;
+    padding-bottom: 15px;
   }
 
   .tm-footer-brand {
@@ -14341,7 +14341,7 @@ body {
 
     gap: 42px;
 
-    padding-bottom: 45px;
+    padding-bottom: 15px;
   }
 
 

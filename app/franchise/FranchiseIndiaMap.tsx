@@ -1,115 +1,132 @@
+
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import L from "leaflet";
+import {
+    MapContainer,
+    TileLayer,
+    CircleMarker,
+} from "react-leaflet";
+
 import "leaflet/dist/leaflet.css";
 import "./FranchiseIndiaMap.css";
-import { getCentres } from "../lib/api";
 
-type MapLocation = {
-    id: number | string;
-    name: string;
-    city: string;
-    state: string;
-    latitude: number;
-    longitude: number;
-};
-
+// India map settings
 const INDIA_CENTER: [number, number] = [22.5, 79.0];
 const INDIA_ZOOM = 5;
 
-const locationIcon = L.divIcon({
-    className: "tm-map-location-icon",
-    html: `
-    <div class="tm-map-marker">
-      <span class="tm-map-marker-pulse"></span>
-      <span class="tm-map-marker-dot"></span>
-    </div>
-  `,
-    iconSize: [24, 24],
-    iconAnchor: [12, 12],
-});
+// Number of static decorative dots
+const STATIC_DOT_COUNT = 300;
 
-export default function FranchiseIndiaMap() {
-    const [locations, setLocations] = useState<MapLocation[]>([]);
-    const [error, setError] = useState(false);
+// Approximate outline of mainland India + North-East
+const INDIA_BOUNDARY: [number, number][] = [
+    [35.5, 74.5],
+    [35.8, 77.8],
+    [34.5, 79.5],
+    [32.5, 78.8],
+    [31.0, 79.5],
+    [29.5, 80.2],
+    [28.8, 88.2],
+    [27.8, 92.0],
+    [28.2, 97.3],
+    [26.5, 97.4],
+    [24.5, 95.1],
+    [23.5, 94.0],
+    [22.0, 93.5],
+    [22.0, 92.0],
+    [24.0, 89.8],
+    [22.5, 88.0],
+    [21.5, 87.5],
+    [20.5, 86.5],
+    [19.0, 85.5],
+    [17.5, 84.8],
+    [16.5, 83.5],
+    [15.0, 80.5],
+    [13.0, 80.3],
+    [11.5, 79.8],
+    [9.0, 79.5],
+    [8.0, 77.5],
+    [8.3, 76.5],
+    [10.0, 76.0],
+    [12.5, 74.8],
+    [14.0, 74.0],
+    [16.0, 73.5],
+    [18.0, 72.8],
+    [20.0, 70.8],
+    [22.0, 69.5],
+    [23.5, 68.5],
+    [24.5, 68.5],
+    [25.5, 70.0],
+    [26.5, 70.5],
+    [28.0, 71.5],
+    [30.0, 72.5],
+    [32.0, 74.0],
+];
 
-    useEffect(() => {
-        let mounted = true;
+// Check whether a coordinate falls inside India's approximate boundary
+function isInsideIndia(lat: number, lng: number) {
+    let inside = false;
 
-        getCentres()
-            .then((data: any[]) => {
-                if (!mounted || !Array.isArray(data)) return;
+    for (
+        let i = 0, j = INDIA_BOUNDARY.length - 1;
+        i < INDIA_BOUNDARY.length;
+        j = i++
+    ) {
+        const [latI, lngI] = INDIA_BOUNDARY[i];
+        const [latJ, lngJ] = INDIA_BOUNDARY[j];
 
-                const formatted: MapLocation[] = data
-                    .filter(
-                        (item) =>
-                            typeof item?.latitude === "number" &&
-                            typeof item?.longitude === "number"
-                    )
-                    .map((item) => ({
-                        id: item.id,
-                        name: item.name || item.city,
-                        city: item.city || "",
-                        state: item.state || "",
-                        latitude: item.latitude,
-                        longitude: item.longitude,
-                    }));
+        const intersects =
+            lngI > lng !== lngJ > lng &&
+            lat <
+            ((latJ - latI) * (lng - lngI)) /
+            (lngJ - lngI) +
+            latI;
 
-                setLocations(formatted);
-            })
-            .catch((err) => {
-                console.error("Centres API error:", err);
-
-                if (mounted) {
-                    setError(true);
-                }
-            });
-
-        return () => {
-            mounted = false;
-        };
-    }, []);
-
-    const mapCenter = useMemo<[number, number]>(() => {
-        if (locations.length === 0) {
-            return INDIA_CENTER;
-        }
-
-        const avgLat =
-            locations.reduce((sum, item) => sum + item.latitude, 0) /
-            locations.length;
-
-        const avgLng =
-            locations.reduce((sum, item) => sum + item.longitude, 0) /
-            locations.length;
-
-        return [avgLat, avgLng];
-    }, [locations]);
-
-    const mapZoom = useMemo(() => {
-        if (locations.length === 0) return INDIA_ZOOM;
-        if (locations.length === 1) return 11;
-
-        return 5;
-    }, [locations]);
-
-    if (error) {
-        return (
-            <div className="tm-fc-map-error">
-                Franchise locations could not be loaded right now.
-            </div>
-        );
+        if (intersects) inside = !inside;
     }
 
+    return inside;
+}
+
+// Generate repeatable static coordinates
+function generateStaticDots(count: number) {
+    let seed = 20261110;
+
+    const random = () => {
+        seed = (seed * 9301 + 49297) % 233280;
+        return seed / 233280;
+    };
+
+    const dots: [number, number][] = [];
+
+    let attempts = 0;
+
+    while (dots.length < count && attempts < count * 200) {
+        attempts++;
+
+        const lat = 8 + random() * 29;
+        const lng = 68 + random() * 30;
+
+        if (isInsideIndia(lat, lng)) {
+            dots.push([lat, lng]);
+        }
+    }
+
+    return dots;
+}
+
+// Static dots generated once
+const STATIC_DOTS = generateStaticDots(STATIC_DOT_COUNT);
+
+export default function FranchiseIndiaMap() {
     return (
         <div className="tm-fc-real-map">
-            <span className="tm-fc-map-tag">Growing Across India</span>
+            <span className="tm-fc-map-tag">
+                Growing Across India
+            </span>
 
             <MapContainer
-                center={mapCenter}
-                zoom={mapZoom}
+                center={INDIA_CENTER}
+                zoom={INDIA_ZOOM}
                 scrollWheelZoom={false}
                 className="tm-fc-leaflet-map"
             >
@@ -119,22 +136,20 @@ export default function FranchiseIndiaMap() {
                     maxZoom={18}
                 />
 
-                {locations.map((location) => (
-                    <Marker
-                        key={location.id}
-                        position={[location.latitude, location.longitude]}
-                        icon={locationIcon}
-                    >
-                        <Popup>
-                            <div className="tm-map-popup">
-                                <strong>{location.name}</strong>
-                                <span>
-                                    {location.city}
-                                    {location.state ? `, ${location.state}` : ""}
-                                </span>
-                            </div>
-                        </Popup>
-                    </Marker>
+                {STATIC_DOTS.map((position, index) => (
+                    <CircleMarker
+                        key={index}
+                        center={position}
+                        radius={3.5}
+                        interactive={false}
+                        bubblingMouseEvents={false}
+                        pathOptions={{
+                            color: "#102d29",
+                            weight: 1.5,
+                            fillColor: "#ffd028",
+                            fillOpacity: 1,
+                        }}
+                    />
                 ))}
             </MapContainer>
         </div>

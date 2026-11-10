@@ -53,7 +53,7 @@ const FranchiseIndiaMap = dynamic(
 
 export function FranchiseClient() {
   // FAQ accordion state
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   // Categories slider state
   const [catIndex, setCatIndex] = useState(0);
@@ -380,7 +380,7 @@ export function FranchiseClient() {
   };
 
   const toggleFaq = (index: number) => {
-    setOpenFaq(openFaq === index ? null : index);
+    setOpenFaq((prev) => (prev === index ? null : index));
   };
 
 
@@ -477,13 +477,12 @@ export function FranchiseClient() {
                   <FaWhatsapp size={19} />
                 </button>
 
-                <button
-                  onClick={scrollToForm}
-                  className="tm-fc-btn-secondary"
-                >
+                <a
+                  className="tm-fc-btn-secondary" href="https://drive.google.com/file/d/1hXeKMuqImeq0eA3cL_934FS44iZvXJRQ/view"
+                  target="blank"  >
                   <span>Download Proposal</span>
                   <Download size={17} strokeWidth={2.2} />
-                </button>
+                </a>
               </div>
 
               <p className="tm-fc-hero-disclaimer">
@@ -705,7 +704,7 @@ export function FranchiseClient() {
                   </div>
                   <div className="tm-fc-table-row">
                     <span>Cafe equipment, cafe software, owner and staff training and more</span>
-                    <span className="tm-fc-included-badge">Included</span>
+                    <span className="tm-fc-included-badge text-dark">Included</span>
                   </div>
                   <div className="tm-fc-table-row">
                     <span>Taxes (GST at 18%)</span>
@@ -741,10 +740,10 @@ export function FranchiseClient() {
 
               <h3>Get Detailed Investment Breakup</h3>
 
-              <button onClick={scrollToForm} className="tm-fc-btn-dark">
+              <a href="https://drive.google.com/file/d/1hXeKMuqImeq0eA3cL_934FS44iZvXJRQ/view" target="blank" className="tm-fc-btn-dark">
                 <span>Download Now</span>
                 <Download size={16} strokeWidth={2.3} />
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -1484,39 +1483,103 @@ export function FranchiseClient() {
 
           </div>
 
+
           <div className="tm-fc-faq-grid">
-            {faqs.map((faq, idx) => (
-              <div
-                key={faq.q}
-                className={`tm-fc-faq-item ${openFaq === idx ? "open" : ""}`}
-                onClick={() => toggleFaq(idx)}
-              >
-                <div className="tm-fc-faq-question">
+
+            {/* Left Column */}
+            <div className="tm-fc-faq-column">
+              {faqs.filter((_, idx) => idx % 2 === 0).map((faq, idx) => {
+                const faqIndex = idx * 2;
+
+                return (
                   <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
+                    key={faq.q}
+                    className={`tm-fc-faq-item ${openFaq === faqIndex ? "open" : ""
+                      }`}
+                    onClick={() => toggleFaq(faqIndex)}
                   >
-                    <HelpCircle size={17} className="tm-fc-faq-icon-user" />
-                    <span>{faq.q}</span>
+                    <div className="tm-fc-faq-question">
+                      <div style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px"
+                      }}>
+                        <HelpCircle
+                          size={17}
+                          className="tm-fc-faq-icon-user"
+                        />
+                        <span>{faq.q}</span>
+                      </div>
+
+                      <ChevronDown
+                        size={18}
+                        className="tm-fc-faq-chevron"
+                        style={{
+                          transform: openFaq === faqIndex
+                            ? "rotate(180deg)"
+                            : "rotate(0deg)"
+                        }}
+                      />
+                    </div>
+
+                    {openFaq === faqIndex && (
+                      <div className="tm-fc-faq-answer">
+                        {faq.a}
+                      </div>
+                    )}
                   </div>
-                  <ChevronDown
-                    size={18}
-                    className="tm-fc-faq-chevron"
-                    style={{
-                      transform: openFaq === idx ? "rotate(180deg)" : "rotate(0deg)",
-                      transition: "transform 0.25s ease",
-                    }}
-                  />
-                </div>
-                {openFaq === idx && (
-                  <div className="tm-fc-faq-answer">{faq.a}</div>
-                )}
-              </div>
-            ))}
+                );
+              })}
+            </div>
+
+            {/* Right Column */}
+            <div className="tm-fc-faq-column">
+              {faqs.filter((_, idx) => idx % 2 !== 0).map((faq, idx) => {
+                const faqIndex = idx * 2 + 1;
+
+                return (
+                  <div
+                    key={faq.q}
+                    className={`tm-fc-faq-item ${openFaq === faqIndex ? "open" : ""
+                      }`}
+                    onClick={() => toggleFaq(faqIndex)}
+                  >
+                    <div className="tm-fc-faq-question">
+                      <div style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px"
+                      }}>
+                        <HelpCircle
+                          size={17}
+                          className="tm-fc-faq-icon-user"
+                        />
+                        <span>{faq.q}</span>
+                      </div>
+
+                      <ChevronDown
+                        size={18}
+                        className="tm-fc-faq-chevron"
+                        style={{
+                          transform: openFaq === faqIndex
+                            ? "rotate(180deg)"
+                            : "rotate(0deg)"
+                        }}
+                      />
+                    </div>
+
+                    {openFaq === faqIndex && (
+                      <div className="tm-fc-faq-answer">
+                        {faq.a}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
           </div>
+
         </div>
       </section>
 

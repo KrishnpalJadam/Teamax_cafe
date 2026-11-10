@@ -830,3 +830,18 @@
 .tmx-franchise-story-card:hover .tmx-story-view-more {
   opacity: 0.7;
 }
+
+/* Testimonial Review - Maximum 5 Lines */
+.tmx-franchise-story-card>p {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  line-height: 1.7;
+  min-height: calc(1.7em * 5);
+  max-height: calc(1.7em * 5);
+}

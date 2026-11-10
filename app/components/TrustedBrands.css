@@ -49,9 +49,14 @@
   text-align: left;
 }
 
-.tmx-trusted-brands .tmx-trusted-heading h2 {
+.tmx-trusted-heading h2 {
   margin: 0;
-  color: var(--tmx-tb-cream);
+  /* color: #fff8ee; */
+}
+
+.tmx-trusted-heading .short-line {
+  display: block;
+  background: #ffed82;
 }
 
 .tmx-trusted-brands .tmx-trusted-heading .short-line {

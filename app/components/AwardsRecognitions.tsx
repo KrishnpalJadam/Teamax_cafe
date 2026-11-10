@@ -1,7 +1,14 @@
 
 "use client";
 
+import React, { useState } from "react";
 import "./AwardsRecognitions.css";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Grid } from "swiper/modules";
+
+import "swiper/css";
+import "swiper/css/grid";
 
 const awards = [
   {
@@ -13,24 +20,49 @@ const awards = [
   },
   {
     title: "Top Performing Franchise",
-    text: "Bharat Business Awards",
+    text: "Awarded by Ashneer Grover at the Bharat Business Awards",
     image:
       "https://static.wixstatic.com/media/ac5a6b_666cfcb6b8a14854898cb9a2f0e09de1~mv2.webp/v1/fill/w_400,h_304,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Bharat%20Business%20Awards%20TeaMax%20Cafe%20India.webp",
     alt: "Top Performing Franchise award",
   },
   {
     title: "Brand Innovation of the Year",
-    text: "2nd IRIE Annual Awards",
+    text: "Awarded by Sri Suresh Kumar Singhal, then President of FTCCI, at the",
     image:
       "https://static.wixstatic.com/media/ac5a6b_bcc45811a2094ae0a53990faf9b0f0b8~mv2.webp/v1/fill/w_400,h_304,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IRIE%20Awards.webp",
     alt: "Brand Innovation of the Year award",
   },
   {
     title: "Franchise of the Year",
-    text: "GBEA Business Awards",
+    text: "Awarded by Shri Madan Lal at the Global Business & Education Awards",
     image:
       "https://static.wixstatic.com/media/ac5a6b_f0e8410376ac4d94ba02c9a202b63d4e~mv2.jpg/v1/crop/x_0,y_0,w_500,h_382/fill/w_400,h_304,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/GBEA%20Awards_edited.jpg",
     alt: "Franchise of the Year award",
+  },
+  {
+    title: "India Brand Icon Awards",
+    text: "Awarded by Sunil Gavaskar at International Award Meet",
+    image: "/images/IABC 2025 Ashoka FranMark.webp",
+    alt: "India Brand Icon Awards",
+  },
+  {
+    title: "Franchise of the Year",
+    text: "Awarded by Bhumika Chawla at the Telangana Business Innovation Award",
+    image: "/images/Franchise of the Year 2025.webp",
+    alt: "Franchise of the Year",
+  },
+  {
+    title: "International Excellence Award",
+    text: "Awarded by Padma Shri Saina Nehwal at the International Excellence Awards 2026, organised by Kiteskraft Productions LLP.",
+    image:
+      "/images/IEA 2026, by Padma Shri Saina Nehwal (1).webp",
+    alt: "International Excellence Award",
+  },
+  {
+    title: "Franchise Ecosystem Builder of the Year",
+    text: "Awarded by Jaya Prada at the Pride of Southern India Awards",
+    image: "/images/Pride of south.webp",
+    alt: "Franchise Ecosystem Builder of the Year",
   },
 ];
 
@@ -58,6 +90,16 @@ function TrophyIcon() {
 }
 
 export default function AwardsRecognitions() {
+  const [expandedAwards, setExpandedAwards] = useState<number[]>([]);
+
+  const toggleDescription = (index: number) => {
+    setExpandedAwards((prev) =>
+      prev.includes(index)
+        ? prev.filter((item) => item !== index)
+        : [...prev, index]
+    );
+  };
+
   return (
     <section
       className="tmx-awards-section"
@@ -79,54 +121,134 @@ export default function AwardsRecognitions() {
           </p>
         </div>
 
-        {/* Awards Grid */}
-        <div className="tmx-awards-grid">
-          {awards.map((award, index) => (
-            <article
-              className="tmx-award-card"
-              key={award.title}
-            >
-              {/* Award Image */}
-              <div className="tmx-award-image-box">
-                <img
-                  src={award.image}
-                  alt={award.alt}
-                  className="tmx-award-image"
-                  loading={index === 0 ? "eager" : "lazy"}
-                />
-              </div>
+        {/* Awards Swiper Slider */}
+        <Swiper
+          className="tmx-awards-grid"
+          modules={[Autoplay, Grid]}
+          loop={true}
+          speed={1300}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+            waitForTransition: true,
+          }}
+          slidesPerView={4}
+          slidesPerGroup={4}
+          spaceBetween={20}
+          grid={{
+            rows: 1,
+            fill: "row",
+          }}
+          watchOverflow={true}
+          breakpoints={{
+            // Mobile: 2 columns x 2 rows
+            0: {
+              slidesPerView: 1,
+              slidesPerGroup: 1,
+              spaceBetween: 12,
+              grid: {
+                rows: 2,
+                fill: "row",
+              },
+            },
 
-              {/* Award Details */}
-              <div className="tmx-award-content">
+            // Tablet: 2 cards in one row
+            601: {
+              slidesPerView: 2,
+              slidesPerGroup: 2,
+              spaceBetween: 18,
+              grid: {
+                rows: 1,
+                fill: "row",
+              },
+            },
 
-                {/* Title and Trophy */}
-                <div className="tmx-award-heading">
-                  <h3 className="tmx-award-title">
-                    {award.title}
-                  </h3>
+            // Desktop: 4 cards in one row
+            901: {
+              slidesPerView: 4,
+              slidesPerGroup: 4,
+              spaceBetween: 20,
+              grid: {
+                rows: 1,
+                fill: "row",
+              },
+            },
+          }}
+        >
+          {awards.map((award, index) => {
+            const isExpanded = expandedAwards.includes(index);
+            const isLong = award.text.length > 75;
 
-                  <span className="tmx-award-trophy">
-                    <TrophyIcon />
-                  </span>
-                </div>
+            return (
+              <SwiperSlide key={`${award.title}-${index}`}>
+                <article className="tmx-award-card">
 
-                {/* Description */}
-                <p className="tmx-award-text">
-                  {award.text}
-                </p>
+                  {/* Award Image */}
+                  <div className="tmx-award-image-box">
+                    <img
+                      src={award.image}
+                      alt={award.alt}
+                      className="tmx-award-image"
+                      loading={index === 0 ? "eager" : "lazy"}
+                    />
+                  </div>
 
-              </div>
-            </article>
-          ))}
-        </div>
+                  {/* Award Content */}
+                  <div className="tmx-award-content">
+
+                    {/* Title and Trophy */}
+                    <div className="tmx-award-heading">
+                      <h3 className="tmx-award-title">
+                        {award.title}
+                      </h3>
+
+                      <span className="tmx-award-trophy">
+                        <TrophyIcon />
+                      </span>
+                    </div>
+
+                    {/* Description */}
+                    <p
+                      className={`tmx-award-text ${isLong && !isExpanded ? "is-collapsed" : ""
+                        }`}
+                    >
+                      {award.text}
+                    </p>
+
+                    {/* View More / Less */}
+                    {isLong && (
+                      <button
+                        type="button"
+                        className="tmx-award-view-more"
+                        onClick={() => toggleDescription(index)}
+                        aria-expanded={isExpanded}
+                        aria-label={
+                          isExpanded
+                            ? `Show less about ${award.title}`
+                            : `View more about ${award.title}`
+                        }
+                      >
+                        {isExpanded ? "View less" : "View more"}
+                      </button>
+                    )}
+
+                  </div>
+                </article>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
 
         {/* Bottom Note */}
         <div className="tmx-awards-note">
           <span />
+
           <p>
             Please note: Award presenters are not associated with the brand
             TeaMax Cafe India.
           </p>
+
           <span />
         </div>
 

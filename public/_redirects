@@ -1,3 +1,4 @@
-/franchise  /cafe-franchise-india  301
-/franchise/*  /cafe-franchise-india  301
-
+/ourcentres  /locations  301
+/ourcentres/*  /locations/:splat  301
+/franchise-opportunities  /franchise  301
+/franchise-opportunities/*  /franchise/:splat  301

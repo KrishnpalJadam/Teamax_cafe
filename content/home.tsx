@@ -120,7 +120,8 @@ export default function Home() {
         <div className="franchise-content">
           <p className="eyebrow">FRANCHISE OPPORTUNITY</p>
           <h2>Start Your Own<br /><span className="marker">TeaMax Café</span></h2>
-          <p className="franchise-description">Build your café with a structured franchise model, backed by setup, training, technology, marketing and operational support.</p>
+          <p className="franchise-description">Bring your café vision to life with TeaMax. Get the guidance, tools and business support you need, from setting up your café to managing daily operations, training and marketing.
+          </p>
           <div className="franchise-features">
             {[
               { icon: IndianRupee, a: "Affordable", b: "Investment" },

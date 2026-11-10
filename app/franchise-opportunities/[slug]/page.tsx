@@ -54,7 +54,7 @@ export default async function FranchiseOpportunityPage({ params }: PageProps) {
 
     return (
         <>
-            <Header active="/franchise-opportunities" />
+            <Header active="/franchise" />
             <FranchiseOpportunityDetails
                 opportunity={opportunity || fallbackOpportunity}
                 slug={slug}

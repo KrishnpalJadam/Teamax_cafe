@@ -12,20 +12,38 @@ export const dynamic = "force-static";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.teamaxcafe.in";
 
 export async function generateStaticParams() {
-  const posts = getAllBlogPosts();
   try {
+    const staticPosts = getAllBlogPosts();
+
     const dbBlogs = await getBlogs();
-    if (Array.isArray(dbBlogs) && dbBlogs.length > 0) {
-      const existing = new Set(posts.map((p) => p.slug));
-      const extra = dbBlogs
-        .filter((b) => b.slug && !existing.has(b.slug))
-        .map((b) => ({ slug: b.slug }));
-      return [...posts.map((p) => ({ slug: p.slug })), ...extra];
-    }
-  } catch (_) { }
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+
+    const staticSlugs = staticPosts
+      .filter((post) => post.slug)
+      .map((post) => post.slug);
+
+    const apiSlugs = Array.isArray(dbBlogs)
+      ? dbBlogs
+        .filter(
+          (blog: any) =>
+            blog.slug &&
+            (!blog.status ||
+              blog.status.toLowerCase() === "published")
+        )
+        .map((blog: any) => blog.slug)
+      : [];
+
+    const allSlugs = [...new Set([...staticSlugs, ...apiSlugs])];
+
+    console.log("BLOG ROUTES GENERATED:", allSlugs);
+
+    return allSlugs.map((slug) => ({ slug }));
+  } catch (error) {
+    console.error("BLOG ROUTE GENERATION ERROR:", error);
+
+    return getAllBlogPosts().map((post) => ({
+      slug: post.slug,
+    }));
+  }
 }
 
 export async function generateMetadata({

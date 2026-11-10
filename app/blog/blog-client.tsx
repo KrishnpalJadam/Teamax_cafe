@@ -20,9 +20,9 @@ export function BlogClient({ initialPosts }: { initialPosts: BlogPost[] }) {
             const rawDate = b.publishDate || b.createdAt;
             const dateStr = rawDate
               ? new Date(rawDate).toLocaleDateString("en-IN", {
-                  month: "long",
-                  year: "numeric",
-                })
+                month: "long",
+                year: "numeric",
+              })
               : "Recent";
 
             return {
@@ -111,8 +111,12 @@ export function BlogClient({ initialPosts }: { initialPosts: BlogPost[] }) {
           {categories.map((cat) => {
             const count =
               cat === "All"
-                ? initialPosts.length
-                : initialPosts.filter((p) => p.category === cat).length;
+                ? posts.length
+                : posts.filter(
+                  (p) =>
+                    String(p.category || "").trim().toLowerCase() ===
+                    String(cat).trim().toLowerCase()
+                ).length;
             const isActive = selectedCategory === cat;
 
             return (

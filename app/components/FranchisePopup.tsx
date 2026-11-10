@@ -65,33 +65,70 @@ export default function FranchisePopup() {
 
   const [formData, setFormData] = useState(initialFormData);
 
-  useEffect(() => {
-    const alreadyShown = sessionStorage.getItem("teamax-franchise-popup");
 
-    if (alreadyShown) return;
+  useEffect(() => {
+    // Footer button se popup open karne ke liye
+    const openPopup = () => {
+      setIsOpen(true);
+    };
+
+    window.addEventListener(
+      "open-teamax-franchise-popup",
+      openPopup
+    );
+
+    const alreadyShown = sessionStorage.getItem(
+      "teamax-franchise-popup"
+    );
+
+    // Auto-scroll popup already shown ho toh bhi
+    // footer button se popup open ho sakega.
+    if (alreadyShown) {
+      return () => {
+        window.removeEventListener(
+          "open-teamax-franchise-popup",
+          openPopup
+        );
+      };
+    }
 
     const handleScroll = () => {
       const scrollTop = window.scrollY;
+
       const documentHeight =
         document.documentElement.scrollHeight - window.innerHeight;
 
       if (documentHeight <= 0) return;
 
-      const scrollPercentage = (scrollTop / documentHeight) * 100;
+      const scrollPercentage =
+        (scrollTop / documentHeight) * 100;
 
       if (scrollPercentage >= 25) {
         setIsOpen(true);
-        sessionStorage.setItem("teamax-franchise-popup", "true");
+
+        sessionStorage.setItem(
+          "teamax-franchise-popup",
+          "true"
+        );
+
         window.removeEventListener("scroll", handleScroll);
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+
+      window.removeEventListener(
+        "open-teamax-franchise-popup",
+        openPopup
+      );
     };
   }, []);
+
 
   const closePopup = () => setIsOpen(false);
 

@@ -336,7 +336,7 @@ export default function OurFranchiseOpportunitiesContent({ initialOpportunities 
                                         <div className="tm-cafe-actions ">
                                             <Link
                                                 className="tm-button tm-view-button view2"
-                                                href={`/franchise-opportunities/${item.slug}`}
+                                                href={`/franchise/${item.slug}`}
                                             >
                                                 View Opportunity <ArrowRight size={17} />
                                             </Link>
@@ -371,10 +371,10 @@ export default function OurFranchiseOpportunitiesContent({ initialOpportunities 
                         <p>Explore an opportunity and take the next step.</p>
                     </div>
                     <Link
-                        href="/ourcentres"
+                        href="/locations"
                         className="tm-button tm-cta-button"
                     >
-                        Explore Our Centres <ArrowRight size={18} />
+                        Explore Locations <ArrowRight size={18} />
                     </Link>
                 </section>
             </div>

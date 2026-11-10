@@ -2,14 +2,13 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Navigation, FreeMode } from "swiper/modules";
+import { Autoplay, FreeMode } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 
 import "swiper/css";
-import "swiper/css/navigation";
 import "./TrustedBrands.css";
 
 const brands = [
@@ -46,12 +45,52 @@ const brands = [
 export default function TrustedBrands() {
   const swiperRef = useRef<SwiperType | null>(null);
 
-  // Duplicate items for a continuous loop.
+  const [swiperInstance, setSwiperInstance] =
+    useState<SwiperType | null>(null);
+
+  // Duplicate brands for continuous looping
   const marqueeBrands = [...brands, ...brands, ...brands];
 
-  return (
-    <section className=" mainspace">
+  // Reliable autoplay initialization
+  useEffect(() => {
+    if (!swiperInstance || swiperInstance.destroyed) return;
 
+    const startAutoplay = () => {
+      if (swiperInstance.destroyed) return;
+
+      if (!swiperInstance.autoplay.running) {
+        swiperInstance.autoplay.start();
+      }
+    };
+
+    // Start after component initialization
+    swiperInstance.update();
+    startAutoplay();
+
+    // Restart autoplay when browser tab becomes active
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        startAutoplay();
+      }
+    };
+
+    document.addEventListener(
+      "visibilitychange",
+      handleVisibilityChange
+    );
+
+    return () => {
+      document.removeEventListener(
+        "visibilitychange",
+        handleVisibilityChange
+      );
+    };
+  }, [swiperInstance]);
+
+  return (
+    <section className="mainspace">
+
+      {/* Section Heading */}
       <div className="container-xl tmx-trusted-heading-container">
         <div className="section-heading why-heading tmx-trusted-heading">
           <div>
@@ -59,19 +98,18 @@ export default function TrustedBrands() {
             <span className="short-line" />
           </div>
         </div>
-
       </div>
+
+      {/* Trusted Brands Section */}
       <section
         className="tmx-trusted-brands"
         aria-label="TeaMax associate partners"
       >
-        {/* Heading aligned with the other XL sections */}
-
-
-        {/* Full-width wallpaper with slider on top */}
         <div className="tmx-trusted-brands-inner">
+
           <div className="tmx-trusted-brands-slider">
-            {/* Previous button */}
+
+            {/* Previous Button */}
             <button
               type="button"
               className="tmx-trusted-swipe-arrow tmx-trusted-swipe-left"
@@ -93,44 +131,58 @@ export default function TrustedBrands() {
               </svg>
             </button>
 
-            {/* Brand carousel */}
+            {/* Brand Swiper */}
             <Swiper
-              modules={[Autoplay, Navigation, FreeMode]}
+              modules={[Autoplay, FreeMode]}
               className="tmx-trusted-brands-swiper"
+
               onSwiper={(swiper) => {
                 swiperRef.current = swiper;
+                setSwiperInstance(swiper);
               }}
+
               slidesPerView={7}
               spaceBetween={24}
+
               loop={true}
               loopAdditionalSlides={brands.length}
+
               speed={5000}
+
               freeMode={{
                 enabled: true,
                 momentum: false,
+                sticky: false,
               }}
+
               allowTouchMove={true}
               grabCursor={true}
+
               autoplay={{
+                enabled: true,
                 delay: 0,
                 disableOnInteraction: false,
                 pauseOnMouseEnter: false,
                 stopOnLastSlide: false,
                 waitForTransition: false,
               }}
+
               breakpoints={{
                 0: {
                   slidesPerView: 2.5,
                   spaceBetween: 12,
                 },
+
                 480: {
                   slidesPerView: 3,
                   spaceBetween: 16,
                 },
+
                 768: {
                   slidesPerView: 4,
                   spaceBetween: 20,
                 },
+
                 1100: {
                   slidesPerView: 7,
                   spaceBetween: 24,
@@ -156,7 +208,7 @@ export default function TrustedBrands() {
               ))}
             </Swiper>
 
-            {/* Next button */}
+            {/* Next Button */}
             <button
               type="button"
               className="tmx-trusted-swipe-arrow tmx-trusted-swipe-right"
@@ -177,6 +229,7 @@ export default function TrustedBrands() {
                 />
               </svg>
             </button>
+
           </div>
         </div>
       </section>

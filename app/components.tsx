@@ -1,15 +1,16 @@
-import { ArrowRight, ArrowUp, Coffee, Mail, Menu, Phone } from "lucide-react";
-import Link from "next/link";
 
+import { ArrowRight, ArrowUp, Mail, Menu, Phone } from "lucide-react";
+import Link from "next/link";
 
 import {
   FaFacebookF,
   FaInstagram,
-  FaLinkedinIn,
   FaYoutube,
   FaWhatsapp,
 } from "react-icons/fa";
+
 import { WhatsAppButton } from "./WhatsAppButton";
+import FranchiseBookingButton from "./stores/FranchiseBookingButton";
 
 /* =========================================
    HEADER
@@ -20,39 +21,63 @@ export function Header({ active }: { active?: string }) {
     ["/", "Home"],
     ["/about-us", "Our Story"],
     ["/menu", "Menu"],
-    // ["/ourcentres", "Our Centres"],
     ["/cafe-franchise-india", "Franchise"],
     ["/reviews", "Reviews"],
     ["/blog", "Blog"],
     ["/offers", "Offers"],
-    // ["/#contact", "Contact"],
   ] as const;
 
   return (
     <header className="site-header" aria-label="TeaMax site header">
       <div className="site-header-inner">
         <Link href="/" className="brand" aria-label="TeaMax home">
-
-          <img className="brand-max" width={200} src="/images/logomain.avif" alt="" />
+          <img
+            className="brand-max"
+            width={200}
+            src="/images/logomain.avif"
+            alt="TeaMax"
+          />
         </Link>
 
         <nav className="site-nav" aria-label="Main navigation">
           {nav.map(([href, label]) => (
-            <Link key={href} href={href} aria-current={active === href ? "page" : undefined}>
+            <Link
+              key={href}
+              href={href}
+              aria-current={active === href ? "page" : undefined}
+            >
               {label}
             </Link>
           ))}
         </nav>
 
         <div className="header-action">
-          <Link href="/cafe-franchise-india#apply" className="cafe-action">Apply for Franchise <ArrowRight size={17} /></Link>
+          <Link
+            href="/cafe-franchise-india#apply"
+            className="cafe-action"
+          >
+            Apply for Franchise <ArrowRight size={17} />
+          </Link>
         </div>
 
         <details className="mobile-menu">
-          <summary aria-label="Open menu"><Menu size={22} /></summary>
+          <summary aria-label="Open menu">
+            <Menu size={22} />
+          </summary>
+
           <nav aria-label="Mobile navigation">
-            {nav.map(([href, label]) => <Link key={href} href={href}>{label}</Link>)}
-            <Link href="/cafe-franchise-india#apply" className="cafe-action">Apply for Franchise <ArrowRight size={17} /></Link>
+            {nav.map(([href, label]) => (
+              <Link key={href} href={href}>
+                {label}
+              </Link>
+            ))}
+
+            <Link
+              href="/cafe-franchise-india#apply"
+              className="cafe-action"
+            >
+              Apply for Franchise <ArrowRight size={17} />
+            </Link>
           </nav>
         </details>
       </div>
@@ -66,13 +91,11 @@ export function Header({ active }: { active?: string }) {
 
 export function Footer() {
   return (
-    <footer id="footer" className="tm-footer ">
+    <footer id="footer" className="tm-footer">
 
       <div className="tm-footer-container container-xl">
 
-        {/* =================================
-            BRAND
-        ================================= */}
+        {/* BRAND */}
 
         <div className="tm-footer-brand">
 
@@ -100,10 +123,7 @@ export function Footer() {
 
         </div>
 
-
-        {/* =================================
-            EXPLORE
-        ================================= */}
+        {/* EXPLORE */}
 
         <div className="tm-footer-column">
 
@@ -113,44 +133,57 @@ export function Footer() {
             <Link href="/">Home</Link>
             <Link href="/about-us">Our Story</Link>
             <Link href="/menu">Menu</Link>
-            <Link href="/ourcentres">Cafes</Link>
+            <Link href="/locations">Cafes</Link>
             <Link href="/cafe-franchise-india#apply">Franchise</Link>
-
             <Link href="/blog">Blog</Link>
           </div>
 
         </div>
 
-
-        {/* =================================
-            CONTACT
-        ================================= */}
+        {/* IMPORTANT LINKS */}
 
         <div className="tm-footer-column tm-footer-contact">
 
           <h4>Important Links</h4>
+
           <div className="tm-footer-links">
-            <Link href="/franchise-opportunities">Franchise Opportunities</Link>
 
-            <Link href="/">Franchise Proposal</Link>
-            <Link href="/about-us">Franchise Explainer</Link>
-            <Link href="/menu">Franchise Booking</Link>
+            <Link href="/franchise">
+              Franchise Opportunities
+            </Link>
 
-            <Link href="/blog">Team Login</Link>
+            <a
+              href="https://drive.google.com/file/d/1hXeKMuqImeq0eA3cL_934FS44iZvXJRQ/view"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Franchise Proposal
+            </a>
+
+            <a
+              href="https://go.teamaxcafe.in/ythindi"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Franchise Explainer
+            </a>
+
+            {/* CLIENT COMPONENT BUTTON */}
+            <FranchiseBookingButton />
+
+            <Link href="/blog">
+              Team Login
+            </Link>
+
           </div>
 
         </div>
 
-
-        {/* =================================
-            CONNECT
-        ================================= */}
+        {/* CONTACT US */}
 
         <div className="tm-footer-column tm-footer-connect">
 
-
-          <h4>Contact Us </h4>
-
+          <h4>Contact Us</h4>
 
           <div className="tm-footer-office">
 
@@ -159,13 +192,9 @@ export function Footer() {
             </strong>
 
             <p>
-              4th Floor, Surabhi Rama Complex,
-              <br />
-              Plot 106, Suchitra Rd,
-              <br />
-              Kompally, Hyderabad,
-              <br />
-              TS - 67
+              4th Floor, Surabhi Rama Complex, Plot No. 106,
+              Suchitra Rd, above Kalyan Jewellers, Green Park,
+              Kompally, Hyderabad, Telangana 500067
             </p>
 
           </div>
@@ -184,7 +213,7 @@ export function Footer() {
 
           </div>
 
-          {/* Social Icons */}
+          {/* SOCIAL ICONS */}
 
           <div className="tm-footer-socials pt-5">
 
@@ -208,8 +237,6 @@ export function Footer() {
               <FaFacebookF />
             </a>
 
-
-
             <a
               href="https://www.instagram.com/teamaxcafe"
               target="_blank"
@@ -232,24 +259,17 @@ export function Footer() {
 
           </div>
 
-
-          {/* Location */}
-
-
-
-
         </div>
 
       </div>
 
-
-      {/* =================================
-          FOOTER BOTTOM
-      ================================= */}
+      {/* FOOTER BOTTOM */}
 
       <div className="tm-footer-bottom">
 
-        <Link href="/privacy-policy">General & Privacy Policy</Link>
+        <Link href="/privacy-policy">
+          General & Privacy Policy
+        </Link>
 
         <p>
           © {new Date().getFullYear()} All Rights Reserved with{" "}
@@ -270,11 +290,12 @@ export function Footer() {
         </a>
 
       </div>
+
       <WhatsAppButton />
-    </footer >
+
+    </footer>
   );
 }
-
 
 /* =========================================
    JSON-LD
@@ -294,7 +315,6 @@ export function JsonLd({
     />
   );
 }
-
 
 /* =========================================
    FAQ JSON-LD

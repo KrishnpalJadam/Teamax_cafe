@@ -5,10 +5,237 @@ import {
     ArrowRight, Bike, Car, ChevronDown, ChevronLeft,
     ChevronRight, Clock3, MapPin, MessageCircle,
     Phone, ShoppingBag, Star, Utensils, Users, Wheat, Accessibility,
-    X, Plus, Navigation, Percent
+    X, Plus, Navigation, Percent, Wifi, Coffee
 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { getFeaturedProducts, getPrimaryOffer, getCommonMenu, getCommonCategories, getCentreBySlugOrId, getReviews } from "../../lib/api";
+
+const ORDERED_DAYS = [
+    { key: "monday", label: "Monday" },
+    { key: "tuesday", label: "Tuesday" },
+    { key: "wednesday", label: "Wednesday" },
+    { key: "thursday", label: "Thursday" },
+    { key: "friday", label: "Friday" },
+    { key: "saturday", label: "Saturday" },
+    { key: "sunday", label: "Sunday" },
+];
+
+const DAY_KEY_BY_INDEX = [
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+];
+
+function formatTimingValue(timeStr?: string): string {
+    if (!timeStr) return "";
+    const parts = timeStr.split(":");
+    let hours = parseInt(parts[0], 10);
+    const minutes = parseInt(parts[1] || "0", 10);
+    if (isNaN(hours)) return timeStr;
+
+    if (hours === 0 && minutes === 0) {
+        return "12:00 AM";
+    }
+    if (hours === 24 && minutes === 0) {
+        return "12:00 AM";
+    }
+
+    const ampm = hours >= 12 && hours < 24 ? "PM" : "AM";
+    hours = hours % 12;
+    if (hours === 0) hours = 12;
+
+    const formattedMinutes = minutes === 0 ? "00" : minutes < 10 ? `0${minutes}` : `${minutes}`;
+    return `${hours}:${formattedMinutes} ${ampm}`;
+}
+
+function formatDayTiming(timing?: { open?: string; close?: string; isClosed?: boolean }): string {
+    if (!timing) return "7:00 AM – 11:00 PM";
+    if (timing.isClosed) return "Closed";
+    if (timing.open && timing.close) {
+        return `${formatTimingValue(timing.open)} – ${formatTimingValue(timing.close)}`;
+    }
+    return "7:00 AM – 11:00 PM";
+}
+
+function getStoreOpenStatus(timings: any): { isOpen: boolean; statusLabel: string; todayTimingText: string; todayKey: string } {
+    const now = new Date();
+    const todayIndex = now.getDay();
+    const todayKey = DAY_KEY_BY_INDEX[todayIndex];
+
+    if (!timings || typeof timings !== "object" || Object.keys(timings).length === 0) {
+        return {
+            isOpen: true,
+            statusLabel: "Open Now",
+            todayTimingText: "Open 7:00 AM – 11:00 PM",
+            todayKey,
+        };
+    }
+
+    const todayTiming = timings[todayKey];
+    let todayTimingText = "Open 7:00 AM – 11:00 PM";
+    if (todayTiming) {
+        if (todayTiming.isClosed) {
+            todayTimingText = "Closed Today";
+        } else if (todayTiming.open && todayTiming.close) {
+            todayTimingText = `Open ${formatTimingValue(todayTiming.open)} – ${formatTimingValue(todayTiming.close)}`;
+        }
+    }
+
+    // Check yesterday's overnight shift
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    const prevKey = DAY_KEY_BY_INDEX[(todayIndex + 6) % 7];
+    const prevTiming = timings[prevKey];
+    if (prevTiming && !prevTiming.isClosed && prevTiming.open && prevTiming.close) {
+        const [pOpenH, pOpenM] = prevTiming.open.split(":").map(Number);
+        const [pCloseH, pCloseM] = prevTiming.close.split(":").map(Number);
+        const pOpenMins = pOpenH * 60 + pOpenM;
+        const pCloseMins = pCloseH * 60 + pCloseM;
+        if (pCloseMins > 0 && pCloseMins < pOpenMins && currentMinutes < pCloseMins) {
+            return {
+                isOpen: true,
+                statusLabel: "Open Now",
+                todayTimingText,
+                todayKey,
+            };
+        }
+    }
+
+    if (!todayTiming || todayTiming.isClosed || !todayTiming.open || !todayTiming.close) {
+        return {
+            isOpen: false,
+            statusLabel: "Closed",
+            todayTimingText: todayTimingText || "Closed",
+            todayKey,
+        };
+    }
+
+    const [openH, openM] = todayTiming.open.split(":").map(Number);
+    const [closeH, closeM] = todayTiming.close.split(":").map(Number);
+
+    const openMins = openH * 60 + openM;
+    let closeMins = closeH * 60 + closeM;
+
+    if (closeMins === 0 || closeMins < openMins) {
+        closeMins += 24 * 60;
+    }
+
+    const isOpen = currentMinutes >= openMins && currentMinutes < closeMins;
+
+    return {
+        isOpen,
+        statusLabel: isOpen ? "Open Now" : "Closed",
+        todayTimingText,
+        todayKey,
+    };
+}
+
+function getFacilityIcon(name: string) {
+    const lower = name.toLowerCase();
+    if (lower.includes("dine") || lower.includes("food") || lower.includes("restaurant")) return Utensils;
+    if (lower.includes("takeaway") || lower.includes("bag") || lower.includes("take out") || lower.includes("take-away")) return ShoppingBag;
+    if (lower.includes("delivery") || lower.includes("bike")) return Bike;
+    if (lower.includes("park") || lower.includes("car")) return Car;
+    if (lower.includes("wifi") || lower.includes("wi-fi") || lower.includes("internet")) return Wifi;
+    if (lower.includes("ac") || lower.includes("air") || lower.includes("lounge")) return Coffee;
+    if (lower.includes("family") || lower.includes("kid")) return Users;
+    if (lower.includes("pet")) return Wheat;
+    if (lower.includes("wheelchair") || lower.includes("access")) return Accessibility;
+    return Coffee;
+}
+
+function parseFacilityItem(item: any): { icon: any; title: string; detail: string } {
+    if (typeof item === "object" && item !== null) {
+        const title = item.title || item.name || "Facility";
+        const detail = item.detail || "Available";
+        return {
+            icon: item.icon || getFacilityIcon(title),
+            title,
+            detail,
+        };
+    }
+
+    const str = String(item || "").trim();
+    const lower = str.toLowerCase();
+
+    if (lower.includes("ample parking")) {
+        return { icon: Car, title: "Ample", detail: "Parking" };
+    }
+    if (lower === "parking" || lower.includes("parking")) {
+        return { icon: Car, title: "Parking", detail: "Available" };
+    }
+    if (lower.includes("wifi") || lower.includes("wi-fi") || lower.includes("internet")) {
+        return { icon: Wifi, title: "Free Wi-Fi", detail: "Available" };
+    }
+    if (lower.includes("ac lounge") || lower.includes("air conditioned")) {
+        return { icon: Coffee, title: "AC Lounge", detail: "Available" };
+    }
+    if (lower.includes("family")) {
+        return { icon: Users, title: "Family", detail: "Friendly" };
+    }
+    if (lower.includes("pet")) {
+        return { icon: Wheat, title: "Pet Friendly", detail: "(Outdoor)" };
+    }
+    if (lower.includes("wheelchair") || lower.includes("accessible")) {
+        return { icon: Accessibility, title: "Wheelchair", detail: "Accessible" };
+    }
+    if (lower.includes("dine")) {
+        return { icon: Utensils, title: "Dine-in", detail: "Available" };
+    }
+    if (lower.includes("takeaway") || lower.includes("take-away") || lower.includes("takeout")) {
+        return { icon: ShoppingBag, title: "Takeaway", detail: "Available" };
+    }
+    if (lower.includes("delivery")) {
+        return { icon: Bike, title: "Home Delivery", detail: "Available" };
+    }
+
+    return {
+        icon: getFacilityIcon(str),
+        title: str,
+        detail: "Available",
+    };
+}
+
+function isReviewForCentre(review: any, centre: any): boolean {
+    if (!review || !centre) return false;
+
+    const centreId = centre.id ? String(centre.id).trim() : "";
+    const centreSlug = centre.slug ? String(centre.slug).trim().toLowerCase() : "";
+    const centreName = centre.name ? String(centre.name).trim().toLowerCase() : "";
+    const centreCity = centre.city ? String(centre.city).trim().toLowerCase() : "";
+    const centreLocality = centre.locality ? String(centre.locality).trim().toLowerCase() : "";
+
+    const revCentreId = review.relatedCentreId ? String(review.relatedCentreId).trim() : (review.relatedCentre?.id ? String(review.relatedCentre.id).trim() : "");
+    const revCentreSlug = review.relatedCentreSlug ? String(review.relatedCentreSlug).trim().toLowerCase() : (review.relatedCentre?.slug ? String(review.relatedCentre.slug).trim().toLowerCase() : "");
+    const revCentreName = review.relatedCentreName ? String(review.relatedCentreName).trim().toLowerCase() : (review.relatedCentre?.name ? String(review.relatedCentre.name).trim().toLowerCase() : "");
+    const revRole = review.reviewerRole ? String(review.reviewerRole).trim().toLowerCase() : "";
+
+    // 1. Direct ID match
+    if (centreId && revCentreId && centreId === revCentreId) {
+        return true;
+    }
+
+    // 2. Direct Slug match
+    if (centreSlug && (revCentreSlug === centreSlug || revCentreId === centreSlug)) {
+        return true;
+    }
+
+    // 3. Centre name match
+    if (centreName && revCentreName && (revCentreName === centreName || revCentreName.includes(centreName) || centreName.includes(revCentreName))) {
+        return true;
+    }
+
+    // 4. Role mentions this centre's locality or city specifically, and doesn't belong to a different centre
+    if (!revCentreId && !revCentreName) {
+        if (centreLocality && revRole.includes(centreLocality)) return true;
+        if (centreCity && revRole.includes(centreCity)) return true;
+    }
+
+    return false;
+}
 
 const defaultPhotos = [
     { src: `https://teamaax-remake-showcase.lovable.app/assets/cafe-exterior-CdvnH_rb.jpg`, alt: "TeaMax cafe exterior" },
@@ -34,7 +261,7 @@ const defaultOffer = {
     promoCode: "BUY2GET1",
 };
 
-const facilities = [
+const defaultFacilities = [
     { icon: Utensils, title: "Dine-in", detail: "Available" },
     { icon: ShoppingBag, title: "Takeaway", detail: "Available" },
     { icon: Bike, title: "Home Delivery", detail: "Available" },
@@ -156,34 +383,37 @@ export function StoreDataProvider({ children }: { children: ReactNode }) {
 
                 if (!isMounted) return;
 
-                // 1. Set Centre data & merge featured customer reviews
+                // 1. Set Centre data & only keep reviews relevant to this centre
                 if (centreData.status === "fulfilled" && centreData.value) {
                     let targetCentre = centreData.value;
+                    const initialReviews = Array.isArray(targetCentre.reviews) ? targetCentre.reviews : [];
+                    const filteredInitial = initialReviews.filter((r: any) => isReviewForCentre(r, targetCentre));
+
+                    let combined = [...filteredInitial];
+
                     if (reviewsData.status === "fulfilled" && Array.isArray(reviewsData.value)) {
                         const liveReviews = reviewsData.value;
-                        const relevantReviews = liveReviews.filter((r: any) => {
-                            const isCust = r.reviewType === "customer" || r.categoryId === "customer";
-                            const isThisCentre = r.relatedCentreId === targetCentre.id || (targetCentre.slug && r.relatedCentre?.slug === targetCentre.slug);
-                            return (isCust && Boolean(r.isFeatured)) || isThisCentre;
+                        const relevantLive = liveReviews.filter((r: any) => {
+                            const isCust = r.reviewType === "customer" || r.categoryId === "customer" || !r.reviewType;
+                            const isPub = r.status === "published" || !r.status;
+                            return isPub && isCust && isReviewForCentre(r, targetCentre);
                         });
 
-                        const existing = targetCentre.reviews || [];
-                        const combined = [...existing];
-                        for (const rev of relevantReviews) {
+                        for (const rev of relevantLive) {
                             if (!combined.some((c: any) => c.id === rev.id)) {
                                 combined.push(rev);
                             }
                         }
-
-                        combined.sort((a: any, b: any) => {
-                            const featA = a.isFeatured ? 1 : 0;
-                            const featB = b.isFeatured ? 1 : 0;
-                            if (featA !== featB) return featB - featA;
-                            return (a.displayOrder || 0) - (b.displayOrder || 0);
-                        });
-
-                        targetCentre = { ...targetCentre, reviews: combined };
                     }
+
+                    combined.sort((a: any, b: any) => {
+                        const featA = a.isFeatured ? 1 : 0;
+                        const featB = b.isFeatured ? 1 : 0;
+                        if (featA !== featB) return featB - featA;
+                        return (a.displayOrder || 0) - (b.displayOrder || 0);
+                    });
+
+                    targetCentre = { ...targetCentre, reviews: combined };
                     setCentre(targetCentre);
                 }
 
@@ -245,6 +475,11 @@ export function StoreHero() {
     const [activePhoto, setActivePhoto] = useState(1);
     const [showHours, setShowHours] = useState(false);
 
+    const { isOpen, statusLabel, todayTimingText, todayKey } = useMemo(
+        () => getStoreOpenStatus(centre?.timings),
+        [centre?.timings]
+    );
+
     const photos = useMemo(() => {
         const list: Array<{ src: string; alt: string }> = [];
         if (centre?.coverImage) {
@@ -284,7 +519,7 @@ export function StoreHero() {
             <div className="detailscentres-breadcrumbs">
                 <a href="/">Home</a>
                 <ChevronRight />
-                <a href="/ourcentres">Our Centres</a>
+                <a href="/locations">Our Centres</a>
                 <ChevronRight />
                 <span>{state}</span>
                 <ChevronRight />
@@ -310,19 +545,68 @@ export function StoreHero() {
                     </div>
 
                     <div className="detailscentres-status-line">
-                        <span className="detailscentres-open-badge"><i />Open Now</span>
-                        <span className="detailscentres-hours-short"><Clock3 size={17} />Open 7:00 AM – 11:00 PM</span>
-                        <button className="detailscentres-text-button" onClick={() => setShowHours(!showHours)}>
+                        <span
+                            className="detailscentres-open-badge"
+                            style={
+                                !isOpen
+                                    ? {
+                                        backgroundColor: "#fee2e2",
+                                        color: "#991b1b",
+                                        borderColor: "#fecaca",
+                                    }
+                                    : undefined
+                            }
+                        >
+                            <i style={!isOpen ? { backgroundColor: "#ef4444" } : undefined} />
+                            {statusLabel}
+                        </span>
+                        <span className="detailscentres-hours-short">
+                            <Clock3 size={17} />
+                            {todayTimingText}
+                        </span>
+                        {/* <button className="detailscentres-text-button" onClick={() => setShowHours(!showHours)}>
                             View All Timings <ChevronDown size={14} />
-                        </button>
+                        </button> */}
                     </div>
 
                     {showHours && (
-                        <div className="detailscentres-hours-popover">
-                            <b>Opening hours</b>
-                            <span>Monday – Sunday</span>
-                            <strong>7:00 AM – 11:00 PM</strong>
-                            <small>Hours may vary on holidays.</small>
+                        <div className="detailscentres-hours-popover" style={{ minWidth: "280px", maxWidth: "340px" }}>
+                            <b style={{ marginBottom: "6px", display: "block", fontSize: "14px" }}>Opening Hours</b>
+                            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                                {ORDERED_DAYS.map(({ key, label }) => {
+                                    const isToday = key === todayKey;
+                                    const timingText = formatDayTiming(centre?.timings?.[key]);
+                                    return (
+                                        <div
+                                            key={key}
+                                            style={{
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                alignItems: "center",
+                                                fontSize: "13px",
+                                                padding: isToday ? "4px 8px" : "2px 0",
+                                                borderRadius: "6px",
+                                                background: isToday ? "#e8f5e9" : "transparent",
+                                                color: isToday ? "#1b5e20" : "#333333",
+                                                fontWeight: isToday ? 700 : 500,
+                                            }}
+                                        >
+                                            <span>
+                                                {label}
+                                                {isToday && (
+                                                    <span style={{ fontSize: "11px", marginLeft: "4px", color: "#2e7d32" }}>
+                                                        (Today)
+                                                    </span>
+                                                )}
+                                            </span>
+                                            <strong style={{ fontWeight: isToday ? 700 : 600 }}>{timingText}</strong>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+                            <small style={{ marginTop: "8px", paddingTop: "8px", borderTop: "1px solid #e5e7eb", display: "block" }}>
+                                {centre?.holidayHours || "Hours may vary on holidays."}
+                            </small>
                         </div>
                     )}
 
@@ -387,14 +671,41 @@ export function StoreHero() {
 }
 
 export function StoreFeatures() {
+    const { centre } = useStoreData();
+
+    const displayFacilities = useMemo(() => {
+        if (centre?.facilities && Array.isArray(centre.facilities) && centre.facilities.length > 0) {
+            return centre.facilities.map(parseFacilityItem);
+        }
+        return defaultFacilities;
+    }, [centre?.facilities]);
+
     return (
         <section className="detailscentres-facilities" aria-label="Cafe facilities">
-            {facilities.map(({ icon: Icon, title, detail }) => (
-                <div className="detailscentres-facility" key={title}>
-                    <span className="detailscentres-round-icon"><Icon size={21} /></span>
-                    <span><b>{title}</b><small>{detail}</small></span>
-                </div>
-            ))}
+            {displayFacilities.map(
+                (
+                    { icon: Icon, title, detail }: {
+                        icon: React.ElementType;
+                        title: string;
+                        detail: string;
+                    },
+                    idx: number
+                ) => (
+                    <div
+                        className="detailscentres-facility"
+                        key={`${title}-${idx}`}
+                    >
+                        <span className="detailscentres-round-icon">
+                            <Icon size={21} />
+                        </span>
+
+                        <span>
+                            <b>{title}</b>
+                            <small>{detail}</small>
+                        </span>
+                    </div>
+                )
+            )}
         </section>
     );
 }
@@ -586,6 +897,44 @@ export function StoreSections() {
     const [categories, setCategories] = useState<any[]>([]);
     const [openFaq, setOpenFaq] = useState(0);
 
+    const { todayKey } = useMemo(
+        () => getStoreOpenStatus(centre?.timings),
+        [centre?.timings]
+    );
+
+    const displayFaqs = useMemo(() => {
+        if (centre?.faqs && Array.isArray(centre.faqs) && centre.faqs.length > 0) {
+            const mapped = centre.faqs
+                .map((f: any) => ({
+                    q: f.q || f.question || f.title || "",
+                    a: f.a || f.answer || f.content || f.description || "",
+                }))
+                .filter((f: any) => f.q && f.a);
+            if (mapped.length > 0) return mapped;
+        }
+        return defaultFaqs;
+    }, [centre?.faqs]);
+
+    const storeReviews = useMemo(() => {
+        if (!centre?.reviews || !Array.isArray(centre.reviews)) return [];
+        return centre.reviews
+            .filter((r: any) => isReviewForCentre(r, centre))
+            .map((r: any) => ({
+                id: r.id,
+                name: r.reviewerName || r.name || "Customer",
+                initials: (r.reviewerName || r.name || "TM")
+                    .split(" ")
+                    .filter(Boolean)
+                    .map((n: string) => n[0])
+                    .join("")
+                    .slice(0, 2)
+                    .toUpperCase(),
+                avatar: r.reviewerAvatar || r.avatar || null,
+                text: r.reviewText || r.text || r.comment || "",
+                stars: Number(r.starRating || r.stars || r.rating || 5),
+            }));
+    }, [centre]);
+
     // Load active categories dynamically from the same API used on the home page.
     useEffect(() => {
         let isMounted = true;
@@ -699,48 +1048,60 @@ export function StoreSections() {
                         <h2>Loved by our guests</h2>
                     </div>
                     <div className="detailscentres-review-summary">
-                        <Star fill="currentColor" /> <b>{centre?.averageRating || 4.6}/5</b> <span>{centre?.reviewCount || 230} reviews</span>
+                        <Star fill="currentColor" /> <b>{centre?.averageRating || 4.8}/5</b>{" "}
+                        <span>
+                            {storeReviews.length > 0
+                                ? `${storeReviews.length} reviews`
+                                : typeof centre?.reviewCount === "number"
+                                    ? `${centre.reviewCount} reviews`
+                                    : "0 reviews"}
+                        </span>
                     </div>
                 </div>
 
                 <div className="detailscentres-reviews-grid">
-                    {((centre?.reviews && centre.reviews.length > 0)
-                        ? centre.reviews.map((r: any) => ({
-                            id: r.id,
-                            name: r.reviewerName,
-                            initials: (r.reviewerName || "TM")
-                                .split(" ")
-                                .map((n: string) => n[0])
-                                .join("")
-                                .slice(0, 2)
-                                .toUpperCase(),
-                            avatar: r.reviewerAvatar,
-                            text: r.reviewText,
-                            stars: r.starRating || 5,
-                        }))
-                        : defaultReviews
-                    ).map((review: any) => (
-                        <article className="detailscentres-review-card" key={review.id || review.initials}>
-                            <div className="detailscentres-avatar">
-                                {review.avatar ? (
-                                    <img
-                                        src={review.avatar}
-                                        alt={review.name}
-                                        style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover" }}
-                                    />
-                                ) : (
-                                    review.initials
-                                )}
-                            </div>
-                            <div>
-                                <h3>{review.name}</h3>
-                                <div className="detailscentres-stars">
-                                    {"★".repeat(review.stars || 5)}
+                    {storeReviews.length > 0 ? (
+                        storeReviews.map((review: any) => (
+                            <article className="detailscentres-review-card" key={review.id || review.initials}>
+                                <div className="detailscentres-avatar">
+                                    {review.avatar ? (
+                                        <img
+                                            src={review.avatar}
+                                            alt={review.name}
+                                            style={{ width: "100%", height: "100%", borderRadius: "50%", objectFit: "cover" }}
+                                        />
+                                    ) : (
+                                        review.initials
+                                    )}
                                 </div>
-                                <p>{review.text}</p>
-                            </div>
-                        </article>
-                    ))}
+                                <div>
+                                    <h3>{review.name}</h3>
+                                    <div className="detailscentres-stars">
+                                        {"★".repeat(review.stars || 5)}
+                                    </div>
+                                    <p>{review.text}</p>
+                                </div>
+                            </article>
+                        ))
+                    ) : (
+                        <div
+                            style={{
+                                textAlign: "center",
+                                padding: "48px 24px",
+                                gridColumn: "1 / -1",
+                                background: "#fbfaf8",
+                                borderRadius: "12px",
+                                border: "1px dashed #dcd8cf",
+                            }}
+                        >
+                            <p style={{ fontSize: "16px", fontWeight: 700, color: "#172b28", marginBottom: "6px" }}>
+                                No reviews yet for {centreName}
+                            </p>
+                            <p style={{ fontSize: "14px", color: "#687770" }}>
+                                Visit our café and be the first to share your experience!
+                            </p>
+                        </div>
+                    )}
                 </div>
             </section>
 
@@ -871,11 +1232,39 @@ export function StoreSections() {
                             <h3>
                                 <Clock3 size={20} /> Opening Hours
                             </h3>
-                            <div>
-                                <span>Monday – Sunday</span>
-                                <b>7:00 AM – 11:00 PM</b>
-                            </div>
-                            <small>Contact the cafe for holiday timings.</small>
+                            {centre?.timings && typeof centre.timings === "object" ? (
+                                ORDERED_DAYS.map(({ key, label }) => {
+                                    const isToday = key === todayKey;
+                                    const timingText = formatDayTiming(centre.timings[key]);
+                                    return (
+                                        <div
+                                            key={key}
+                                            style={
+                                                isToday
+                                                    ? {
+                                                        backgroundColor: "#f0fdf4",
+                                                        padding: "8px 10px",
+                                                        borderRadius: "6px",
+                                                        fontWeight: 700,
+                                                    }
+                                                    : undefined
+                                            }
+                                        >
+                                            <span style={isToday ? { color: "#166534" } : undefined}>
+                                                {label}
+                                                {isToday && " (Today)"}
+                                            </span>
+                                            <b style={isToday ? { color: "#166534" } : undefined}>{timingText}</b>
+                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <div>
+                                    <span>Monday – Sunday</span>
+                                    <b>7:00 AM – 11:00 PM</b>
+                                </div>
+                            )}
+                            <small>{centre?.holidayHours || "Contact the cafe for holiday timings."}</small>
                         </article>
                     </div>
                 </div>
@@ -931,35 +1320,61 @@ export function StoreSections() {
                 </div>
             </section>
             {/* FAQs Section */}
-            <section className="detailscentres-section detailscentres-faq-section" id="faq">
-                <div className="detailscentres-faq-intro">
-                    <span className="detailscentres-eyebrow">GOOD TO KNOW</span>
-                    <h2>A few things you might be wondering</h2>
-                    <p>Everything you need to plan your next TeaMax visit.</p>
-                    <div className="detailscentres-faq-art">
-                        <img
-                            src={`https://teamaax-remake-showcase.lovable.app/assets/coffee-CVqt-QHj.jpg`}
-                            alt="Coffee at TeaMax"
-                        />
-                        <span>Chai, chat<br />and chill!</span>
-                    </div>
-                </div>
 
-                <div className="detailscentres-faq-list">
-                    {defaultFaqs.map((faq, i) => (
-                        <article key={faq.q} className="detailscentres-faq-item">
-                            <button
-                                onClick={() => setOpenFaq(openFaq === i ? -1 : i)}
-                                aria-expanded={openFaq === i}
-                            >
-                                {faq.q}
-                                {openFaq === i ? <X size={17} /> : <Plus size={17} />}
-                            </button>
-                            {openFaq === i && <p>{faq.a}</p>}
-                        </article>
-                    ))}
-                </div>
-            </section>
+            {/* FAQs Section - Dynamic Centre FAQs */}
+            {displayFaqs.length > 0 && (
+                <section
+                    className="detailscentres-section detailscentres-faq-section"
+                    id="centre-faq"
+                >
+                    <div className="detailscentres-faq-intro">
+                        <span className="detailscentres-eyebrow">
+                            GOOD TO KNOW
+                        </span>
+
+                        <h2>A few things you might be wondering</h2>
+
+                        <p>
+                            Everything you need to plan your next TeaMax visit.
+                        </p>
+
+                        <div className="detailscentres-faq-art">
+                            <img
+                                src="https://teamaax-remake-showcase.lovable.app/assets/coffee-CVqt-QHj.jpg"
+                                alt="Coffee at TeaMax"
+                            />
+                            <span>Chai, chat<br />and chill!</span>
+                        </div>
+                    </div>
+
+                    <div className="detailscentres-faq-list">
+                        {displayFaqs.map(
+                            (faq: { q: string; a: string }, i: number) => (
+                                <article
+                                    key={`${faq.q}-${i}`}
+                                    className="detailscentres-faq-item"
+                                >
+                                    <button
+                                        onClick={() =>
+                                            setOpenFaq(openFaq === i ? -1 : i)
+                                        }
+                                        aria-expanded={openFaq === i}
+                                    >
+                                        {faq.q}
+
+                                        {openFaq === i
+                                            ? <X size={17} />
+                                            : <Plus size={17} />
+                                        }
+                                    </button>
+
+                                    {openFaq === i && <p>{faq.a}</p>}
+                                </article>
+                            ))}
+                    </div>
+                </section>
+            )}
+
         </>
     );
 }

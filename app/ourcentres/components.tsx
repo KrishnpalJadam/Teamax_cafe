@@ -490,7 +490,7 @@ export default function OurCentresContent() {
 
                                             <Link
                                                 className="tm-button tm-view-button"
-                                                href={`/ourcentres/stores?slug=${(cafe as any).slug || 'kompally'}`}
+                                                href={`/locations/stores?slug=${(cafe as any).slug || 'kompally'}`}
                                             >
                                                 View Centre <ArrowRight size={17} />
                                             </Link>

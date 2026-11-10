@@ -226,7 +226,7 @@ export default function OurTeamPage() {
                             <p>
                                 For more information on our franchise opportunities and
                                 operational locations, please visit our{" "}
-                                <Link href="/ourcentres">locations page</Link>.
+                                <Link href="/locations">locations page</Link>.
                             </p>
                         </div>
                     </div>

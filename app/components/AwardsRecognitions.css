@@ -338,11 +338,11 @@
   }
 
   .tmx-award-title {
-    font-size: 19px;
+    font-size: 25px;
   }
 
   .tmx-award-text {
-    font-size: 13px;
+    font-size: 18px;
   }
 
   .tmx-award-trophy {
@@ -389,11 +389,11 @@
   }
 
   .tmx-award-title {
-    font-size: 22px;
+    font-size: 25px;
   }
 
   .tmx-award-text {
-    font-size: 14px;
+    font-size: 18px;
   }
 
   .tmx-awards-note {
@@ -468,7 +468,7 @@
   }
 
   .tmx-award-title {
-    font-size: 16px;
+    font-size: 25px;
     line-height: 1.3;
   }
 
@@ -485,7 +485,7 @@
 
   .tmx-award-text {
     margin-top: 7px;
-    font-size: 12px;
+    font-size: 18px;
     line-height: 1.5;
   }
 
@@ -519,11 +519,11 @@
   }
 
   .tmx-award-title {
-    font-size: 19px;
+    font-size: 22px;
   }
 
   .tmx-award-text {
-    font-size: 13px;
+    font-size: 16px;
   }
 }
 
@@ -540,5 +540,186 @@
 
   .tmx-award-card:hover {
     transform: none;
+  }
+}
+
+.tmx-awards-grid {
+  display: block;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.tmx-awards-grid .swiper-wrapper {
+  align-items: stretch;
+}
+
+.tmx-awards-grid .swiper-slide {
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.tmx-awards-grid .tmx-award-card {
+  width: 100%;
+  height: 100%;
+}
+
+/* =========================================
+   SMOOTH AWARDS SLIDER
+========================================= */
+
+.tmx-awards-grid {
+  overflow: hidden;
+  width: 100%;
+}
+
+.tmx-awards-grid .swiper-wrapper {
+  align-items: stretch;
+  transition-timing-function: ease-in-out !important;
+}
+
+.tmx-awards-grid .swiper-slide {
+  height: auto;
+  display: flex;
+  box-sizing: border-box;
+}
+
+.tmx-awards-grid .tmx-award-card {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+}
+
+.tmx-awards-grid .tmx-award-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.tmx-award-text.is-collapsed {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.tmx-award-view-more {
+  display: inline-block;
+  align-self: flex-start;
+  width: fit-content;
+  margin-top: 7px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #263c3d;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.2s ease;
+}
+
+.tmx-award-view-more:hover {
+  opacity: 0.7;
+}
+
+/* =========================================
+   MOBILE CARD HEIGHT & CONTENT
+========================================= */
+
+@media (max-width: 600px) {
+
+  .tmx-awards-grid .tmx-award-card {
+    height: 100%;
+  }
+
+  .tmx-awards-grid .tmx-award-content {
+    min-height: 180px;
+    box-sizing: border-box;
+  }
+
+  .tmx-award-title {
+    line-height: 1.3;
+  }
+
+  .tmx-award-text {
+    line-height: 1.5;
+  }
+
+  .tmx-award-view-more {
+    margin-top: 7px;
+    font-size: 11px;
+  }
+}
+
+/* =========================================
+   REDUCED MOTION
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .tmx-awards-grid .swiper-wrapper {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Smooth Swiper */
+.tmx-awards-grid {
+  width: 100%;
+  overflow: hidden;
+}
+
+.tmx-awards-grid .swiper-wrapper {
+  align-items: stretch;
+  transition-timing-function: ease-in-out !important;
+}
+
+.tmx-awards-grid .swiper-slide {
+  display: flex;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.tmx-awards-grid .tmx-award-card {
+  width: 100%;
+  height: 100%;
+}
+
+/* View More */
+.tmx-award-view-more {
+  display: inline-block;
+  align-self: flex-start;
+  width: fit-content;
+  margin-top: 7px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #263c3d;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Mobile Description */
+@media (max-width: 600px) {
+  .tmx-awards-grid .tmx-award-content {
+    min-height: 180px;
+    box-sizing: border-box;
+  }
+
+  .tmx-award-text.is-collapsed {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    overflow: hidden;
+  }
+
+  .tmx-award-view-more {
+    font-size: 11px;
   }
 }

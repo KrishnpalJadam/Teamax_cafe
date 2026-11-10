@@ -1,29 +1,33 @@
-"use client";
+import type { Metadata } from "next";
+import { Header, Footer } from "../components";
+import OurFranchiseOpportunitiesContent from "../franchise-opportunities/components";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import Head from "next/head";
+export const dynamic = "force-static";
 
-export default function FranchiseRedirectPage() {
-  const router = useRouter();
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.teamaxcafe.in";
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.location.replace("/cafe-franchise-india");
-    } else {
-      router.replace("/cafe-franchise-india");
-    }
-  }, [router]);
+export const metadata: Metadata = {
+  title: "Franchise Opportunities in India | TeaMax Café",
+  description:
+    "Explore TeaMax Café franchise opportunities across top Indian cities. Zero royalty, low investment, chef-less operations and pan-India brand trust.",
+  alternates: {
+    canonical: `${siteUrl}/franchise`,
+  },
+  openGraph: {
+    title: "Franchise Opportunities in India | TeaMax Café",
+    description:
+      "Explore TeaMax Café franchise opportunities across top Indian cities. Zero royalty, low investment, chef-less operations and pan-India brand trust.",
+    url: `${siteUrl}/franchise`,
+    type: "website",
+  },
+};
 
+export default function FranchiseOpportunitiesPage() {
   return (
-    <div style={{ textAlign: "center", padding: "120px 20px", fontFamily: "sans-serif" }}>
-      <p style={{ fontSize: "18px", color: "#2b3b38" }}>
-        Redirecting to{" "}
-        <a href="/cafe-franchise-india" style={{ color: "#127252", fontWeight: "bold" }}>
-          TeaMax Franchise (/cafe-franchise-india)
-        </a>
-        ...
-      </p>
-    </div>
+    <>
+      <Header active="/franchise" />
+      <OurFranchiseOpportunitiesContent />
+      <Footer />
+    </>
   );
 }
