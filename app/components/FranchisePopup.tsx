@@ -293,7 +293,7 @@ export default function FranchisePopup() {
           <div className="tmx-franchise-benefits">
             <div>
               <Check size={16} />
-              <span>250+ outlet network</span>
+              <span>Pan-india outlet network</span>
             </div>
             <div>
               <Check size={16} />
@@ -529,26 +529,20 @@ export default function FranchisePopup() {
               }}
             />
 
-            {/* Month and Year */}
-            <div className="tmx-franchise-month-field">
-              <label
-                htmlFor="whenToStart"
-                className="tmx-franchise-month-label"
-              >
-                When to Start? *
-              </label>
-
-              <input
-                type="month"
-                id="whenToStart"
-                name="whenToStart"
-                value={formData.whenToStart}
-                onChange={handleInputChange}
-                className="tmx-franchise-select tmx-franchise-month-input"
-                min="2026-10"
-                required
-              />
-            </div>
+            {/* When to Start */}
+            <select
+              name="whenToStart"
+              value={formData.whenToStart}
+              onChange={handleInputChange}
+              className="tmx-franchise-select"
+              required
+            >
+              <option value="">When to Start? *</option>
+              <option value="Immediately">Immediately</option>
+              <option value="Within 90 Days">Within 90 Days</option>
+              <option value="Within 180 Days">Within 180 Days</option>
+              <option value="Not Decided Yet">Not Decided Yet</option>
+            </select>
 
             {/* Shop Availability */}
             <select

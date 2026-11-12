@@ -267,14 +267,31 @@ const DEFAULT_FRANCHISE_OPPORTUNITIES: DynamicFranchiseOpportunity[] = [
   },
 ];
 
-export async function getFranchiseOpportunities(status = 'active'): Promise<DynamicFranchiseOpportunity[]> {
-  const query = status ? `?status=${encodeURIComponent(status)}` : '';
-  const data = await fetchFromApi<DynamicFranchiseOpportunity[]>(`/franchise-opportunities${query}`);
-  if (Array.isArray(data) && data.length > 0) {
+
+export async function getFranchiseOpportunities(
+  status = "active"
+): Promise<DynamicFranchiseOpportunity[]> {
+  const query = status
+    ? `?status=${encodeURIComponent(status)}`
+    : "";
+
+  const data = await fetchFromApi<DynamicFranchiseOpportunity[]>(
+    `/franchise-opportunities${query}`
+  );
+
+  // API returned a valid array, including an empty array
+  if (Array.isArray(data)) {
     return data;
   }
+
+  // API failed: use fallback data
+  console.warn(
+    "Franchise API unavailable. Using default franchise data."
+  );
+
   return DEFAULT_FRANCHISE_OPPORTUNITIES;
 }
+
 
 export async function getFranchiseOpportunityBySlug(slug: string): Promise<DynamicFranchiseOpportunity | null> {
   const data = await fetchFromApi<DynamicFranchiseOpportunity>(`/franchise-opportunities/${encodeURIComponent(slug)}`);

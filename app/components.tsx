@@ -153,7 +153,7 @@ export function Footer() {
             </Link>
 
             <a
-              href="https://drive.google.com/file/d/1hXeKMuqImeq0eA3cL_934FS44iZvXJRQ/view"
+              href="https://go.teamaxcafe.in/cafe"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -167,9 +167,15 @@ export function Footer() {
             >
               Franchise Explainer
             </a>
-
-            {/* CLIENT COMPONENT BUTTON */}
-            <FranchiseBookingButton />
+            <a
+              href="https://go.teamaxcafe.in/booking"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Franchise Booking
+            </a>
+            {/* CLIENT COMPONENT BUTTON
+            <FranchiseBookingButton /> */}
 
             <Link href="/blog">
               Team Login

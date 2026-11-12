@@ -601,18 +601,22 @@ export default function FranchiseFormSection() {
                     />
                   </div>
 
-                  {/* When to Start - Month and Year */}
+                  {/* When to Start */}
                   <div className="tm-fc-input-group">
-                    <input
-                      type="month"
+                    <select
                       name="whenToStart"
                       value={formData.whenToStart}
                       onChange={handleInputChange}
-                      className="tm-fc-input"
-                      min="2026-10"
+                      className="tm-fc-select"
                       aria-label="When to Start"
                       required
-                    />
+                    >
+                      <option value="">When to Start?</option>
+                      <option value="Immediately">Immediately</option>
+                      <option value="Within 90 Days">Within 90 Days</option>
+                      <option value="Within 180 Days">Within 180 Days</option>
+                      <option value="Not Decided Yet">Not Decided Yet</option>
+                    </select>
                   </div>
 
                   {/* Shop Availability */}
@@ -655,8 +659,7 @@ export default function FranchiseFormSection() {
 
                 <p className="tm-fc-form-disclaimer">
                   Submitting an enquiry does not guarantee franchise or
-                  location approval.
-                </p>
+                  location approval.                </p>
               </form>
             )}
           </div>
