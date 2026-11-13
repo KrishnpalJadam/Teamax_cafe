@@ -770,7 +770,7 @@ export function StorePromos() {
 
 const API_BASE =
     process.env.NEXT_PUBLIC_API_URL ||
-    "https://teamaxbackend-production.up.railway.app/api/v1";
+    "https://185.158.66.148.host.secureserver.net/teamax-api/api/v1";
 
 function MomentsSection() {
     const [photos, setPhotos] = useState<{ src: string; alt: string }[]>([]);

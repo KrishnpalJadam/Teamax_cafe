@@ -361,7 +361,7 @@ export default async function BlogPostPage({
               ) : null}
 
               {/* Tags */}
-              <div style={{ marginTop: "40px", paddingTop: "24px", borderTop: "1px solid var(--tm-teal-border)" }}>
+              {/* <div style={{ marginTop: "40px", paddingTop: "24px", borderTop: "1px solid var(--tm-teal-border)" }}>
                 <span style={{ fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 600, color: "var(--tm-teal-muted)", marginRight: "12px" }}>
                   Topics:
                 </span>
@@ -382,7 +382,7 @@ export default async function BlogPostPage({
                     </span>
                   ))}
                 </div>
-              </div>
+              </div> */}
 
               {/* Bottom Social Share */}
               <div style={{ marginTop: "32px", padding: "20px 24px", background: "var(--tm-cream-card)", border: "1px solid var(--tm-teal-border)", borderRadius: "16px" }}>

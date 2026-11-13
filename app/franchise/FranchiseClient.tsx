@@ -250,7 +250,7 @@ export function FranchiseClient() {
     const fetchTestimonials = async () => {
       try {
         const response = await fetch(
-          "https://teamaxbackend-production.up.railway.app/api/v1/reviews"
+          "https://185.158.66.148.host.secureserver.net/teamax-api/api/reviews"
         );
 
         if (!response.ok) {
