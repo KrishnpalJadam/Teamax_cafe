@@ -4,8 +4,10 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import { BadgeCheck } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
-import { submitFranchiseOpportunityInquiry } from "../../lib/api";
+import {
+  submitFranchiseOpportunityInquiry,
+  submitFranchisePabblyInquiry,
+} from "../../lib/api";
 
 type StateOption = {
   value: string;
@@ -78,40 +80,52 @@ const shopOptions = [
   { value: "No Space Yet", label: "No Space Yet" },
 ];
 
+export const normalizeToYYYYMMDD = (value: string): string => {
+  if (!value) return new Date().toISOString().split("T")[0];
+  const trimmed = value.trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) return trimmed;
+  if (/^\d{4}-\d{2}$/.test(trimmed)) return `${trimmed}-01`;
+
+  const lower = trimmed.toLowerCase();
+  const now = new Date();
+  if (lower === "immediately") return now.toISOString().split("T")[0];
+  if (lower.includes("90")) {
+    const d = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000);
+    return d.toISOString().split("T")[0];
+  }
+  if (lower.includes("180")) {
+    const d = new Date(now.getTime() + 180 * 24 * 60 * 60 * 1000);
+    return d.toISOString().split("T")[0];
+  }
+  if (lower.includes("not decided")) {
+    const d = new Date(now.getTime() + 60 * 24 * 60 * 60 * 1000);
+    return d.toISOString().split("T")[0];
+  }
+  const parsed = new Date(trimmed);
+  if (!isNaN(parsed.getTime())) {
+    return parsed.toISOString().split("T")[0];
+  }
+  return now.toISOString().split("T")[0];
+};
+
 const getFormattedStartMonth = (value: string) => {
   if (!value) return "";
+  if (value.toLowerCase() === "immediately") return "Immediately";
+  if (value.includes("90")) return "Within 90 Days";
+  if (value.includes("180")) return "Within 180 Days";
+  if (value.toLowerCase().includes("not decided")) return "Not Decided Yet";
 
-  const [year, month] = value.split("-").map(Number);
-
-  return new Date(year, month - 1, 1).toLocaleDateString("en-IN", {
-    month: "long",
-    year: "numeric",
-  });
+  if (/^\d{4}-\d{2}/.test(value)) {
+    const [year, month] = value.split("-").map(Number);
+    if (!isNaN(year) && !isNaN(month)) {
+      return new Date(year, month - 1, 1).toLocaleDateString("en-IN", {
+        month: "long",
+        year: "numeric",
+      });
+    }
+  }
+  return value;
 };
-
-const buildWhatsAppMessage = (formData: FormData) => {
-  return [
-    "Hi TeaMax, I am interested in a franchise.",
-    "",
-    `Full Name: ${formData.fullName.trim()}`,
-    `Email: ${formData.email.trim()}`,
-    `WhatsApp Number: +91${formData.phone}`,
-    `City: ${formData.city.trim()}`,
-    `State: ${formData.state}`,
-    `When to Start: ${getFormattedStartMonth(formData.whenToStart)}`,
-    `Shop Availability: ${formData.haveShop}`,
-  ].join("\n");
-};
-
-
-const getWhatsAppUrl = (formData: FormData) => {
-  const message = buildWhatsAppMessage(formData);
-
-  return `https://go.teamaxcafe.in/whatsapp?text=${encodeURIComponent(
-    message
-  )}`;
-};
-
 
 type FranchiseFormSectionProps = {
   initialCity?: string;
@@ -155,7 +169,7 @@ export default function FranchiseFormSection({
   };
 
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage("");
 
@@ -204,6 +218,17 @@ export default function FranchiseFormSection({
     setIsSubmitting(true);
 
     try {
+      await submitFranchisePabblyInquiry({
+        name: formData.fullName.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone,
+        city: formData.city.trim(),
+        state: formData.state,
+        startDate: normalizeToYYYYMMDD(formData.whenToStart),
+        hasSpace: formData.haveShop,
+        source: slug ? `franchise_opportunity_${slug}` : "teamex_franchise_website",
+      });
+
       if (slug) {
         submitFranchiseOpportunityInquiry(slug, {
           name: formData.fullName.trim(),
@@ -218,26 +243,12 @@ export default function FranchiseFormSection({
         }).catch((e) => console.warn("Background inquiry sync error:", e));
       }
 
-      const whatsappUrl = getWhatsAppUrl(formData);
-
-      // Open WhatsApp only once
-      const whatsappWindow = window.open(
-        whatsappUrl,
-        "_blank"
-      );
-
-      if (!whatsappWindow) {
-        setErrorMessage(
-          "WhatsApp could not be opened. Please allow popups and try again."
-        );
-        return;
-      }
-
       setErrorMessage("");
       setFormSubmitted(true);
-    } catch (error) {
+      setFormData({ ...initialFormData });
+    } catch (error: any) {
       console.error("Franchise enquiry error:", error);
-      setErrorMessage("Unable to open WhatsApp. Please try again.");
+      setErrorMessage(error.message || "Unable to submit your enquiry. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -394,34 +405,15 @@ export default function FranchiseFormSection({
                     marginBottom: "20px",
                   }}
                 >
-                  Your franchise enquiry is ready. Continue the conversation
-                  with our team on WhatsApp.
+                  Your franchise enquiry has been submitted successfully. Our
+                  team will contact you soon.
                 </p>
 
                 <button
                   type="button"
                   className="tm-fc-btn-submit"
-                  onClick={() => {
-                    window.open(
-                      getWhatsAppUrl(formData),
-                      "_blank",
-                      "noopener,noreferrer"
-                    );
-                  }}
-                >
-                  <FaWhatsapp size={20} />
-                  <span>Continue on WhatsApp</span>
-                </button>
-
-                <button
-                  type="button"
-                  className="tm-fc-btn-submit"
                   style={{
-                    marginTop: "12px",
                     width: "100%",
-                    background: "rgba(255, 255, 255, 0.12)",
-                    color: "#ffffff",
-                    border: "1px solid rgba(255, 255, 255, 0.2)",
                   }}
                   onClick={() => {
                     setFormData({ ...initialFormData });
@@ -619,7 +611,7 @@ export default function FranchiseFormSection({
                   </div>
                 </div>
 
-                {/* Submit Button - Existing UI unchanged */}
+                {/* Submit Button */}
                 <button
                   type="submit"
                   className="tm-fc-btn-submit"
@@ -632,10 +624,9 @@ export default function FranchiseFormSection({
                 >
                   <span>
                     {isSubmitting
-                      ? "Preparing Enquiry..."
-                      : "Get Franchise Details on WhatsApp"}
+                      ? "Submitting..."
+                      : "Submit Enquiry"}
                   </span>
-                  <FaWhatsapp size={20} />
                 </button>
 
                 <p className="tm-fc-form-disclaimer">
