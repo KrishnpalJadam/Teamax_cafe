@@ -5,6 +5,35 @@ import React, { FormEvent, useEffect, useState } from "react";
 import Select from "react-select";
 import { ArrowRight, Check, X } from "lucide-react";
 import "./franchise-popup.css";
+import { submitFranchisePabblyInquiry } from "../lib/api";
+
+const normalizeToYYYYMMDD = (value: string): string => {
+  if (!value) return new Date().toISOString().split("T")[0];
+  const trimmed = value.trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) return trimmed;
+  if (/^\d{4}-\d{2}$/.test(trimmed)) return `${trimmed}-01`;
+
+  const lower = trimmed.toLowerCase();
+  const now = new Date();
+  if (lower === "immediately") return now.toISOString().split("T")[0];
+  if (lower.includes("90")) {
+    const d = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000);
+    return d.toISOString().split("T")[0];
+  }
+  if (lower.includes("180")) {
+    const d = new Date(now.getTime() + 180 * 24 * 60 * 60 * 1000);
+    return d.toISOString().split("T")[0];
+  }
+  if (lower.includes("not decided")) {
+    const d = new Date(now.getTime() + 60 * 24 * 60 * 60 * 1000);
+    return d.toISOString().split("T")[0];
+  }
+  const parsed = new Date(trimmed);
+  if (!isNaN(parsed.getTime())) {
+    return parsed.toISOString().split("T")[0];
+  }
+  return now.toISOString().split("T")[0];
+};
 
 const indianStateOptions = [
   "Andhra Pradesh",
@@ -51,6 +80,7 @@ const indianStateOptions = [
 export default function FranchisePopup() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const initialFormData = {
@@ -199,48 +229,26 @@ export default function FranchisePopup() {
     setIsSubmitting(true);
 
     try {
-      const [year, month] = formData.whenToStart.split("-").map(Number);
-
-      const selectedStartMonth = new Date(
-        year,
-        month - 1,
-        1
-      ).toLocaleDateString("en-IN", {
-        month: "long",
-        year: "numeric",
+      await submitFranchisePabblyInquiry({
+        name: formData.fullName.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone,
+        city: formData.city.trim(),
+        state: formData.state,
+        startDate: normalizeToYYYYMMDD(formData.whenToStart),
+        hasSpace: formData.haveShop,
+        source: "teamex_franchise_website_popup",
       });
 
-      const message = [
-        "Hi TeaMax, I am interested in a franchise.",
-        "",
-        `Full Name: ${formData.fullName.trim()}`,
-        `Email: ${formData.email.trim()}`,
-        `WhatsApp Number: +91${formData.phone}`,
-        `City: ${formData.city.trim()}`,
-        `State: ${formData.state}`,
-        `When to Start: ${selectedStartMonth}`,
-        `Shop Availability: ${formData.haveShop}`,
-      ].join("\n");
-
-      const whatsappUrl =
-        `https://go.teamaxcafe.in/whatsapp?text=${encodeURIComponent(message)}`;
-      const whatsappWindow = window.open(whatsappUrl, "_blank");
-
-      if (!whatsappWindow) {
-        setErrorMessage(
-          "WhatsApp could not be opened. Please allow popups and try again."
-        );
-        return;
-      }
-
       setErrorMessage("");
-      setIsOpen(false);
       setFormData(initialFormData);
-
-      setIsOpen(false);
-      setFormData(initialFormData);
-    } catch {
-      setErrorMessage("Unable to open WhatsApp. Please try again.");
+      setIsSuccess(true);
+      setTimeout(() => {
+        setIsOpen(false);
+        setIsSuccess(false);
+      }, 3500);
+    } catch (error: any) {
+      setErrorMessage(error.message || "Unable to submit your enquiry. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -321,7 +329,40 @@ export default function FranchisePopup() {
             FRANCHISE ENQUIRY
           </p>
 
-          <form onSubmit={handleSubmit}>
+          {isSuccess ? (
+            <div style={{ padding: "40px 16px", textAlign: "center" }}>
+              <div
+                style={{
+                  color: "#ffd028",
+                  marginBottom: "16px",
+                  display: "inline-flex",
+                }}
+              >
+                <Check size={44} />
+              </div>
+              <h3
+                style={{
+                  fontSize: "20px",
+                  color: "#263c3d",
+                  marginBottom: "10px",
+                  fontWeight: "bold",
+                }}
+              >
+                Thank You!
+              </h3>
+              <p
+                style={{
+                  color: "#52666a",
+                  fontSize: "14px",
+                  lineHeight: "1.6",
+                }}
+              >
+                Your franchise enquiry has been submitted successfully. Our team
+                will contact you soon.
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit}>
             {errorMessage && (
               <div className="tmx-franchise-error" role="alert">
                 {errorMessage}
@@ -571,11 +612,12 @@ export default function FranchisePopup() {
               disabled={isSubmitting}
             >
               {isSubmitting
-                ? "Preparing Enquiry..."
-                : "Get Franchise Details on WhatsApp"}
+                ? "Submitting..."
+                : "Submit Enquiry"}
               <ArrowRight size={18} />
             </button>
           </form>
+          )}
         </div>
       </div>
     </div>

@@ -93,6 +93,34 @@ export async function getCentreBySlugOrId(idOrSlug: string) {
 }
 
 // 6. Lead Generation
+export async function submitFranchisePabblyInquiry(payload: {
+  name: string;
+  email: string;
+  phone: string;
+  city: string;
+  state: string;
+  startDate: string;
+  hasSpace: string;
+  source?: string;
+}) {
+  const url = `${API_BASE_URL}/franchise/inquiry`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    let errorMsg = json.message || 'Unable to submit your enquiry. Please try again.';
+    if (Array.isArray(json.error)) {
+      errorMsg = json.error.map((e: any) => e.message).join(', ');
+    }
+    throw new Error(errorMsg);
+  }
+  return json;
+}
+
 export async function submitFranchiseEnquiry(payload: {
   fullName: string;
   mobile?: string;
