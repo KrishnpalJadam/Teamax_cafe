@@ -79,7 +79,7 @@ export const metadata: Metadata = {
     description: "Tea, coffee, fresh juices, shakes and café favourites.",
     images: ["/images/cafe-interior.jpg"],
   },
-  icons: { icon: "/images/logo.webp" },
+  icons: { icon: "/images/fav.jpg" },
 };
 
 import { ScrollAnimations } from "./scroll-animations";
