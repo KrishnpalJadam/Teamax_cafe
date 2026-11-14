@@ -1,8 +1,8 @@
 // Client & Server API utility for TeaMax Cafe website
 
-const API_BASE_URL =
+export const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL || 'https://185.158.66.148.host.secureserver.net/teamax-api/api/v1';
-const FALLBACK_API_BASE_URL = 'https://185.158.66.148.host.secureserver.net/teamax-api/api/v1';
+export const FALLBACK_API_BASE_URL = 'https://185.158.66.148.host.secureserver.net/teamax-api/api/v1';
 
 async function fetchFromApi<T>(endpoint: string, options: RequestInit = {}): Promise<T | null> {
   const headers = {

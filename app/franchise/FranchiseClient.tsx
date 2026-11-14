@@ -5,7 +5,7 @@ import Link from "next/link";
 import "./franchise.css";
 import { Header } from "../components";
 import FranchiseFormSection from "./franchise-form";
-import { getCommonCategories, getCommonMenu } from "../lib/api";
+import { getCommonCategories, getCommonMenu, API_BASE_URL } from "../lib/api";
 import {
   Users,
   MapPin,
@@ -250,7 +250,7 @@ export function FranchiseClient() {
     const fetchTestimonials = async () => {
       try {
         const response = await fetch(
-          "https://185.158.66.148.host.secureserver.net/teamax-api/api/reviews"
+          `${API_BASE_URL}/reviews`
         );
 
         if (!response.ok) {
