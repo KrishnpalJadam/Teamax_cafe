@@ -4161,16 +4161,16 @@ body {
     height: 235px;
   }
 
-  .tx-menu-product-details {
+  /* .tx-menu-product-details {
     min-height: 105px;
-  }
+  } */
 
   .tx-menu-product-name {
-    font-size: 13px;
+    font-size: 18px;
   }
 
   .tx-menu-product-description {
-    font-size: 10.5px;
+    font-size: 13px;
   }
 
   .tx-menu-signature {

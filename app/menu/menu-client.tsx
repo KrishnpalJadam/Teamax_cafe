@@ -27,6 +27,7 @@ export interface MenuItem {
   categoryId: string;
   isVeg: boolean;
   isPopular?: boolean;
+  isFeatured?: boolean;
   isWellness?: boolean;
   badge?: string;
   priceNote?: string;
@@ -302,7 +303,9 @@ export function MenuClient({
               categoryId: item.categoryId || item.category?.id || "general",
               categorySlug: item.category?.slug,
               isVeg: item.dietary === "veg" || item.dietary === "vegan" || item.isVeg === true,
+
               isPopular: item.isPopular,
+              isFeatured: Boolean(item.isFeatured),
               badge: item.isPopular ? "Popular" : undefined,
               price: item.price,
               image: item.image,
@@ -633,12 +636,45 @@ export function MenuClient({
                           loading="lazy"
                         />
 
-                        {item.isPopular && (
-                          <span className="tx-menu-popular-badge">
-                            <span>★</span>
-                            Popular
-                          </span>
-                        )}
+                        <div className="d-flex g-3">
+
+
+                          {/* Product Badges */}
+                          {(item.isFeatured || item.isPopular) && (
+                            <div
+                              style={{
+                                position: "absolute",
+                                top: "12px",
+                                right: "12px",
+                                display: "flex",
+                                flexDirection: "column",
+                                alignItems: "flex-end",
+                                gap: "8px",
+                                zIndex: 5,
+                              }}
+                            >
+                              {/* Featured Badge */}
+                              {item.isFeatured && (
+                                <span
+                                  className="tx-menu-popular-badge"
+                                  style={{ position: "static" }}
+                                >
+                                  <span>★</span> Featured
+                                </span>
+                              )}
+
+                              {/* Popular Badge */}
+                              {item.isPopular && (
+                                <span
+                                  className="tx-menu-popular-badge"
+                                  style={{ position: "static" }}
+                                >
+                                  <span>★</span> Popular
+                                </span>
+                              )}
+                            </div>
+                          )}
+                        </div>
 
                       </div>
 
