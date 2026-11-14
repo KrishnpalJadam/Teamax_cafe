@@ -546,6 +546,7 @@ export default function FranchiseFormSection({
                   {/* Searchable State Dropdown */}
                   <div className="tm-fc-input-group">
                     <Select
+                      instanceId="tm-fc-opp-franchise-state"
                       inputId="tm-fc-franchise-state"
                       name="state"
                       options={indianStateOptions}
