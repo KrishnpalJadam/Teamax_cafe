@@ -426,6 +426,7 @@ export default function FranchisePopup() {
 
             {/* Searchable State Dropdown */}
             <Select
+              instanceId="tmx-franchise-popup-state"
               inputId="tmx-franchise-state"
               name="state"
               options={indianStateOptions}

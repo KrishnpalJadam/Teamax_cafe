@@ -8,7 +8,7 @@ import {
     X, Plus, Navigation, Percent, Wifi, Coffee
 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { getFeaturedProducts, getPrimaryOffer, getCommonMenu, getCommonCategories, getCentreBySlugOrId, getReviews } from "../../lib/api";
+import { getFeaturedProducts, getPrimaryOffer, getCommonMenu, getCommonCategories, getCentreBySlugOrId, getReviews, API_BASE_URL } from "../../lib/api";
 
 const ORDERED_DAYS = [
     { key: "monday", label: "Monday" },
@@ -768,16 +768,12 @@ export function StorePromos() {
     );
 }
 
-const API_BASE =
-    process.env.NEXT_PUBLIC_API_URL ||
-    "https://185.158.66.148.host.secureserver.net/teamax-api/api/v1";
-
 function MomentsSection() {
     const [photos, setPhotos] = useState<{ src: string; alt: string }[]>([]);
 
     useEffect(() => {
         let isMounted = true;
-        fetch(`${API_BASE}/settings/moments`)
+        fetch(`${API_BASE_URL}/settings/moments`)
             .then((r) => r.json())
             .then((json) => {
                 if (!isMounted) return;
