@@ -7,9 +7,9 @@ export const dynamic = "force-static";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.teamaxcafe.in";
 
 export const metadata: Metadata = {
-  title: "Start Your Own TeaMax Café Franchise at ₹3.69 Lakh* | Zero Royalty",
+  title: "Cafe Franchise in India | Zero Royalty | TeaMax Cafe",
   description:
-    "Start your own TeaMax Café Franchise with zero royalty, chef-less operations and complete franchise support. 1,309+ partner signups across 27+ states. Turnkey setup in 25-30 days.",
+    "Start your cafe journey with TeaMax's zero-royalty franchise model. Explore investment details, equipment, training, setup guidance and ongoing support.",
   keywords: [
     "TeaMax franchise",
     "tea cafe franchise India",
@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     canonical: `${siteUrl}/cafe-franchise-india`,
   },
   openGraph: {
-    title: "Start Your Own TeaMax Café Franchise at ₹3.69 Lakh* | Zero Royalty",
+    title: "Cafe Franchise in India | Zero Royalty | TeaMax Cafe",
     description:
-      "Join India's fastest growing café network. Zero royalty, chef-less model, complete equipment and training support.",
+      "Start your cafe journey with TeaMax's zero-royalty franchise model. Explore investment details, equipment, training, setup guidance and ongoing support.",
     url: `${siteUrl}/cafe-franchise-india`,
     type: "website",
     images: [
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TeaMax Café Franchise | Start at ₹3.69 Lakh*",
+    title: "Cafe Franchise in India | Zero Royalty | TeaMax Cafe",
     description:
-      "Zero Royalty. Chef-less Operations. Complete Franchise Support.",
+      "Start your cafe journey with TeaMax's zero-royalty franchise model. Explore investment details, equipment, training, setup guidance and ongoing support.",
     images: ["/images/franchise-hero-combo.jpg"],
   },
 };

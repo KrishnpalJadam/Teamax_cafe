@@ -23,9 +23,9 @@ const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL || "https://www.teamaxcafe.in";
 
 export const metadata: Metadata = {
-    title: "Customer Reviews & Stories | TeaMax Café",
+    title: "TeaMax Cafe Reviews | Customers & Franchise Partners",
     description:
-        "Read reviews and stories from TeaMax franchise partners, staff members and customers.",
+        "Read experiences shared by TeaMax Cafe customers, franchise partners and team members about cafe visits, business setup, training and ongoing support.",
     keywords: [
         "TeaMax reviews",
         "TeaMax Cafe reviews",
@@ -35,9 +35,9 @@ export const metadata: Metadata = {
     ],
     alternates: { canonical: "/reviews" },
     openGraph: {
-        title: "Our Reviews | TeaMax Café",
+        title: "TeaMax Cafe Reviews | Customers & Franchise Partners",
         description:
-            "Real stories from TeaMax franchise partners, staff and customers.",
+            "Read experiences shared by TeaMax Cafe customers, franchise partners and team members about cafe visits, business setup, training and ongoing support.",
         url: `${siteUrl}/reviews`,
         type: "website",
         images: [

@@ -28,11 +28,11 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.teamaxcafe.in";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "TeaMax Café | Tea, Coffee, Shakes & Fresh Café Favourites",
-    template: "%s | TeaMax Café",
+    default: "TeaMax Cafe | Tea, Coffee & Cafe Franchise in India",
+    template: "%s",
   },
   description:
-    "TeaMax is a warm, contemporary Indian café serving tea, coffee, herbal drinks, fresh juices, shakes, ice creams and café favourites across 250+ outlets.",
+    "Discover TeaMax Cafe for tea, coffee, shakes and tasty bites. Explore our menu, find a cafe or learn about our zero-royalty franchise opportunity.",
   keywords: [
     "TeaMax",
     "TeaMax cafe",

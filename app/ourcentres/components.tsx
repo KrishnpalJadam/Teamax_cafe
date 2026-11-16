@@ -16,7 +16,7 @@ import Link from "next/link";
 import { getCentres } from "../lib/api";
 
 const HERO_IMAGE =
-    "https://responsive-cafe-showcase.lovable.app/assets/tea-hero-DMrQZeuN.jpg";
+    "https://i.ibb.co/ZpPMTscJ/Tea-Max-Franchise-Centres-Banner.webp";
 
 const CAFE_IMAGE =
     "https://responsive-cafe-showcase.lovable.app/assets/cafe-1-2S3WQYFE.jpg";
@@ -53,76 +53,7 @@ const cafes: Cafe[] = [
         distance: 0.8,
         hours: "7:00 AM – 11:00 PM",
     },
-    {
-        id: 2,
-        name: "TeaMax Cafe – Gachibowli",
-        locality: "Gachibowli",
-        address:
-            "Sy No. 45, Near DLF, Gachibowli, Hyderabad, Telangana 500032",
-        city: "Hyderabad",
-        state: "Telangana",
-        country: "India",
-        rating: 4.5,
-        reviews: 184,
-        distance: 2.4,
-        hours: "8:00 AM – 11:00 PM",
-    },
-    {
-        id: 3,
-        name: "TeaMax Cafe – Hitech City",
-        locality: "Hitech City",
-        address:
-            "2nd Floor, Cyber Towers Lane, Hitech City, Hyderabad, Telangana 500081",
-        city: "Hyderabad",
-        state: "Telangana",
-        country: "India",
-        rating: 4.7,
-        reviews: 312,
-        distance: 5.1,
-        hours: "7:00 AM – 11:30 PM",
-    },
-    {
-        id: 4,
-        name: "TeaMax Cafe – Jubilee Hills",
-        locality: "Jubilee Hills",
-        address:
-            "Road No. 36, Jubilee Hills, Hyderabad, Telangana 500033",
-        city: "Hyderabad",
-        state: "Telangana",
-        country: "India",
-        rating: 4.4,
-        reviews: 96,
-        distance: 6.3,
-        hours: "8:00 AM – 11:00 PM",
-    },
-    {
-        id: 5,
-        name: "TeaMax Cafe – Banjara Hills",
-        locality: "Banjara Hills",
-        address:
-            "Road No. 12, Banjara Hills, Hyderabad, Telangana 500034",
-        city: "Hyderabad",
-        state: "Telangana",
-        country: "India",
-        rating: 4.6,
-        reviews: 208,
-        distance: 7.1,
-        hours: "7:30 AM – 11:00 PM",
-    },
-    {
-        id: 6,
-        name: "TeaMax Cafe – Kondapur",
-        locality: "Kondapur",
-        address:
-            "Near Botanical Garden, Kondapur, Hyderabad, Telangana 500084",
-        city: "Hyderabad",
-        state: "Telangana",
-        country: "India",
-        rating: 4.3,
-        reviews: 121,
-        distance: 7.8,
-        hours: "8:00 AM – 10:30 PM",
-    },
+
 ];
 
 const localities = [
@@ -270,7 +201,7 @@ export default function OurCentresContent() {
             <section className="tm-hero">
                 <img
                     className="tm-hero-image"
-                    src={HERO_IMAGE}
+                    src="./images/TeaMax-Franchise-Centres-Banner.webp"
                     alt="TeaMax coffee and fresh bakery"
                 />
 
@@ -293,11 +224,7 @@ export default function OurCentresContent() {
                         and tasty bites.
                     </p>
 
-                    <div className="tm-hero-slogan">
-                        Good Tea,
-                        <br />
-                        <span>Brighter Days.</span>
-                    </div>
+
                 </div>
             </section>
 

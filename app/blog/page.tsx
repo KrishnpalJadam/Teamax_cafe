@@ -10,9 +10,9 @@ export const dynamic = "force-static";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.teamaxcafe.in";
 
 export const metadata: Metadata = {
-  title: "Stories from the Brew | TeaMax Café Blog & Business Guides",
+  title: "Cafe Business Tips, Franchise Guides & Chai | TeaMax Blog",
   description:
-    "Explore in-depth guides on opening a tea café franchise in India, authentic Kadak Chai brewing craft, 3-in-1 café economics, FSSAI licensing, and healthy beverage trends from TeaMax.",
+    "Explore TeaMax Cafe's blog for franchise guides, cafe business tips, chai stories and brand updates. Find practical ideas for your cafe journey.",
   keywords: [
     "TeaMax blog",
     "tea cafe franchise India guide",
@@ -25,17 +25,17 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "Stories from the Brew | TeaMax Café",
+    title: "Cafe Business Tips, Franchise Guides & Chai | TeaMax Blog",
     description:
-      "Insights, brewing secrets, and franchise business guides from India's fastest-growing 3-in-1 tea café franchise network.",
+      "Explore TeaMax Cafe's blog for franchise guides, cafe business tips, chai stories and brand updates. Find practical ideas for your cafe journey.",
     url: `${siteUrl}/blog`,
     type: "website",
     images: [{ url: "/images/cafe-interior.jpg", width: 1080, height: 864, alt: "TeaMax Stories from the Brew" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Stories from the Brew | TeaMax Café",
-    description: "Insights, brewing secrets, and franchise guides from TeaMax Café.",
+    title: "Cafe Business Tips, Franchise Guides & Chai | TeaMax Blog",
+    description: "Explore TeaMax Cafe's blog for franchise guides, cafe business tips, chai stories and brand updates. Find practical ideas for your cafe journey.",
     images: ["/images/cafe-interior.jpg"],
   },
 };

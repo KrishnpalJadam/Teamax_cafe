@@ -5,13 +5,13 @@ import type { ComponentType } from "react";
 import PrivacyPolicy from "./PrivacyPolicy";
 
 export const metadata = {
-    title: "General & Privacy Policy | TeaMax Cafe India",
+    title: "Privacy & Refund Policy | TeaMax Cafe India",
     description:
-        "Read the TeaMax Cafe India privacy policy, information collection practices, data security and franchise refund policy.",
+        "Read TeaMax Cafe India's privacy and refund policy, including information collection, data use, cookies, third-party links and contact details.",
 };
 
 export default function PrivacyPolicyPage() {
     const PolicyComponent = PrivacyPolicy as ComponentType;
 
-    return <PolicyComponent />; 
+    return <PolicyComponent />;
 }

@@ -323,7 +323,7 @@ export default function FranchiseFormSection() {
           {/* Left Photo - Existing UI unchanged */}
           <div className="tm-fc-form-media">
             <img
-              src="/images/franchise-storefront.jpg"
+              src="/images/TeaMax cafe store design.webp"
               alt="TeaMax Store Interior and Counter"
               width="600"
               height="450"

@@ -564,7 +564,7 @@ export function FranchiseClient() {
           <div className="tm-fc-simple-grid">
             <div className="tm-fc-simple-media">
               <img
-                src="/images/franchise-storefront.jpg"
+                src="/images/franchise-storefront.webp"
                 alt="Modern TeaMax Cafe Storefront and Counter"
                 width="600"
                 height="450"
@@ -942,7 +942,7 @@ export function FranchiseClient() {
 
               <div className="tm-fc-space-img-wrap">
                 <img
-                  src="/images/franchise-storefront.jpg"
+                  src="/images/Teamax cafe store pic (2).webp"
                   alt="Compact TeaMax Kiosk Storefront"
                   className="tm-fc-space-img"
                 />

@@ -10,9 +10,9 @@ export const dynamic = "force-static";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.teamaxcafe.in";
 
 export const metadata: Metadata = {
-  title: "Our Story | The Journey of TeaMax Café India",
+  title: "About TeaMax Cafe | Our Story & Ashoka Group Heritage",
   description:
-    "Discover the story behind TeaMax Café — an India-born 3-in-1 tea café franchise with 250+ outlets across 6 states. Learn about our philosophy, founder, milestones and passion for authentic chai.",
+    "Discover the story behind TeaMax Cafe, a venture of Ashoka Group. Meet our team and explore our approach to cafe experiences and franchise support.",
   keywords: [
     "TeaMax story",
     "TeaMax cafe founder",
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   ],
   alternates: { canonical: "/about-us" },
   openGraph: {
-    title: "Our Story | TeaMax Café — A Taste Worth Sharing",
+    title: "About TeaMax Cafe | Our Story & Ashoka Group Heritage",
     description:
-      "From a single cup in 2020 to over 250+ outlets across India. Explore how TeaMax redefined the contemporary tea cafe experience.",
+      "Discover the story behind TeaMax Cafe, a venture of Ashoka Group. Meet our team and explore our approach to cafe experiences and franchise support.",
     url: `${siteUrl}/about-us`,
     type: "website",
     images: [{ url: "/images/cafe-interior.jpg", width: 1080, height: 864, alt: "TeaMax Café Experience" }],

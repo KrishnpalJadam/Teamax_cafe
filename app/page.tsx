@@ -8,9 +8,9 @@ export const dynamic = "force-static";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.teamaxcafe.in";
 
 export const metadata: Metadata = {
-  title: "TeaMax Café | Café Franchise in India | Tea, Coffee & More",
+  title: "TeaMax Cafe | Tea, Coffee & Cafe Franchise in India",
   description:
-    "Explore TeaMax Café for tea, coffee, fresh juices, shakes, ice creams and café favourites. Discover the TeaMax café franchise opportunity, menu and support across India.",
+    "Discover TeaMax Cafe for tea, coffee, shakes and tasty bites. Explore our menu, find a cafe or learn about our zero-royalty franchise opportunity.",
   keywords: [
     "TeaMax Café",
     "TeaMax cafe franchise",
@@ -27,9 +27,9 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_IN",
     siteName: "TeaMax Café",
-    title: "TeaMax Café | A Café Business Made Simple",
+    title: "TeaMax Cafe | Tea, Coffee & Cafe Franchise in India",
     description:
-      "Tea, coffee, fresh juices, shakes, ice creams and a structured café franchise model from TeaMax.",
+      "Discover TeaMax Cafe for tea, coffee, shakes and tasty bites. Explore our menu, find a cafe or learn about our zero-royalty franchise opportunity.",
     url: siteUrl,
     images: [
       {
@@ -42,8 +42,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "TeaMax Café | Café Franchise in India",
-    description: "Explore the TeaMax menu and café franchise opportunity.",
+    title: "TeaMax Cafe | Tea, Coffee & Cafe Franchise in India",
+    description:
+      "Discover TeaMax Cafe for tea, coffee, shakes and tasty bites. Explore our menu, find a cafe or learn about our zero-royalty franchise opportunity.",
     images: ["/images/cafe-interior.jpg"],
   },
 };
@@ -144,7 +145,7 @@ export default function HomePage() {
         <Home />
       </main>
       <Footer />
-        <FranchisePopup />
+      <FranchisePopup />
       <JsonLd data={schema} />
       <FaqJsonLd questions={faqs} />
     </>

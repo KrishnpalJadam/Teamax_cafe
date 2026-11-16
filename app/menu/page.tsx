@@ -13,9 +13,9 @@ const siteUrl =
   "https://www.teamaxcafe.in";
 
 export const metadata: Metadata = {
-  title: "Our Menu | TeaMax Café",
+  title: "TeaMax Cafe Menu | Chai, Coffee, Burgers & Shakes",
   description:
-    "Explore TeaMax Café's menu of masala chai, coffee, burgers, sandwiches, snacks and thickshakes.",
+    "Explore the TeaMax Cafe menu, from aromatic chai and refreshing coffee to burgers, sandwiches, fries and creamy shakes. Find your next favourite.",
   keywords: [
     "TeaMax menu",
     "TeaMax cafe menu",
@@ -30,9 +30,9 @@ export const metadata: Metadata = {
     canonical: "/menu",
   },
   openGraph: {
-    title: "Our Menu | TeaMax Café",
+    title: "TeaMax Cafe Menu | Chai, Coffee, Burgers & Shakes",
     description:
-      "Fresh flavours for every mood. Explore chai, coffee, burgers, snacks and thickshakes at TeaMax Café.",
+      "Explore the TeaMax Cafe menu, from aromatic chai and refreshing coffee to burgers, sandwiches, fries and creamy shakes. Find your next favourite.",
     url: `${siteUrl}/menu`,
     type: "website",
     images: [
@@ -57,49 +57,10 @@ const menuCategories: MenuCategory[] = [
     name: "Tea",
     description: "Freshly brewed TeaMax tea.",
     count: 4,
-    image: "/images/chai.webp",
+    image: "/images/dummy",
     icon: "coffee",
   },
-  {
-    id: "coffee",
-    name: "Coffee",
-    description: "Freshly brewed coffees.",
-    count: 4,
-    image: "/images/coffee.webp",
-    icon: "coffee",
-  },
-  {
-    id: "burgers",
-    name: "Burgers",
-    description: "Fresh and loaded burgers.",
-    count: 3,
-    image: "/images/hero-cafe.jpg",
-    icon: "burger",
-  },
-  {
-    id: "snacks",
-    name: "Snacks",
-    description: "Crispy cafe favourites.",
-    count: 4,
-    image: "/images/cafe-interior.jpg",
-    icon: "snacks",
-  },
-  {
-    id: "sandwiches",
-    name: "Sandwiches",
-    description: "Fresh grilled sandwiches.",
-    count: 3,
-    image: "/images/cafe-interior.jpg",
-    icon: "sandwich",
-  },
-  {
-    id: "thickshakes",
-    name: "Thickshakes",
-    description: "Rich creamy shakes.",
-    count: 4,
-    image: "/images/milkshake.webp",
-    icon: "shake",
-  },
+
 ];
 
 
@@ -151,104 +112,9 @@ const menuItems: MenuItem[] = [
     isPopular: true,
     badge: "Popular",
     price: 20,
-    image: "/images/chai.webp",
+    image: "/images/dummy.jpg",
   },
 
-  {
-    id: "classic-coffee",
-    name: "Classic Coffee",
-    description:
-      "Freshly brewed classic hot coffee.",
-    category: "Coffee",
-    categoryId: "coffee",
-    isVeg: true,
-    price: 49,
-    image: "/images/coffee.webp",
-  },
-
-  {
-    id: "cheese-burger",
-    name: "Cheese Burger",
-    description:
-      "Loaded with cheese and fresh toppings.",
-    category: "Burgers",
-    categoryId: "burgers",
-    isVeg: true,
-    price: 149,
-    image: "/images/coffee.webp",
-  },
-
-  {
-    id: "peri-peri-fries",
-    name: "Peri Peri Fries",
-    description:
-      "Spicy and flavourful peri peri fries.",
-    category: "Snacks",
-    categoryId: "snacks",
-    isVeg: true,
-    price: 59,
-    image: "/images/cafe-interior.jpg",
-  },
-
-  {
-    id: "cold-coffee",
-    name: "Cold Coffee",
-    description:
-      "Chilled coffee with a smooth taste.",
-    category: "Coffee",
-    categoryId: "coffee",
-    isVeg: true,
-    price: 99,
-    image: "/images/milkshake.webp",
-  },
-
-  {
-    id: "paneer-burger",
-    name: "Paneer Burger",
-    description:
-      "Grilled paneer with lettuce and mayo.",
-    category: "Burgers",
-    categoryId: "burgers",
-    isVeg: true,
-    price: 129,
-    image: "/images/coffee.webp",
-  },
-
-  {
-    id: "veg-sandwich",
-    name: "Veg Sandwich",
-    description:
-      "Grilled sandwich with fresh vegetables.",
-    category: "Sandwiches",
-    categoryId: "sandwiches",
-    isVeg: true,
-    price: 89,
-    image: "/images/cafe-interior.jpg",
-  },
-
-  {
-    id: "chocolate-shake",
-    name: "Chocolate Shake",
-    description:
-      "Rich chocolate with ice cream.",
-    category: "Thickshakes",
-    categoryId: "thickshakes",
-    isVeg: true,
-    price: 99,
-    image: "/images/milkshake.webp",
-  },
-
-  {
-    id: "strawberry-shake",
-    name: "Strawberry Shake",
-    description:
-      "Fresh strawberries with creamy goodness.",
-    category: "Thickshakes",
-    categoryId: "thickshakes",
-    isVeg: true,
-    price: 99,
-    image: "/images/milkshake.webp",
-  },
 ];
 
 

@@ -18,7 +18,7 @@ const brands = [
   },
   {
     name: "Amazon",
-    image: "/images/brands/amazon.webp",
+    image: "/images/brands/Amazon TeaMax Cafe.webp",
   },
   {
     name: "Swiggy",
@@ -30,7 +30,7 @@ const brands = [
   },
   {
     name: "Rapido",
-    image: "/images/brands/rapido.webp",
+    image: "/images/brands/Rapido TeaMax Cafe.webp",
   },
   {
     name: "Dunzo",

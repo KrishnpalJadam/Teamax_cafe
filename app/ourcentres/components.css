@@ -75,11 +75,11 @@
 
 .tm-hero-overlay {
     z-index: -1;
-    background: linear-gradient(90deg,
+    /* background: linear-gradient(90deg,
             rgba(255, 248, 238, 0.94) 0%,
             rgba(255, 248, 238, 0.83) 38%,
             rgba(255, 248, 238, 0.2) 72%,
-            rgba(255, 248, 238, 0.02) 100%);
+            rgba(255, 248, 238, 0.02) 100%); */
 }
 
 .tm-hero-content {
@@ -665,10 +665,10 @@
     }
 
     .tm-hero-overlay {
-        background: linear-gradient(90deg,
+        /* background: linear-gradient(90deg,
                 rgba(255, 248, 238, 0.95),
                 rgba(255, 248, 238, 0.8) 68%,
-                rgba(255, 248, 238, 0.38));
+                rgba(255, 248, 238, 0.38)); */
     }
 
     .tm-hero-content {

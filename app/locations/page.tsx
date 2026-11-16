@@ -7,14 +7,14 @@ export const dynamic = "force-static";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.teamaxcafe.in";
 
 export const metadata: Metadata = {
-    title: "TeaMax Café Locations | Find a TeaMax Near You",
-    description: "Explore TeaMax Café centres across India. Visit your nearest outlet for authentic chai, coffee, and delicious café favourites.",
+    title: "TeaMax Cafe Locations | Find a Cafe Near You",
+    description: "Find a TeaMax Cafe by city or neighbourhood. Explore listed locations, check cafe details and get directions for your next tea, coffee or snack break.",
     alternates: {
         canonical: `${siteUrl}/locations`,
     },
     openGraph: {
-        title: "TeaMax Café Locations | Find a TeaMax Near You",
-        description: "Explore TeaMax Café centres across India. Visit your nearest outlet for authentic chai, coffee, and delicious café favourites.",
+        title: "TeaMax Cafe Locations | Find a Cafe Near You",
+        description: "Find a TeaMax Cafe by city or neighbourhood. Explore listed locations, check cafe details and get directions for your next tea, coffee or snack break.",
         url: `${siteUrl}/locations`,
         type: "website",
     },

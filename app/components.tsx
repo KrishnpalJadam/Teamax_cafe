@@ -177,9 +177,7 @@ export function Footer() {
             {/* CLIENT COMPONENT BUTTON
             <FranchiseBookingButton /> */}
 
-            <Link href="/blog">
-              Team Login
-            </Link>
+
 
           </div>
 
