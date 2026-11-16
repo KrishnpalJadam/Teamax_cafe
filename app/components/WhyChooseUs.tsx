@@ -70,7 +70,7 @@ export default function WhyChooseUs() {
 
           <div className="tmx-why-choose-product">
             <img
-              src="/images/High Standards. Lower Costs.webp"
+              src="/images/TeaMax packet and chai cup mockup.webp"
               alt="TeaMax tea packaging"
               loading="lazy"
             />
