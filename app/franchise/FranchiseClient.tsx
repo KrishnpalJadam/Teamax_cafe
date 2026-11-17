@@ -51,7 +51,7 @@ const FranchiseIndiaMap = dynamic(
   }
 );
 
-export function FranchiseClient() {
+export function FranchiseClient({ active = "/cafe-franchise-india" }: { active?: string } = {}) {
   // FAQ accordion state
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -293,7 +293,7 @@ export function FranchiseClient() {
     },
     {
       q: "What is the franchise license period?",
-      a: "The standard franchise license agreement is granted for 5 Years. After 5 years, license renewal terms apply as per company policy with minimal administrative overhead.",
+      a: "The standard franchise license agreement is granted for 2 Years. After 52 years, license renewal terms apply as per company policy with minimal administrative overhead.",
     },
     {
       q: "Does TeaMax charge royalty?",
@@ -407,7 +407,7 @@ export function FranchiseClient() {
       {/* ====================================================================
           1. HEADER / NAVBAR
           ==================================================================== */}
-      <Header />
+      <Header active={active} />
 
       {/* ====================================================================
           2. HERO SECTION
@@ -672,7 +672,7 @@ export function FranchiseClient() {
                 <ul className="tm-fc-dark-list">
                   <li>
                     <span>Franchise License</span>
-                    <strong>5 Years</strong>
+                    <strong>2 Years</strong>
                   </li>
                   <li>
                     <span>Royalty</span>

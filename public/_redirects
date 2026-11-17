@@ -2,3 +2,5 @@
 /ourcentres/*  /locations/:splat  301
 /franchise-opportunities  /franchise  301
 /franchise-opportunities/*  /franchise/:splat  301
+/blog  /post  301
+/blog/*  /post/:splat  301

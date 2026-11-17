@@ -201,7 +201,7 @@ export default function OurCentresContent() {
             <section className="tm-hero">
                 <img
                     className="tm-hero-image"
-                    src="./images/TeaMax-Franchise-Centres-Banner.webp"
+                    src="/images/TeaMax-Franchise-Centres-Banner.webp"
                     alt="TeaMax coffee and fresh bakery"
                 />
 
@@ -221,7 +221,7 @@ export default function OurCentresContent() {
 
                     <p className="text-dark2">
                         Your neighbourhood spot for good tea, fresh coffee
-                        and tasty bites.
+                        <br /> and tasty bites.
                     </p>
 
 

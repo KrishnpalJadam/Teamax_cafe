@@ -7,9 +7,9 @@ export function ShareButtons({ title, slug }: { title: string; slug: string }) {
 
   const getUrl = () => {
     if (typeof window !== "undefined") {
-      return `${window.location.origin}/blog/${slug}`;
+      return `${window.location.origin}/post/${slug}`;
     }
-    return `https://teamaxcafe.com/blog/${slug}`;
+    return `https://teamaxcafe.com/post/${slug}`;
   };
 
   const handleCopy = async () => {

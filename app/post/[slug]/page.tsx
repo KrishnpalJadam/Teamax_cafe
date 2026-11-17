@@ -70,14 +70,14 @@ export async function generateMetadata({
     };
   }
 
-  const postUrl = `${siteUrl}/blog/${post.slug}`;
+  const postUrl = `${siteUrl}/post/${post.slug}`;
 
   return {
     title: `${post.title} | TeaMax Café`,
     description: post.metaDescription,
     keywords: post.keywords,
     alternates: {
-      canonical: `/blog/${post.slug}`,
+      canonical: `/post/${post.slug}`,
     },
     openGraph: {
       title: post.title,
@@ -165,7 +165,7 @@ export default async function BlogPostPage({
   }
 
   const related = getRelatedPosts(post.slug, 3);
-  const postUrl = `${siteUrl}/blog/${post.slug}`;
+  const postUrl = `${siteUrl}/post/${post.slug}`;
 
   const schema = {
     "@context": "https://schema.org",
@@ -175,7 +175,7 @@ export default async function BlogPostPage({
         "@id": `${postUrl}#article`,
         isPartOf: {
           "@type": "Blog",
-          "@id": `${siteUrl}/blog#blog`,
+          "@id": `${siteUrl}/post#blog`,
           name: "TeaMax Stories from the Brew",
         },
         headline: post.title,
@@ -213,7 +213,7 @@ export default async function BlogPostPage({
             "@type": "ListItem",
             position: 2,
             name: "Blog",
-            item: `${siteUrl}/blog`,
+            item: `${siteUrl}/post`,
           },
           {
             "@type": "ListItem",
@@ -228,7 +228,7 @@ export default async function BlogPostPage({
 
   return (
     <div className="tm-page">
-      <Header active="/blog" />
+      <Header active="/post" />
 
       {/* Post Header */}
       <header className="tm-post-header">
@@ -237,7 +237,7 @@ export default async function BlogPostPage({
           <nav aria-label="Breadcrumb" className="tm-breadcrumbs">
             <Link href="/">Home</Link>
             <span>/</span>
-            <Link href="/blog">Blog</Link>
+            <Link href="/post">Blog</Link>
             <span>/</span>
             <span style={{ color: "var(--tm-teal)" }}>{post.category}</span>
           </nav>

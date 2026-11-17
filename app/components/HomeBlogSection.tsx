@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { getAllBlogPosts } from "../blog/blog-data";
+import { getAllBlogPosts } from "../post/blog-data";
 import { getBlogs } from "../lib/api";
 import "./HomeBlogSection.css";
 
@@ -52,9 +52,9 @@ export default function HomeBlogSection() {
             const rawDate = b.publishDate || b.createdAt;
             const dateStr = rawDate
               ? new Date(rawDate).toLocaleDateString("en-IN", {
-                  month: "long",
-                  year: "numeric",
-                })
+                month: "long",
+                year: "numeric",
+              })
               : "Recent";
 
             return {
@@ -122,7 +122,7 @@ export default function HomeBlogSection() {
 
           {/* Desktop View All */}
           <Link
-            href="/blog"
+            href="/post"
             className="tm-home-blog-view-all"
           >
             View all stories
@@ -150,7 +150,7 @@ export default function HomeBlogSection() {
           {posts.map((post) => (
             <Link
               key={post.id}
-              href={`/blog/${post.slug}`}
+              href={`/post/${post.slug}`}
               className="tm-home-blog-card"
             >
               <div className="tm-home-blog-content">
@@ -207,7 +207,7 @@ export default function HomeBlogSection() {
         ================================= */}
         <div className="tm-home-blog-mobile-action">
           <Link
-            href="/blog"
+            href="/post"
             className="tm-home-blog-view-all"
           >
             View all stories

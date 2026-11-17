@@ -3037,3 +3037,140 @@
     flex-direction: column;
     gap: 12px;
 }
+
+/* =========================================
+   LOCATION & CONTACT SECTION - RESPONSIVE FIX
+========================================= */
+
+/* Desktop */
+.detailscentres-location-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 22px;
+    align-items: stretch;
+    width: 100%;
+}
+
+.detailscentres-map-panel,
+.detailscentres-contact-panel,
+.detailscentres-hours-panel {
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.detailscentres-contact-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+}
+
+.detailscentres-real-map {
+    width: 100%;
+    height: 314px;
+    min-height: 314px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.detailscentres-real-map iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 0;
+}
+
+/* Tablet */
+@media (max-width: 850px) {
+    .detailscentres-location-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+    }
+
+    .detailscentres-map-panel {
+        width: 100%;
+    }
+
+    .detailscentres-contact-stack {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .detailscentres-real-map {
+        height: 300px;
+        min-height: 300px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 560px) {
+    .detailscentres-location-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 15px;
+    }
+
+    .detailscentres-map-panel,
+    .detailscentres-contact-panel,
+    .detailscentres-hours-panel {
+        padding: 15px;
+        width: 100%;
+        border-radius: 12px;
+    }
+
+    .detailscentres-contact-stack {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .detailscentres-panel-heading {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 9px;
+    }
+
+    .detailscentres-panel-heading h3,
+    .detailscentres-contact-panel h3,
+    .detailscentres-hours-panel h3 {
+        font-size: 18px;
+    }
+
+    .detailscentres-panel-heading a {
+        font-size: 13px;
+    }
+
+    .detailscentres-real-map {
+        height: 270px;
+        min-height: 270px;
+    }
+
+    .detailscentres-map-badge {
+        max-width: calc(100% - 28px);
+        padding: 8px 10px;
+    }
+
+    .detailscentres-contact-panel a,
+    .detailscentres-contact-panel p {
+        font-size: 13px;
+        align-items: flex-start;
+        min-width: 0;
+        overflow-wrap: anywhere;
+        line-height: 1.5;
+    }
+
+    .detailscentres-hours-panel>div {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .detailscentres-hours-panel>div>* {
+        min-width: 0;
+    }
+}

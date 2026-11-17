@@ -23,9 +23,35 @@ export function Header({ active }: { active?: string }) {
     ["/menu", "Menu"],
     ["/cafe-franchise-india", "Franchise"],
     ["/reviews", "Reviews"],
-    ["/blog", "Blog"],
+    ["/post", "Blog"],
     ["/offers", "Offers"],
   ] as const;
+
+  const isItemActive = (href: string) => {
+    if (!active) return false;
+    if (active === href) return true;
+    if (
+      href === "/cafe-franchise-india" &&
+      (active === "/cafe-franchise-india" ||
+        active === "/franchise" ||
+        active.startsWith("/franchise"))
+    ) {
+      return true;
+    }
+    if (
+      href === "/post" &&
+      (active === "/post" ||
+        active === "/blog" ||
+        active.startsWith("/post") ||
+        active.startsWith("/blog"))
+    ) {
+      return true;
+    }
+    if (href === "/offers" && (active === "/offers" || active.startsWith("/offers"))) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <header className="site-header" aria-label="TeaMax site header">
@@ -40,15 +66,19 @@ export function Header({ active }: { active?: string }) {
         </Link>
 
         <nav className="site-nav" aria-label="Main navigation">
-          {nav.map(([href, label]) => (
-            <Link
-              key={href}
-              href={href}
-              aria-current={active === href ? "page" : undefined}
-            >
-              {label}
-            </Link>
-          ))}
+          {nav.map(([href, label]) => {
+            const isActive = isItemActive(href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={isActive ? "active" : ""}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="header-action">
@@ -135,7 +165,7 @@ export function Footer() {
             <Link href="/menu">Menu</Link>
             <Link href="/locations">Cafes</Link>
             <Link href="/cafe-franchise-india#apply">Franchise</Link>
-            <Link href="/blog">Blog</Link>
+            <Link href="/post">Blog</Link>
           </div>
 
         </div>

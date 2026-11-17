@@ -55,7 +55,7 @@ const awards = [
     title: "International Excellence Award",
     text: "Awarded by Padma Shri Saina Nehwal at the International Excellence Awards 2026, organised by Kiteskraft Productions LLP.",
     image:
-      "/images/IEA 2026, by Padma Shri Saina Nehwal (1).webp",
+      "/images/nehwal.webp",
     alt: "International Excellence Award",
   },
   {

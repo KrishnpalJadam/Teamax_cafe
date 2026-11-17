@@ -14546,3 +14546,28 @@ body {
   object-fit: cover;
   object-position: center;
 }
+
+.site-nav a {
+  position: relative;
+  text-decoration: none;
+}
+
+.site-nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 0;
+  height: 3px;
+  background: #ffcf24;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+}
+
+.site-nav a.active::after {
+  width: 100%;
+}
+
+.site-nav a:hover::after {
+  width: 100%;
+}

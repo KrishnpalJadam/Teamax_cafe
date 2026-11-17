@@ -160,14 +160,14 @@ export default function Home() {
         <div id="stories" className="story-section">
           <div className="story-photo">
             <Image src={`${A}/partner-cafe-DmVDPVbU.jpg`} width={1024} height={768} alt="TeaMax franchise partner holding a cup" unoptimized loading="lazy" />
-            <Link href="/blog" className="story-play" aria-label="View TeaMax partner stories"><Play fill="currentColor" /></Link>
+            <Link href="/post" className="story-play" aria-label="View TeaMax partner stories"><Play fill="currentColor" /></Link>
           </div>
           <div className="story-copy">
             <p className="eyebrow">PARTNER STORIES</p>
             <blockquote><span>“</span> TeaMax gave me a business that is easy to run and highly profitable. <span>”</span></blockquote>
             <span className="short-line" />
             <p><strong>Franchise Partner</strong><br />Bangalore, Karnataka</p>
-            <div className="story-arrows"><Link href="/blog" aria-label="Previous partner story">‹</Link><Link href="/blog" aria-label="Next partner story">›</Link></div>
+            <div className="story-arrows"><Link href="/post" aria-label="Previous partner story">‹</Link><Link href="/post" aria-label="Next partner story">›</Link></div>
           </div>
         </div>
       </section> */}
@@ -208,7 +208,7 @@ export default function Home() {
 
       <section id="contact" className="container-xl contact-section ">
         <div className="contact-banner">
-          <Image src="/images/Steaming-TEAMAX-Café-Coffee-Cup.webp" width={1200} height={704} alt="A warm cup of chai at TeaMax Café" unoptimized loading="lazy" />
+          <Image src="/images/str.webp" width={1200} height={704} alt="A warm cup of chai at TeaMax Café" unoptimized loading="lazy" />
           <div className="contact-shape">
             <h2>Let&apos;s Brew<br />Your Success Story</h2>
             <p>Own a TeaMax Café and be part of a growing community of successful franchise partners.</p>

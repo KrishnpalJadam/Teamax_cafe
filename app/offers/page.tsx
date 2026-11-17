@@ -32,24 +32,7 @@ const defaultOffers: Offer[] = [
         validTill: "30 Nov 2026",
         badge: "BUY 2\nGET 1\nFREE",
     },
-    {
-        category: "Burgers",
-        title: "Flat 20% Off on Burgers",
-        description:
-            "Get 20% off on all burgers. Valid on weekdays (11 AM – 5 PM).",
-        image: "/images/teamax-burger.jpg",
-        validTill: "30 Nov 2026",
-        badge: "FLAT\n20%\nOFF",
-    },
-    {
-        category: "Combos",
-        title: "Burger + Fries + Cold Coffee",
-        description:
-            "Enjoy a special combo at just ₹149. Limited time offer at all TeaMax cafés.",
-        image: "/images/teamax-combo.jpg",
-        validTill: "30 Nov 2026",
-        badge: "COMBO\n₹149\nONLY",
-    },
+
 ];
 
 const franchiseHref = "/cafe-franchise-india";
@@ -134,7 +117,7 @@ export default function OffersPage() {
 
     return (
         <>
-            <Header />
+            <Header active="/offers" />
 
             <main className="teamax-offers-page ">
                 <section className="offers-hero " aria-labelledby="offers-title">

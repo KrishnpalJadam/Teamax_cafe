@@ -294,7 +294,7 @@ export function BlogClient({ initialPosts }: { initialPosts: BlogPost[] }) {
             {paginatedPosts.map((post) => (
               <Link
                 key={post.id}
-                href={`/blog/${post.slug}`}
+                href={`/post/${post.slug}`}
                 className={`tm-blog-card group ${post.isFeatured ? "is-featured" : ""
                   }`}
                 aria-label={`Read story: ${post.title}`}

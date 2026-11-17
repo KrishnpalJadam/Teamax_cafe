@@ -49,9 +49,9 @@ export function RelatedBlogs({
             const rawDate = b.publishDate || b.createdAt;
             const dateStr = rawDate
               ? new Date(rawDate).toLocaleDateString("en-IN", {
-                  month: "long",
-                  year: "numeric",
-                })
+                month: "long",
+                year: "numeric",
+              })
               : "Recent";
 
             return {
@@ -115,7 +115,7 @@ export function RelatedBlogs({
         {related.map((rel) => (
           <Link
             key={rel.id}
-            href={`/blog/${rel.slug}`}
+            href={`/post/${rel.slug}`}
             className="tm-blog-card group"
           >
             <div>
