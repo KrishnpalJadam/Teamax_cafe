@@ -3,7 +3,9 @@ import { Header, Footer } from "../../components";
 import { FranchiseOpportunityDetails } from "../../franchise-opportunities/[slug]/components";
 import { getFranchiseOpportunities, getFranchiseOpportunityBySlug } from "../../lib/api";
 
-export const dynamic = "force-static";
+export const dynamic = "auto";
+export const dynamicParams = true;
+export const revalidate = 60;
 
 type PageProps = {
     params: Promise<{ slug: string }>;

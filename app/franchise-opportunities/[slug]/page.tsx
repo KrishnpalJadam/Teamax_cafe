@@ -22,8 +22,9 @@ const SITE_URL =
    STATIC EXPORT CONFIGURATION
 ========================================= */
 
-export const dynamic = "force-static";
-export const dynamicParams = false;
+export const dynamic = "auto";
+export const dynamicParams = true;
+export const revalidate = 60;
 
 /* =========================================
    GENERATE STATIC FRANCHISE ROUTES

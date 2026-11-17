@@ -325,7 +325,7 @@ export function FranchiseOpportunityDetails({ opportunity: initialOpportunity, s
                         <div>
                             <div className="tmf-location-cards-stack">
                                 {locations.map((loc, idx) => (
-                                    <div key={loc.name} className="tmf-loc-card">
+                                    <div key={`${loc.name}-${idx}`} className="tmf-loc-card">
                                         <span className="tmf-loc-num">
                                             {String(idx + 1).padStart(2, "0")}
                                         </span>
@@ -377,7 +377,7 @@ export function FranchiseOpportunityDetails({ opportunity: initialOpportunity, s
                             const isOpen = openFaq === idx;
                             return (
                                 <div
-                                    key={faq.q}
+                                    key={`${faq.q}-${idx}`}
                                     className={`tmf-faq-item ${isOpen ? "open" : ""}`}
                                 >
                                     <button
@@ -428,9 +428,9 @@ export function FranchiseOpportunityDetails({ opportunity: initialOpportunity, s
                     </div>
 
                     <div className="tmf-cities-cloud">
-                        {otherCitiesList.map((item) => (
+                        {otherCitiesList.map((item, idx) => (
                             <div
-                                key={item}
+                                key={`${item}-${idx}`}
                                 // href="/franchise-opportunities"
                                 className="tmf-city-pill"
                             >
