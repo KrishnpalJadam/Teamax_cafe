@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const pages = [
     ["/", 1.0, "weekly"],
     ["/cafe-franchise-india", 0.95, "weekly"],
+    ["/best-tea-franchise-india", 0.9, "weekly"],
     ["/franchise", 0.9, "weekly"],
     ["/menu", 0.9, "weekly"],
     ["/locations", 0.85, "weekly"],

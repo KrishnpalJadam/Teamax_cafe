@@ -34,6 +34,7 @@ export function Header({ active }: { active?: string }) {
       href === "/cafe-franchise-india" &&
       (active === "/cafe-franchise-india" ||
         active === "/franchise" ||
+        active === "/best-tea-franchise-india" ||
         active.startsWith("/franchise"))
     ) {
       return true;
@@ -180,6 +181,10 @@ export function Footer() {
 
             <Link href="/franchise">
               Franchise Opportunities
+            </Link>
+
+            <Link href="/best-tea-franchise-india">
+              Express
             </Link>
 
             <a
