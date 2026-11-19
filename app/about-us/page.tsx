@@ -536,7 +536,7 @@ export default function OurStoryPage() {
             ================================================================= */}
         <section id="contact" className="container-xl contact-section mt-10">
           <div className="contact-banner">
-            <Image src="./images/tea-valley.webp" width={1200} height={704} alt="A warm cup of chai at TeaMax Café" unoptimized loading="lazy" />
+            <img src="/images/str.webp" width={1200} height={704} alt="A warm cup of chai at TeaMax Café" loading="lazy" />
             <div className="contact-shape">
               <h2>Let&apos;s Brew<br />Your Success Story</h2>
               <p>Own a TeaMax Café and be part of a growing community of successful franchise partners.</p>
