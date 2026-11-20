@@ -33,7 +33,7 @@ export const metadata: Metadata = {
         "TeaMax customer reviews",
         "TeaMax staff reviews",
     ],
-    alternates: { canonical: "/reviews" },
+    alternates: { canonical: `${siteUrl}/reviews/` },
     openGraph: {
         title: "TeaMax Cafe Reviews | Customers & Franchise Partners",
         description:

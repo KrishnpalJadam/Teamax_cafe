@@ -85,7 +85,7 @@ export async function generateMetadata({
 
     const pageUrl = `${SITE_URL}/franchise/${encodeURIComponent(
         slug
-    )}`;
+    )}/`;
 
     try {
         const item = await getFranchiseOpportunityBySlug(slug);
@@ -95,6 +95,13 @@ export async function generateMetadata({
                 title: "Franchise Opportunity | TeaMax",
                 description:
                     "Explore TeaMax franchise opportunities in India.",
+                robots: {
+                    index: false,
+                    follow: false,
+                },
+                alternates: {
+                    canonical: pageUrl,
+                },
             };
         }
 
@@ -118,7 +125,10 @@ export async function generateMetadata({
             title,
             description,
             keywords,
-
+            robots: {
+                index: false,
+                follow: false,
+            },
             alternates: {
                 canonical: pageUrl,
             },
@@ -143,6 +153,13 @@ export async function generateMetadata({
             title: "Franchise Opportunity | TeaMax",
             description:
                 "Explore TeaMax franchise opportunities in India.",
+            robots: {
+                index: false,
+                follow: false,
+            },
+            alternates: {
+                canonical: pageUrl,
+            },
         };
     }
 }

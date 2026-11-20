@@ -23,8 +23,8 @@ const kalam = Kalam({
   display: "swap",
 });
 
-// const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.teamaxcafe.in";
-const siteUrl = "https://www.teamaxcafe.in";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.teamaxcafe.in";
+// const siteUrl = "https://www.teamaxcafe.in";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  alternates: { canonical: "/" },
+  // alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     siteName: "TeaMax Café",

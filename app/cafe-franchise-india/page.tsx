@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "food and beverage franchise India",
   ],
   alternates: {
-    canonical: `${siteUrl}/cafe-franchise-india`,
+    canonical: `${siteUrl}/cafe-franchise-india/`,
   },
   openGraph: {
     title: "Cafe Franchise in India | Zero Royalty | TeaMax Cafe",

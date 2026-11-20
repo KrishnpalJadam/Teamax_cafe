@@ -12,13 +12,19 @@ import { Footer, Header } from "../../components";
 
 export const dynamic = "force-static";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.teamaxcafe.in";
+
 export const metadata: Metadata = {
-    title: "TeaMax Cafe – Franchise Outlet | Menu, Offers & Opening Hours",
+    title: "TeaMax Cafe Outlets | Find Cafe Timings, Menu & Location",
     description:
-        "Visit TeaMax Cafe franchise outlets. Explore authentic chai, artisanal coffees, snacks, cafe photos, single active offer, and opening hours.",
+        "Explore TeaMax Cafe outlets across India. Check café locations, opening hours, exclusive offers, facilities and menu offerings.",
+    alternates: {
+        canonical: `${siteUrl}/locations/stores/`,
+    },
     openGraph: {
-        title: "TeaMax Cafe – Franchise Outlet",
+        title: "TeaMax Cafe Outlets | Find Cafe Timings, Menu & Location",
         description: "Your neighborhood spot for good tea and good food.",
+        url: `${siteUrl}/locations/stores/`,
         type: "website",
     },
 };

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
         "TeaMax company",
     ],
     alternates: {
-        canonical: `${siteUrl}/our-team`,
+        canonical: `${siteUrl}/our-team/`,
     },
     openGraph: {
         title: "Meet the People Behind TeaMax Café",

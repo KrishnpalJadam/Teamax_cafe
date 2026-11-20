@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     "tea franchise under 5 lakhs",
   ],
   alternates: {
-    canonical: `${siteUrl}/best-tea-franchise-india`,
+    canonical: `${siteUrl}/best-tea-franchise-india/`,
   },
   openGraph: {
     title: "Best Tea Franchise in India | Zero Royalty | TeaMax Cafe Express",

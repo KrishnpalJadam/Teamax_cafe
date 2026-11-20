@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     "Ashoka group TeaMax",
     "best tea franchise Hyderabad Bangalore Vijayawada",
   ],
-  alternates: { canonical: "/about-us" },
+  alternates: { canonical: `${siteUrl}/about-us/` },
   openGraph: {
     title: "About TeaMax Cafe | Our Story & Ashoka Group Heritage",
     description:

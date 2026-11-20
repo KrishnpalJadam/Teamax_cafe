@@ -46,38 +46,96 @@ export async function generateStaticParams() {
   }
 }
 
+async function resolveBlogPost(slug: string): Promise<BlogPost | null> {
+  const staticPost = getBlogPostBySlug(slug);
+  if (staticPost) return staticPost;
+
+  try {
+    const apiBlog = await getBlogBySlug(slug);
+    if (apiBlog && (apiBlog.status === "published" || !apiBlog.status)) {
+      const rawDate = apiBlog.publishDate || apiBlog.createdAt;
+      const dateStr = rawDate
+        ? new Date(rawDate).toLocaleDateString("en-IN", {
+          month: "long",
+          year: "numeric",
+        })
+        : "Recent";
+
+      return {
+        id: apiBlog.id,
+        slug: apiBlog.slug,
+        title: apiBlog.title,
+        subtitle: (apiBlog.excerpt || "").replace(/<[^>]+>/g, "").trim(),
+        excerpt: (apiBlog.excerpt || "").replace(/<[^>]+>/g, "").trim(),
+        category: (apiBlog.category as any) || "Chai Culture",
+        readTime: apiBlog.readingTime || "5 min read",
+        date: dateStr,
+        isoDate: apiBlog.publishDate || apiBlog.createdAt || new Date().toISOString(),
+        author: {
+          name: apiBlog.author || "TeaMax Editorial Team",
+          role: apiBlog.authorDesignation || "TeaMax Culinary Research",
+          avatar: apiBlog.authorAvatar || "/images/cafe-interior.jpg",
+        },
+        tags: apiBlog.seoKeywords
+          ? apiBlog.seoKeywords.split(",").map((s: string) => s.trim())
+          : [apiBlog.category || "Chai"],
+        coverImage: apiBlog.coverImage || "/images/cafe-interior.jpg",
+        metaDescription: (apiBlog.metaDescription || apiBlog.excerpt || "").replace(/<[^>]+>/g, "").trim(),
+        keywords: apiBlog.seoKeywords
+          ? apiBlog.seoKeywords.split(",").map((s: string) => s.trim()).filter(Boolean)
+          : ["tea cafe franchise", "TeaMax blog"],
+        content: {
+          intro: (apiBlog.excerpt || "").replace(/<[^>]+>/g, "").trim(),
+          keyTakeaway: "",
+          rawHtml: apiBlog.content || "",
+          sections: [],
+          conclusion: "",
+        },
+      };
+    }
+  } catch (_) { }
+
+  return null;
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  let post = getBlogPostBySlug(slug);
+  const post = await resolveBlogPost(slug);
 
   if (!post) {
-    try {
-      const apiBlog = await getBlogBySlug(slug);
-      if (apiBlog) {
-        return {
-          title: `${apiBlog.title} | TeaMax Café`,
-          description: apiBlog.metaDescription || apiBlog.excerpt,
-        };
-      }
-    } catch (_) { }
     return {
       title: "Story Not Found | TeaMax Café",
       description: "The requested article could not be found.",
+      robots: {
+        index: false,
+        follow: false,
+      },
     };
   }
 
-  const postUrl = `${siteUrl}/post/${post.slug}`;
+  const postUrl = `${siteUrl}/post/${encodeURIComponent(post.slug)}/`;
 
   return {
     title: `${post.title} | TeaMax Café`,
-    description: post.metaDescription,
+    description: post.metaDescription || post.excerpt,
     keywords: post.keywords,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1,
+      },
+    },
     alternates: {
-      canonical: `/post/${post.slug}`,
+      canonical: postUrl,
     },
     openGraph: {
       title: post.title,
@@ -89,7 +147,7 @@ export async function generateMetadata({
       tags: post.tags,
       images: [
         {
-          url: post.coverImage,
+          url: post.coverImage.startsWith("http") ? post.coverImage : `${siteUrl}${post.coverImage}`,
           width: 1200,
           height: 630,
           alt: post.title,
@@ -111,61 +169,14 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  let post = getBlogPostBySlug(slug);
-
-  if (!post) {
-    try {
-      const apiBlog = await getBlogBySlug(slug);
-      if (apiBlog) {
-        const rawDate = apiBlog.publishDate || apiBlog.createdAt;
-        const dateStr = rawDate
-          ? new Date(rawDate).toLocaleDateString("en-IN", {
-            month: "long",
-            year: "numeric",
-          })
-          : "Recent";
-
-        post = {
-          id: apiBlog.id,
-          slug: apiBlog.slug,
-          title: apiBlog.title,
-          subtitle: apiBlog.excerpt || "",
-          excerpt: apiBlog.excerpt || "",
-          category: (apiBlog.category as any) || "Chai Culture",
-          readTime: apiBlog.readingTime || "5 min read",
-          date: dateStr,
-          isoDate: apiBlog.publishDate || apiBlog.createdAt || new Date().toISOString(),
-          author: {
-            name: apiBlog.author || "TeaMax Editorial Team",
-            role: apiBlog.authorDesignation || "TeaMax Culinary Research",
-            avatar: apiBlog.authorAvatar || "/images/cafe-interior.jpg",
-          },
-          tags: apiBlog.seoKeywords
-            ? apiBlog.seoKeywords.split(",").map((s: string) => s.trim())
-            : [apiBlog.category || "Chai"],
-          coverImage: apiBlog.coverImage || "/images/cafe-interior.jpg",
-          metaDescription: apiBlog.metaDescription || apiBlog.excerpt || "",
-          keywords: apiBlog.seoKeywords
-            ? apiBlog.seoKeywords.split(",").map((s: string) => s.trim())
-            : [],
-          content: {
-            intro: apiBlog.excerpt || "",
-            keyTakeaway: "",
-            rawHtml: apiBlog.content || "",
-            sections: [],
-            conclusion: "",
-          },
-        };
-      }
-    } catch (_) { }
-  }
+  const post = await resolveBlogPost(slug);
 
   if (!post) {
     notFound();
   }
 
   const related = getRelatedPosts(post.slug, 3);
-  const postUrl = `${siteUrl}/post/${post.slug}`;
+  const postUrl = `${siteUrl}/post/${encodeURIComponent(post.slug)}/`;
 
   const schema = {
     "@context": "https://schema.org",
@@ -196,7 +207,7 @@ export default async function BlogPostPage({
             url: `${siteUrl}/images/logo.webp`,
           },
         },
-        image: `${siteUrl}${post.coverImage}`,
+        image: post.coverImage.startsWith("http") ? post.coverImage : `${siteUrl}${post.coverImage}`,
         keywords: post.keywords.join(", "),
         articleSection: post.category,
       },
@@ -207,13 +218,13 @@ export default async function BlogPostPage({
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: siteUrl,
+            item: `${siteUrl}/`,
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Blog",
-            item: `${siteUrl}/post`,
+            item: `${siteUrl}/post/`,
           },
           {
             "@type": "ListItem",

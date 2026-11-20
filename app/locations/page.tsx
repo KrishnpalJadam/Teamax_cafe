@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     title: "TeaMax Cafe Locations | Find a Cafe Near You",
     description: "Find a TeaMax Cafe by city or neighbourhood. Explore listed locations, check cafe details and get directions for your next tea, coffee or snack break.",
     alternates: {
-        canonical: `${siteUrl}/locations`,
+        canonical: `${siteUrl}/locations/`,
     },
     openGraph: {
         title: "TeaMax Cafe Locations | Find a Cafe Near You",

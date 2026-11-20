@@ -415,6 +415,11 @@ export function StoreDataProvider({ children }: { children: ReactNode }) {
 
                     targetCentre = { ...targetCentre, reviews: combined };
                     setCentre(targetCentre);
+
+                    if (typeof document !== "undefined" && targetCentre?.name) {
+                        const cityPart = targetCentre.city ? ` in ${targetCentre.city}` : "";
+                        document.title = `${targetCentre.name} | TeaMax Cafe Outlet${cityPart}`;
+                    }
                 }
 
                 // 2. Set Featured Products (strictly maximum 6, exactly 6 if 6+ available, or available count if < 6)

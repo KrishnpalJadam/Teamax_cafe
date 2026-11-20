@@ -3,19 +3,45 @@
   RewriteEngine On
   RewriteBase /
 
-  # 1. If physical file exists, serve directly
+  # =========================================================
+  # 1. 301 Permanent Redirects for Removed & Migrated Routes
+  # =========================================================
+  # Permanently redirect /careers/ to homepage /
+  RewriteRule ^careers/?$ / [R=301,L]
+
+  # Redirect legacy /ourcentres/ to /locations/
+  RewriteRule ^ourcentres/stores/?$ /locations/stores/ [R=301,L,QSA]
+  RewriteRule ^ourcentres/?$ /locations/ [R=301,L]
+  RewriteRule ^ourcentres/(.*)$ /locations/$1 [R=301,L]
+
+  # Redirect legacy /franchise-opportunities/ to /franchise/
+  RewriteRule ^franchise-opportunities/?$ /franchise/ [R=301,L]
+  RewriteRule ^franchise-opportunities/(.*)$ /franchise/$1 [R=301,L]
+
+  # Redirect legacy /blog/ to /post/
+  RewriteRule ^blog/?$ /post/ [R=301,L]
+  RewriteRule ^blog/(.*)$ /post/$1 [R=301,L]
+
+  # Redirect duplicate Express and stores routes
+  RewriteRule ^Express/?$ /best-tea-franchise-india/ [R=301,L]
+  RewriteRule ^stores/?$ /locations/ [R=301,L]
+
+  # =========================================================
+  # 2. Static File & Directory Fallbacks
+  # =========================================================
+  # If physical file exists, serve directly
   RewriteCond %{REQUEST_FILENAME} -f
   RewriteRule ^ - [L]
 
-  # 2. If folder with index.html exists, serve folder/index.html
+  # If folder with index.html exists, serve folder/index.html
   RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
   RewriteRule ^(.*)/?$ $1/index.html [L]
 
-  # 3. If file with .html extension exists, serve it
+  # If file with .html extension exists, serve it
   RewriteCond %{DOCUMENT_ROOT}/$1.html -f
   RewriteRule ^(.*)$ $1.html [L]
 
-  # 4. Handle 404 fallback
+  # 404 fallback
   ErrorDocument 404 /404.html
 </IfModule>
 
@@ -33,4 +59,3 @@ Options -Indexes
   AddType image/svg+xml .svg
   AddType font/woff2 .woff2
 </IfModule>
-

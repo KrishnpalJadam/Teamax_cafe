@@ -222,6 +222,8 @@ export type DynamicFranchiseOpportunity = {
   metaDescription?: string;
   seoKeywords?: string;
   applicantCount?: number;
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 const DEFAULT_FRANCHISE_OPPORTUNITIES: DynamicFranchiseOpportunity[] = [

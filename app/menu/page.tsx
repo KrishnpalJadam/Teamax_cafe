@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     "TeaMax thickshakes",
   ],
   alternates: {
-    canonical: "/menu",
+    canonical: `${siteUrl}/menu/`,
   },
   openGraph: {
     title: "TeaMax Cafe Menu | Chai, Coffee, Burgers & Shakes",

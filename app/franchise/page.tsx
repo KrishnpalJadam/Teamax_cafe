@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Explore TeaMax Cafe franchise opportunities by location. Find an area of interest and connect with our team about investment, requirements and support.",
   alternates: {
-    canonical: `${siteUrl}/franchise`,
+    canonical: `${siteUrl}/franchise/`,
   },
   openGraph: {
     title: "Cafe Franchise Opportunities Near You | TeaMax Cafe",

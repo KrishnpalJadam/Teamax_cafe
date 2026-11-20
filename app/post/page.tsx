@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     "tier 2 city business ideas",
     "healthy juices cafe",
   ],
-  alternates: { canonical: "/post" },
+  alternates: { canonical: `${siteUrl}/post/` },
   openGraph: {
     title: "Cafe Business Tips, Franchise Guides & Chai | TeaMax Blog",
     description:

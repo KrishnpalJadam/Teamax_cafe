@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "TeaMax menu",
     "cafe franchise opportunity",
   ],
-  alternates: { canonical: "/" },
+  alternates: { canonical: `${siteUrl}/` },
   openGraph: {
     type: "website",
     locale: "en_IN",

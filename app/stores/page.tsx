@@ -19,6 +19,13 @@ export const metadata = {
   title: "Find a TeaMax Café Near You | Store Locator",
   description:
     "Find a TeaMax café near you. Search by city or area and check local café details, opening hours and visit information.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+  alternates: {
+    canonical: "https://www.teamaxcafe.in/locations/",
+  },
 };
 
 export default function StoresPage() {
