@@ -768,11 +768,18 @@ export default function FranchisePopup() {
         </button>
 
         <div className="tmx-featured-offer">
-          <img
-            src={offerImage}
-            alt="TeaMax Special Offer"
-            className="tmx-featured-offer-image"
-          />
+          <a
+            href="https://go.teamaxcafe.in/whatsapp"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Claim TeaMax offer on WhatsApp"
+          >
+            <img
+              src={offerImage}
+              alt="TeaMax Special Offer"
+              className="tmx-featured-offer-image"
+            />
+          </a>
         </div>
       </div>
     </div>
