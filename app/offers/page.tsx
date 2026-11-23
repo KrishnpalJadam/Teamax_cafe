@@ -47,9 +47,16 @@ export default function OffersPage() {
         let mounted = true;
         async function loadOffers() {
             try {
+
                 const data = await getAllOffers();
-                if (mounted && Array.isArray(data) && data.length > 0) {
-                    const mapped: Offer[] = data.map((item: any) => {
+
+                const filteredData = data.filter(
+                    (item: any) => item.id !== "cmwt35hqx0002bot1uthxyk7w"
+                );
+
+                if (mounted && Array.isArray(filteredData) && filteredData.length > 0) {
+                    const mapped: Offer[] = filteredData.map((item: any) => {
+
                         let badge = "SPECIAL\nOFFER";
                         if (item.promoCode) {
                             badge = item.promoCode;

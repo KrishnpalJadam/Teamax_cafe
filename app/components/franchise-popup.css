@@ -43,10 +43,52 @@
   overflow: scroll;
 }
 
+.tmx-franchise-overlay2 {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* padding: 24px; */
+
+  background: rgba(5, 28, 23, 0.72);
+  backdrop-filter: blur(7px);
+
+  animation: tmxFranchiseOverlayIn 0.3s ease forwards;
+
+  overflow-y: hidden;
+}
+
+.tmx-franchise-modal2 {
+  width: min(500px, 100%);
+  max-height: calc(100vh - 48px);
+
+  /* display: grid;
+  grid-template-columns: 43% 57%; */
+
+  overflow: hidden;
+
+  /* border: 1px solid rgba(255, 248, 238, 0.8);
+  border-radius: 20px; */
+
+  /* background: #fffdf7; */
+
+  /* box-shadow:
+    0 35px 100px rgba(0, 0, 0, 0.38);
+
+  animation: tmxFranchiseDropIn 0.5s cubic-bezier(.16, 1, .3, 1);
+  overflow: scroll; */
+}
 
 /* =========================================================
    LEFT
    ========================================================= */
+.close2 {
+  font-size: 30px !important;
+}
 
 .tmx-franchise-left {
   position: relative;
