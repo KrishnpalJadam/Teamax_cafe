@@ -32,7 +32,7 @@ const whyChooseItems = [
     iconClass: "tmx-wcu-icon-blue",
   },
   {
-    title: "Quick ROI (8–12 Months)",
+    title: "Quick ROI (10–12 Months)",
     description:
       "Implementing a business strategy that yields a rapid return on investment within 10–12 months.",
     icon: TrendingUp,

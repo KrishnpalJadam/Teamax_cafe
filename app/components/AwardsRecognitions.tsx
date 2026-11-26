@@ -27,7 +27,7 @@ const awards = [
   },
   {
     title: "Brand Innovation of the Year",
-    text: "Awarded by Sri Suresh Kumar Singhal, then President of FTCCI, at the",
+    text: "Awarded by Sri Suresh Kumar Singhal, then President of FTCCI.",
     image:
       "https://static.wixstatic.com/media/ac5a6b_bcc45811a2094ae0a53990faf9b0f0b8~mv2.webp/v1/fill/w_400,h_304,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/IRIE%20Awards.webp",
     alt: "Brand Innovation of the Year award",
